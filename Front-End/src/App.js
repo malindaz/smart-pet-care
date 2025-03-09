@@ -14,7 +14,7 @@ import Home from "./pages/Home";
 //import Veterinarian pages
 
 //import Pharmacist pages
-
+import Pharmacy from "./pages/Pharmacist/pharmacy";
 
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
 
 
           {/*Add Pharmacist Routes Here*/ }
-
+          <Route path="/pharmacy" element={<Pharmacy />} />
 
         </Routes>
       </div>
