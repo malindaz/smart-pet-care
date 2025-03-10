@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 
 //import Pharmacist pages
 import Pharmacy from "./pages/Pharmacist/pharmacy";
+import PharmacyCRUD from "./pages/Pharmacist/pharmacyCRUD";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
 
           {/*Add Pharmacist Routes Here*/ }
           <Route path="/pharmacy" element={<Pharmacy />} />
+          <Route path="/pharmacyCRUD" element={<PharmacyCRUD />} />
 
         </Routes>
       </div>

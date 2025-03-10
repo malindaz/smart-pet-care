@@ -1,0 +1,359 @@
+/* Global Styles */
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.pmcyContainer {
+  margin-bottom: 20px;
+}
+
+/* Title */
+.pmcyh1 {
+  font-weight: bold;
+  color: #007bff;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Search Bar */
+.pmcySearch-bar {
+  display: flex;
+  justify-content: flex-end; /* Align to the right */
+  align-items: flex-start;  /* Align vertically */
+  margin-top: 20px;
+}
+
+.pmcyForm-control {
+  max-width: 250px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px; /* Keeps margin to the right */
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #000000;
+  text-align: left;
+  position: relative;
+  flex-grow: 1; /* Allow the search bar to grow */
+}
+
+/* Card Styling */
+.pmcyCard {
+  min-width: 250px;
+  margin-right: 20px;
+  margin-left: 20px;
+  flex-shrink: 0; /* Prevent card from shrinking */
+  border: 2px solid #007bff;  /* Border color and width */
+  border-radius: 10px;  /* Optional: Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.pmcyCard:hover {
+  transform: scale(1.05); /* Makes the card 5% larger */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow for "lifted" effect */
+  z-index: 1; /* Ensures the card appears above others when scaled */
+}
+
+/* Card Image Container */
+.pmcyCard-img-container {
+  height: 100px; /* Set your desired height */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centers horizontally */
+  overflow: hidden;
+  padding: 10px;
+}
+
+.pmcyCard-img-scale {
+  max-height: 80px; /* Maximum height for the image */
+  max-width: 80%; /* Keep some padding around the image */
+  object-fit: contain;
+  display: block;
+  margin: 0 auto; /* Additional horizontal centering */
+}
+
+/* Card Body */
+.pmcyCard-body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Product Name */
+.pmcyCard-title {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Product Description */
+.pmcyCard-text {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Price */
+.pmcyPrice-text {
+  color: #28a745;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Add to Cart Button */
+.pmcyBtn-primary {
+  background-color: #007bff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 25px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin: 10px;
+  margin-top: 0;
+}
+
+.pmcyBtn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Horizontal Scrollable Row */
+.pmcyRow {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
+}
+
+/* Optionally: Adding a custom scrollbar style */
+.pmcyRow::-webkit-scrollbar {
+  height: 8px;
+}
+
+.pmcyRow::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 5px;
+}
+
+.pmcyRow::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pmcyForm-control {
+    width: 100%;
+  }
+
+  .pmcyCard-img-top {
+    height: 150px;
+  }
+}
+
+/* Custom CSS for Medications Title */
+.pmcyMedications-title {
+  margin-top: 20px;  /* Adjust the margin for spacing */
+  margin-left: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #007bff;
+  text-align: left;
+  display: block;  /* Ensure it breaks onto a new line */
+  margin-bottom: 20px;  /* Adds space below the h2 */
+}
+
+/* Custom CSS for Medications Title */
+.pmcyhr {
+  margin-top: 30px;
+}
+
+.pmcy-no-items-found {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 200px;
+  color: #555;
+}
+
+/* New CRUD operation styles */
+.pmcyHeader-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.pmcyAdd-btn {
+  background-color: #28a745;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 25px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.pmcyAdd-btn:hover {
+  background-color: #218838;
+}
+
+.pmcyBtn-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pmcyBtn-edit, .pmcyBtn-delete {
+  padding: 8px 12px;
+  border-radius: 25px;
+  font-size: 12px;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.pmcyBtn-edit {
+  background-color: #ffc107;
+  border: none;
+}
+
+.pmcyBtn-edit:hover {
+  background-color: #e0a800;
+}
+
+.pmcyBtn-delete {
+  background-color: #dc3545;
+  border: none;
+}
+
+.pmcyBtn-delete:hover {
+  background-color: #c82333;
+}
+
+/* eBay-Style Checkout Modal CSS */
+.checkout-modal .modal-content {
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.checkout-modal-container {
+  background: white;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  outline: 0;
+}
+
+.checkout-modal-header {
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+  text-align: right;
+}
+
+.checkout-close-btn {
+  background: transparent;
+  border: 0;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1;
+  opacity: 0.7;
+  padding: 0;
+  cursor: pointer;
+}
+
+.checkout-close-btn:hover {
+  opacity: 1;
+}
+
+.checkout-modal-main {
+  padding: 15px;
+}
+
+.checkout-content {
+  padding: 10px;
+}
+
+.checkout-product-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.checkout-product-image {
+  width: 150px;
+  height: 150px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkout-product-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.checkout-product-title {
+  flex: 1;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.checkout-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.checkout-signin-btn a {
+  background-color: #0654ba;
+  color: white;
+  transition: background-color 0.3s;
+  border-radius: 3px;
+  font-weight: bold;
+  text-decoration: none;
+  width: 100%;
+  display: block;
+  text-align: center;
+  padding: 12px;
+}
+
+.checkout-signin-btn a:hover {
+  background-color: #00489a;
+}
+
+.checkout-guest-btn a {
+  background-color: white;
+  color: #0654ba;
+  border: 1px solid #0654ba;
+  transition: background-color 0.3s;
+  border-radius: 3px;
+  font-weight: bold;
+  text-decoration: none;
+  width: 100%;
+  display: block;
+  text-align: center;
+  padding: 12px;
+}
+
+.checkout-guest-btn a:hover {
+  background-color: #f5f5f5;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .checkout-product-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .checkout-product-image {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+}
