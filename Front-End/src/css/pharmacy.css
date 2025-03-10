@@ -43,11 +43,20 @@ body {
   min-width: 250px;
   margin-right: 20px;
   margin-left: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   flex-shrink: 0; /* Prevent card from shrinking */
   border: 2px solid #007bff;  /* Border color and width */
   border-radius: 10px;  /* Optional: Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
-  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+/* Add this hover effect */
+.pmcyCard:hover {
+  transform: scale(1.05); /* Makes the card 5% larger */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow for "lifted" effect */
+  z-index: 1; /* Ensures the card appears above others when scaled */
 }
 
 .pmcyCard-img-container {
