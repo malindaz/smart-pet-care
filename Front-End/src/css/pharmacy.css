@@ -1,0 +1,172 @@
+/* Global Styles */
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.pmcyContainer {
+  margin-bottom: 20px;
+}
+
+/* Title */
+.pmcyh1 {
+  font-weight: bold;
+  color: #007bff;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Search Bar */
+.pmcySearch-bar {
+  display: flex;
+  justify-content: flex-end; /* Align to the right */
+  align-items: flex-start;  /* Align vertically */
+  margin-top: 20px;
+}
+
+.pmcyForm-control {
+  max-width: 250px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px; /* Keeps margin to the right */
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #000000;
+  text-align: left;
+  position: relative;
+  flex-grow: 1; /* Allow the search bar to grow */
+}
+
+/* Card Styling */
+.pmcyCard {
+  min-width: 250px;
+  margin-right: 20px;
+  margin-left: 20px;
+  flex-shrink: 0; /* Prevent card from shrinking */
+  border: 2px solid #007bff;  /* Border color and width */
+  border-radius: 10px;  /* Optional: Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.pmcyCard-img-container {
+  height: 200px; /* Set your desired height */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centers horizontally */
+  overflow: hidden;
+  padding: 10px;
+}
+
+.pmcyCard-img-scale {
+  max-height: 200px; /* Maximum height for the image */
+  object-fit: contain;
+  display: block;
+  margin: 0 auto; /* Additional horizontal centering */
+}
+
+/* Card Body */
+.pmcyCard-body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Product Name */
+.pmcyCard-title {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Product Description */
+.pmcyCard-text {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Price */
+.pmcyPrice-text {
+  color: #28a745;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Add to Cart Button */
+.pmcyBtn-primary {
+  background-color: #007bff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 25px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin: 10px;
+  margin-top: 0;
+}
+
+.pmcyBtn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Horizontal Scrollable Row */
+.pmcyRow {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
+}
+
+/* Optionally: Adding a custom scrollbar style */
+.pmcyRow::-webkit-scrollbar {
+  height: 8px;
+}
+
+.pmcyRow::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 5px;
+}
+
+.pmcyRow::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pmcyForm-control {
+    width: 100%;
+  }
+
+  .pmcyCard-img-top {
+    height: 150px;
+  }
+}
+
+/* Custom CSS for Medications Title */
+.pmcyMedications-title {
+  margin-top: 20px;  /* Adjust the margin for spacing */
+  margin-left: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #007bff;
+  text-align: left;
+  display: block;  /* Ensure it breaks onto a new line */
+  margin-bottom: 20px;  /* Adds space below the h2 */
+}
+
+/* Custom CSS for Medications Title */
+.pmcyhr {
+  margin-top: 30px;
+}
+
+.pmcyo-items-found {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 200px;
+  color: #555;
+}
