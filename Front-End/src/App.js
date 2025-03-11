@@ -8,7 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 
 //import user pages
-
+import MyPets from "./pages/User/mypets";
+import AddRecord from "./pages/User/addrecord";
 //import Admin pages
 
 //import Veterinarian pages
@@ -28,8 +29,8 @@ function App() {
           <Route path="/" element={<Home />} />
 
           {/*Add User Routes Here*/ }
-
-
+          <Route path="/mypets" element={<MyPets />} />
+          <Route path="/addrecord" element={<AddRecord />} />
           {/*Add Admin Routes Here*/ }
 
 
