@@ -15,7 +15,8 @@ import Home from "./pages/Home";
 
 //import Pharmacist pages
 import Pharmacy from "./pages/Pharmacist/pharmacy";
-import PharmacyCRUD from "./pages/Pharmacist/pharmacyCRUD";
+import PharmacyAdmin from "./pages/Pharmacist/pharmacyAdmin";
+import PharmacyEdit from "./pages/Pharmacist/pharmacyEdit";
 
 
 function App() {
@@ -39,7 +40,8 @@ function App() {
 
           {/*Add Pharmacist Routes Here*/ }
           <Route path="/pharmacy" element={<Pharmacy />} />
-          <Route path="/pharmacyCRUD" element={<PharmacyCRUD />} />
+          <Route path="/pharmacyAdmin" element={<PharmacyAdmin />} />
+          <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
 
         </Routes>
       </div>

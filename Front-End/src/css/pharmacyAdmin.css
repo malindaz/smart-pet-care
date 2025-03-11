@@ -194,6 +194,7 @@ body {
   padding: 10px 15px;
   border-radius: 25px;
   font-size: 14px;
+  margin-left: 20px;
   transition: background-color 0.3s ease;
 }
 
@@ -211,7 +212,8 @@ body {
   padding: 8px 12px;
   border-radius: 25px;
   font-size: 12px;
-  margin: 5px;
+  margin-bottom: 10px;
+  margin-right: 5px;
   transition: background-color 0.3s ease;
 }
 

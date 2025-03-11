@@ -1,0 +1,121 @@
+/* pharmacyEdit.css - Styles for Pharmacy Edit Form */
+
+/* Main container styling */
+.pmcyEditFormContainer {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 15px;
+}
+
+/* Page header */
+.pmcyEditFormh1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+/* Form card styling */
+.pmcyEditFormCard {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  border: none;
+  margin-bottom: 2rem;
+}
+
+.pmcyEditFormCard .card-body {
+  padding: 2rem;
+}
+
+/* Form controls */
+.pmcyEditForm-control, .pmcyEditForm-select {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.pmcyEditForm-control:focus, .pmcyEditForm-select:focus {
+  border-color: #5a8dee;
+  box-shadow: 0 0 0 0.2rem rgba(90, 141, 238, 0.25);
+}
+
+.pmcyEditForm-label {
+  font-weight: 500;
+  color: #435d7d;
+  margin-bottom: 0.5rem;
+}
+
+/* Image preview container */
+.pmcyEditFormImagePreview {
+  display: flex;
+  justify-content: center;
+  justify-content: flex-start; /* Align image to the left */
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 0.75rem;
+}
+
+.pmcyEditFormImg-thumbnail {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  object-fit: contain;
+  max-width: 200px; /* Set a max-width */
+  max-height: 200px; /* Set a max-height */
+}
+
+/* Button styling */
+.pmcyEditFormBtn-save {
+  background-color: #34c759;
+  border-color: #34c759;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.pmcyEditFormBtn-save:hover {
+  background-color: #28a745;
+  border-color: #28a745;
+  transform: translateY(-2px);
+}
+
+.pmcyEditFormBtn-cancel {
+  background-color: #f1f2f6;
+  border-color: #ddd;
+  color: #6c757d;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.pmcyEditFormBtn-cancel:hover {
+  background-color: #e6e7eb;
+  color: #495057;
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pmcyEditFormContainer {
+    margin: 1rem auto;
+  }
+  
+  .pmcyEditFormCard .card-body {
+    padding: 1.5rem;
+  }
+  
+  .pmcyEditFormBtn-save, .pmcyEditFormBtn-cancel {
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+/* Smooth transitions */
+.pmcyEditForm-control, .pmcyEditForm-select, .pmcyEditFormBtn-save, .pmcyEditFormBtn-cancel {
+  transition: all 0.3s ease;
+}
