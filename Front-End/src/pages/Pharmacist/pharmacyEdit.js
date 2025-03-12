@@ -81,16 +81,16 @@ const PharmacyEdit = () => {
   };
 
   return (
-    <Container className="pmcyEditFormContainer">
-      <h1 className="pmcyEditFormh1">{editMode ? 'Edit Product' : 'Add New Product'}</h1>
+    <Container className="pharmacy-Edit-Form-Container">
+      <h1 className="pharmacy-Edit-Form-Form-h1">{editMode ? 'Edit Product' : 'Add New Product'}</h1>
 
-      <Card className="pmcyEditFormCard">
+      <Card className="pharmacy-Edit-Form-Form-Card">
         <Card.Body>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-4">
-              <Form.Label className="pmcyEditForm-label">Category :</Form.Label>
+            <Form.Group className="pharmacy-Edit-Form">
+              <Form.Label className="pharmacy-Edit-Form-label">Category :</Form.Label>
               <Form.Select
-                className="pmcyEditForm-select"
+                className="pharmacy-Edit-Form-select"
                 name="category"
                 value={formData.category}
                 onChange={handleCategoryChange}
@@ -100,10 +100,10 @@ const PharmacyEdit = () => {
               </Form.Select>
             </Form.Group>
 
-            <Form.Group className="mb-4">
-              <Form.Label className="pmcyEditForm-label">Product Name :</Form.Label>
+            <Form.Group className="pharmacy-Edit-Form">
+              <Form.Label className="pharmacy-Edit-Form-label">Product Name :</Form.Label>
               <Form.Control
-                className="pmcyEditForm-control"
+                className="pharmacy-Edit-Form-control"
                 type="text"
                 name="name"
                 value={formData.name}
@@ -112,10 +112,10 @@ const PharmacyEdit = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-4">
-              <Form.Label className="pmcyEditForm-label">Price($) :</Form.Label>
+            <Form.Group className="pharmacy-Edit-Form">
+              <Form.Label className="pharmacy-Edit-Form-label">Price($) :</Form.Label>
               <Form.Control
-                className="pmcyEditForm-control"
+                className="pharmacy-Edit-Form-control"
                 type="number"
                 name="price"
                 value={formData.price}
@@ -126,10 +126,10 @@ const PharmacyEdit = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-4">
-              <Form.Label className="pmcyEditForm-label">Description :</Form.Label>
+            <Form.Group className="pharmacy-Edit-Form">
+              <Form.Label className="pharmacy-Edit-Form-label">Description :</Form.Label>
               <Form.Control
-                className="pmcyEditForm-control"
+                className="pharmacy-Edit-Form-control"
                 as="textarea"
                 name="description"
                 value={formData.description}
@@ -139,16 +139,16 @@ const PharmacyEdit = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-4">
-              <Form.Label className="pmcyEditForm-label">Product Image :</Form.Label>
+            <Form.Group className="pharmacy-Edit-Form">
+              <Form.Label className="pharmacy-Edit-Form-label">Product Image :</Form.Label>
               <Form.Control
-                className="pmcyEditForm-control"
+                className="pharmacy-Edit-Form-control"
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
               />
               {imagePreview && (
-                <div className="mt-3">
+                <div className="pharmacy-Edit-Form">
                   <img
                     src={imagePreview}
                     alt="Product"
@@ -159,18 +159,18 @@ const PharmacyEdit = () => {
               )}
             </Form.Group>
 
-            <div className="pmcyEditFormBtn-container">
+            <div className="pharmacy-Edit-Form-Btn-container">
               <Button
                 variant="secondary"
                 onClick={handleCancel}
-                className="pmcyEditFormBtn-cancel"
+                className="pharmacy-Edit-Form-Btn-cancel"
               >
                 Cancel
               </Button>
               <Button
                 variant="primary"
                 type="submit"
-                className="pmcyEditFormBtn-save"
+                className="pharmacy-Edit-Form-Btn-save"
               >
                 {editMode ? 'Update Product' : 'Add Product'}
               </Button>
