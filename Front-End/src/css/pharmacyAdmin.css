@@ -4,12 +4,12 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.pmcyContainer {
+.pharmacy-Container {
   margin-bottom: 20px;
 }
 
 /* Title */
-.pmcyh1 {
+.pharmacy-h1 {
   font-weight: bold;
   color: #007bff;
   text-align: center;
@@ -17,14 +17,14 @@ body {
 }
 
 /* Search Bar */
-.pmcySearch-bar {
+.pharmacy-Search-bar {
   display: flex;
   justify-content: flex-end; /* Align to the right */
   align-items: flex-start;  /* Align vertically */
   margin-top: 20px;
 }
 
-.pmcyForm-control {
+.pharmacy-Form-control {
   max-width: 250px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -39,7 +39,7 @@ body {
 }
 
 /* Card Styling */
-.pmcyCard {
+.pharmacy-Card {
   min-width: 250px;
   margin-right: 20px;
   margin-left: 20px;
@@ -50,14 +50,14 @@ body {
   transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
 }
 
-.pmcyCard:hover {
+.pharmacy-Card:hover {
   transform: scale(1.05); /* Makes the card 5% larger */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow for "lifted" effect */
   z-index: 1; /* Ensures the card appears above others when scaled */
 }
 
 /* Card Image Container */
-.pmcyCard-img-container {
+.pharmacy-Card-img-container {
   height: 100px; /* Set your desired height */
   width: 100%;
   display: flex;
@@ -67,7 +67,7 @@ body {
   padding: 10px;
 }
 
-.pmcyCard-img-scale {
+.pharmacy-Card-img-scale {
   max-height: 80px; /* Maximum height for the image */
   max-width: 80%; /* Keep some padding around the image */
   object-fit: contain;
@@ -76,7 +76,7 @@ body {
 }
 
 /* Card Body */
-.pmcyCard-body {
+.pharmacy-Card-body {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -84,19 +84,19 @@ body {
 }
 
 /* Product Name */
-.pmcyCard-title {
+.pharmacy-Card-title {
   font-weight: bold;
   color: #333;
 }
 
 /* Product Description */
-.pmcyCard-text {
+.pharmacy-Card-text {
   font-size: 14px;
   color: #555;
 }
 
 /* Price */
-.pmcyPrice-text {
+.pharmacy-Price-text {
   color: #28a745;
   font-size: 18px;
   font-weight: bold;
@@ -104,7 +104,7 @@ body {
 }
 
 /* Add to Cart Button */
-.pmcyBtn-primary {
+.pharmacy-Btn-primary {
   background-color: #007bff;
   border: none;
   padding: 10px 15px;
@@ -115,12 +115,12 @@ body {
   margin-top: 0;
 }
 
-.pmcyBtn-primary:hover {
+.pharmacy-Btn-primary:hover {
   background-color: #0056b3;
 }
 
 /* Horizontal Scrollable Row */
-.pmcyRow {
+.pharmacy-Row {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -131,32 +131,32 @@ body {
 }
 
 /* Optionally: Adding a custom scrollbar style */
-.pmcyRow::-webkit-scrollbar {
+.pharmacy-Row::-webkit-scrollbar {
   height: 8px;
 }
 
-.pmcyRow::-webkit-scrollbar-thumb {
+.pharmacy-Row::-webkit-scrollbar-thumb {
   background: #007bff;
   border-radius: 5px;
 }
 
-.pmcyRow::-webkit-scrollbar-track {
+.pharmacy-Row::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .pmcyForm-control {
+  .pharmacy-Form-control {
     width: 100%;
   }
 
-  .pmcyCard-img-top {
+  .pharmacy-Card-img-top {
     height: 150px;
   }
 }
 
 /* Custom CSS for Medications Title */
-.pmcyMedications-title {
+.pharmacy-Medications-title {
   margin-top: 20px;  /* Adjust the margin for spacing */
   margin-left: 20px;
   font-size: 24px;
@@ -168,11 +168,11 @@ body {
 }
 
 /* Custom CSS for Medications Title */
-.pmcyhr {
+.pharmacy-hr {
   margin-top: 30px;
 }
 
-.pmcy-no-items-found {
+.pharmacy-no-items-found {
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
@@ -181,14 +181,14 @@ body {
 }
 
 /* New CRUD operation styles */
-.pmcyHeader-controls {
+.pharmacy-Header-controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 20px 0;
 }
 
-.pmcyAdd-btn {
+.pharmacy-Add-btn {
   background-color: #28a745;
   border: none;
   padding: 10px 15px;
@@ -198,17 +198,17 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.pmcyAdd-btn:hover {
+.pharmacy-Add-btn:hover {
   background-color: #218838;
 }
 
-.pmcyBtn-group {
+.pharmacy-Btn-group {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.pmcyBtn-edit, .pmcyBtn-delete {
+.pharmacy-Btn-edit, .pharmacy-Btn-delete {
   padding: 8px 12px;
   border-radius: 25px;
   font-size: 12px;
@@ -217,21 +217,21 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.pmcyBtn-edit {
+.pharmacy-Btn-edit {
   background-color: #ffc107;
   border: none;
 }
 
-.pmcyBtn-edit:hover {
+.pharmacy-Btn-edit:hover {
   background-color: #e0a800;
 }
 
-.pmcyBtn-delete {
+.pharmacy-Btn-delete {
   background-color: #dc3545;
   border: none;
 }
 
-.pmcyBtn-delete:hover {
+.pharmacy-Btn-delete:hover {
   background-color: #c82333;
 }
 

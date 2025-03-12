@@ -11,7 +11,7 @@ const PharmacyEdit = () => {
 
   const [formData, setFormData] = useState({
     id: '',
-    category: 'Medications',
+    category: '',
     name: '',
     price: '',
     description: '',
@@ -95,8 +95,12 @@ const PharmacyEdit = () => {
                 value={formData.category}
                 onChange={handleCategoryChange}
               >
-                <option value="Medications">Medications</option>
-                <option value="Medicines">Medicines</option>
+                <option value="" disabled hidden>Choose Category</option>
+                <option value="Prescription Medications">Prescription Medications</option>
+                <option value="OTC Medications & Supplements">OTC Medications & Supplements</option>
+                <option value="Grooming & Hygiene">Grooming & Hygiene</option>
+                <option value="Pet Food & Specialized Diets">Pet Food & Specialized Diets</option>
+                <option value="First Aid & Wound Care">First Aid & Wound Care</option>
               </Form.Select>
             </Form.Group>
 

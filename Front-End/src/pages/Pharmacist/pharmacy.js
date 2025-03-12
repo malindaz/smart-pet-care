@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import '../../css/pharmacy.css';
 import dogfood from '../../assets/images/dogfood.png';
+import NavBar from "../../components/NavBar";
 
 const ProductList = () => {
   const [products, setProducts] = useState([
@@ -76,10 +77,12 @@ const ProductList = () => {
   const filteredFirstAid = filteredProducts.filter(
     (product) => product.category === 'First Aid & Wound Care'
   );
-  
+
 
 
   return (
+    <>
+    <NavBar/>
     <Container className="pharmacy-Container">
       <h1 className="pharmacy-h1">Pharmacy Products</h1>
 
@@ -227,6 +230,7 @@ const ProductList = () => {
         </>
       )}
     </Container>
+    </>
   );
 };
 
