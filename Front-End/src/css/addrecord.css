@@ -1,118 +1,115 @@
-.add-record-container {
-    max-width: 90%;
-    width: 500px;
-    margin: 20px auto;
-    margin-top: 100px;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+.malinda-add-record-container {
+  max-width: 90%;
+  width: 500px;
+  margin: 20px auto;
+  margin-top: 100px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.malinda-h2 {
+  color: #34495e;
+  font-size: 1.5rem;
+  margin-top: 1px;
+}
+
+.malinda-record-text {
+  color: #363f47; 
+  margin-left: 10px;
+  text-align: left; 
+}
+
+.malinda-record-form {
+  margin-left: 10px;
+  margin-right: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.malinda-label {
+  font-weight: bold;
+  color: #555;
+  font-size: 1rem;
+}
+
+.malinda-input,
+.malinda-textarea {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Button Styling */
+.malinda-button {
+  margin-left: auto;
+  margin-top: 10px;
+  width: 170px;
+  padding: 10px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease-in-out;
+}
+
+.malinda-button:hover {
+  background: #2980b9;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+  .malinda-add-record-container {
+    width: 95%;
+    padding: 15px;
   }
-  
-  h2 {
-    color: #34495e;
-    font-size: 1.5rem;
-    margin-top: 1px;
+
+  .malinda-h2 {
+    font-size: 1.2rem;
   }
-  
-  .record-text {
-    color: #363f47; 
-    margin-left: 10px;
-    text-align: left; 
+
+  .malinda-label {
+    font-size: 0.9rem;
   }
-  
-  .record-form {
-    margin-left: 10px;
-    margin-right: 35px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+
+  .malinda-input,
+  .malinda-textarea {
+    font-size: 0.9rem;
+    padding: 8px;
   }
-  
-  label {
-    font-weight: bold;
-    color: #555;
-    font-size: 1rem;
-  }
-  
-  input,
-  textarea {
+
+  .malinda-button {
+    font-size: 0.9rem;
     padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .malinda-add-record-container {
     width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-  }
-  
-  /* Button Styling */
-  button {
-    margin-left: auto;
-    margin-top: 10px;
-    width: 170px;
     padding: 10px;
-    background: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease-in-out;
+    box-shadow: none;
+    border-radius: 0;
   }
-  
-  button:hover {
-    background: #2980b9;
+
+  .malinda-h2 {
+    font-size: 1.1rem;
   }
-  
-  /* ✅ Responsive Design */
-  @media (max-width: 768px) {
-    .add-record-container {
-      width: 95%;
-      padding: 15px;
-    }
-  
-    h2 {
-      font-size: 1.2rem;
-    }
-  
-    label {
-      font-size: 0.9rem;
-    }
-  
-    input,
-    textarea {
-      font-size: 0.9rem;
-      padding: 8px;
-    }
-  
-    button {
-      font-size: 0.9rem;
-      padding: 10px;
-    }
+
+  .malinda-label {
+    font-size: 0.85rem;
   }
-  
-  @media (max-width: 480px) {
-    .add-record-container {
-      width: 100%;
-      padding: 10px;
-      box-shadow: none;
-      border-radius: 0;
-    }
-  
-    h2 {
-      font-size: 1.1rem;
-    }
-  
-    label {
-      font-size: 0.85rem;
-    }
-  
-    input,
-    textarea {
-      font-size: 0.85rem;
-      padding: 7px;
-    }
-  
-   
+
+  .malinda-input,
+  .malinda-textarea {
+    font-size: 0.85rem;
+    padding: 7px;
   }
-  
+}
