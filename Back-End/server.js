@@ -6,6 +6,8 @@ const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const { connectDB } = require('./utils/db');
 
+const appointmentRoutes = require('./Routes/appointmentRoutes');
+
 // Load environment variables
 dotenv.config();
 
@@ -18,6 +20,8 @@ app.use(cors({
   origin: 'http://localhost:3000', // Allow only the frontend URL
   credentials: true
 }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Rate limiting
 const limiter = rateLimit({
@@ -27,14 +31,13 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
+app.use('/api/appointments', appointmentRoutes);
+
 // Development logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Body parser
-app.use(express.json({ limit: '10kb' })); // Body limit is 10kb
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 // Connect to MongoDB
 connectDB();

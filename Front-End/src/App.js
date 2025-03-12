@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 
 //import user pages
+import AppointmentForm from "./pages/User/AppointmentForm";
 
 //import Admin pages
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" element={<Home />} />
 
           {/*Add User Routes Here*/ }
+          <Route path="/appointment-form" element={<AppointmentForm />} />
 
 
           {/*Add Admin Routes Here*/ }
