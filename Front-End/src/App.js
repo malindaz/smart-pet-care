@@ -19,6 +19,9 @@ import AddNewPet from "./pages/User/addnewpet";
 
 
 
+
+
+
 //import Admin pages
 
 //import Veterinarian pages
@@ -47,6 +50,11 @@ function App() {
           <Route path="/addrecord" element={<AddRecord />} />
 
           <Route path="/addnewpet" element={<AddNewPet />} />
+
+
+
+          <Route path="/addnewpet" element={<AddNewPet />} />
+
 
 
 
