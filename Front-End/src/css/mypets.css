@@ -1,0 +1,594 @@
+/* Base styling - same as before */
+.pet-health-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.page-title {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+.page-description {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* Pet Dashboard Layout */
+.pet-dashboard {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+  min-height: 600px;
+  text-align: left;
+}
+
+/* Sidebar Styling */
+.pet-sidebar {
+  width: 250px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pet-sidebar h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #2c3e50;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.pet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.pet-item {
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.pet-item:hover {
+  background-color: #e9ecef;
+}
+
+.pet-item.active {
+  background-color: #3498db;
+  color: white;
+}
+
+.pet-name {
+  font-weight: bold;
+}
+
+.pet-species {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.pet-item.active .pet-species {
+  color: #e0e0e0;
+}
+
+/* Pet Profile Area */
+.pet-profile {
+  flex: 1;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.profile-header h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn, .add-record-btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.edit-btn {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #ec971f;
+}
+
+.add-record-btn {
+  background-color: #5cb85c;
+  color: white;
+}
+
+.add-record-btn:hover {
+  background-color: #449d44;
+}
+
+/* Profile Tabs */
+.profile-tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6c757d;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  color: #3498db;
+}
+
+.tab-btn.active {
+  color: #3498db;
+  border-bottom-color: #3498db;
+}
+
+/* Profile Content Sections */
+.profile-section {
+  padding: 10px 0;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.info-item {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.info-label {
+  font-weight: bold;
+  color: #6c757d;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+/* Tables */
+.medical-table, .vaccination-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0 25px 0;
+}
+
+.medical-table th, .vaccination-table th {
+  background-color: #f1f1f1;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+  color: #495057;
+  border-bottom: 2px solid #ddd;
+}
+
+.medical-table td, .vaccination-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.medical-table tr:hover, .vaccination-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Status indicators */
+.status-ok {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.status-warning {
+  color: #f0ad4e;
+  font-weight: bold;
+}
+
+.status-overdue {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Care plan section */
+.care-item {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+}
+
+.care-item h3 {
+  color: #3498db;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+/* Lists */
+.allergies-list {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.allergies-list li {
+  padding: 5px 0;
+}
+
+/* No data states */
+.no-data {
+  font-style: italic;
+  color: #6c757d;
+  padding: 10px 0;
+}
+
+.no-pet-selected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+/* Add button */
+.add-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.add-btn:hover {
+  background: #2980b9;
+}
+
+/* ===== RESPONSIVE DESIGN RULES ===== */
+
+/* Tablets and smaller desktops */
+@media (max-width: 992px) {
+  .pet-health-container {
+    padding: 15px;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  .page-description {
+    font-size: 1.1rem;
+  }
+  
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .profile-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab-btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Medium-sized tablets */
+@media (max-width: 768px) {
+  .pet-dashboard {
+    flex-direction: column;
+  }
+  
+  .pet-sidebar {
+    width: auto;
+    margin-bottom: 20px;
+  }
+  
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .profile-header h2 {
+    margin-bottom: 15px;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Improve tap targets for mobile */
+  .pet-item {
+    padding: 15px;
+  }
+  
+  .tab-btn {
+    flex: 1;
+    text-align: center;
+    padding: 10px 5px;
+  }
+  
+  /* Adjustments for tables */
+  .medical-table, .vaccination-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* Phones and small tablets */
+@media (max-width: 576px) {
+  .pet-health-container {
+    padding: 10px;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+  }
+  
+  .page-description {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .profile-header h2 {
+    font-size: 1.4rem;
+  }
+  
+  .profile-actions {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .edit-btn, .add-record-btn {
+    text-align: center;
+    width: 100%;
+  }
+  
+  /* Optimize tabs for mobile */
+  .profile-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    border-bottom: none;
+  }
+  
+  .tab-btn {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px 5px;
+    margin-bottom: 8px;
+  }
+  
+  .tab-btn.active {
+    background-color: #3498db;
+    color: white;
+    border-color: #3498db;
+  }
+  
+  /* Improve small screen layout */
+  .info-item {
+    padding: 12px;
+  }
+  
+  /* Optimize for small-screen tables */
+  .medical-table th, .vaccination-table th,
+  .medical-table td, .vaccination-table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+  
+  /* Adjustments for dynamic height */
+  .pet-dashboard {
+    min-height: auto;
+  }
+  
+  /* Make pet item selection more touch-friendly */
+  .pet-item {
+    margin-bottom: 10px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 375px) {
+  .page-title {
+    font-size: 1.3rem;
+  }
+  
+  .profile-tabs {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .info-label, .info-value {
+    font-size: 0.9rem;
+  }
+  
+  .medical-table th, .vaccination-table th,
+  .medical-table td, .vaccination-table td {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Handling device orientation */
+@media (max-height: 600px) and (orientation: landscape) {
+  .pet-dashboard {
+    flex-direction: row;
+  }
+  
+  .pet-sidebar {
+    width: 200px;
+  }
+  
+  .pet-list {
+    max-height: 250px;
+    overflow-y: auto;
+  }
+  
+  .profile-section {
+    max-height: 350px;
+    overflow-y: auto;
+  }
+}
+
+/* Print styles for medical records */
+@media print {
+  .pet-sidebar, .profile-tabs, .profile-actions, .add-btn, .NavBar {
+    display: none;
+  }
+  
+  .pet-health-container {
+    padding: 0;
+    max-width: 100%;
+  }
+  
+  .pet-profile {
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .medical-table, .vaccination-table {
+    width: 100%;
+  }
+  
+  .profile-header {
+    border-bottom: 1px solid #000;
+  }
+  
+  .page-title, .page-description {
+    text-align: center;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  body.dark-theme-enabled {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+  }
+  
+  body.dark-theme-enabled .pet-health-container {
+    color: #f0f0f0;
+  }
+  
+  body.dark-theme-enabled .page-title {
+    color: #f0f0f0;
+  }
+  
+  body.dark-theme-enabled .page-description {
+    color: #cccccc;
+  }
+  
+  body.dark-theme-enabled .pet-sidebar, 
+  body.dark-theme-enabled .pet-profile,
+  body.dark-theme-enabled .info-item,
+  body.dark-theme-enabled .care-item,
+  body.dark-theme-enabled .no-pet-selected {
+    background-color: #2c2c2c;
+    color: #f0f0f0;
+  }
+  
+  body.dark-theme-enabled .info-label {
+    color: #aaaaaa;
+  }
+  
+  body.dark-theme-enabled .info-value {
+    color: #f0f0f0;
+  }
+  
+  body.dark-theme-enabled .pet-item:hover {
+    background-color: #3c3c3c;
+  }
+  
+  body.dark-theme-enabled .tab-btn {
+    color: #cccccc;
+  }
+  
+  body.dark-theme-enabled .medical-table th, 
+  body.dark-theme-enabled .vaccination-table th {
+    background-color: #333333;
+    color: #f0f0f0;
+  }
+  
+  body.dark-theme-enabled .medical-table td, 
+  body.dark-theme-enabled .vaccination-table td {
+    border-color: #444444;
+  }
+  
+  body.dark-theme-enabled .status-ok {
+    color: #4caf50;
+  }
+  
+  body.dark-theme-enabled .status-warning {
+    color: #ff9800;
+  }
+  
+  body.dark-theme-enabled .status-overdue {
+    color: #f44336;
+  }
+}
