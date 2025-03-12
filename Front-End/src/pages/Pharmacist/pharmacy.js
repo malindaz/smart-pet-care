@@ -8,7 +8,7 @@ const ProductList = () => {
     // Medications Category
     {
       id: 1,
-      category: 'Medications',
+      category: 'Prescription Medications',
       name: 'Pain Reliever',
       price: 15.99,
       description: 'Fast-acting pain relief.',
@@ -16,124 +16,36 @@ const ProductList = () => {
     },
     {
       id: 2,
-      category: 'Medications',
+      category: 'OTC Medications & Supplements',
       name: 'Vitamin C',
       price: 9.99,
       description: 'Immune system support',
-      image: dogfood
-    },
-    {
-      id: 3,
-      category: 'Medications',
-      name: 'Allergy Relief',
-      price: 12.99,
-      description: '24-hour allergy protection',
-      image: dogfood
-    },
-    {
-      id: 4,
-      category: 'Medications',
-      name: 'Cough Syrup',
-      price: 8.99,
-      description: 'Relieves cough and sore throat',
-      image: dogfood
-    },
-    {
-      id: 5,
-      category: 'Medications',
-      name: 'Pain Reliever',
-      price: 15.99,
-      description: 'Fast-acting pain relief.',
-      image: dogfood
-    },
-    {
-      id: 6,
-      category: 'Medications',
-      name: 'Vitamin C',
-      price: 9.99,
-      description: 'Immune system support',
-      image: dogfood
-    },
-    {
-      id: 7,
-      category: 'Medications',
-      name: 'Allergy Relief',
-      price: 12.99,
-      description: '24-hour allergy protection',
-      image: dogfood
-    },
-    {
-      id: 8,
-      category: 'Medications',
-      name: 'Cough Syrup',
-      price: 8.99,
-      description: 'Relieves cough and sore throat',
       image: dogfood
     },
 
     // Medicines Category
     {
-      id: 5,
-      category: 'Medicines',
+      id: 3,
+      category: 'Grooming & Hygiene',
       name: 'Antibiotic Capsules',
       price: 25.99,
       description: 'Effective for bacterial infections',
       image: dogfood
     },
     {
-      id: 6,
-      category: 'Medicines',
+      id: 4,
+      category: 'Pet Food & Specialized Diets',
       name: 'Blood Pressure Pills',
       price: 30.99,
       description: 'Helps maintain healthy blood pressure',
       image: dogfood
     },
     {
-      id: 7,
-      category: 'Medicines',
-      name: 'Diabetes Control Tablets',
-      price: 22.99,
-      description: 'Regulates blood sugar levels',
-      image: dogfood
-    },
-    {
-      id: 8,
-      category: 'Medicines',
-      name: 'Cholesterol Reducer',
-      price: 27.99,
-      description: 'Lowers cholesterol levels',
-      image: dogfood
-    },
-    {
-      id: 9,
-      category: 'Medicines',
-      name: 'Antibiotic Capsules',
-      price: 25.99,
-      description: 'Effective for bacterial infections',
-      image: dogfood
-    },
-    {
-      id: 10,
-      category: 'Medicines',
+      id: 4,
+      category: 'First Aid & Wound Care',
       name: 'Blood Pressure Pills',
       price: 30.99,
       description: 'Helps maintain healthy blood pressure',
-      image: dogfood
-    },
-    {
-      id: 11,
-      category: 'Medicines',
-      name: 'Diabetes Control Tablets',
-      price: 22.99,
-      description: 'Regulates blood sugar levels',
-      image: dogfood
-    },
-    {
-      id: 12,
-      category: 'Medicines',
-      name: 'Cholesterol Reducer',
-      price: 27.99,
-      description: 'Lowers cholesterol levels',
       image: dogfood
     }
 
@@ -145,83 +57,171 @@ const ProductList = () => {
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const filteredMedications = filteredProducts.filter(
-    (product) => product.category === 'Medications'
+  const filteredPrescriptionMedications = filteredProducts.filter(
+    (product) => product.category === 'Prescription Medications'
   );
 
-  const filteredMedicines = filteredProducts.filter(
-    (product) => product.category === 'Medicines'
+  const filteredMedicationsSupplements = filteredProducts.filter(
+    (product) => product.category === 'OTC Medications & Supplements'
   );
+
+  const filteredGroomingHygiene = filteredProducts.filter(
+    (product) => product.category === 'Grooming & Hygiene'
+  );
+
+  const filteredPetFood = filteredProducts.filter(
+    (product) => product.category === 'Pet Food & Specialized Diets'
+  );
+
+  const filteredFirstAid = filteredProducts.filter(
+    (product) => product.category === 'First Aid & Wound Care'
+  );
+  
 
 
   return (
-    <Container className="pmcyContainer">
-      <h1 className="pmcyh1">Pharmacy Products</h1>
+    <Container className="pharmacy-Container">
+      <h1 className="pharmacy-h1">Pharmacy Products</h1>
 
       {/* Search Bar */}
-      <div className="pmcySearch-bar">
+      <div className="pharmacy-Search-bar">
         <input
           type="text"
           placeholder="Search"
-          className="pmcyForm-control"
+          className="pharmacy-Form-control"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
       {/* Check if no items are found */}
       {filteredProducts.length === 0 ? (
-        <div className="pmcy-no-items-found">
+        <div className="pharmacy-no-items-found">
           <h3>No Items Found</h3>
         </div>
       ) : (
         <>
-          {/* Medications Section (Render only if filteredMedications has items) */}
-          {filteredMedications.length > 0 && (
+          {/* Medications Section (Render only if filteredPrescriptionMedications has items) */}
+          {filteredPrescriptionMedications.length > 0 && (
             <>
-              <h2 className="pmcyMedications-title">Medications</h2>
-              <Row className="pmcyRow">
-                {filteredMedications.map((product) => (
-                  <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="d-flex align-items-stretch">
-                    <Card className="pmcyCard">
-                      <div className="pmcyCard-img-container">
-                        <Card.Img variant="top" src={product.image} className="pmcyCard-img-scale" alt={product.name} />
+              <h2 className="pharmacy-Medications-title">Prescription Medications</h2>
+              <Row className="pharmacy-Row">
+                {filteredPrescriptionMedications.map((product) => (
+                  <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="pharmacy-align-items-stretch">
+                    <Card className="pharmacy-Card">
+                      <div className="pharmacy-Card-img-container">
+                        <Card.Img variant="top" src={product.image} className="pharmacy-Card-img-scale" alt={product.name} />
                       </div>
-                      <Card.Body className="pmcyCard-body">
-                        <Card.Title className="pmcyCard-title">{product.name}</Card.Title>
-                        <Card.Text className="pmcyCard-text">{product.description}</Card.Text>
-                        <Card.Text className="pmcyPrice-text">Price: ${product.price}</Card.Text>
-                        <Button variant="primary" className="pmcyBtn-primary">Add to Cart</Button>
+                      <Card.Body className="pharmacy-Card-body">
+                        <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
+                        <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
+                        <Card.Text className="pharmacy-Price-text">Price: ${product.price}</Card.Text>
+                        <Button variant="primary" className="pharmacy-Btn-primary">Add to Cart</Button>
                       </Card.Body>
                     </Card>
                   </Col>
                 ))}
               </Row>
-              <hr className='pmcyhr' />
+              <hr className='pharmacy-hr' />
             </>
           )}
 
-          {/* Medicines Section (Render only if filteredMedicines has items) */}
-          {filteredMedicines.length > 0 && (
+          {/* Medicines Section (Render only if filteredMedicationsSupplements has items) */}
+          {filteredMedicationsSupplements.length > 0 && (
             <>
-              <h2 className="pmcyMedications-title">Medicines</h2>
-              <Row className="pmcyRow">
-                {filteredMedicines.map((product) => (
+              <h2 className="pharmacy-Medications-title">OTC Medications & Supplements</h2>
+              <Row className="pharmacy-Row">
+                {filteredMedicationsSupplements.map((product) => (
                   <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="d-flex align-items-stretch">
-                    <Card className="pmcyCard">
-                      <div className="pmcyCard-img-container">
-                        <Card.Img variant="top" src={product.image} className="pmcyCard-img-scale" alt={product.name} />
+                    <Card className="pharmacy-Card">
+                      <div className="pharmacy-Card-img-container">
+                        <Card.Img variant="top" src={product.image} className="pharmacy-Card-img-scale" alt={product.name} />
                       </div>
-                      <Card.Body className="pmcyCard-body">
-                        <Card.Title className="pmcyCard-title">{product.name}</Card.Title>
-                        <Card.Text className="pmcyCard-text">{product.description}</Card.Text>
-                        <Card.Text className="pmcyPrice-text">Price: ${product.price}</Card.Text>
-                        <Button variant="primary" className="pmcyBtn-primary">Add to Cart</Button>
+                      <Card.Body className="pharmacy-Card-body">
+                        <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
+                        <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
+                        <Card.Text className="pharmacy-Price-text">Price: ${product.price}</Card.Text>
+                        <Button variant="primary" className="pharmacy-Btn-primary">Add to Cart</Button>
                       </Card.Body>
                     </Card>
                   </Col>
                 ))}
               </Row>
-              <hr className='pmcyhr' />
+              <hr className='pharmacy-hr' />
+            </>
+          )}
+
+          {/* Medicines Section (Render only if filteredGroomingHygiene has items) */}
+          {filteredGroomingHygiene.length > 0 && (
+            <>
+              <h2 className="pharmacy-Medications-title">Grooming & Hygiene</h2>
+              <Row className="pharmacy-Row">
+                {filteredGroomingHygiene.map((product) => (
+                  <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="d-flex align-items-stretch">
+                    <Card className="pharmacy-Card">
+                      <div className="pharmacy-Card-img-container">
+                        <Card.Img variant="top" src={product.image} className="pharmacy-Card-img-scale" alt={product.name} />
+                      </div>
+                      <Card.Body className="pharmacy-Card-body">
+                        <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
+                        <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
+                        <Card.Text className="pharmacy-Price-text">Price: ${product.price}</Card.Text>
+                        <Button variant="primary" className="pharmacy-Btn-primary">Add to Cart</Button>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+              <hr className='pharmacy-hr' />
+            </>
+          )}
+
+          {/* Medicines Section (Render only if filteredPetFood has items) */}
+          {filteredPetFood.length > 0 && (
+            <>
+              <h2 className="pharmacy-Medications-title">Pet Food & Specialized Diets</h2>
+              <Row className="pharmacy-Row">
+                {filteredPetFood.map((product) => (
+                  <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="d-flex align-items-stretch">
+                    <Card className="pharmacy-Card">
+                      <div className="pharmacy-Card-img-container">
+                        <Card.Img variant="top" src={product.image} className="pharmacy-Card-img-scale" alt={product.name} />
+                      </div>
+                      <Card.Body className="pharmacy-Card-body">
+                        <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
+                        <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
+                        <Card.Text className="pharmacy-Price-text">Price: ${product.price}</Card.Text>
+                        <Button variant="primary" className="pharmacy-Btn-primary">Add to Cart</Button>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+              <hr className='pharmacy-hr' />
+            </>
+          )}
+
+          {/* Medicines Section (Render only if filteredFirstAid has items) */}
+          {filteredFirstAid.length > 0 && (
+            <>
+              <h2 className="pharmacy-Medications-title">First Aid & Wound Care</h2>
+              <Row className="pharmacy-Row">
+                {filteredFirstAid.map((product) => (
+                  <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="d-flex align-items-stretch">
+                    <Card className="pharmacy-Card">
+                      <div className="pharmacy-Card-img-container">
+                        <Card.Img variant="top" src={product.image} className="pharmacy-Card-img-scale" alt={product.name} />
+                      </div>
+                      <Card.Body className="pharmacy-Card-body">
+                        <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
+                        <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
+                        <Card.Text className="pharmacy-Price-text">Price: ${product.price}</Card.Text>
+                        <Button variant="primary" className="pharmacy-Btn-primary">Add to Cart</Button>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+              <hr className='pharmacy-hr' />
             </>
           )}
         </>
