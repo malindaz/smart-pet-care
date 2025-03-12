@@ -79,64 +79,64 @@ const MyPets = () => {
   return (
     <>
       <NavBar />
-      <div className="pet-health-container">
-        <h1 className="page-title">Pet Health Insights</h1>
-        <p className="page-description">
+      <div className="malinda-pet-health-container">
+        <h1 className="malinda-page-title">Pet Health Insights</h1>
+        <p className="malinda-page-description">
           View and analyze pet health records to ensure their well-being.
         </p>
 
-        <div className="pet-dashboard">
+        <div className="malinda-pet-dashboard">
           {/* Pet Selection Sidebar */}
-          <div className="pet-sidebar">
+          <div className="malinda-pet-sidebar">
             <h3>My Pets</h3>
-            <ul className="pet-list">
+            <ul className="malinda-pet-list">
               {pets.map(pet => (
                 <li 
                   key={pet.id} 
-                  className={`pet-item ${selectedPet && selectedPet.id === pet.id ? 'active' : ''}`}
+                  className={`malinda-pet-item ${selectedPet && selectedPet.id === pet.id ? 'active' : ''}`}
                   onClick={() => handlePetSelect(pet)}
                 >
-                  <span className="pet-name">{pet.name}</span>
-                  <span className="pet-species">{pet.species}</span>
+                  <span className="malinda-pet-name">{pet.name}</span>
+                  <span className="malinda-pet-species">{pet.species}</span>
                 </li>
               ))}
             </ul>
-            <Link to="/addnewpet" className="add-btn">➕ Add New Pet</Link>
+            <Link to="/addnewpet" className="malinda-add-btn">➕ Add New Pet</Link>
           </div>
 
           {/* Pet Profile Display Area */}
           {selectedPet ? (
-            <div className="pet-profile">
-              <div className="profile-header">
+            <div className="malinda-pet-profile">
+              <div className="malinda-profile-header">
                 <h2>{selectedPet.name}'s Profile</h2>
-                <div className="profile-actions">
-                  <Link to={`/edit-pet/${selectedPet.id}`} className="edit-btn">Edit Profile</Link>
-                  <Link to={`/addrecord/`} className="add-record-btn">Add Health Record</Link>
+                <div className="malinda-profile-actions">
+                  <Link to={`/edit-pet/${selectedPet.id}`} className="malinda-edit-btn">Edit Profile</Link>
+                  <Link to={`/addrecord/`} className="malinda-add-record-btn">Add Health Record</Link>
                 </div>
               </div>
 
               {/* Profile Navigation Tabs */}
-              <div className="profile-tabs">
+              <div className="malinda-profile-tabs">
                 <button 
-                  className={`tab-btn ${activeTab === 'basic' ? 'active' : ''}`}
+                  className={`malinda-tab-btn ${activeTab === 'basic' ? 'active' : ''}`}
                   onClick={() => setActiveTab('basic')}
                 >
                   Basic Info
                 </button>
                 <button 
-                  className={`tab-btn ${activeTab === 'medical' ? 'active' : ''}`}
+                  className={`malinda-tab-btn ${activeTab === 'medical' ? 'active' : ''}`}
                   onClick={() => setActiveTab('medical')}
                 >
                   Medical History
                 </button>
                 <button 
-                  className={`tab-btn ${activeTab === 'care' ? 'active' : ''}`}
+                  className={`malinda-tab-btn ${activeTab === 'care' ? 'active' : ''}`}
                   onClick={() => setActiveTab('care')}
                 >
                   Care Plan
                 </button>
                 <button 
-                  className={`tab-btn ${activeTab === 'vaccinations' ? 'active' : ''}`}
+                  className={`malinda-tab-btn ${activeTab === 'vaccinations' ? 'active' : ''}`}
                   onClick={() => setActiveTab('vaccinations')}
                 >
                   Vaccinations
@@ -145,39 +145,39 @@ const MyPets = () => {
 
               {/* Basic Information Tab */}
               {activeTab === 'basic' && (
-                <div className="profile-section">
-                  <div className="info-grid">
-                    <div className="info-item">
-                      <span className="info-label">Species:</span>
-                      <span className="info-value">{selectedPet.species}</span>
+                <div className="malinda-profile-section">
+                  <div className="malinda-info-grid">
+                    <div className="malinda-info-item">
+                      <span className="malinda-info-label">Species:</span>
+                      <span className="malinda-info-value">{selectedPet.species}</span>
                     </div>
-                    <div className="info-item">
-                      <span className="info-label">Breed:</span>
-                      <span className="info-value">{selectedPet.breed}</span>
+                    <div className="malinda-info-item">
+                      <span className="malinda-info-label">Breed:</span>
+                      <span className="malinda-info-value">{selectedPet.breed}</span>
                     </div>
-                    <div className="info-item">
-                      <span className="info-label">Age:</span>
-                      <span className="info-value">{selectedPet.age} years</span>
+                    <div className="malinda-info-item">
+                      <span className="malinda-info-label">Age:</span>
+                      <span className="malinda-info-value">{selectedPet.age} years</span>
                     </div>
-                    <div className="info-item">
-                      <span className="info-label">Weight:</span>
+                    <div className="malinda-info-item">
+                      <span className="malinda-info-label">Weight:</span>
                       <span className="info-value">{selectedPet.weight} kg</span>
                     </div>
-                    <div className="info-item">
-                      <span className="info-label">Gender:</span>
-                      <span className="info-value">{selectedPet.gender}</span>
+                    <div className="malinda-info-item">
+                      <span className="malinda-info-label">Gender:</span>
+                      <span className="malinda-info-value">{selectedPet.gender}</span>
                     </div>
-                    <div className="info-item">
-                      <span className="info-label">Microchip ID:</span>
-                      <span className="info-value">{selectedPet.microchipID}</span>
+                    <div className="malinda-info-item">
+                      <span className="malinda-info-label">Microchip ID:</span>
+                      <span className="malinda-info-value">{selectedPet.microchipID}</span>
                     </div>
-                    <div className="info-item">
-                      <span className="info-label">Owner:</span>
-                      <span className="info-value">{selectedPet.ownerName}</span>
+                    <div className="malinda-info-item">
+                      <span className="malinda-info-label">Owner:</span>
+                      <span className="malinda-info-value">{selectedPet.ownerName}</span>
                     </div>
-                    <div className="info-item">
-                      <span className="info-label">Last Checkup:</span>
-                      <span className="info-value">{new Date(selectedPet.lastCheckup).toLocaleDateString()}</span>
+                    <div className="malinda-info-item">
+                      <span className="malinda-info-label">Last Checkup:</span>
+                      <span className="malinda-info-value">{new Date(selectedPet.lastCheckup).toLocaleDateString()}</span>
                     </div>
                   </div>
                 </div>
@@ -185,10 +185,10 @@ const MyPets = () => {
 
               {/* Medical History Tab */}
               {activeTab === 'medical' && (
-                <div className="profile-section">
+                <div className="malinda-profile-section">
                   <h3>Medical History</h3>
                   {selectedPet.medicalHistory.length > 0 ? (
-                    <table className="medical-table">
+                    <table className="malinda-medical-table">
                       <thead>
                         <tr>
                           <th>Date</th>
@@ -207,12 +207,12 @@ const MyPets = () => {
                       </tbody>
                     </table>
                   ) : (
-                    <p className="no-data">No medical history recorded</p>
+                    <p className="malinda-no-data">No medical history recorded</p>
                   )}
 
                   <h3>Medications</h3>
                   {selectedPet.medications.length > 0 ? (
-                    <table className="medical-table">
+                    <table className="malinda-medical-table">
                       <thead>
                         <tr>
                           <th>Name</th>
@@ -235,34 +235,34 @@ const MyPets = () => {
                       </tbody>
                     </table>
                   ) : (
-                    <p className="no-data">No current medications</p>
+                    <p className="malinda-no-data">No current medications</p>
                   )}
 
                   <h3>Allergies</h3>
                   {selectedPet.allergies.length > 0 ? (
-                    <ul className="allergies-list">
+                    <ul className="malinda-allergies-list">
                       {selectedPet.allergies.map((allergy, index) => (
                         <li key={index}>{allergy}</li>
                       ))}
                     </ul>
                   ) : (
-                    <p className="no-data">No known allergies</p>
+                    <p className="malinda-no-data">No known allergies</p>
                   )}
                 </div>
               )}
 
               {/* Care Plan Tab */}
               {activeTab === 'care' && (
-                <div className="profile-section">
-                  <div className="care-item">
+                <div className="malinda-profile-section">
+                  <div className="malinda-care-item">
                     <h3>Dietary Needs</h3>
                     <p>{selectedPet.dietaryNeeds || "No specific dietary needs recorded"}</p>
                   </div>
-                  <div className="care-item">
+                  <div className="malinda-care-item">
                     <h3>Exercise Routine</h3>
                     <p>{selectedPet.exerciseRoutine || "No exercise routine recorded"}</p>
                   </div>
-                  <div className="care-item">
+                  <div className="malinda-care-item">
                     <h3>Special Care Instructions</h3>
                     <p>{selectedPet.specialCare || "No special care instructions"}</p>
                   </div>
@@ -271,9 +271,9 @@ const MyPets = () => {
 
               {/* Vaccinations Tab */}
               {activeTab === 'vaccinations' && (
-                <div className="profile-section">
+                <div className="malinda-profile-section">
                   <h3>Vaccination Records</h3>
-                  <table className="vaccination-table">
+                  <table className="malinda-vaccination-table">
                     <thead>
                       <tr>
                         <th>Vaccine</th>
@@ -313,7 +313,7 @@ const MyPets = () => {
               )}
             </div>
           ) : (
-            <div className="no-pet-selected">
+            <div className="malinda-no-pet-selected">
               <p>Select a pet or add a new one to view their health profile</p>
             </div>
           )}

@@ -32,9 +32,9 @@ const AddNewPet = () => {
   return (
     <>
       <NavBar />
-      <div className="form-container">
-        <h1 className="page-title">Add New Pet</h1>
-        <form className="pet-form" onSubmit={handleSubmit}>
+      <div className="malinda-form-container">
+        <h1 className="malinda-page-title">Add New Pet</h1>
+        <form className="malinda-pet-form" onSubmit={handleSubmit}>
           <label>Name:
             <input type="text" 
             name="name" 
@@ -95,11 +95,10 @@ const AddNewPet = () => {
             <input type="text" name="ownerName" value={pet.ownerName} onChange={handleChange} required />
           </label>
 
-          <div className="button-container">
-              <Link to="/mypets" className="cancel-btn">Cancel</Link>
-            <button type="submit" className="submit-btn">Add Pet</button>
-             
-            </div>
+          <div className="malinda-button-container">
+              <Link to="/mypets" className="malinda-cancel-btn">Cancel</Link>
+            <button type="submit" className="malinda-submit-btn">Add Pet</button>
+          </div>
 
         </form>
       </div>
