@@ -26,19 +26,20 @@ const AddRecord = () => {
   return (
     <>
       <NavBar />
-      <div className="add-record-container">
-        <h2>Add Pet Health Record</h2>
-        <form onSubmit={handleSubmit} className="record-form" >
-          <label className="record-text">Pet Name:</label>
+      <div className="malinda-add-record-container">
+        <h2 className="malinda-h2">Add Pet Health Record</h2>
+        <form onSubmit={handleSubmit} className="malinda-record-form" >
+          <label className="malinda-record-text malinda-label">Pet Name:</label>
           <input
             type="text"
             name="petName"
             value={record.petName}
             onChange={handleChange}
             required
+            className="malinda-input"
           />
 
-          <label className="record-text">Age (in years):</label>
+          <label className="malinda-record-text malinda-label">Age (in years):</label>
           <input
             type="number"
             name="age"
@@ -46,9 +47,10 @@ const AddRecord = () => {
             onChange={handleChange}
             min="1"
             required
+            className="malinda-input"
           />
 
-          <label className="record-text">Weight (kg):</label>
+          <label className="malinda-record-text malinda-label">Weight (kg):</label>
           <input
             type="number"
             name="weight"
@@ -57,42 +59,47 @@ const AddRecord = () => {
             min="1"
             step="0.1"
             required
+            className="malinda-input"
           />
 
-          <label className="record-text">Breed:</label>
+          <label className="malinda-record-text malinda-label">Breed:</label>
           <input
             type="text"
             name="breed"
             value={record.breed}
             onChange={handleChange}
             required
+            className="malinda-input"
           />
 
-          <label className="record-text">Symptoms:</label>
+          <label className="malinda-record-text malinda-label">Symptoms:</label>
           <textarea
             name="symptoms"
             value={record.symptoms}
             onChange={handleChange}
             required
+            className="malinda-textarea"
           ></textarea>
 
-          <label className="record-text">Last Checkup Date:</label>
+          <label className="malinda-record-text malinda-label">Last Checkup Date:</label>
           <input
             type="date"
             name="lastCheckup"
             value={record.lastCheckup}
             onChange={handleChange}
             required
+            className="malinda-input"
           />
 
-          <label className="record-text">Description:</label>
+          <label className="malinda-record-text malinda-label">Description:</label>
           <textarea
             name="description"
             value={record.description}
             onChange={handleChange}
+            className="malinda-textarea"
           ></textarea>
             
-          <button type="submit" className="button">Submit Record</button>
+          <button type="submit" className="malinda-button">Submit Record</button>
         </form>
       </div>
     </>
