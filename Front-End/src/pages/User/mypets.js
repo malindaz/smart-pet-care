@@ -101,7 +101,7 @@ const MyPets = () => {
                 </li>
               ))}
             </ul>
-            <Link to="/aecord" className="add-btn">➕ Add New Pet</Link>
+            <Link to="/addnewpet" className="add-btn">➕ Add New Pet</Link>
           </div>
 
           {/* Pet Profile Display Area */}
