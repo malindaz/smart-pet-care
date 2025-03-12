@@ -1,97 +1,95 @@
-/* pharmacyEdit.css - Styles for Pharmacy Edit Form */
-
-/* Main container styling */
+/* Center the form and add spacing */
 .pmcyEditFormContainer {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 15px;
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Page header */
+/* Form title */
 .pmcyEditFormh1 {
   text-align: center;
   color: #2c3e50;
-  margin-bottom: 2rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
 }
 
-/* Form card styling */
-.pmcyEditFormCard {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  overflow: hidden;
-  border: none;
-  margin-bottom: 2rem;
-}
-
-.pmcyEditFormCard .card-body {
-  padding: 2rem;
-}
-
-/* Form controls */
-.pmcyEditForm-control, .pmcyEditForm-select {
-  padding: 0.75rem 1rem;
+/* Form fields */
+.pmcyEditForm-control,
+.pmcyEditForm-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  border: 1px solid #ddd;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  transition: border 0.3s;
 }
 
-.pmcyEditForm-control:focus, .pmcyEditForm-select:focus {
-  border-color: #5a8dee;
-  box-shadow: 0 0 0 0.2rem rgba(90, 141, 238, 0.25);
-}
-
-.pmcyEditForm-label {
-  font-weight: 500;
-  color: #435d7d;
-  margin-bottom: 0.5rem;
+.pmcyEditForm-control:focus,
+.pmcyEditForm-select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
 }
 
 /* Image preview container */
 .pmcyEditFormImagePreview {
   display: flex;
   justify-content: center;
-  justify-content: flex-start; /* Align image to the left */
+  align-items: center;
   background-color: #f8f9fa;
   padding: 1rem;
   border-radius: 8px;
   margin-top: 0.75rem;
+  border: 1px solid #ddd;
 }
 
 .pmcyEditFormImg-thumbnail {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  object-fit: contain;
-  max-width: 200px; /* Set a max-width */
-  max-height: 200px; /* Set a max-height */
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 6px;
+  object-fit: cover;
 }
 
-/* Button styling */
+/* Buttons container */
+.pmcyEditFormBtn-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Save button */
 .pmcyEditFormBtn-save {
-  background-color: #34c759;
-  border-color: #34c759;
+  background-color: #28a745;
+  border: none;
+  color: white;
   padding: 0.75rem 1.5rem;
-  font-weight: 500;
   border-radius: 8px;
-  transition: all 0.3s;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .pmcyEditFormBtn-save:hover {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #218838;
   transform: translateY(-2px);
 }
 
+/* Cancel button */
 .pmcyEditFormBtn-cancel {
   background-color: #f1f2f6;
-  border-color: #ddd;
+  border: 1px solid #ccc;
   color: #6c757d;
   padding: 0.75rem 1.5rem;
-  font-weight: 500;
   border-radius: 8px;
-  transition: all 0.3s;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .pmcyEditFormBtn-cancel:hover {
@@ -100,22 +98,19 @@
   transform: translateY(-2px);
 }
 
-/* Responsive adjustments */
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .pmcyEditFormContainer {
-    margin: 1rem auto;
-  }
-  
-  .pmcyEditFormCard .card-body {
+    max-width: 90%;
     padding: 1.5rem;
   }
   
-  .pmcyEditFormBtn-save, .pmcyEditFormBtn-cancel {
-    padding: 0.6rem 1.2rem;
+  .pmcyEditFormBtn-container {
+    flex-direction: column;
+    align-items: center;
   }
-}
 
-/* Smooth transitions */
-.pmcyEditForm-control, .pmcyEditForm-select, .pmcyEditFormBtn-save, .pmcyEditFormBtn-cancel {
-  transition: all 0.3s ease;
+  .pmcyEditFormBtn-save, .pmcyEditFormBtn-cancel {
+    width: 100%;
+  }
 }

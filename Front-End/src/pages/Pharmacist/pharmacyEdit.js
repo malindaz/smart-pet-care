@@ -6,9 +6,9 @@ import '../../css/pharmacyEdit.css';
 const PharmacyEdit = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const { editMode = false, product = null } = location.state || {};
-  
+
   const [formData, setFormData] = useState({
     id: '',
     category: 'Medications',
@@ -17,9 +17,9 @@ const PharmacyEdit = () => {
     description: '',
     image: null
   });
-  
+
   const [imagePreview, setImagePreview] = useState(null);
-  
+
   useEffect(() => {
     if (editMode && product) {
       setFormData({
@@ -31,16 +31,16 @@ const PharmacyEdit = () => {
         image: product.image || null
       });
 
-      if (product.image) {
-        setImagePreview(
-          product.image.startsWith("data:image") || product.image.startsWith("http")
+      setImagePreview(
+        product.image
+          ? product.image.startsWith("data:image") || product.image.startsWith("http")
             ? product.image
-            : `/uploads/${product.image}`
-        );
-      }
+            : `/uploads/${product.image}`  // Adjust this path based on your backend
+          : null
+      );
     }
   }, [editMode, product]);
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -48,14 +48,14 @@ const PharmacyEdit = () => {
       [name]: name === 'price' ? parseFloat(value) || '' : value
     });
   };
-  
+
   const handleCategoryChange = (e) => {
     setFormData({
       ...formData,
       category: e.target.value
     });
   };
-  
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -70,26 +70,26 @@ const PharmacyEdit = () => {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate('/pharmacyAdmin');
   };
-  
+
   const handleCancel = () => {
     navigate('/pharmacyAdmin');
   };
-  
+
   return (
     <Container className="pmcyEditFormContainer">
       <h1 className="pmcyEditFormh1">{editMode ? 'Edit Product' : 'Add New Product'}</h1>
-      
+
       <Card className="pmcyEditFormCard">
         <Card.Body>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-4">
               <Form.Label className="pmcyEditForm-label">Category :</Form.Label>
-              <Form.Select 
+              <Form.Select
                 className="pmcyEditForm-select"
                 name="category"
                 value={formData.category}
@@ -99,7 +99,7 @@ const PharmacyEdit = () => {
                 <option value="Medicines">Medicines</option>
               </Form.Select>
             </Form.Group>
-            
+
             <Form.Group className="mb-4">
               <Form.Label className="pmcyEditForm-label">Product Name :</Form.Label>
               <Form.Control
@@ -111,7 +111,7 @@ const PharmacyEdit = () => {
                 placeholder="Enter product name"
               />
             </Form.Group>
-            
+
             <Form.Group className="mb-4">
               <Form.Label className="pmcyEditForm-label">Price($) :</Form.Label>
               <Form.Control
@@ -125,7 +125,7 @@ const PharmacyEdit = () => {
                 min="0"
               />
             </Form.Group>
-            
+
             <Form.Group className="mb-4">
               <Form.Label className="pmcyEditForm-label">Description :</Form.Label>
               <Form.Control
@@ -158,17 +158,17 @@ const PharmacyEdit = () => {
                 </div>
               )}
             </Form.Group>
-            
-            <div className="d-flex justify-content-between mt-4">
-              <Button 
-                variant="secondary" 
+
+            <div className="pmcyEditFormBtn-container">
+              <Button
+                variant="secondary"
                 onClick={handleCancel}
                 className="pmcyEditFormBtn-cancel"
               >
                 Cancel
               </Button>
-              <Button 
-                variant="primary" 
+              <Button
+                variant="primary"
                 type="submit"
                 className="pmcyEditFormBtn-save"
               >

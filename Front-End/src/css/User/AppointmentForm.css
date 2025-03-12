@@ -1,0 +1,354 @@
+/* AppointmentForm.css */
+.book-appointment-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Open Sans', 'Segoe UI', Roboto, sans-serif;
+}
+
+.book-appointment-title {
+  color: #3c8dbc;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.book-appointment-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: #3c8dbc;
+  border-radius: 3px;
+}
+
+.book-appointment-message {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.book-appointment-message:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-size: cover;
+}
+
+.book-appointment-success {
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 5px solid #28a745;
+}
+
+.book-appointment-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 5px solid #dc3545;
+}
+
+.book-appointment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.book-appointment-section {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.book-appointment-section:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.book-appointment-section-title {
+  color: #3c8dbc;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e9ecef;
+  font-weight: 600;
+}
+
+.book-appointment-form-group {
+  margin-bottom: 1.2rem;
+}
+
+.book-appointment-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+.book-appointment-input,
+.book-appointment-select,
+.book-appointment-textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  background-color: #fff;
+  color: #495057;
+}
+
+.book-appointment-input:focus,
+.book-appointment-select:focus,
+.book-appointment-textarea:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.book-appointment-input::placeholder,
+.book-appointment-textarea::placeholder {
+  color: #adb5bd;
+}
+
+.book-appointment-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.book-appointment-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23495057' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-6.5-6.5h13z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px;
+  padding-right: 40px;
+}
+
+.book-appointment-select:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.book-appointment-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.book-appointment-button {
+  background-color: #3c8dbc;
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(60, 141, 188, 0.2);
+  min-width: 200px;
+}
+
+.book-appointment-button:hover {
+  background-color: #2a80b9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(60, 141, 188, 0.3);
+}
+
+.book-appointment-button:active {
+  transform: translateY(1px);
+}
+
+.book-appointment-button:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .book-appointment-form-row {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .book-appointment-form-row .book-appointment-form-group {
+    flex: 1;
+  }
+}
+
+/* Pet type icons */
+.book-appointment-pet-icons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.book-appointment-pet-icon {
+  border: 2px solid #ced4da;
+  border-radius: 10px;
+  padding: 15px;
+  width: calc(25% - 10px);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #fff;
+}
+
+.book-appointment-pet-icon.active {
+  border-color: #3c8dbc;
+  background-color: #e6f2f8;
+}
+
+.book-appointment-pet-icon img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 8px;
+}
+
+.book-appointment-pet-icon span {
+  display: block;
+  font-size: 0.85rem;
+  color: #495057;
+}
+
+/* Calendar styles */
+.book-appointment-date-container {
+  position: relative;
+}
+
+.book-appointment-time-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.book-appointment-time-slot {
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #f8f9fa;
+}
+
+.book-appointment-time-slot.active {
+  background-color: #3c8dbc;
+  color: #fff;
+  border-color: #3c8dbc;
+}
+
+.book-appointment-time-slot:disabled {
+  background-color: #e9ecef;
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+
+/* Animation for success message */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.book-appointment-success {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Form validation styling */
+.book-appointment-input.error,
+.book-appointment-select.error,
+.book-appointment-textarea.error {
+  border-color: #dc3545;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23dc3545' viewBox='0 0 16 16'%3E%3Cpath d='M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z'/%3E%3Cpath d='M7 4h2v5H7V4z'/%3E%3Ccircle cx='8' cy='11' r='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px;
+}
+
+.book-appointment-error-text {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/* Progress indicator */
+.book-appointment-progress {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.book-appointment-progress:before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #e9ecef;
+  z-index: 1;
+}
+
+.book-appointment-progress-step {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 4px solid #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #adb5bd;
+  position: relative;
+  z-index: 2;
+}
+
+.book-appointment-progress-step.active {
+  border-color: #3c8dbc;
+  color: #3c8dbc;
+}
+
+.book-appointment-progress-step.completed {
+  background-color: #3c8dbc;
+  border-color: #3c8dbc;
+  color: #fff;
+}
+
+.book-appointment-progress-label {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: #6c757d;
+  white-space: nowrap;
+}
+
+/* Additional pet-friendly styling */
+.book-appointment-container {
+  background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
+                    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70' fill='%23f0f0f0'%3E%3Cpath d='M30,20 C33,17 37,17 40,20 C43,23 43,27 40,30 C37,33 33,33 30,30 C27,27 27,23 30,20 Z'/%3E%3Cpath d='M55,30 C58,27 62,27 65,30 C68,33 68,37 65,40 C62,43 58,43 55,40 C52,37 52,33 55,30 Z'/%3E%3Cpath d='M30,55 C33,52 37,52 40,55 C43,58 43,62 40,65 C37,68 33,68 30,65 C27,62 27,58 30,55 Z'/%3E%3Cpath d='M5,30 C8,27 12,27 15,30 C18,33 18,37 15,40 C12,43 8,43 5,40 C2,37 2,33 5,30 Z'/%3E%3C/svg%3E");
+  background-size: 100px;
+  background-position: center;
+}
