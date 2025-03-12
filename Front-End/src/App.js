@@ -14,11 +14,10 @@ import AppointmentForm from "./pages/User/AppointmentForm";
 
 import MyPets from "./pages/User/mypets";
 import AddRecord from "./pages/User/addrecord";
-<<<<<<< HEAD
-import AddNewPet from "./pages/User/addnewpet";
-=======
 
->>>>>>> db0f72edac8ce22ecd0ba6e68358b0d064b528bc
+import AddNewPet from "./pages/User/addnewpet";
+
+
 //import Admin pages
 
 //import Veterinarian pages
@@ -45,11 +44,8 @@ function App() {
 
           <Route path="/mypets" element={<MyPets />} />
           <Route path="/addrecord" element={<AddRecord />} />
-<<<<<<< HEAD
           <Route path="/addnewpet" element={<AddNewPet />} />
-=======
 
->>>>>>> db0f72edac8ce22ecd0ba6e68358b0d064b528bc
           {/*Add Admin Routes Here*/ }
 
 
