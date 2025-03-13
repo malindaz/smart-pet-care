@@ -35,7 +35,7 @@ const PharmacyEdit = () => {
         product.image
           ? product.image.startsWith("data:image") || product.image.startsWith("http")
             ? product.image
-            : `/uploads/${product.image}`  // Adjust this path based on your backend
+            : `/uploads/${product.image}` // Adjust this path based on your backend
           : null
       );
     }
@@ -71,9 +71,22 @@ const PharmacyEdit = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/pharmacyAdmin');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/pharmacy', {
+        method: editMode ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      console.log('Response:', data);
+      navigate('/pharmacyAdmin', { replace: true });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   const handleCancel = () => {
