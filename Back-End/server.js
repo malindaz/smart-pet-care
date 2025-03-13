@@ -1,18 +1,28 @@
 const express = require('express');
 const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const rateLimit = require('express-rate-limit');
-const dotenv = require('dotenv');
-const { connectDB } = require('./utils/db');
+const path = require('path');
+const mongoose = require('mongoose');
+require('dotenv').config();
+
+
+const userRoutes = require('./Routes/userRoutes');
 
 const appointmentRoutes = require('./Routes/appointmentRoutes');
 
 // Load environment variables
 dotenv.config();
 
-// Create Express app
+
 const app = express();
+
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from uploads directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Security middleware
 app.use(helmet()); // Set security HTTP headers
@@ -39,28 +49,24 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 
-// Connect to MongoDB
-connectDB();
-
-// Simple route for testing
-app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'Server is running',
-  });
-});
+// Routes
+app.use('/api/users', userRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    status: 'error',
-    message: 'Something went wrong on the server',
-  });
+    console.error(err.stack);
+    res.status(500).json({
+        success: false,
+        message: 'Something went wrong!'
+    });
 });
 
-// Start the server
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.error('MongoDB connection error:', err));
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });

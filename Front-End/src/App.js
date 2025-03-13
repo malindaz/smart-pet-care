@@ -6,6 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 //import main pages
 import Home from "./pages/Home";
+import Register from "./pages/User/Register";
+import Login from "./pages/User/Login";
+import Profile from "./pages/User/Profile";
 
 //import user pages
 
@@ -41,6 +44,9 @@ function App() {
           <Route path="/" element={<Home />} />
 
           {/*Add User Routes Here*/ }
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Profile" element={<Profile />} />
 
           <Route path="/appointment-form" element={<AppointmentForm />} />
 
