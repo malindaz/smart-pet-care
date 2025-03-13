@@ -12,6 +12,19 @@ import Profile from "./pages/User/Profile";
 
 //import user pages
 
+import AppointmentForm from "./pages/User/AppointmentForm";
+
+
+import MyPets from "./pages/User/mypets";
+import AddRecord from "./pages/User/addrecord";
+
+import AddNewPet from "./pages/User/addnewpet";
+
+
+
+
+
+
 //import Admin pages
 
 //import Veterinarian pages
@@ -34,6 +47,21 @@ function App() {
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Profile" element={<Profile />} />
+
+          <Route path="/appointment-form" element={<AppointmentForm />} />
+
+
+
+          <Route path="/mypets" element={<MyPets />} />
+          <Route path="/addrecord" element={<AddRecord />} />
+
+          <Route path="/addnewpet" element={<AddNewPet />} />
+
+
+
+          <Route path="/addnewpet" element={<AddNewPet />} />
+
+
 
 
           {/*Add Admin Routes Here*/ }
