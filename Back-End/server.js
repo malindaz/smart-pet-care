@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const { connectDB } = require('./utils/db');
 
 const appointmentRoutes = require('./Routes/appointmentRoutes');
+const pharmacyRoutes = require('./Routes/pharmacyRoutes');
 
 // Load environment variables
 dotenv.config();
@@ -32,6 +33,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 app.use('/api/appointments', appointmentRoutes);
+app.use('/api/pharmacy', pharmacyRoutes);
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
