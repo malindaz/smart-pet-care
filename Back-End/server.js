@@ -10,7 +10,7 @@ const morgan = require('morgan');
 
 const userRoutes = require('./Routes/userRoutes');
 const appointmentRoutes = require('./Routes/appointmentRoutes');
-
+const addecordsroutes = require('./Routes/addrecordsroute');
 
 const app = express();
 
@@ -42,7 +42,7 @@ app.use('/api', limiter);
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/appointments', appointmentRoutes);
-
+app.use('/api/addrecords', require('./Routes/addrecordsroute'));
 
 
 // Development logging
