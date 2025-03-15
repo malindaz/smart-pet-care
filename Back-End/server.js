@@ -8,6 +8,10 @@ const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 
 
+const appointmentRoutes = require('./Routes/appointmentRoutes');
+const pharmacyRoutes = require('./Routes/pharmacyRoutes');
+
+
 const userRoutes = require('./Routes/userRoutes');
 const appointmentRoutes = require('./Routes/appointmentRoutes');
 const addecordsroutes = require('./Routes/addrecordsroute');
@@ -42,6 +46,9 @@ app.use('/api', limiter);
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/appointments', appointmentRoutes);
+
+app.use('/api/pharmacy', pharmacyRoutes);
+
 app.use('/api/addrecords', require('./Routes/addrecordsroute'));
 
 
