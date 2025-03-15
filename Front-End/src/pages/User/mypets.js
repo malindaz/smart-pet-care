@@ -161,14 +161,14 @@ const MyPets = () => {
                     </div>
                     <div className="malinda-info-item">
                       <span className="malinda-info-label">Weight:</span>
-                      <span className="info-value">{selectedPet.weight} kg</span>
+                      <span className="malinda-info-value">{selectedPet.weight} kg</span>
                     </div>
                     <div className="malinda-info-item">
                       <span className="malinda-info-label">Gender:</span>
                       <span className="malinda-info-value">{selectedPet.gender}</span>
                     </div>
                     <div className="malinda-info-item">
-                      <span className="malinda-info-label">Microchip ID:</span>
+                      <span className="malinda-info-label">Pet ID:</span>
                       <span className="malinda-info-value">{selectedPet.microchipID}</span>
                     </div>
                     <div className="malinda-info-item">
@@ -185,10 +185,10 @@ const MyPets = () => {
 
               {/* Medical History Tab */}
               {activeTab === 'medical' && (
-                <div className="malinda-profile-section">
+                <div className="malinda-profile-section malinda-info-grid">
                   <h3>Medical History</h3>
                   {selectedPet.medicalHistory.length > 0 ? (
-                    <table className="malinda-medical-table">
+                    <table className="malinda-medical-table ">
                       <thead>
                         <tr>
                           <th>Date</th>
@@ -288,14 +288,14 @@ const MyPets = () => {
                         const today = new Date();
                         const daysDiff = Math.floor((dueDate - today) / (1000 * 60 * 60 * 24));
                         let status = "Up to date";
-                        let statusClass = "status-ok";
+                        let statusClass = "malinda-status-ok";
                         
                         if (daysDiff < 0) {
                           status = "Overdue";
-                          statusClass = "status-overdue";
+                          statusClass = "malinda-status-overdue";
                         } else if (daysDiff < 30) {
                           status = "Due soon";
-                          statusClass = "status-warning";
+                          statusClass = "malinda-status-warning";
                         }
                         
                         return (

@@ -24,20 +24,16 @@ import AppointmentForm from "./pages/User/AppointmentForm";
 
 import MyPets from "./pages/User/mypets";
 import AddRecord from "./pages/User/addrecord";
-
 import AddNewPet from "./pages/User/addnewpet";
-
-
-
-
-
 
 //import Admin pages
 
 //import Veterinarian pages
 
 //import Pharmacist pages
-
+import Pharmacy from "./pages/Pharmacist/pharmacy";
+import PharmacyAdmin from "./pages/Pharmacist/pharmacyAdmin";
+import PharmacyEdit from "./pages/Pharmacist/pharmacyEdit";
 
 // Import Veterinarian pages
 
@@ -89,15 +85,7 @@ function App() {
 
           <Route path="/mypets" element={<MyPets />} />
           <Route path="/addrecord" element={<AddRecord />} />
-
           <Route path="/addnewpet" element={<AddNewPet />} />
-
-
-
-          <Route path="/addnewpet" element={<AddNewPet />} />
-
-
-
 
           {/*Add Admin Routes Here*/ }
 
@@ -106,7 +94,9 @@ function App() {
 
 
           {/*Add Pharmacist Routes Here*/ }
-
+          <Route path="/pharmacy" element={<Pharmacy />} />
+          <Route path="/pharmacyAdmin" element={<PharmacyAdmin />} />
+          <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
 
           {/* Add Veterinarian Routes Here */}
 

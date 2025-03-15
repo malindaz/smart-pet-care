@@ -2,19 +2,20 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
-require('dotenv').config();
+const Dotenv = require('dotenv').config();
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const morgan = require('morgan');
+
+
+const pharmacyRoutes = require('./Routes/pharmacyRoutes');
 
 
 const userRoutes = require('./Routes/userRoutes');
-
 const appointmentRoutes = require('./Routes/appointmentRoutes');
-
-// Load environment variables
-dotenv.config();
-
+const addecordsroutes = require('./Routes/addrecordsroute');
 
 const app = express();
-
 
 // Middleware
 app.use(cors({
@@ -27,8 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files from uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Security middleware
-app.use(helmet()); // Set security HTTP headers
+
 app.use(cors({
   origin: 'http://localhost:3000', // Allow only the frontend URL
   credentials: true
@@ -44,7 +44,15 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
+
+// Routes
+app.use('/api/users', userRoutes);
 app.use('/api/appointments', appointmentRoutes);
+
+app.use('/api/pharmacy', pharmacyRoutes);
+
+app.use('/api/addrecords', require('./Routes/addrecordsroute'));
+
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
@@ -52,8 +60,12 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 
+<<<<<<< HEAD
 // Routes
 app.use('/api/users',userRoutes); 
+=======
+
+>>>>>>> 53df1c54fcba173e6b39e4c0c6df1d8a88b9a109
 
 // Error handling middleware
 app.use((err, req, res, next) => {
