@@ -20,7 +20,6 @@
   color: #363f47; 
   margin-left: 10px;
   text-align: left; 
-  font-size: 0.8rem;
 }
 
 .malinda-record-form {
@@ -112,10 +111,5 @@
   .malinda-textarea {
     font-size: 0.85rem;
     padding: 7px;
-  }
-
-  .malinda-placeholder {
-    font-size: 0.85rem;
-    font-family: 'Arial', sans-serif;
   }
 }

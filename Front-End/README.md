@@ -1,82 +1,70 @@
-# Smart Pet Care - Frontend
+# Getting Started with Create React App
 
-This is the frontend application for the Smart Pet Care system, built with React.
-
-## Features
-
-- User Registration with multi-step verification
-- Phone number and email verification using OTP
-- User Login with username/email
-- Password Reset functionality
-- Profile Management
-- Profile Picture Upload
-- Responsive Design
-
-## Prerequisites
-
-Before you begin, ensure you have installed:
-- Node.js (v14.0.0 or later)
-- npm (v6.0.0 or later)
-
-## Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/smart-pet-care.git
-cd smart-pet-care/Front-End
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Create a `.env` file in the root directory and add:
-```
-REACT_APP_API_URL=http://localhost:5000/api
-```
-
-4. Start the development server:
-```bash
-npm start
-```
-
-The application will start running at `http://localhost:3000`
-
-## Usage
-
-### Registration
-1. Click on "Register" to start the registration process
-2. Fill in basic information (username, first name, last name)
-3. Verify phone number using OTP
-4. Verify email using OTP
-5. Complete profile with password and optional profile picture
-
-### Login
-1. Use username or email to login
-2. Reset password option available if forgotten
-
-### Profile Management
-1. View profile information
-2. Update profile details
-3. Change profile picture
-4. Delete account if needed
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
-- `npm start` - Runs the app in development mode
-- `npm test` - Launches the test runner
-- `npm run build` - Builds the app for production
-- `npm run eject` - Ejects from Create React App
+In the project directory, you can run:
 
-## Contributing
+### `npm start`
 
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## License
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-This project is licensed under the MIT License.
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
