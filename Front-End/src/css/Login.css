@@ -5,21 +5,25 @@
   min-height: 100vh;
   padding: 2rem;
   background-color: #f5f5f5;
+  font-family: 'Poppins', sans-serif;
 }
 
 .login_form_container {
   background-color: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   width: 100%;
   max-width: 400px;
+  transition: all 0.3s ease;
 }
 
 .login_form_container h2 {
   text-align: center;
   color: #333;
   margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
 .login_form {
@@ -34,31 +38,45 @@
 
 .login_form_group input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1rem;
-  transition: border-color 0.3s;
+  padding: 0.875rem 1rem;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
 }
 
 .login_form_group input:focus {
   border-color: #4a7aff;
+  background-color: #fff;
   outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 122, 255, 0.1);
 }
 
 .login_submit_button {
-  background-color: #4a7aff;
-  color: white;
+  width: 100%;
   padding: 1rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  background-color: #4a7aff;
+  color: white;
   font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .login_submit_button:hover {
   background-color: #3a67e0;
+}
+
+.login_submit_button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .login_links {
@@ -69,33 +87,46 @@
   gap: 1rem;
 }
 
-.login_forgot_button,
-.login_back_button {
+.login_forgot_button {
   background: none;
   border: none;
   color: #4a7aff;
-  cursor: pointer;
   font-size: 0.9rem;
-  transition: color 0.3s;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.login_forgot_button:hover,
-.login_back_button:hover {
+.login_forgot_button:hover {
   color: #3a67e0;
+  text-decoration: underline;
 }
 
 .login_register_link {
   color: #666;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
 
 .login_register_link:hover {
   color: #4a7aff;
 }
 
-@media (max-width: 480px) {
+.login_spinner {
+  animation: spin 1s linear infinite;
+  font-size: 1.2rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
   .login_container {
     padding: 1rem;
   }
@@ -103,4 +134,14 @@
   .login_form_container {
     padding: 1.5rem;
   }
-} 
+}
+
+@media (max-width: 480px) {
+  .login_form_container {
+    padding: 1.25rem;
+  }
+
+  .login_form_container h2 {
+    font-size: 1.5rem;
+  }
+}
