@@ -1,0 +1,224 @@
+/* Base styling - same as before */
+.malinda-pet-health-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 100px;
+  font-family: Arial, sans-serif;
+}
+
+.malinda-page-title {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+.malinda-page-description {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* Pet Dashboard Layout */
+.malinda-pet-dashboard {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+  min-height: 600px;
+  text-align: left;
+}
+
+/* Sidebar Styling */
+.malinda-pet-sidebar {
+  width: 250px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.malinda-pet-sidebar h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #2c3e50;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.malinda-pet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.malinda-pet-item {
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.malinda-pet-item:hover {
+  background-color: #b9bdc0;
+}
+
+.malinda-pet-item.active {
+  background-color: #3a464e;
+  color: white;
+}
+
+.malinda-pet-name {
+  font-weight: bold;
+}
+
+.malinda-pet-species {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.malinda-pet-item.active .malinda-pet-species {
+  color: #e0e0e0;
+}
+
+/* Pet Profile Area */
+.malinda-pet-profile {
+  flex: 1;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.malinda-profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.malinda-profile-header h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.malinda-profile-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.malinda-edit-btn, .malinda-add-record-btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.malinda-edit-btn {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.malinda-edit-btn:hover {
+  background-color: #ec971f;
+}
+
+.malinda-add-record-btn {
+  background-color: #5cb85c;
+  color: white;
+}
+
+.malinda-add-record-btn:hover {
+  background-color: #449d44;
+}
+
+/* Profile Tabs */
+.malinda-profile-tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.malinda-tab-btn {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6c757d;
+  transition: all 0.2s;
+}
+
+.malinda-tab-btn:hover {
+  color: #9aa6ad;
+  background: #4f5558;
+}
+
+.malinda-tab-btn.active {
+  color: #3498db;
+  border-bottom-color: #3498db;
+}
+
+/* Profile Content Sections */
+.malinda-profile-section {
+  padding: 10px 0;
+}
+
+.malinda-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.malinda-info-item {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.malinda-info-label {
+  font-weight: bold;
+  color: #6c757d;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.malinda-info-value {
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+/* Add button */
+.malinda-add-btn {
+  display: block;
+  width: 92%;
+  padding: 10px;
+  background: #4caf50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.malinda-add-btn:hover {
+  background: #369439;
+}
+
+/* Extra small phones */
+@media (max-width: 375px) {
+  .malinda-page-title {
+    font-size: 1.3rem;
+  }
+}

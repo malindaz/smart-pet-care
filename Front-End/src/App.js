@@ -16,7 +16,28 @@ import Home from "./pages/Home";
 
 // Import user pages
 
+
 // Import Admin pages
+
+import AppointmentForm from "./pages/User/AppointmentForm";
+
+
+import MyPets from "./pages/User/mypets";
+import AddRecord from "./pages/User/addrecord";
+
+import AddNewPet from "./pages/User/addnewpet";
+
+
+
+
+
+
+//import Admin pages
+
+//import Veterinarian pages
+
+//import Pharmacist pages
+
 
 // Import Veterinarian pages
 
@@ -54,7 +75,38 @@ function App() {
           {/* Add Main Routes Here */}
           <Route path="/home" element={<Home />} />
 
+
           {/* Add Admin Routes Here */}
+
+          {/*Add User Routes Here*/ }
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Profile" element={<Profile />} />
+
+          <Route path="/appointment-form" element={<AppointmentForm />} />
+
+
+
+          <Route path="/mypets" element={<MyPets />} />
+          <Route path="/addrecord" element={<AddRecord />} />
+
+          <Route path="/addnewpet" element={<AddNewPet />} />
+
+
+
+          <Route path="/addnewpet" element={<AddNewPet />} />
+
+
+
+
+          {/*Add Admin Routes Here*/ }
+
+
+          {/*Add Veterinarian Routes Here*/ }
+
+
+          {/*Add Pharmacist Routes Here*/ }
+
 
           {/* Add Veterinarian Routes Here */}
 
