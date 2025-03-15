@@ -63,7 +63,7 @@ const NavBar = ({ user }) => {
               <Link to="/pharmacy" className="user-navbar-link">Pharmacy</Link>
             </li>
             <li className="user-navbar-link-item">
-              <Link to="/services" className="user-navbar-link">Services</Link>
+              <Link to="/Profile" className="user-navbar-link">Services</Link>
             </li>
             <li className="user-navbar-link-item">
               <Link to="/contact" className="user-navbar-link">Contact Us</Link>
@@ -94,7 +94,7 @@ const NavBar = ({ user }) => {
                   </div>
                   <ul className="user-navbar-dropdown-menu">
                     <li className="user-navbar-dropdown-item">
-                      <Link to="/profile" className="user-navbar-dropdown-link">
+                      <Link to="/Profile" className="user-navbar-dropdown-link">
                         <i className="fas fa-user"></i> My Profile
                       </Link>
                     </li>
@@ -120,8 +120,8 @@ const NavBar = ({ user }) => {
             </div>
           ) : (
             <div className="user-navbar-auth-buttons">
-              <Link to="/login" className="user-navbar-login-btn">Login</Link>
-              <Link to="/signup" className="user-navbar-signup-btn">Sign Up</Link>
+              <Link to="/Login" className="user-navbar-login-btn">Login</Link>
+              <Link to="/Register" className="user-navbar-signup-btn">Sign Up</Link>
             </div>
           )}
         </div>
@@ -148,7 +148,7 @@ const NavBar = ({ user }) => {
           {user && (
             <>
               <li className="user-navbar-mobile-divider"></li>
-              <li><Link to="/profile" onClick={toggleMobileMenu}>My Profile</Link></li>
+              <li><Link to="/Profile" onClick={toggleMobileMenu}>My Profile</Link></li>
               <li><Link to="/pets" onClick={toggleMobileMenu}>My Pets</Link></li>
               <li><Link to="/my-appointments" onClick={toggleMobileMenu}>My Appointments</Link></li>
               <li><button className="user-navbar-mobile-logout-btn">Logout</button></li>
