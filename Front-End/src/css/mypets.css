@@ -177,6 +177,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
+  width: 90%;
 }
 
 .malinda-info-item {
@@ -225,9 +226,10 @@
 /*//////////////////////////////////*/
 /* Medical History Table */
 .malinda-medical-table {
-  width: 100%;
+  width: 120%;
   border-collapse: collapse;
   margin-top: 15px;
+  align-content: left;
 }
 
 .malinda-medical-table th,
