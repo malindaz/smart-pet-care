@@ -168,7 +168,7 @@ const MyPets = () => {
                       <span className="malinda-info-value">{selectedPet.gender}</span>
                     </div>
                     <div className="malinda-info-item">
-                      <span className="malinda-info-label">Microchip ID:</span>
+                      <span className="malinda-info-label">Pet ID:</span>
                       <span className="malinda-info-value">{selectedPet.microchipID}</span>
                     </div>
                     <div className="malinda-info-item">
