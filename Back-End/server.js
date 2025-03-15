@@ -6,6 +6,15 @@ const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const { connectDB } = require('./utils/db');
 
+
+
+
+const appointmentRoutes = require('./Routes/appointmentRoutes');
+const pharmacyRoutes = require('./Routes/pharmacyRoutes');
+
+
+const userRoutes = require('./Routes/userRoutes');
+
 const appointmentRoutes = require('./Routes/appointmentRoutes');
 
 // Load environment variables
@@ -32,6 +41,14 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 app.use('/api/appointments', appointmentRoutes);
+
+
+
+app.use('/api/pharmacy', pharmacyRoutes);
+
+app.use('/api/addrecords', require('./Routes/addrecordsroute'));
+
+
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
