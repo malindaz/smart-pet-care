@@ -8,7 +8,6 @@ const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 
 
-const appointmentRoutes = require('./Routes/appointmentRoutes');
 const pharmacyRoutes = require('./Routes/pharmacyRoutes');
 
 
