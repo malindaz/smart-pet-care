@@ -4,25 +4,23 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
+const path = require('path');
 const { connectDB } = require('./utils/db');
 
 
 
 
 const pharmacyRoutes = require('./Routes/pharmacyRoutes');
-
-
 const userRoutes = require('./Routes/userRoutes');
-
 const appointmentRoutes = require('./Routes/appointmentRoutes');
-
+const addrecordsroute = require('./Routes/addrecordsroute');
 // Load environment variables
 dotenv.config();
 
 // Create Express app
 const app = express();
 
-<<<<<<< HEAD
+
 // Middleware
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -35,10 +33,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
-=======
+
 // Security middleware
 app.use(helmet()); // Set security HTTP headers
->>>>>>> a40411dd45814b4005eec4aa34f30b85a0a77943
+
 app.use(cors({
   origin: 'http://localhost:3000', // Allow only the frontend URL
   credentials: true
@@ -53,14 +51,9 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, please try again after 15 minutes'
 });
 app.use('/api', limiter);
-
 app.use('/api/appointments', appointmentRoutes);
-
-
-
 app.use('/api/pharmacy', pharmacyRoutes);
-
-app.use('/api/addrecords', require('./Routes/addrecordsroute'));
+app.use('/api/addrecords', addrecordsroute);
 
 
 
@@ -73,12 +66,12 @@ if (process.env.NODE_ENV === 'development') {
 // Connect to MongoDB
 connectDB();
 
-<<<<<<< HEAD
+
 // Routes
 app.use('/api/users',userRoutes); 
 
 
-=======
+
 // Simple route for testing
 app.get('/api/health', (req, res) => {
   res.status(200).json({
@@ -86,7 +79,7 @@ app.get('/api/health', (req, res) => {
     message: 'Server is running',
   });
 });
->>>>>>> a40411dd45814b4005eec4aa34f30b85a0a77943
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
