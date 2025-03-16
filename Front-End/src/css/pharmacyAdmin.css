@@ -58,7 +58,7 @@ body {
 
 /* Card Image Container */
 .pharmacy-Card-img-container {
-  height: 100px; /* Set your desired height */
+  height: 150px; /* Set your desired height */
   width: 100%;
   display: flex;
   align-items: center;
@@ -68,8 +68,8 @@ body {
 }
 
 .pharmacy-Card-img-scale {
-  max-height: 80px; /* Maximum height for the image */
-  max-width: 80%; /* Keep some padding around the image */
+  max-height: 200px; /* Maximum height for the image */
+  max-width: 100%; /* Keep some padding around the image */
   object-fit: contain;
   display: block;
   margin: 0 auto; /* Additional horizontal centering */
