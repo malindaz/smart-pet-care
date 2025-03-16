@@ -1,70 +1,42 @@
-const User = require('../Models/User');
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const multer = require('multer');
+const fs = require('fs');
 const path = require('path');
-const { sendVerificationEmail } = require('../utils/emailService');
-const { sendVerificationSMS } = require('../utils/smsService');
-
-// Multer configuration for file upload
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, 'uploads/profiles/');
-  },
-  filename: function(req, file, cb) {
-    cb(null, `user-${Date.now()}${path.extname(file.originalname)}`);
-  }
-});
-
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 1024 * 1024 * 5 }, // 5MB limit
-  fileFilter: function(req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      return cb(new Error('Please upload an image file (jpg, jpeg, png)'));
-    }
-    cb(null, true);
-  }
-}).single('profileImage');
 
 // Generate JWT Token
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '30d'
+        expiresIn: '30d',
     });
 };
 
-// Generate OTP
-const generateOTP = () => {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-};
-
-// Register User
+// @desc    Register a new user
+// @route   POST /api/users/register
+// @access  Public
 const registerUser = async (req, res) => {
     try {
-        const {
-            username,
-            firstName,
-            lastName,
-            email,
-            phoneNumber,
-            password,
-            address
-        } = req.body;
-
-        const userExists = await User.findOne({
-            $or: [{ email }, { username }, { phoneNumber }]
-        });
-
+        const { username, firstName, lastName, email, phoneNumber, password, address} = req.body;
+        
+        // Check if user already exists
+        const userExists = await User.findOne({ $or: [{ email }, { username }, { phoneNumber }] });
+        
         if (userExists) {
-            return res.status(400).json({
-                success: false,
-                message: 'User already exists'
-            });
+            // Remove uploaded file if exists
+            if (req.file) {
+                fs.unlinkSync(req.file.path);
+            }
+            
+            if (userExists.email === email) {
+                return res.status(400).json({ success: false, message: 'Email already registered' });
+            } else if (userExists.username === username) {
+                return res.status(400).json({ success: false, message: 'Username already taken' });
+            } else if (userExists.phoneNumber === phoneNumber) {
+                return res.status(400).json({ success: false, message: 'Phone number already registered' });
+            }
         }
-
-        const profileImage = req.file ? req.file.path : '';
-
-        const user = await User.create({
+        
+        // Create user object
+        const userToCreate = {
             username,
             firstName,
             lastName,
@@ -72,322 +44,111 @@ const registerUser = async (req, res) => {
             phoneNumber,
             password,
             address,
-            profileImage
-        });
-
+            userLevel: 4 // Default to normal user
+        };
+        
+        // Add profile image if uploaded
+        if (req.file) {
+            userToCreate.profileImage = `/uploads/profiles/${req.file.filename}`;
+        }
+        
+        const user = await User.create(userToCreate);
+        
         if (user) {
+            // Generate token
+            const token = generateToken(user._id);
+            
+            // Exclude password from response
+            const userData = {
+                _id: user._id,
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                address: user.address,
+                profileImage: user.profileImage,
+                userLevel: user.userLevel
+            };
+            
             res.status(201).json({
                 success: true,
-                user: {
-                    _id: user._id,
-                    username: user.username,
-                    email: user.email,
-                    token: generateToken(user._id)
-                }
-            });
-        }
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
-
-// Send Email Verification Code
-const sendEmailVerification = async (req, res) => {
-    try {
-        const { email } = req.body;
-        const code = generateOTP();
-        const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
-
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
-        }
-
-        user.emailVerificationCode = { code, expiresAt };
-        await user.save();
-
-        const sent = await sendVerificationEmail(email, code);
-        if (sent) {
-            res.json({
-                success: true,
-                message: 'Verification code sent to email'
+                token,
+                user: userData
             });
         } else {
-            res.status(500).json({
-                success: false,
-                message: 'Failed to send verification code'
-            });
+            res.status(400).json({ success: false, message: 'Invalid user data' });
         }
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
+        console.error('Registration error:', error);
+        res.status(500).json({ success: false, message: 'Server error during registration' });
     }
 };
 
-// Send Phone Verification Code
-const sendPhoneVerification = async (req, res) => {
-    try {
-        const { phoneNumber } = req.body;
-        const code = generateOTP();
-        const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
-
-        const user = await User.findOne({ phoneNumber });
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
-        }
-
-        user.phoneVerificationCode = { code, expiresAt };
-        await user.save();
-
-        const sent = await sendVerificationSMS(phoneNumber, code);
-        if (sent) {
-            res.json({
-                success: true,
-                message: 'Verification code sent to phone'
-            });
-        } else {
-            res.status(500).json({
-                success: false,
-                message: 'Failed to send verification code'
-            });
-        }
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
-
-// Verify Email
-const verifyEmail = async (req, res) => {
-    try {
-        const { email, code } = req.body;
-        const user = await User.findOne({ email });
-
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
-        }
-
-        if (!user.emailVerificationCode || 
-            user.emailVerificationCode.code !== code ||
-            user.emailVerificationCode.expiresAt < Date.now()) {
-            return res.status(400).json({
-                success: false,
-                message: 'Invalid or expired verification code'
-            });
-        }
-
-        user.isEmailVerified = true;
-        user.emailVerificationCode = undefined;
-        await user.save();
-
-        res.json({
-            success: true,
-            message: 'Email verified successfully'
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
-
-// Verify Phone
-const verifyPhone = async (req, res) => {
-    try {
-        const { phoneNumber, code } = req.body;
-        const user = await User.findOne({ phoneNumber });
-
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
-        }
-
-        if (!user.phoneVerificationCode || 
-            user.phoneVerificationCode.code !== code ||
-            user.phoneVerificationCode.expiresAt < Date.now()) {
-            return res.status(400).json({
-                success: false,
-                message: 'Invalid or expired verification code'
-            });
-        }
-
-        user.isPhoneVerified = true;
-        user.phoneVerificationCode = undefined;
-        await user.save();
-
-        res.json({
-            success: true,
-            message: 'Phone number verified successfully'
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
-
-// Login User
+// @desc    Login user
+// @route   POST /api/users/login
+// @access  Public
 const loginUser = async (req, res) => {
     try {
-        const { login, password } = req.body; // login can be username or email
-
-        const user = await User.findOne({
-            $or: [{ email: login }, { username: login }]
-        });
-
-        if (user && (await user.comparePassword(password))) {
+        const { email, password } = req.body;
+        
+        // Find user by email
+        const user = await User.findOne({ email });
+        
+        if (user && (await user.matchPassword(password))) {
+            // Generate token
+            const token = generateToken(user._id);
+            
+            // Exclude password from response
+            const userData = {
+                _id: user._id,
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                address: user.address,
+                profileImage: user.profileImage,
+                userLevel: user.userLevel
+            };
+            
             res.json({
                 success: true,
-                user: {
-                    _id: user._id,
-                    username: user.username,
-                    email: user.email,
-                    token: generateToken(user._id)
-                }
+                token,
+                user: userData
             });
         } else {
-            res.status(401).json({
-                success: false,
-                message: 'Invalid credentials'
-            });
+            res.status(401).json({ success: false, message: 'Invalid email or password' });
         }
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
+        console.error('Login error:', error);
+        res.status(500).json({ success: false, message: 'Server error during login' });
     }
 };
 
-// Get User Profile
+// @desc    Get user profile
+// @route   GET /api/users/profile
+// @access  Private
 const getUserProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user._id).select('-password');
+        
         if (user) {
             res.json({
                 success: true,
                 user
             });
         } else {
-            res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
+            res.status(404).json({ success: false, message: 'User not found' });
         }
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
-
-// Update User Profile
-const updateUserProfile = async (req, res) => {
-    try {
-        const user = await User.findById(req.user._id);
-
-        if (user) {
-            user.username = req.body.username || user.username;
-            user.firstName = req.body.firstName || user.firstName;
-            user.lastName = req.body.lastName || user.lastName;
-            user.address = req.body.address || user.address;
-
-            if (req.file) {
-                user.profileImage = req.file.path;
-            }
-
-            if (req.body.email && req.body.email !== user.email) {
-                user.email = req.body.email;
-                user.isEmailVerified = false;
-            }
-
-            if (req.body.phoneNumber && req.body.phoneNumber !== user.phoneNumber) {
-                user.phoneNumber = req.body.phoneNumber;
-                user.isPhoneVerified = false;
-            }
-
-            if (req.body.password) {
-                user.password = req.body.password;
-            }
-
-            const updatedUser = await user.save();
-
-            res.json({
-                success: true,
-                user: {
-                    _id: updatedUser._id,
-                    username: updatedUser.username,
-                    email: updatedUser.email,
-                    token: generateToken(updatedUser._id)
-                }
-            });
-        } else {
-            res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
-        }
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
-
-// Delete User Account
-const deleteUser = async (req, res) => {
-    try {
-        const user = await User.findById(req.user._id);
-        if (user) {
-            await user.remove();
-            res.json({
-                success: true,
-                message: 'User account deleted successfully'
-            });
-        } else {
-            res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
-        }
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
+        console.error('Profile fetch error:', error);
+        res.status(500).json({ success: false, message: 'Server error while fetching profile' });
     }
 };
 
 module.exports = {
     registerUser,
     loginUser,
-    getUserProfile,
-    updateUserProfile,
-    deleteUser,
-    sendEmailVerification,
-    sendPhoneVerification,
-    verifyEmail,
-    verifyPhone
+    getUserProfile
 };

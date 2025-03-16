@@ -1,0 +1,235 @@
+/* loginpage.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #4a6fa5;
+  --primary-hover: #3a5982;
+  --secondary-color: #6bbfde;
+  --text-color: #333;
+  --light-text: #666;
+  --error-color: #e74c3c;
+  --success-color: #2ecc71;
+  --light-bg: #f9f9f9;
+  --card-bg: #ffffff;
+  --shadow: 0 8px 24px rgba(149, 157, 165, 0.2);
+  --input-bg: #f5f8fa;
+  --input-border: #e1e8ed;
+}
+
+.loginpage-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--light-bg);
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+}
+
+.loginpage-card {
+  display: flex;
+  width: 900px;
+  min-height: 550px;
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.loginpage-card-left {
+  flex: 1;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.loginpage-logo h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.loginpage-illustration {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginpage-welcome-text {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.loginpage-card-right {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loginpage-form-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.loginpage-form-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 8px;
+}
+
+.loginpage-form-header p {
+  color: var(--light-text);
+  font-size: 14px;
+}
+
+.loginpage-form {
+  width: 100%;
+}
+
+.loginpage-form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.loginpage-input-icon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  color: var(--light-text);
+}
+
+.loginpage-input {
+  width: 100%;
+  padding: 15px 15px 15px 45px;
+  border-radius: 8px;
+  border: 1px solid var(--input-border);
+  background-color: var(--input-bg);
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.loginpage-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
+}
+
+.loginpage-forgot-password {
+  text-align: right;
+  margin: -10px 0 20px;
+}
+
+.loginpage-forgot-password a {
+  color: var(--primary-color);
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.loginpage-forgot-password a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.loginpage-submit-button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s;
+}
+
+.loginpage-submit-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.loginpage-submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loginpage-spinner {
+  animation: spin 1s linear infinite;
+  font-size: 18px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loginpage-register-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--light-text);
+}
+
+.loginpage-register-link a {
+  color: var(--primary-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.loginpage-register-link a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .loginpage-card {
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .loginpage-card-left {
+    padding: 30px;
+    min-height: 200px;
+  }
+
+  .loginpage-illustration {
+    display: none;
+  }
+
+  .loginpage-card-right {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loginpage-card-left {
+    padding: 20px;
+    min-height: 150px;
+  }
+
+  .loginpage-card-right {
+    padding: 20px;
+  }
+
+  .loginpage-logo h1 {
+    font-size: 24px;
+  }
+
+  .loginpage-form-header h2 {
+    font-size: 20px;
+  }
+}
