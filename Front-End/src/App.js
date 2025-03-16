@@ -66,10 +66,10 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           
           {/* Default Route */}
-          <Route path="/" element={<Login />} />
+          <Route path="/Login" element={<Login />} />
 
           {/* Add Main Routes Here */}
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
 
 
           {/* Add Admin Routes Here */}
