@@ -18,6 +18,7 @@ const Register = () => {
         password: '',
         confirmPassword: '',
         address: '',
+        userLevel: 4,
         profileImage: null
     });
 
@@ -71,6 +72,7 @@ const Register = () => {
             formDataObj.append('phoneNumber', formData.phoneNumber);
             formDataObj.append('password', formData.password);
             formDataObj.append('address', formData.address);
+            formDataObj.append('userLevel', formData.userLevel);
             
             // Add profile image if exists
             if (formData.profileImage) {
@@ -90,8 +92,8 @@ const Register = () => {
     
             if (response.data.success) {
                 // Save token and user data
-                localStorage.setItem('userToken', response.data.token);
-                localStorage.setItem('userData', JSON.stringify(response.data.user));
+                // localStorage.setItem('userToken', response.data.token);
+                // localStorage.setItem('userData', JSON.stringify(response.data.user));
                 
                 toast.success('Registration successful!');
                 navigate('/login');

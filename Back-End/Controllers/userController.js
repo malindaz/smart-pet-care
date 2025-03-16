@@ -15,7 +15,7 @@ const generateToken = (id) => {
 // @access  Public
 const registerUser = async (req, res) => {
     try {
-        const { username, firstName, lastName, email, phoneNumber, password, address } = req.body;
+        const { username, firstName, lastName, email, phoneNumber, password, address} = req.body;
         
         // Check if user already exists
         const userExists = await User.findOne({ $or: [{ email }, { username }, { phoneNumber }] });
