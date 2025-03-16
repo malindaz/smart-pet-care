@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
@@ -153,5 +153,4 @@ module.exports = {
     loginUser,
     getUserProfile
 };
-=======
->>>>>>> a40411dd45814b4005eec4aa34f30b85a0a77943
+
