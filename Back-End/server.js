@@ -4,18 +4,16 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
+const path = require('path');
 const { connectDB } = require('./utils/db');
 
 
 
 
 const pharmacyRoutes = require('./Routes/pharmacyRoutes');
-
-
 const userRoutes = require('./Routes/userRoutes');
-
 const appointmentRoutes = require('./Routes/appointmentRoutes');
-
+const addrecordsroute = require('./Routes/addrecordsroute');
 // Load environment variables
 dotenv.config();
 
@@ -53,14 +51,9 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, please try again after 15 minutes'
 });
 app.use('/api', limiter);
-
 app.use('/api/appointments', appointmentRoutes);
-
-
-
 app.use('/api/pharmacy', pharmacyRoutes);
-
-app.use('/api/addrecords', require('./Routes/addrecordsroute'));
+app.use('/api/addrecords', addrecordsroute);
 
 
 
