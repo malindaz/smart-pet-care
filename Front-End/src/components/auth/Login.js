@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CgSpinner } from "react-icons/cg";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 import axios from 'axios';
-
+import '../../css/loginpage.css';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -33,6 +34,8 @@ const Login = () => {
                 // Save token and user data
                 localStorage.setItem('userToken', response.data.token);
                 localStorage.setItem('userData', JSON.stringify(response.data.user));
+                localStorage.setItem('userLevel', response.data.user.userLevel);
+                localStorage.setItem('userEmail', response.data.user.email);
                 
                 toast.success('Login successful!');
                 
@@ -62,44 +65,74 @@ const Login = () => {
     };
 
     return (
-        <div className="login_container">
-            <div className="login_form_container">
-                <h2>Welcome Back</h2>
-                <form className="login_form" onSubmit={handleSubmit}>
-                    <div className="login_form_group">
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required
-                        />
+        <div className="loginpage-container">
+            <div className="loginpage-card">
+                <div className="loginpage-card-left">
+                    <div className="loginpage-logo">
+                        <h1>Smart Pet Care</h1>
                     </div>
-
-                    <div className="login_form_group">
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            value={formData.password}
-                            onChange={handleInputChange}
-                            required
-                        />
+                    <div className="loginpage-illustration">
+                        {/* SVG or image could be added here */}
                     </div>
-
-                    <div className="login_forgot_password">
-                        <Link to="/forgot-password">Forgot password?</Link>
+                    <div className="loginpage-welcome-text">
+                        <p>Taking care of your pets has never been easier!</p>
                     </div>
-
-                    <button type="submit" className="login_submit_button" disabled={loading}>
-                        {loading ? <CgSpinner className="login_spinner" /> : 'Login'}
-                    </button>
+                </div>
+                
+                <div className="loginpage-card-right">
+                    <div className="loginpage-form-header">
+                        <h2>Welcome Back</h2>
+                        <p>Please login to your account</p>
+                    </div>
                     
-                    <div className="login_register_link">
-                        Don't have an account? <Link to="/register">Register</Link>
-                    </div>
-                </form>
+                    <form className="loginpage-form" onSubmit={handleSubmit}>
+                        <div className="loginpage-form-group">
+                            <div className="loginpage-input-icon">
+                                <FaEnvelope />
+                            </div>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                required
+                                className="loginpage-input"
+                            />
+                        </div>
+
+                        <div className="loginpage-form-group">
+                            <div className="loginpage-input-icon">
+                                <FaLock />
+                            </div>
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                value={formData.password}
+                                onChange={handleInputChange}
+                                required
+                                className="loginpage-input"
+                            />
+                        </div>
+
+                        <div className="loginpage-forgot-password">
+                            <Link to="/forgot-password">Forgot password?</Link>
+                        </div>
+
+                        <button type="submit" className="loginpage-submit-button" disabled={loading}>
+                            {loading ? (
+                                <><CgSpinner className="loginpage-spinner" />Logging in...</>
+                            ) : (
+                                'Login'
+                            )}
+                        </button>
+                        
+                        <div className="loginpage-register-link">
+                            Don't have an account? <Link to="/register">Register</Link>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

@@ -60,12 +60,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 
-<<<<<<< HEAD
+
 // Routes
 app.use('/api/users',userRoutes); 
-=======
 
->>>>>>> 53df1c54fcba173e6b39e4c0c6df1d8a88b9a109
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
