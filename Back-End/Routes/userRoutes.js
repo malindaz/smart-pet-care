@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express');
 const router = express.Router();
 const { registerUser, loginUser, getUserProfile } = require('../Controllers/userController');
@@ -44,3 +45,5 @@ router.post('/login', loginUser);
 router.get('/profile', protect, getUserProfile);
 
 module.exports = router;
+=======
+>>>>>>> a40411dd45814b4005eec4aa34f30b85a0a77943

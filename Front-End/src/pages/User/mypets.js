@@ -161,7 +161,7 @@ const MyPets = () => {
                     </div>
                     <div className="malinda-info-item">
                       <span className="malinda-info-label">Weight:</span>
-                      <span className="malinda-info-value">{selectedPet.weight} kg</span>
+                      <span className="info-value">{selectedPet.weight} kg</span>
                     </div>
                     <div className="malinda-info-item">
                       <span className="malinda-info-label">Gender:</span>
@@ -185,10 +185,10 @@ const MyPets = () => {
 
               {/* Medical History Tab */}
               {activeTab === 'medical' && (
-                <div className="malinda-profile-section malinda-info-grid">
+                <div className="malinda-profile-section">
                   <h3>Medical History</h3>
                   {selectedPet.medicalHistory.length > 0 ? (
-                    <table className="malinda-medical-table ">
+                    <table className="malinda-medical-table">
                       <thead>
                         <tr>
                           <th>Date</th>
@@ -288,14 +288,14 @@ const MyPets = () => {
                         const today = new Date();
                         const daysDiff = Math.floor((dueDate - today) / (1000 * 60 * 60 * 24));
                         let status = "Up to date";
-                        let statusClass = "malinda-status-ok";
+                        let statusClass = "status-ok";
                         
                         if (daysDiff < 0) {
                           status = "Overdue";
-                          statusClass = "malinda-status-overdue";
+                          statusClass = "status-overdue";
                         } else if (daysDiff < 30) {
                           status = "Due soon";
-                          statusClass = "malinda-status-warning";
+                          statusClass = "status-warning";
                         }
                         
                         return (
