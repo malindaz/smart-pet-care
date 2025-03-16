@@ -75,9 +75,6 @@ function App() {
           {/* Add Admin Routes Here */}
 
           {/*Add User Routes Here*/ }
-          <Route path="/Register" element={<Register />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Profile" element={<Profile />} />
 
           <Route path="/appointment-form" element={<AppointmentForm />} />
 
