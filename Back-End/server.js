@@ -14,6 +14,7 @@ const pharmacyRoutes = require('./Routes/pharmacyRoutes');
 const userRoutes = require('./Routes/userRoutes');
 const appointmentRoutes = require('./Routes/appointmentRoutes');
 const addrecordsroute = require('./Routes/addrecordsroute');
+const addnewroute = require('./Routes/addnewroute');
 // Load environment variables
 dotenv.config();
 
@@ -54,7 +55,7 @@ app.use('/api', limiter);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/pharmacy', pharmacyRoutes);
 app.use('/api/addrecords', addrecordsroute);
-
+app.use('/api/pets', addnewroute);
 
 
 // Development logging

@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+// Counter schema for auto-incrementing petId
+const counterSchema = new mongoose.Schema({
+  _id: { type: String, required: true },
+  seq: { type: Number, default: 0 }
+});
+
+const Counter = mongoose.model('Counter', counterSchema);
+
 const petRecordSchema = new mongoose.Schema({
   petId: {
     type: String,
@@ -72,10 +80,32 @@ const petRecordSchema = new mongoose.Schema({
   }
 });
 
-// Update the 'updatedAt' field before saving
-petRecordSchema.pre('save', function(next) {
+// Middleware to auto-generate petId before saving
+petRecordSchema.pre('validate', async function (next) {
+  if (!this.petId) {
+    try {
+      const counter = await Counter.findByIdAndUpdate(
+        { _id: 'petId' },
+        { $inc: { seq: 1 } },
+        { new: true, upsert: true }
+      );
+
+      this.petId = `P${counter.seq.toString().padStart(4, '0')}`;
+    } catch (error) {
+      return next(error);
+    }
+  }
+  next();
+});
+
+// Middleware to update 'updatedAt' field before saving
+petRecordSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   next();
 });
 
-module.exports = mongoose.model('addrecords', petRecordSchema);
+const PetRecord = mongoose.model('PetRecord', petRecordSchema);
+
+module.exports = PetRecord;
+
+
