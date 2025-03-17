@@ -195,7 +195,7 @@ const PharmacyEdit = () => {
                   <img
                     src={imagePreview}
                     alt="Product Preview"
-                    className="img-thumbnail"
+                    className="pharmacy-Edit-Form img-thumbnail"
                     style={{ maxWidth: '200px', maxHeight: '200px', marginTop: '10px' }}
                   />
                 </div>

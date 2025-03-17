@@ -121,7 +121,7 @@ const ProductCard = ({ product, handleEdit, handleDelete }) => {
 
 
   return (
-    <Col xs={12} sm={6} md={4} lg={3} className="d-flex align-items-stretch">
+    <Col xs={12} sm={6} md={4} lg={3} className="pharmacy d-flex align-items-stretch">
       <Card className="pharmacy-Card">
         <div className="pharmacy-Card-img-container">
           <Card.Img
