@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import "../../css/mypets.css";
+import Footer from "../../components/Footer";
 
 const MyPets = () => {
  
@@ -319,6 +320,7 @@ const MyPets = () => {
           )}
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

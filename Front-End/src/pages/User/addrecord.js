@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NavBar from "../../components/NavBar";
 import "../../css/addrecord.css";
+import Footer from "../../components/Footer";
 
 const AddRecord = () => {
   const [record, setRecord] = useState({
@@ -199,6 +200,7 @@ const AddRecord = () => {
           <button type="submit" className="malinda-button">Submit Record</button>
         </form>
       </div>
+      <Footer/>
     </>
   );
 };

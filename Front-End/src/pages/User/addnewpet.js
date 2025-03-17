@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import "../../css/addnewpet.css";
 import axios from "axios";
+import Footer from "../../components/Footer";
 
 const AddNewPet = () => {
   const navigate = useNavigate();
@@ -77,6 +78,7 @@ const AddNewPet = () => {
           </div>
         </form>
       </div>
+      <Footer/>
     </>
   );
 };
