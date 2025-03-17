@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Bell, Calendar, ChevronRight, PawPrint, Settings, LineChart, Heart, User, Plus } from "lucide-react";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 import "../css/Homepage.css";
 
 function Home() {
@@ -196,6 +197,7 @@ function Home() {
         </div>
       </div>
     </div>
+    <Footer/>
     </>
   );
 }
