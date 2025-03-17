@@ -428,3 +428,32 @@
     margin: 0.75rem 0;
   }
 }
+
+/* User section with Become a Vet button */
+.user-navbar-user-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-navbar-become-vet-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.user-navbar-become-vet-btn:hover {
+  background-color: #3e8e41;
+}
+
+/* Mobile menu adjustments */
+@media (max-width: 768px) {
+  .user-navbar-become-vet-btn {
+    display: none; /* Hide button on mobile, use mobile menu instead */
+  }
+}
