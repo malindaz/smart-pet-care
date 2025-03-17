@@ -97,8 +97,8 @@ const NavBar = () => {
       <div className="user-navbar-container">
         <div className="user-navbar-logo">
           <Link to="/">
-            <img src="/logo.png" alt="PetCare+" className="user-navbar-logo-img" />
-            <span className="user-navbar-logo-text">PetCare<span className="user-navbar-plus">+</span></span>
+            <img src="/assets/images/logo.png" alt="petpal+" className="user-navbar-logo-img" />
+            <span className="user-navbar-logo-text">PetPal<span className="user-navbar-plus">+</span></span>
           </Link>
         </div>
 

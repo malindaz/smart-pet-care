@@ -46,13 +46,13 @@ const Login = () => {
                         navigate('/admin-dashboard');
                         break;
                     case 2:
-                        navigate('/veterinarian-dashboard');
+                        navigate('/vet-dashboard');
                         break;
                     case 3:
                         navigate('/pharmacist-dashboard');
                         break;
                     default:
-                        navigate('/dashboard');
+                        navigate('/');
                         break;
                 }
             }
