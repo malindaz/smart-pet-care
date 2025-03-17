@@ -15,11 +15,12 @@ import Profile from "./components/profile/Profile";
 import Home from "./pages/Home";
 
 // Import user pages
-
+import AppointmentForm from "./pages/User/AppointmentForm";
+import ApplyVet from "./pages/User/applyvet";
 
 // Import Admin pages
 
-import AppointmentForm from "./pages/User/AppointmentForm";
+
 
 
 import MyPets from "./pages/User/mypets";
@@ -55,49 +56,42 @@ function App() {
           pauseOnHover
         />
         <Routes>
-          {/* Public Routes */}
+          
+           {/*Main Routes  */}
+
+          <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           
-          {/* Protected Routes */}
-          <Route path="/profile" element={<Profile />} />
           
-          {/* Default Route */}
-          <Route path="/Login" element={<Login />} />
-
-          {/* Add Main Routes Here */}
-          <Route path="/" element={<Home />} />
-
-
+                 
+          
           {/* Add Admin Routes Here */}
+
 
           {/*Add User Routes Here*/ }
 
+          <Route path="/profile" element={<Profile />} />
           <Route path="/appointment-form" element={<AppointmentForm />} />
-
-
-
+          <Route path="/apply-vet" element={<ApplyVet />} />
           <Route path="/mypets" element={<MyPets />} />
           <Route path="/addrecord" element={<AddRecord />} />
           <Route path="/addnewpet" element={<AddNewPet />} />
 
-          {/*Add Admin Routes Here*/ }
 
 
           {/*Add Veterinarian Routes Here*/ }
 
-
-          {/*Add Pharmacist Routes Here*/ }
+          {/*Add Pharmacist Routes Here*/ } 
           <Route path="/pharmacy" element={<Pharmacy />} />
           <Route path="/pharmacyAdmin" element={<PharmacyAdmin />} />
           <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
 
-          {/* Add Veterinarian Routes Here */}
+         
 
-          {/* Add Pharmacist Routes Here */}
         </Routes>
       </div>
     </Router>
