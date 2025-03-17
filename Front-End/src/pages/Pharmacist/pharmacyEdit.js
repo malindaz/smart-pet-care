@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Card } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../../css/pharmacyEdit.css';
+import "../../css/Pharmacy/PharmacyEdit.css";
 
 const PharmacyEdit = () => {
   const location = useLocation();
@@ -152,7 +152,7 @@ const PharmacyEdit = () => {
 
             {/* Price */}
             <Form.Group className="pharmacy-Edit-Form">
-              <Form.Label className="pharmacy-Edit-Form-label">Price ($):</Form.Label>
+              <Form.Label className="pharmacy-Edit-Form-label">Price (Rs):</Form.Label>
               <Form.Control
                 className="pharmacy-Edit-Form-control"
                 type="number"

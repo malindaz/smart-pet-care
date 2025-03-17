@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import NavBar from "../../components/NavBar";
-import "../../css/pharmacy.css";
+import "../../css/Pharmacy/pharmacy.css";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -85,7 +85,7 @@ const ProductList = () => {
                         <Card.Body className="pharmacy-Card-body">
                           <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
                           <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
-                          <Card.Text className="pharmacy-Price-text">Price: Rs.{product.price}</Card.Text>
+                          <Card.Text className="pharmacy-Price-text">Rs. {product.price}</Card.Text>
                           <Button variant="primary" className="pharmacy-Btn-primary">Add to Cart</Button>
                           <Button 
                             variant="success" 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../../css/pharmacyAdmin.css";
+import "../../css/Pharmacy/pharmacyAdmin.css";
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -134,7 +134,7 @@ const ProductCard = ({ product, handleEdit, handleDelete }) => {
         <Card.Body className="pharmacy-Card-body">
           <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
           <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
-          <Card.Text className="pharmacy-Price-text">Price: Rs.{product.price}</Card.Text>
+          <Card.Text className="pharmacy-Price-text">Rs. {product.price}</Card.Text>
           <div className="pharmacy-Btn-group">
             <Button variant="warning" className="pharmacy-Btn-edit" onClick={() => handleEdit(product)}>
               Edit
