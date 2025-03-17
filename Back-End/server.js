@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const path = require('path');
 const { connectDB } = require('./utils/db');
-
+const fileUpload = require('express-fileupload');
 
 
 
@@ -14,6 +14,7 @@ const pharmacyRoutes = require('./Routes/pharmacyRoutes');
 const userRoutes = require('./Routes/userRoutes');
 const appointmentRoutes = require('./Routes/appointmentRoutes');
 const addrecordsroute = require('./Routes/addrecordsroute');
+const veterinarianRoutes = require('./Routes/veterinarianRoutes');
 // Load environment variables
 dotenv.config();
 
@@ -28,7 +29,12 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(fileUpload({
+  createParentPath: true,
+  limits: { 
+    fileSize: 5 * 1024 * 1024 // 5MB limit
+  },
+}));
 // Serve static files from uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -54,6 +60,7 @@ app.use('/api', limiter);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/pharmacy', pharmacyRoutes);
 app.use('/api/addrecords', addrecordsroute);
+app.use('/api/veterinarians', veterinarianRoutes);
 
 
 

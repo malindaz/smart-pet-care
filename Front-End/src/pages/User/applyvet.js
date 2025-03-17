@@ -86,15 +86,21 @@ const ApplyVet = () => {
     }
   };
 
-  // Handle education fields
+  
   const handleEducationChange = (index, e) => {
     const { name, value } = e.target;
+    const fieldName = name.split('.')[2]; // Get the third part (institution, degree, yearCompleted)
+    
     const updatedEducation = [...formData.education];
     updatedEducation[index] = {
       ...updatedEducation[index],
-      [name.split('.')[1]]: value
+      [fieldName]: value
     };
-    setFormData({ ...formData, education: updatedEducation });
+    
+    setFormData({
+      ...formData,
+      education: updatedEducation
+    });
   };
 
   // Add more education field
@@ -123,13 +129,13 @@ const ApplyVet = () => {
     });
   };
 
-  // Handle certification change
   const handleCertificationChange = (index, e) => {
     const { name, value } = e.target;
+    const fieldName = name.split('.')[2]; // Get the third part
     const updatedCertifications = [...formData.additionalCertifications];
     updatedCertifications[index] = {
       ...updatedCertifications[index],
-      [name.split('.')[1]]: value
+      [fieldName]: value
     };
     setFormData({ ...formData, additionalCertifications: updatedCertifications });
   };
@@ -329,18 +335,28 @@ const ApplyVet = () => {
       const submitData = new FormData();
       
       // Add all form data to FormData
-      for (const key in formData) {
-        if (key === 'education' || key === 'additionalCertifications' || key === 'availableDays') {
-          submitData.append(key, JSON.stringify(formData[key]));
-        } else if (key === 'profileImage' || key === 'licenseCopy') {
-          submitData.append(key, formData[key]);
-        } else {
-          submitData.append(key, formData[key]);
-        }
+// In handleSubmit function, modify this part:
+for (const key in formData) {
+    if (key === 'education' || key === 'additionalCertifications' || key === 'availableDays') {
+      // Make sure the value exists before stringifying
+      if (formData[key]) {
+        submitData.append(key, JSON.stringify(formData[key]));
+      } else {
+        // Provide default empty arrays if the value is undefined
+        submitData.append(key, JSON.stringify([]));
       }
+    } else if (key === 'profileImage' || key === 'licenseCopy') {
+      // Only append files if they exist
+      if (formData[key]) {
+        submitData.append(key, formData[key]);
+      }
+    } else {
+      submitData.append(key, formData[key] === undefined ? '' : formData[key]);
+    }
+  }
       
       // Submit form data to API
-      const response = await axios.post('/api/veterinarians/apply', submitData, {
+      const response = await axios.post('http://localhost:5000/api/veterinarians/apply', submitData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -589,13 +605,13 @@ const ApplyVet = () => {
                   <div className="applyvet-form-group">
                     <label htmlFor={`education.${index}.institution`}>Institution*</label>
                     <input
-                      type="text"
-                      id={`education.${index}.institution`}
-                      name={`education.${index}.institution`}
-                      value={edu.institution}
-                      onChange={(e) => handleEducationChange(index, e)}
-                      className={errors[`education.${index}.institution`] ? 'applyvet-input-error' : ''}
-                    />
+                        type="text"
+                        id={`education.${index}.institution`}
+                        name={`education.${index}.institution`}
+                        value={edu.institution}
+                        onChange={(e) => handleEducationChange(index, e)}
+                        className={errors[`education.${index}.institution`] ? 'applyvet-input-error' : ''}
+                        />
                     {errors[`education.${index}.institution`] && 
                       <span className="applyvet-error">{errors[`education.${index}.institution`]}</span>}
                   </div>
