@@ -24,25 +24,41 @@ const getProductById = async (req, res) => {
 // Create a new product
 const createProduct = async (req, res) => {
     try {
-        const { category, name, price, description, image } = req.body;
+        const { category, name, price, description } = req.body;
+        const image = req.file ? `/uploads/${req.file.filename}` : ''; // Ensure file path is saved
+
+        console.log("Image path stored in DB:", image); // Debugging
+
         const product = new Pharmacy({ category, name, price, description, image });
         await product.save();
+
         res.status(201).json(product);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
 
+
 // Update product
 const updateProduct = async (req, res) => {
     try {
-        const updatedProduct = await Pharmacy.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const { category, name, price, description } = req.body;
+        const image = req.file ? `/uploads/${req.file.filename}` : req.body.image; // Keep old image if no new one
+
+        const updatedProduct = await Pharmacy.findByIdAndUpdate(
+            req.params.id,
+            { category, name, price, description, image },
+            { new: true }
+        );
+
         if (!updatedProduct) return res.status(404).json({ message: 'Product not found' });
+
         res.json(updatedProduct);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
+
 
 // Delete product
 const deleteProduct = async (req, res) => {

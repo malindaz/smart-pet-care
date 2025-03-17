@@ -4,115 +4,107 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import '../../css/pharmacyEdit.css';
 
 const PharmacyEdit = () => {
-  // Get route parameters from React Router
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Extract edit mode status and product data from location state
   const { editMode = false, product = null } = location.state || {};
 
-  // State for form data (used for adding or editing a product)
   const [formData, setFormData] = useState({
     id: '',
     category: '',
     name: '',
     price: '',
     description: '',
-    image: null
+    image: null,
   });
 
-  // State for image preview (shows selected or existing product image)
   const [imagePreview, setImagePreview] = useState(null);
 
-  // Populate form fields if in edit mode
   useEffect(() => {
     if (editMode && product) {
       setFormData({
-        id: product._id,  // Set product ID for updating
-        category: product.category,
-        name: product.name,
-        price: product.price,
-        description: product.description,
-        image: product.image || null
+        id: product._id || '',
+        category: product.category || '',
+        name: product.name || '',
+        price: product.price || '',
+        description: product.description || '',
+        image: null, // Reset image field for new uploads
       });
 
-      // Handle product image preview (either from URL or local upload)
-      setImagePreview(
-        product.image
-          ? product.image.startsWith("data:image") || product.image.startsWith("http")
-            ? product.image
-            : `/uploads/${product.image}` // Adjust this path based on your backend storage
-          : null
-      );
+      // Correctly handle stored image paths
+      if (product.image) {
+        if (product.image.startsWith('http') || product.image.startsWith('data:image')) {
+          setImagePreview(product.image);
+        } else {
+          setImagePreview(`http://localhost:5000${product.image}`);
+        }
+      } else {
+        setImagePreview(null);
+      }
     }
   }, [editMode, product]);
 
-  // Handle text input changes
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: name === 'price' ? parseFloat(value) || '' : value  // Ensure price is a number
-    });
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: name === 'price' ? parseFloat(value) || '' : value,
+    }));
   };
 
-  // Handle category selection
-  const handleCategoryChange = (e) => {
-    setFormData({
-      ...formData,
-      category: e.target.value
-    });
-  };
-
-  // Handle image file selection
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      setFormData((prevState) => ({
+        ...prevState,
+        image: file,
+      }));
+
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setImagePreview(e.target.result); // Update preview image
-        setFormData({
-          ...formData,
-          image: e.target.result  // Store image as Base64
-        });
-      };
-      reader.readAsDataURL(file); // Convert image to Base64 format
+      reader.onload = (event) => setImagePreview(event.target.result);
+      reader.readAsDataURL(file);
     }
   };
 
-  // Handle form submission (Add or Update product)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-        // Determine API endpoint and HTTP method based on edit mode
-        const url = editMode
-            ? `http://localhost:5000/api/pharmacy/${formData.id}`  // Edit an existing product
-            : 'http://localhost:5000/api/pharmacy'; // Add a new product
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('category', formData.category);
+      formDataToSend.append('price', formData.price);
+      formDataToSend.append('description', formData.description);
 
-        const method = editMode ? 'PUT' : 'POST';
+      if (formData.image instanceof File) {
+        formDataToSend.append('image', formData.image);
+      } else if (editMode && product.image) {
+        formDataToSend.append('image', product.image); // Retain old image path
+      }
 
-        const response = await fetch(url, {
-            method: method,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-        });
+      const url = editMode
+        ? `http://localhost:5000/api/pharmacy/${formData.id}`
+        : 'http://localhost:5000/api/pharmacy';
+      const method = editMode ? 'PUT' : 'POST';
 
-        const data = await response.json();
-        console.log('Response:', data);
+      const response = await fetch(url, {
+        method,
+        body: formDataToSend,
+      });
 
-        // Navigate back to the admin page after successful operation
-        navigate('/pharmacyAdmin', { replace: true });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      navigate('/pharmacyAdmin', { replace: true });
     } catch (error) {
-        console.error('Error submitting form:', error);
+      console.error('Error submitting form:', error.message);
     }
-};
-
-
-  // Handle cancel button (navigate back to admin page)
-  const handleCancel = () => {
-    navigate('/pharmacyAdmin');
   };
+
+
+  const handleCancel = () => navigate('/pharmacyAdmin');
 
   return (
     <Container className="pharmacy-Edit-Form-Container">
@@ -125,14 +117,17 @@ const PharmacyEdit = () => {
           <Form onSubmit={handleSubmit}>
             {/* Category Selection */}
             <Form.Group className="pharmacy-Edit-Form">
-              <Form.Label className="pharmacy-Edit-Form-label">Category :</Form.Label>
+              <Form.Label className="pharmacy-Edit-Form-label">Category:</Form.Label>
               <Form.Select
                 className="pharmacy-Edit-Form-select"
                 name="category"
                 value={formData.category}
-                onChange={handleCategoryChange}
+                onChange={handleChange}
+                required
               >
-                <option value="" disabled hidden>Choose Category</option>
+                <option value="" disabled hidden>
+                  Choose Category
+                </option>
                 <option value="Prescription Medications">Prescription Medications</option>
                 <option value="OTC Medications & Supplements">OTC Medications & Supplements</option>
                 <option value="Grooming & Hygiene">Grooming & Hygiene</option>
@@ -141,9 +136,9 @@ const PharmacyEdit = () => {
               </Form.Select>
             </Form.Group>
 
-            {/* Product Name Input */}
+            {/* Product Name */}
             <Form.Group className="pharmacy-Edit-Form">
-              <Form.Label className="pharmacy-Edit-Form-label">Product Name :</Form.Label>
+              <Form.Label className="pharmacy-Edit-Form-label">Product Name:</Form.Label>
               <Form.Control
                 className="pharmacy-Edit-Form-control"
                 type="text"
@@ -151,12 +146,13 @@ const PharmacyEdit = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Enter product name"
+                required
               />
             </Form.Group>
 
-            {/* Price Input */}
+            {/* Price */}
             <Form.Group className="pharmacy-Edit-Form">
-              <Form.Label className="pharmacy-Edit-Form-label">Price($) :</Form.Label>
+              <Form.Label className="pharmacy-Edit-Form-label">Price ($):</Form.Label>
               <Form.Control
                 className="pharmacy-Edit-Form-control"
                 type="number"
@@ -166,12 +162,13 @@ const PharmacyEdit = () => {
                 placeholder="Enter price"
                 step="0.01"
                 min="0"
+                required
               />
             </Form.Group>
 
-            {/* Description Input */}
+            {/* Description */}
             <Form.Group className="pharmacy-Edit-Form">
-              <Form.Label className="pharmacy-Edit-Form-label">Description :</Form.Label>
+              <Form.Label className="pharmacy-Edit-Form-label">Description:</Form.Label>
               <Form.Control
                 className="pharmacy-Edit-Form-control"
                 as="textarea"
@@ -180,12 +177,13 @@ const PharmacyEdit = () => {
                 onChange={handleChange}
                 placeholder="Enter product description"
                 rows={3}
+                required
               />
             </Form.Group>
 
             {/* Image Upload */}
             <Form.Group className="pharmacy-Edit-Form">
-              <Form.Label className="pharmacy-Edit-Form-label">Product Image :</Form.Label>
+              <Form.Label className="pharmacy-Edit-Form-label">Product Image:</Form.Label>
               <Form.Control
                 className="pharmacy-Edit-Form-control"
                 type="file"
@@ -196,15 +194,15 @@ const PharmacyEdit = () => {
                 <div className="pharmacy-Edit-Form">
                   <img
                     src={imagePreview}
-                    alt="Product"
+                    alt="Product Preview"
                     className="img-thumbnail"
-                    style={{ maxWidth: '200px', maxHeight: '200px' }}
+                    style={{ maxWidth: '200px', maxHeight: '200px', marginTop: '10px' }}
                   />
                 </div>
               )}
             </Form.Group>
 
-            {/* Submit and Cancel Buttons */}
+            {/* Buttons */}
             <div className="pharmacy-Edit-Form-Btn-container">
               <Button
                 variant="secondary"
