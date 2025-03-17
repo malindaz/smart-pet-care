@@ -120,6 +120,22 @@ body {
   background-color: #0056b3;
 }
 
+/* Add to Cart Button */
+.pharmacy-Btn-buy-now {
+  background-color: #0ca82e;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 25px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin: 10px;
+  margin-top: 0;
+}
+
+.pharmacy-Btn-buy-now:hover {
+  background-color: #068330;
+}
+
 /* Horizontal Scrollable Row */
 .pharmacy-Row {
   display: flex;

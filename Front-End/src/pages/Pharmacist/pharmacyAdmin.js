@@ -134,7 +134,7 @@ const ProductCard = ({ product, handleEdit, handleDelete }) => {
         <Card.Body className="pharmacy-Card-body">
           <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
           <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
-          <Card.Text className="pharmacy-Price-text">Price: ${product.price}</Card.Text>
+          <Card.Text className="pharmacy-Price-text">Price: Rs.{product.price}</Card.Text>
           <div className="pharmacy-Btn-group">
             <Button variant="warning" className="pharmacy-Btn-edit" onClick={() => handleEdit(product)}>
               Edit
