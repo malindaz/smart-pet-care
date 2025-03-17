@@ -73,38 +73,29 @@ exports.getRecordsByPetId = async (req, res) => {
   }
 };
 
-// Create a new pet record
+
 exports.createRecord = async (req, res) => {
   try {
+    if (req.body.petId) {
+      delete req.body.petId;
+    }
+
     const record = await addrecords.create(req.body);
-    
+
+    console.log("Created Record:", record); // Debugging line
+
     res.status(201).json({
       success: true,
+      petId: record.petId,
       data: record
     });
   } catch (error) {
-    if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map(val => val.message);
-      
-      return res.status(400).json({
-        success: false,
-        error: messages
-      });
-    }
-    
-    if (error.code === 11000) {
-      return res.status(400).json({
-        success: false,
-        error: 'This pet ID already exists'
-      });
-    }
-    
-    res.status(500).json({
-      success: false,
-      error: 'Server Error'
-    });
+    console.error("Error creating record:", error); // Log error
+    res.status(500).json({ success: false, error: "Server Error" });
   }
 };
+
+
 
 // Update a pet record
 exports.updateRecord = async (req, res) => {

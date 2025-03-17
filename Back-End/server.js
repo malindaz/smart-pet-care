@@ -13,6 +13,11 @@ const userRoutes = require('./Routes/userRoutes');
 const appointmentRoutes = require('./Routes/appointmentRoutes');
 const addrecordsroute = require('./Routes/addrecordsroute');
 
+
+
+const addnewroute = require('./Routes/addnewroute');
+// Load environment variables
+
 dotenv.config();
 
 const app = express();
@@ -48,9 +53,16 @@ app.use('/api', limiter);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/pharmacy', pharmacyRoutes);
 app.use('/api/addrecords', addrecordsroute);
+
 app.use('/api/users', userRoutes); 
 
 // ✅ Development logging
+
+app.use('/api/pets', addnewroute);
+
+
+// Development logging
+
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
