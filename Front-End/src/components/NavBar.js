@@ -126,62 +126,69 @@ const NavBar = () => {
           </ul>
         </nav>
 
-        {/* User Profile Section */}
-        <div className="user-navbar-profile" onClick={(e) => e.stopPropagation()}>
-          {user ? (
-            <div className="user-navbar-user">
-              <div className="user-navbar-profile-icon" onClick={toggleProfileDropdown}>
-                {user.profileImage ? (
-                  <img src={user.profileImage} alt={user.username || 'User'} className="user-navbar-avatar" />
-                ) : (
-                  <div className="user-navbar-avatar-placeholder">
-                    {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
+        {/* User Profile Section with Become a Vet Button */}
+        <div className="user-navbar-user-section">
+          {/* Become a Vet button - visible for all users */}
+          <Link to="/apply-vet" className="user-navbar-become-vet-btn">
+            Become a Vet
+          </Link>
+          
+          <div className="user-navbar-profile" onClick={(e) => e.stopPropagation()}>
+            {user ? (
+              <div className="user-navbar-user">
+                <div className="user-navbar-profile-icon" onClick={toggleProfileDropdown}>
+                  {user.profileImage ? (
+                    <img src={user.profileImage} alt={user.username || 'User'} className="user-navbar-avatar" />
+                  ) : (
+                    <div className="user-navbar-avatar-placeholder">
+                      {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
+                    </div>
+                  )}
+                </div>
+                {isProfileDropdownOpen && (
+                  <div className="user-navbar-dropdown">
+                    <div className="user-navbar-dropdown-header">
+                      <span className="user-navbar-greeting">Hello, {user.username || 'User'}!</span>
+                      {/* <span className="user-navbar-email">{localStorage.getItem('userEmail')}</span> */}
+                    </div>
+                    <ul className="user-navbar-dropdown-menu">
+                      <li className="user-navbar-dropdown-item">
+                        <Link to="/profile" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
+                          <i className="fas fa-user"></i> My Profile
+                        </Link>
+                      </li>
+                      <li className="user-navbar-dropdown-item">
+                        <Link to="/pets" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
+                          <i className="fas fa-paw"></i> My Pets
+                        </Link>
+                      </li>
+                      <li className="user-navbar-dropdown-item">
+                        <Link to="/my-appointments" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
+                          <i className="fas fa-calendar-check"></i> My Appointments
+                        </Link>
+                      </li>
+                      <li className="user-navbar-dropdown-item">
+                        <Link to="/my-orders" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
+                          <i className="fas fa-shopping-bag"></i> My Orders
+                        </Link>
+                      </li>
+                      <li className="user-navbar-dropdown-divider"></li>
+                      <li className="user-navbar-dropdown-item">
+                        <button className="user-navbar-logout-btn" onClick={handleLogout}>
+                          <i className="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                      </li>
+                    </ul>
                   </div>
                 )}
               </div>
-              {isProfileDropdownOpen && (
-                <div className="user-navbar-dropdown">
-                  <div className="user-navbar-dropdown-header">
-                    <span className="user-navbar-greeting">Hello, {user.username || 'User'}!</span>
-                    {/* <span className="user-navbar-email">{localStorage.getItem('userEmail')}</span> */}
-                  </div>
-                  <ul className="user-navbar-dropdown-menu">
-                    <li className="user-navbar-dropdown-item">
-                      <Link to="/profile" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
-                        <i className="fas fa-user"></i> My Profile
-                      </Link>
-                    </li>
-                    <li className="user-navbar-dropdown-item">
-                      <Link to="/pets" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
-                        <i className="fas fa-paw"></i> My Pets
-                      </Link>
-                    </li>
-                    <li className="user-navbar-dropdown-item">
-                      <Link to="/my-appointments" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
-                        <i className="fas fa-calendar-check"></i> My Appointments
-                      </Link>
-                    </li>
-                    <li className="user-navbar-dropdown-item">
-                      <Link to="/my-orders" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
-                        <i className="fas fa-shopping-bag"></i> My Orders
-                      </Link>
-                    </li>
-                    <li className="user-navbar-dropdown-divider"></li>
-                    <li className="user-navbar-dropdown-item">
-                      <button className="user-navbar-logout-btn" onClick={handleLogout}>
-                        <i className="fas fa-sign-out-alt"></i> Logout
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="user-navbar-auth-buttons">
-              <Link to="/login" className="user-navbar-login-btn">Login</Link>
-              <Link to="/signup" className="user-navbar-signup-btn">Sign Up</Link>
-            </div>
-          )}
+            ) : (
+              <div className="user-navbar-auth-buttons">
+                <Link to="/login" className="user-navbar-login-btn">Login</Link>
+                <Link to="/register" className="user-navbar-signup-btn">Sign Up</Link>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Mobile menu button */}
@@ -203,6 +210,8 @@ const NavBar = () => {
           <li><Link to="/services" onClick={toggleMobileMenu}>Services</Link></li>
           <li><Link to="/contact" onClick={toggleMobileMenu}>Contact Us</Link></li>
           <li><Link to="/faq" onClick={toggleMobileMenu}>FAQ</Link></li>
+          {/* Become a Vet button in mobile menu - visible for all users */}
+          <li><Link to="/apply-vet" onClick={toggleMobileMenu}>Become a Vet</Link></li>
           {user && (
             <>
               <li className="user-navbar-mobile-divider"></li>
@@ -217,7 +226,7 @@ const NavBar = () => {
             <>
               <li className="user-navbar-mobile-divider"></li>
               <li><Link to="/login" onClick={toggleMobileMenu}>Login</Link></li>
-              <li><Link to="/signup" onClick={toggleMobileMenu}>Sign Up</Link></li>
+              <li><Link to="/register" onClick={toggleMobileMenu}>Sign Up</Link></li>
             </>
           )}
         </ul>
