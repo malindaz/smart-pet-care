@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser, getUserProfile, updateUserProfile, deleteUser } = require('../Controllers/userController');
+const { registerUser, loginUser, getUserProfile, updateUserProfile, deleteUser, logout } = require('../Controllers/userController');
 const { protect } = require('../Middleware/authMiddleware');
 const multer = require('multer');
 const path = require('path');
@@ -68,6 +68,8 @@ router.post('/login', loginUser);
 router.get('/profile', protect, getUserProfile);
 router.put('/profile', protect, upload.single('profileImage'),handleMulterError, processUploadedFile, updateUserProfile);
 router.delete('/profile', protect, deleteUser);
+
+router.post('/logout', protect, logout);
 
 // Add a route to serve profile images (as a fallback if static middleware isn't configured properly)
 router.get('/uploads/profiles/:filename', (req, res) => {

@@ -47,13 +47,17 @@ const Login = () => {
                         navigate('/admin-dashboard');
                         break;
                     case 2:
-                        navigate('/veterinarian-dashboard');
+                        navigate('/vet-dashboard');
                         break;
                     case 3:
                         navigate('/pharmacist-dashboard');
                         break;
                     default:
+<<<<<<< HEAD:Front-End/src/pages/Login.js
                         navigate('/profile');
+=======
+                        navigate('/');
+>>>>>>> fd996c29a7ef7cc397aa227374104db40752b723:Front-End/src/components/auth/Login.js
                         break;
                 }
             }
