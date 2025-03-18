@@ -16,11 +16,8 @@
     "express-fileupload": "^1.5.1",
     "firebase": "^11.4.0",
     "lucide-react": "^0.479.0",
-<<<<<<< HEAD
     "multer": "^1.4.5-lts.1",
-=======
     "mongoose": "^8.12.1",
->>>>>>> 9a4666bf2cb6c3293405ccbe984d235406a0dced
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^18.2.0",
