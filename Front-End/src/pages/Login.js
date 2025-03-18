@@ -4,7 +4,8 @@ import { toast } from 'react-toastify';
 import { CgSpinner } from "react-icons/cg";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import axios from 'axios';
-import '../../css/loginpage.css';
+import '../css/loginpage.css';
+import NavBar from "../components/NavBar";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -52,7 +53,11 @@ const Login = () => {
                         navigate('/pharmacist-dashboard');
                         break;
                     default:
+<<<<<<< HEAD:Front-End/src/pages/Login.js
+                        navigate('/profile');
+=======
                         navigate('/');
+>>>>>>> fd996c29a7ef7cc397aa227374104db40752b723:Front-End/src/components/auth/Login.js
                         break;
                 }
             }
@@ -65,6 +70,9 @@ const Login = () => {
     };
 
     return (
+        <div>
+            <NavBar />
+       
         <div className="loginpage-container">
             <div className="loginpage-card">
                 <div className="loginpage-card-left">
@@ -86,6 +94,7 @@ const Login = () => {
                     </div>
                     
                     <form className="loginpage-form" onSubmit={handleSubmit}>
+                        
                         <div className="loginpage-form-group">
                             <div className="loginpage-input-icon">
                                 <FaEnvelope />
@@ -105,6 +114,7 @@ const Login = () => {
                             <div className="loginpage-input-icon">
                                 <FaLock />
                             </div>
+
                             <input
                                 type="password"
                                 name="password"
@@ -129,11 +139,12 @@ const Login = () => {
                         </button>
                         
                         <div className="loginpage-register-link">
-                            Don't have an account? <Link to="/register">Register</Link>
+                            Don't have an account? <Link to="/signup">Register</Link>
                         </div>
                     </form>
                 </div>
             </div>
+        </div>
         </div>
     );
 };

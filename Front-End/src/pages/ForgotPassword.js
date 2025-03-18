@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from '../../firebase';
+import { auth } from '../firebase';
 import axios from 'axios';
-import '../../css/ForgotPassword.css';
+import '../css/ForgotPassword.css';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');

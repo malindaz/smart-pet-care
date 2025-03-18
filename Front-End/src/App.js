@@ -4,12 +4,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Import components from correct paths
-import Register from "./components/auth/Register";
-import Login from "./components/auth/Login";
-import ForgotPassword from './components/auth/ForgotPassword';
-import VerifyOTP from './components/auth/VerifyOTP';
-import ResetPassword from './components/auth/ResetPassword';
-import Profile from "./components/profile/Profile";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import ForgotPassword from './pages/ForgotPassword';
+import VerifyOTP from './pages/VerifyOTP';
+import ResetPassword from './pages/ResetPassword';
+import Profile from "./pages/Profile";
 
 // Import main pages
 import Home from "./pages/Home";
@@ -56,11 +56,16 @@ function App() {
           pauseOnHover
         />
         <Routes>
+<<<<<<< HEAD
+          {/* Public Routes */}
+          <Route path="/signup" element={<Register />} />
+=======
           
            {/*Main Routes  */}
 
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
+>>>>>>> fd996c29a7ef7cc397aa227374104db40752b723
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
