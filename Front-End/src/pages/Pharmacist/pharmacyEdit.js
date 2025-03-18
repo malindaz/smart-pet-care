@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Card } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import "../../css/Pharmacy/PharmacyEdit.css";
+import Footer from "../../components/Footer";
+import NavBar from "../../components/NavBar";
 
 const PharmacyEdit = () => {
   const location = useLocation();
@@ -107,122 +109,126 @@ const PharmacyEdit = () => {
   const handleCancel = () => navigate('/pharmacyAdmin');
 
   return (
-    <Container className="pharmacy-Edit-Form-Container">
-      <h1 className="pharmacy-Edit-Form-Form-h1">
-        {editMode ? 'Edit Product' : 'Add New Product'}
-      </h1>
+    <>
+      <NavBar />
+      <Container className="pharmacy-Edit-Form-Container">
+        <h1 className="pharmacy-Edit-Form-Form-h1">
+          {editMode ? 'Edit Product' : 'Add New Product'}
+        </h1>
 
-      <Card className="pharmacy-Edit-Form-Form-Card">
-        <Card.Body>
-          <Form onSubmit={handleSubmit}>
-            {/* Category Selection */}
-            <Form.Group className="pharmacy-Edit-Form">
-              <Form.Label className="pharmacy-Edit-Form-label">Category:</Form.Label>
-              <Form.Select
-                className="pharmacy-Edit-Form-select"
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                required
-              >
-                <option value="" disabled hidden>
-                  Choose Category
-                </option>
-                <option value="Prescription Medications">Prescription Medications</option>
-                <option value="OTC Medications & Supplements">OTC Medications & Supplements</option>
-                <option value="Grooming & Hygiene">Grooming & Hygiene</option>
-                <option value="Pet Food & Specialized Diets">Pet Food & Specialized Diets</option>
-                <option value="First Aid & Wound Care">First Aid & Wound Care</option>
-              </Form.Select>
-            </Form.Group>
+        <Card className="pharmacy-Edit-Form-Form-Card">
+          <Card.Body>
+            <Form onSubmit={handleSubmit}>
+              {/* Category Selection */}
+              <Form.Group className="pharmacy-Edit-Form">
+                <Form.Label className="pharmacy-Edit-Form-label">Category:</Form.Label>
+                <Form.Select
+                  className="pharmacy-Edit-Form-select"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled hidden>
+                    Choose Category
+                  </option>
+                  <option value="Prescription Medications">Prescription Medications</option>
+                  <option value="OTC Medications & Supplements">OTC Medications & Supplements</option>
+                  <option value="Grooming & Hygiene">Grooming & Hygiene</option>
+                  <option value="Pet Food & Specialized Diets">Pet Food & Specialized Diets</option>
+                  <option value="First Aid & Wound Care">First Aid & Wound Care</option>
+                </Form.Select>
+              </Form.Group>
 
-            {/* Product Name */}
-            <Form.Group className="pharmacy-Edit-Form">
-              <Form.Label className="pharmacy-Edit-Form-label">Product Name:</Form.Label>
-              <Form.Control
-                className="pharmacy-Edit-Form-control"
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Enter product name"
-                required
-              />
-            </Form.Group>
+              {/* Product Name */}
+              <Form.Group className="pharmacy-Edit-Form">
+                <Form.Label className="pharmacy-Edit-Form-label">Product Name:</Form.Label>
+                <Form.Control
+                  className="pharmacy-Edit-Form-control"
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Enter product name"
+                  required
+                />
+              </Form.Group>
 
-            {/* Price */}
-            <Form.Group className="pharmacy-Edit-Form">
-              <Form.Label className="pharmacy-Edit-Form-label">Price (Rs):</Form.Label>
-              <Form.Control
-                className="pharmacy-Edit-Form-control"
-                type="number"
-                name="price"
-                value={formData.price}
-                onChange={handleChange}
-                placeholder="Enter price"
-                step="0.01"
-                min="0"
-                required
-              />
-            </Form.Group>
+              {/* Price */}
+              <Form.Group className="pharmacy-Edit-Form">
+                <Form.Label className="pharmacy-Edit-Form-label">Price (Rs):</Form.Label>
+                <Form.Control
+                  className="pharmacy-Edit-Form-control"
+                  type="number"
+                  name="price"
+                  value={formData.price}
+                  onChange={handleChange}
+                  placeholder="Enter price"
+                  step="0.01"
+                  min="0"
+                  required
+                />
+              </Form.Group>
 
-            {/* Description */}
-            <Form.Group className="pharmacy-Edit-Form">
-              <Form.Label className="pharmacy-Edit-Form-label">Description:</Form.Label>
-              <Form.Control
-                className="pharmacy-Edit-Form-control"
-                as="textarea"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="Enter product description"
-                rows={3}
-                required
-              />
-            </Form.Group>
+              {/* Description */}
+              <Form.Group className="pharmacy-Edit-Form">
+                <Form.Label className="pharmacy-Edit-Form-label">Description:</Form.Label>
+                <Form.Control
+                  className="pharmacy-Edit-Form-control"
+                  as="textarea"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Enter product description"
+                  rows={3}
+                  required
+                />
+              </Form.Group>
 
-            {/* Image Upload */}
-            <Form.Group className="pharmacy-Edit-Form">
-              <Form.Label className="pharmacy-Edit-Form-label">Product Image:</Form.Label>
-              <Form.Control
-                className="pharmacy-Edit-Form-control"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
-              {imagePreview && (
-                <div className="pharmacy-Edit-Form">
-                  <img
-                    src={imagePreview}
-                    alt="Product Preview"
-                    className="pharmacy-Edit-Form img-thumbnail"
-                    style={{ maxWidth: '200px', maxHeight: '200px', marginTop: '10px' }}
-                  />
-                </div>
-              )}
-            </Form.Group>
+              {/* Image Upload */}
+              <Form.Group className="pharmacy-Edit-Form">
+                <Form.Label className="pharmacy-Edit-Form-label">Product Image:</Form.Label>
+                <Form.Control
+                  className="pharmacy-Edit-Form-control"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
+                {imagePreview && (
+                  <div className="pharmacy-Edit-Form">
+                    <img
+                      src={imagePreview}
+                      alt="Product Preview"
+                      className="pharmacy-Edit-Form img-thumbnail"
+                      style={{ maxWidth: '200px', maxHeight: '200px', marginTop: '10px' }}
+                    />
+                  </div>
+                )}
+              </Form.Group>
 
-            {/* Buttons */}
-            <div className="pharmacy-Edit-Form-Btn-container">
-              <Button
-                variant="secondary"
-                onClick={handleCancel}
-                className="pharmacy-Edit-Form-Btn-cancel"
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="primary"
-                type="submit"
-                className="pharmacy-Edit-Form-Btn-save"
-              >
-                {editMode ? 'Update Product' : 'Add Product'}
-              </Button>
-            </div>
-          </Form>
-        </Card.Body>
-      </Card>
-    </Container>
+              {/* Buttons */}
+              <div className="pharmacy-Edit-Form-Btn-container">
+                <Button
+                  variant="secondary"
+                  onClick={handleCancel}
+                  className="pharmacy-Edit-Form-Btn-cancel"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="pharmacy-Edit-Form-Btn-save"
+                >
+                  {editMode ? 'Update Product' : 'Add Product'}
+                </Button>
+              </div>
+            </Form>
+          </Card.Body>
+        </Card>
+      </Container>
+      <Footer/>
+    </>
   );
 };
 

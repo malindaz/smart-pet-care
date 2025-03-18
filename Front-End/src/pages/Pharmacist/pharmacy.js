@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../Shoping Cart/cartContext";
 import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 import "../../css/Pharmacy/pharmacy.css";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
 
   useEffect(() => {
     fetchProducts();
@@ -24,9 +27,9 @@ const ProductList = () => {
   };
 
   const getImageSrc = (image) => {
-    if (!image) return "/placeholder-image.png"; // Fallback image
+    if (!image) return "/placeholder-image.png";
     if (image.startsWith("http") || image.startsWith("data:image")) return image;
-    return `http://localhost:5000${image}`; // Ensure proper URL
+    return `http://localhost:5000${image}`;
   };
 
   const filteredProducts = products.filter((product) =>
@@ -86,7 +89,13 @@ const ProductList = () => {
                           <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
                           <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
                           <Card.Text className="pharmacy-Price-text">Rs. {product.price}</Card.Text>
-                          <Button variant="primary" className="pharmacy-Btn-primary">Add to Cart</Button>
+                          <Button 
+                            variant="primary" 
+                            className="pharmacy-Btn-primary" 
+                            onClick={() => addToCart(product)}
+                          >
+                            Add to Cart
+                          </Button>
                           <Button 
                             variant="success" 
                             className="pharmacy-Btn-buy-now mt-2" 
@@ -105,6 +114,7 @@ const ProductList = () => {
           )
         )}
       </Container>
+      <Footer/>
     </>
   );
 };

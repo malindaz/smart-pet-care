@@ -3,6 +3,8 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../css/Pharmacy/pharmacyAdmin.css";
+import Footer from "../../components/Footer";
+import NavBar from "../../components/NavBar";
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -66,45 +68,49 @@ const ProductList = () => {
   };
 
   return (
-    <Container className="pharmacy-Container">
-      <h1 className="pharmacy-h1">Pharmacy Admin Panel</h1>
+    <>
+      <NavBar />
+      <Container className="pharmacy-Container">
+        <h1 className="pharmacy-h1">Pharmacy Admin Panel</h1>
 
-      {/* Search and Add New */}
-      <div className="pharmacy-Header-controls">
-        <Button variant="success" className="pharmacy-Add-btn" onClick={handleAddNew}>
-          Add New Product
-        </Button>
-        <div className="pharmacy-Search-bar">
-          <input
-            type="text"
-            placeholder="Search"
-            className="pharmacy-Form-control"
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+        {/* Search and Add New */}
+        <div className="pharmacy-Header-controls">
+          <Button variant="success" className="pharmacy-Add-btn" onClick={handleAddNew}>
+            Add New Product
+          </Button>
+          <div className="pharmacy-Search-bar">
+            <input
+              type="text"
+              placeholder="Search"
+              className="pharmacy-Form-control"
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
-      </div>
 
-      {/* No items found */}
-      {filteredProducts.length === 0 ? (
-        <div className="pharmacy-no-items-found">
-          <h3>No Items Found</h3>
-        </div>
-      ) : (
-        Object.entries(categories).map(([category, items]) =>
-          items.length > 0 && (
-            <div key={category}>
-              <h2 className="pharmacy-Medications-title">{category}</h2>
-              <Row className="pharmacy-Row">
-                {items.map((product) => (
-                  <ProductCard key={product._id} product={product} handleEdit={handleEdit} handleDelete={handleDelete} />
-                ))}
-              </Row>
-              <hr className="pharmacy-hr" />
-            </div>
+        {/* No items found */}
+        {filteredProducts.length === 0 ? (
+          <div className="pharmacy-no-items-found">
+            <h3>No Items Found</h3>
+          </div>
+        ) : (
+          Object.entries(categories).map(([category, items]) =>
+            items.length > 0 && (
+              <div key={category}>
+                <h2 className="pharmacy-Medications-title">{category}</h2>
+                <Row className="pharmacy-Row">
+                  {items.map((product) => (
+                    <ProductCard key={product._id} product={product} handleEdit={handleEdit} handleDelete={handleDelete} />
+                  ))}
+                </Row>
+                <hr className="pharmacy-hr" />
+              </div>
+            )
           )
-        )
-      )}
-    </Container>
+        )}
+      </Container>
+      <Footer/>
+    </>
   );
 };
 
