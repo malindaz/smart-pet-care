@@ -6,7 +6,13 @@ const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const path = require('path');
 const { connectDB } = require('./utils/db');
+
 const bodyParser = require('body-parser');
+
+const fileUpload = require('express-fileupload');
+
+
+
 
 const pharmacyRoutes = require('./Routes/pharmacyRoutes');
 const userRoutes = require('./Routes/userRoutes');
@@ -15,7 +21,12 @@ const addrecordsroute = require('./Routes/addrecordsroute');
 
 
 
+
+const veterinarianRoutes = require('./Routes/veterinarianRoutes');
+
+
 const addnewroute = require('./Routes/addnewroute');
+
 // Load environment variables
 
 dotenv.config();
@@ -38,8 +49,19 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 // ✅ Security middleware
 app.use(helmet());
+
+app.use(fileUpload({
+  createParentPath: true,
+  limits: { 
+    fileSize: 5 * 1024 * 1024 // 5MB limit
+  },
+}));
+// Serve static files from uploads directory
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+
 
 // ✅ Rate limiting
 const limiter = rateLimit({
@@ -54,11 +76,15 @@ app.use('/api/appointments', appointmentRoutes);
 app.use('/api/pharmacy', pharmacyRoutes);
 app.use('/api/addrecords', addrecordsroute);
 
+
 app.use('/api/users', userRoutes); 
 
 // ✅ Development logging
+app.use('/api/veterinarians', veterinarianRoutes);
+
 
 app.use('/api/pets', addnewroute);
+
 
 
 // Development logging

@@ -1,4 +1,3 @@
-
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
@@ -17,6 +16,8 @@ const generateToken = (id) => {
 const registerUser = async (req, res) => {
     try {
         const { username, firstName, lastName, email, phoneNumber, password, address} = req.body;
+
+        const userLevel = 4; // Default to normal user
         
         // Check if user already exists
         const userExists = await User.findOne({ $or: [{ email }, { username }, { phoneNumber }] });
@@ -45,7 +46,7 @@ const registerUser = async (req, res) => {
             phoneNumber,
             password,
             address,
-            userLevel: 4 // Default to normal user
+            userLevel
         };
         
         // Add profile image if uploaded
@@ -148,6 +149,118 @@ const getUserProfile = async (req, res) => {
     }
 };
 
+
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+const updateUserProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        
+        // Update user fields if provided
+        user.firstName = req.body.firstName || user.firstName;
+        user.lastName = req.body.lastName || user.lastName;
+        user.email = req.body.email || user.email;
+        user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+        user.address = req.body.address || user.address;
+        
+        // Update password if provided
+        // if (req.body.password) {
+        //     user.password = req.body.password;
+        // }
+        
+        // Handle profile image update
+        if (req.file) {
+            // Delete old profile image if exists
+            if (user.profileImage) {
+                try {
+                    const oldImagePath = path.join(__dirname, '../public', user.profileImage);
+                    if (fs.existsSync(oldImagePath)) {
+                        fs.unlinkSync(oldImagePath);
+                    }
+                } catch (err) {
+                    console.error('Error deleting old profile image:', err);
+                }
+            }
+            
+            // Set new profile image path
+            user.profileImage = `/uploads/profiles/${req.file.filename}`;
+        }
+        
+        // Save updated user
+        const updatedUser = await user.save();
+        
+        // Exclude password from response
+        const userData = {
+            _id: updatedUser._id,
+            username: updatedUser.username,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
+            email: updatedUser.email,
+            phoneNumber: updatedUser.phoneNumber,
+            address: updatedUser.address,
+            profileImage: updatedUser.profileImage,
+            userLevel: updatedUser.userLevel
+        };
+        
+        res.json({
+            success: true,
+            message: 'Profile updated successfully',
+            user: userData
+        });
+    } catch (error) {
+        console.error('Profile update error:', error);
+        
+        // Handle duplicate key errors
+        if (error.code === 11000) {
+            const field = Object.keys(error.keyPattern)[0];
+            return res.status(400).json({ 
+                success: false, 
+                message: `${field.charAt(0).toUpperCase() + field.slice(1)} already taken` 
+            });
+        }
+        
+        res.status(500).json({ success: false, message: 'Server error updating profile' });
+    }
+};
+
+// @desc    Delete user account
+// @route   DELETE /api/users/profile
+// @access  Private
+const deleteUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        
+        // Delete profile image if exists
+        if (user.profileImage) {
+            try {
+                const imagePath = path.join(__dirname, '../public', user.profileImage);
+                if (fs.existsSync(imagePath)) {
+                    fs.unlinkSync(imagePath);
+                }
+            } catch (err) {
+                console.error('Error deleting profile image:', err);
+            }
+        }
+        
+        // Delete user from database
+        await User.deleteOne({ _id: user._id });
+        
+        res.json({ success: true, message: 'Account deleted successfully' });
+    } catch (error) {
+        console.error('Account deletion error:', error);
+        res.status(500).json({ success: false, message: 'Server error deleting account' });
+    }
+};
+
 const logout = async (req, res) => {
     try {
       // If you're using sessions or have a token blacklist
@@ -166,10 +279,14 @@ const logout = async (req, res) => {
     }
   };
 
+
 module.exports = {
     registerUser,
     loginUser,
     getUserProfile,
+    updateUserProfile,
+    deleteUser,
     logout
 };
+
 
