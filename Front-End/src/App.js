@@ -56,16 +56,15 @@ function App() {
           pauseOnHover
         />
         <Routes>
-<<<<<<< HEAD
+
           {/* Public Routes */}
           <Route path="/signup" element={<Register />} />
-=======
+
           
            {/*Main Routes  */}
 
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
->>>>>>> fd996c29a7ef7cc397aa227374104db40752b723
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
