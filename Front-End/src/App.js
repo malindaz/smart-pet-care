@@ -26,7 +26,7 @@ import ApplyVet from "./pages/User/applyvet";
 import MyPets from "./pages/User/mypets";
 import AddRecord from "./pages/User/addrecord";
 import AddNewPet from "./pages/User/addnewpet";
-
+import EditPetDetails from "./pages/User/editpetdetails";
 //import Admin pages
 
 //import Veterinarian pages
@@ -80,7 +80,7 @@ function App() {
           <Route path="/mypets" element={<MyPets />} />
           <Route path="/addrecord" element={<AddRecord />} />
           <Route path="/addnewpet" element={<AddNewPet />} />
-
+          <Route path="/editpetdetails/:id" element={<EditPetDetails />} />
 
 
           {/*Add Veterinarian Routes Here*/ }
