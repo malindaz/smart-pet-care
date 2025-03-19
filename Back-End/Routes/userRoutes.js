@@ -28,7 +28,10 @@ const storage = multer.diskStorage({
 // Create multer upload instance
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+    limits: { 
+        fileSize: 5 * 1024 * 1024, // 5MB limit
+        files: 1 // Only allow one file
+    },
     fileFilter: function(req, file, cb) {
         // Accept images only
         if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
@@ -36,39 +39,48 @@ const upload = multer({
         }
         cb(null, true);
     }
-});
+}).single('profileImage');
+
+// Middleware to handle multer upload
+const handleUpload = (req, res, next) => {
+    upload(req, res, function(err) {
+        if (err instanceof multer.MulterError) {
+            if (err.code === 'LIMIT_FILE_SIZE') {
+                return res.status(400).json({ 
+                    success: false, 
+                    message: 'File size too large. Maximum size is 5MB.' 
+                });
+            }
+            return res.status(400).json({ 
+                success: false, 
+                message: err.message 
+            });
+        } else if (err) {
+            return res.status(400).json({ 
+                success: false, 
+                message: err.message 
+            });
+        }
+        next();
+    });
+};
 
 // Middleware to process uploaded files and modify the path for DB storage
 const processUploadedFile = (req, res, next) => {
     if (req.file) {
         // Convert the absolute path to a relative path for storage in DB
-        // Extract just the relative path from public folder
         const relativePath = '/uploads/profiles/' + path.basename(req.file.path);
         req.file.storagePath = relativePath;
     }
     next();
 };
 
-// Add error handling middleware for multer
-const handleMulterError = (err, req, res, next) => {
-    if (err instanceof multer.MulterError) {
-        if (err.code === 'LIMIT_FILE_SIZE') {
-            return res.status(400).json({ 
-                success: false, 
-                message: 'File size too large. Maximum size is 5MB.' 
-            });
-        }
-    }
-    next(err);
-};
-
 // Routes
-router.post('/register', upload.single('profileImage'),handleMulterError, processUploadedFile, registerUser);
+router.post('/register', handleUpload, processUploadedFile, registerUser);
 router.post('/login', loginUser);
 router.get('/profile', protect, getUserProfile);
-router.put('/profile', protect, upload.single('profileImage'),handleMulterError, processUploadedFile, updateUserProfile);
+router.put('/profile', protect, handleUpload, processUploadedFile, updateUserProfile);
 router.delete('/profile', protect, deleteUser);
-
 router.post('/logout', protect, logout);
 
 // Add a route to serve profile images (as a fallback if static middleware isn't configured properly)
