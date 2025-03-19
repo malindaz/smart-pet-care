@@ -32,6 +32,17 @@ const AppointmentForm = () => {
     "Emergency Care"
   ];
 
+  // Get user's email from localStorage when component mounts
+  useEffect(() => {
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+      setFormData(prevData => ({
+        ...prevData,
+        email: userEmail
+      }));
+    }
+  }, []);
+
   // Fetch available times when date changes
   useEffect(() => {
     if (formData.date) {
@@ -121,12 +132,13 @@ const AppointmentForm = () => {
         type: 'success' 
       });
       
-      // Reset form
+      // Reset form but keep email
+      const userEmail = formData.email;
       setFormData({
         petName: '',
         petType: '',
         ownerName: '',
-        email: '',
+        email: userEmail, // Keep the email
         phone: '',
         date: '',
         time: '',
@@ -322,8 +334,10 @@ const AppointmentForm = () => {
                   id="email"
                   name="email"
                   value={formData.email}
+                  disabled
                   onChange={handleChange}
                   className={`book-appointment-input ${errors.email ? 'error' : ''}`}
+                  readOnly={!!localStorage.getItem('email')}
                 />
                 {errors.email && <p className="book-appointment-error-text">{errors.email}</p>}
               </div>

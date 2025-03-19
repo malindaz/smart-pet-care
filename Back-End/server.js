@@ -14,10 +14,9 @@ const pharmacyRoutes = require('./Routes/pharmacyRoutes');
 const userRoutes = require('./Routes/userRoutes');
 const appointmentRoutes = require('./Routes/appointmentRoutes');
 const addrecordsroute = require('./Routes/addrecordsroute');
-
 const veterinarianRoutes = require('./Routes/veterinarianRoutes');
-
 const addnewroute = require('./Routes/addnewroute');
+const adminRoutes = require('./Routes/adminRoutes');
 
 // Load environment variables
 dotenv.config();
@@ -64,11 +63,9 @@ app.use('/api', limiter);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/pharmacy', pharmacyRoutes);
 app.use('/api/addrecords', addrecordsroute);
-
 app.use('/api/veterinarians', veterinarianRoutes);
-
 app.use('/api/pets', addnewroute);
-
+app.use('/api/admin', adminRoutes);
 
 
 // Development logging
