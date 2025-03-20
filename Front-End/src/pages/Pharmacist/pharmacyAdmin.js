@@ -11,10 +11,15 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  
+
   // Fetch products from backend
   useEffect(() => {
     fetchProducts();
+  }, []);
+
+  // Scroll to top when this component loads
+  useEffect(() => {
+    window.scrollTo(0, 0);
   }, []);
 
   const fetchProducts = async () => {
@@ -110,7 +115,7 @@ const ProductList = () => {
           )
         )}
       </Container>
-      <Footer/>
+      <Footer />
     </>
   );
 };
