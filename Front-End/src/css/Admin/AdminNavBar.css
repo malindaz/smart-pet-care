@@ -1,35 +1,21 @@
 /* AdminNavBar.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-:root {
-  --primary-color: #4a7aff;
-  --primary-dark: #3a67e0;
-  --secondary-color: #ff6b6b;
-  --admin-accent: #6a26cd;
-  --admin-accent-dark: #5a1eb0;
-  --text-color: #333;
-  --text-light: #777;
-  --background-light: #ffffff;
-  --background-gray: #f9f9f9;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --transition: all 0.3s ease;
-}
-
 .admin-navbar-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: var(--background-light);
+  background-color: #ffffff;
   z-index: 1000;
   padding: 0.5rem 0;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   font-family: 'Poppins', sans-serif;
 }
 
 .admin-navbar-scrolled {
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
 }
@@ -64,17 +50,17 @@
 .admin-navbar-logo-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-color);
+  color: #333;
 }
 
 .admin-navbar-plus {
-  color: var(--primary-color);
+  color: #40E0D0;
 }
 
 .admin-navbar-admin-text {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--admin-accent);
+  color: #6a26cd;
   margin-left: 5px;
 }
 
@@ -99,16 +85,16 @@
 .admin-navbar-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: var(--text-color);
+  color: #333;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   border-radius: 4px;
 }
 
 .admin-navbar-link:hover {
-  color: var(--admin-accent);
+  color: #6a26cd;
   background-color: rgba(106, 38, 205, 0.05);
 }
 
@@ -134,7 +120,7 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--admin-accent);
+  border: 2px solid #6a26cd;
 }
 
 .admin-navbar-avatar-placeholder {
@@ -144,7 +130,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: var(--admin-accent);
+  background-color: #6a26cd;
   color: white;
   font-weight: 600;
   font-size: 1.2rem;
@@ -156,9 +142,9 @@
   top: 100%;
   right: 0;
   width: 220px;
-  background-color: var(--background-light);
+  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-top: 0.5rem;
   overflow: hidden;
   z-index: 100;
@@ -179,13 +165,13 @@
 .admin-navbar-dropdown-header {
   padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  background-color: var(--background-gray);
+  background-color: #f9f9f9;
 }
 
 .admin-navbar-greeting {
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--text-color);
+  color: #333;
 }
 
 .admin-navbar-dropdown-menu {
@@ -196,24 +182,24 @@
 
 .admin-navbar-dropdown-item {
   padding: 0;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .admin-navbar-dropdown-link {
   display: flex;
   align-items: center;
   padding: 0.75rem 1rem;
-  color: var(--text-color);
+  color: #333;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .admin-navbar-dropdown-link i {
   margin-right: 0.75rem;
   font-size: 1rem;
   width: 20px;
-  color: var(--admin-accent);
+  color: #6a26cd;
 }
 
 .admin-navbar-dropdown-link:hover {
@@ -237,8 +223,8 @@
   font-family: inherit;
   font-size: 0.9rem;
   text-align: left;
-  color: var(--secondary-color);
-  transition: var(--transition);
+  color: #ff6b6b;
+  transition: all 0.3s ease;
 }
 
 .admin-navbar-logout-btn i {
@@ -259,14 +245,14 @@
 
 .admin-navbar-login-btn {
   padding: 0.5rem 1rem;
-  color: var(--admin-accent);
+  color: #6a26cd;
   background-color: transparent;
-  border: 1px solid var(--admin-accent);
+  border: 1px solid #6a26cd;
   border-radius: 4px;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .admin-navbar-login-btn:hover {
@@ -291,8 +277,8 @@
   display: block;
   height: 2px;
   width: 100%;
-  background-color: var(--text-color);
-  transition: var(--transition);
+  background-color: #333;
+  transition: all 0.3s ease;
 }
 
 .admin-navbar-hamburger.admin-navbar-active span:nth-child(1) {
@@ -310,8 +296,8 @@
 /* Mobile Menu */
 .admin-navbar-mobile-menu {
   display: none;
-  background-color: var(--background-light);
-  box-shadow: var(--shadow);
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease;
@@ -328,17 +314,17 @@
 }
 
 .admin-navbar-mobile-links a {
-  color: var(--text-color);
+  color: #333;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
   display: block;
   padding: 0.5rem 0;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .admin-navbar-mobile-links a:hover {
-  color: var(--admin-accent);
+  color: #6a26cd;
 }
 
 .admin-navbar-mobile-divider {
@@ -355,7 +341,7 @@
   font-family: inherit;
   font-size: 1rem;
   font-weight: 500;
-  color: var(--secondary-color);
+  color: #ff6b6b;
   padding: 0.5rem 0;
   cursor: pointer;
 }
