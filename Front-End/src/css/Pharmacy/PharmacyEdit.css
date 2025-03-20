@@ -6,6 +6,7 @@
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
 }
 
 /* Form title */
@@ -18,13 +19,22 @@
 }
 
 /* Form fields */
+
+.pharmacy-Edit-Form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: 500;
+}
+
 .pharmacy-Edit-Form-control,
 .pharmacy-Edit-Form-select {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  margin-bottom: 15px;
+  margin-bottom: 0.5rem;
   font-size: 1rem;
   transition: border 0.3s;
 }
@@ -36,38 +46,61 @@
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
 }
 
+.pharmacy-Edit-Form-category,
+.pharmacy-Edit-Form-name,
+.pharmacy-Edit-Form-price,
+.pharmacy-Edit-Form-image {
+  width: 300px;
+}
+
+.pharmacy-Edit-Form-description {
+  width: 400px;
+}
+
 /* Validation styles */
+/* Updated Validation Styles */
+.pharmacy-Edit-Form {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+/* Validation messages - Fixed positioning */
+.invalid-feedback {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #dc3545;
+  position: static; /* Add this */
+  transform: translateY(-20px); /* Lift messages closer */
+}
+
 .pharmacy-Edit-Form-control.is-invalid,
 .pharmacy-Edit-Form-select.is-invalid {
   border-color: #dc3545;
-  padding-right: calc(1.5em + 0.75rem);
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+  padding-right: 2.25rem;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
-  background-position: right calc(0.375em + 0.1875rem) center;
-  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  background-position: right 0.75rem center;
+  background-size: 1.25rem 1.25rem;
 }
 
+/* Remove focus shadow for invalid inputs */
 .pharmacy-Edit-Form-control.is-invalid:focus,
 .pharmacy-Edit-Form-select.is-invalid:focus {
-  border-color: #dc3545;
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  border-color: #dc3545;
 }
 
-.invalid-feedback {
-  display: block;
-  width: 100%;
-  margin-top: -0.75rem;
-  margin-bottom: 1rem;
-  font-size: 0.875em;
-  color: #dc3545;
+/* Image Upload Error State */
+.pharmacy-Edit-Form .form-control-file.is-invalid {
+  border-color: #dc3545;
+  padding: 0.75rem;
+  border-radius: 8px;
 }
 
-/* Custom validation message */
-.pharmacy-Edit-Form-error {
-  color: #dc3545;
-  font-size: 0.875rem;
-  margin-top: -0.75rem;
-  margin-bottom: 1rem;
+/* Error Message Alignment */
+.pharmacy-Edit-Form .form-text.text-muted {
+  margin-top: 0.5rem;
   display: block;
 }
 
@@ -189,7 +222,9 @@
 }
 
 @keyframes spinner-border {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Mobile responsiveness */
@@ -198,13 +233,14 @@
     max-width: 90%;
     padding: 1.5rem;
   }
-  
+
   .pharmacy-Edit-Form-Btn-container {
     flex-direction: column;
     align-items: center;
   }
 
-  .pharmacy-Edit-Form-Btn-save, .pharmacy-Edit-Form-Btn-cancel {
+  .pharmacy-Edit-Form-Btn-save,
+  .pharmacy-Edit-Form-Btn-cancel {
     width: 100%;
   }
 }

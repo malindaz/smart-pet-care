@@ -1,9 +1,10 @@
+/* Main container for the pharmacy page */
 .pharmacy-Container {
   margin-bottom: 20px;
   margin-top: 110px;
 }
 
-/* Title */
+/* Title Styling */
 .pharmacy-h1 {
   font-weight: bold;
   color: #007bff;
@@ -11,14 +12,15 @@
   margin-top: 20px;
 }
 
-/* Search Bar */
+/* Search Bar Container */
 .pharmacy-Search-bar {
   display: flex;
-  justify-content: flex-end; /* Align to the right */
-  align-items: flex-start;  /* Align vertically */
+  justify-content: flex-end; /* Aligns search bar to the right */
+  align-items: flex-start;  /* Aligns vertically */
   margin-top: 20px;
 }
 
+/* Search Input Field */
 .pharmacy-Form-control {
   max-width: 250px;
   margin-top: 20px;
@@ -27,50 +29,66 @@
   border-radius: 25px;
   padding: 10px;
   font-size: 16px;
-  border: 2px solid #000000;
+  border: 2px solid #007bff !important;
   text-align: left;
   position: relative;
-  flex-grow: 1; /* Allow the search bar to grow */
+  flex-grow: 1; /* Allows the search bar to expand */
 }
 
-/* Card Styling */
+/* Change placeholder text color */
+.pharmacy-Form-control::placeholder {
+  color: #2c84d7 !important;
+  opacity: 1; /* Ensures full visibility */
+}
+
+.pharmacy-Form-control:focus {
+  background-color: #ffffff !important; /* White background */
+  border-color: #0056b3 !important; /* Darker blue border */
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue glow effect */
+}
+
+/* Product Card Styling */
 .pharmacy-Card {
   min-width: 250px;
   margin-right: 20px;
   margin-left: 20px;
   margin-bottom: 10px;
   margin-top: 10px;
-  flex-shrink: 0; /* Prevent card from shrinking */
-  border: 2px solid #007bff;  /* Border color and width */
-  border-radius: 10px;  /* Optional: Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  flex-shrink: 0; /* Prevents card from shrinking */
+  border: 2px solid #007bff; /* Adds blue border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
   transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
 
-/* Add this hover effect */
+/* Card Hover Effect */
 .pharmacy-Card:hover {
-  transform: scale(1.05); /* Makes the card 5% larger */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow for "lifted" effect */
-  z-index: 1; /* Ensures the card appears above others when scaled */
+  transform: scale(1.05); /* Enlarges card on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow for pop effect */
+  z-index: 1; /* Ensures the hovered card appears above others */
 }
 
+/* Card Image Container */
 .pharmacy-Card-img-container {
-  height: 200px; /* Set your desired height */
+  height: 200px; /* Defines fixed height */
   display: flex;
   align-items: center;
-  justify-content: center; /* Centers horizontally */
+  justify-content: center; /* Centers image horizontally */
   overflow: hidden;
   padding: 10px;
+  margin-top: 5px;
 }
 
+/* Product Image Styling */
 .pharmacy-Card-img-scale {
-  max-height: 200px; /* Maximum height for the image */
-  object-fit: contain;
+  max-height: 200px; /* Restricts image height */
+  object-fit: contain; /* Ensures full visibility without stretching */
   display: block;
-  margin: 0 auto; /* Additional horizontal centering */
+  margin: 0 auto; /* Centers image horizontally */
 }
 
-/* Card Body */
+/* Card Body Content */
 .pharmacy-Card-body {
   text-align: center;
   display: flex;
@@ -78,7 +96,7 @@
   justify-content: space-between;
 }
 
-/* Product Name */
+/* Product Title */
 .pharmacy-Card-title {
   font-weight: bold;
   color: #333;
@@ -88,17 +106,19 @@
 .pharmacy-Card-text {
   font-size: 14px;
   color: #555;
+  margin-bottom: 3px;
 }
 
-/* Price */
+/* Product Price Styling */
 .pharmacy-Price-text {
   color: #28a745;
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 6px !important;
+  margin-top: 3px !important;
 }
 
-/* Add to Cart Button */
+/* "Add to Cart" Button */
 .pharmacy-Btn-primary {
   background-color: #007bff;
   border: none;
@@ -110,11 +130,12 @@
   margin-top: 0;
 }
 
+/* Button Hover Effect */
 .pharmacy-Btn-primary:hover {
   background-color: #0056b3;
 }
 
-/* Add to Cart Button */
+/* "Buy Now" Button */
 .pharmacy-Btn-buy-now {
   background-color: #0ca82e;
   border: none;
@@ -126,63 +147,65 @@
   margin-top: 0;
 }
 
+/* Button Hover Effect */
 .pharmacy-Btn-buy-now:hover {
   background-color: #068330;
 }
 
-/* Horizontal Scrollable Row */
+/* Scrollable Product List Row */
 .pharmacy-Row {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto;
+  overflow-x: auto; /* Enables horizontal scrolling */
   padding-bottom: 10px;
   margin-left: 10px;
   margin-right: 10px;
   position: relative;
 }
 
-/* Optionally: Adding a custom scrollbar style */
+/* Custom Scrollbar Styling */
 .pharmacy-Row::-webkit-scrollbar {
-  height: 8px;
+  height: 8px; /* Sets scrollbar height */
 }
 
 .pharmacy-Row::-webkit-scrollbar-thumb {
-  background: #007bff;
+  background: #007bff; /* Scrollbar color */
   border-radius: 5px;
 }
 
 .pharmacy-Row::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #f1f1f1; /* Scrollbar track color */
 }
 
-/* Responsive */
+/* Responsive Design for Smaller Screens */
 @media (max-width: 768px) {
   .pharmacy-Form-control {
-    width: 100%;
+    width: 100%; /* Makes search bar full width */
   }
 
   .pharmacy-Card-img-top {
-    height: 150px;
+    height: 150px; /* Adjusts image size for smaller screens */
   }
 }
 
-/* Custom CSS for Medications Title */
+/* Section Title Styling */
 .pharmacy-Medications-title {
-  margin-top: 20px;  /* Adjust the margin for spacing */
+  margin-top: 20px;
   margin-left: 20px;
   font-size: 24px;
   font-weight: bold;
   color: #007bff;
   text-align: left;
-  display: block;  /* Ensure it breaks onto a new line */
-  margin-bottom: 20px;  /* Adds space below the h2 */
+  display: block;
+  margin-bottom: 20px;
 }
 
-/* Custom CSS for Medications Title */
+/* Horizontal Divider */
 .pharmacy-hr {
   margin-top: 30px;
 }
 
+/* "No Items Found" Message Styling */
 .pharmacy-no-items-found {
   text-align: center;
   font-size: 1.5rem;

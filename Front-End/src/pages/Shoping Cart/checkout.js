@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../Shoping Cart/cartContext';
@@ -11,6 +11,11 @@ const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { cart, cartTotal, clearCart } = useCart();
+
+   // Scroll to top when this component loads
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
   // If coming from Buy Now, use that product, otherwise use cart
   const products = location.state?.product ? [{ ...location.state.product, quantity: 1 }] : cart;
@@ -64,7 +69,7 @@ const Checkout = () => {
 
   const validateField = (name, value) => {
     let errorMessage = '';
-    
+
     switch (name) {
       case 'fullName':
         if (!value.trim()) {
@@ -73,7 +78,7 @@ const Checkout = () => {
           errorMessage = 'Name should only contain letters';
         }
         break;
-        
+
       case 'address':
         if (!value.trim()) {
           errorMessage = 'Address is required';
@@ -81,7 +86,7 @@ const Checkout = () => {
           errorMessage = 'Please enter a valid address';
         }
         break;
-        
+
       case 'city':
         if (!value.trim()) {
           errorMessage = 'City is required';
@@ -89,7 +94,7 @@ const Checkout = () => {
           errorMessage = 'City should only contain letters';
         }
         break;
-        
+
       case 'state':
         if (!value.trim()) {
           errorMessage = 'State is required';
@@ -97,7 +102,7 @@ const Checkout = () => {
           errorMessage = 'State should only contain letters';
         }
         break;
-        
+
       case 'zipCode':
         if (!value.trim()) {
           errorMessage = 'Zip code is required';
@@ -105,7 +110,7 @@ const Checkout = () => {
           errorMessage = 'Please enter a valid zip code';
         }
         break;
-        
+
       case 'phone':
         if (!value.trim()) {
           errorMessage = 'Phone number is required';
@@ -113,7 +118,7 @@ const Checkout = () => {
           errorMessage = 'Please enter a valid 10-digit phone number';
         }
         break;
-        
+
       case 'cardholderName':
         if (!value.trim()) {
           errorMessage = 'Cardholder name is required';
@@ -121,7 +126,7 @@ const Checkout = () => {
           errorMessage = 'Name should only contain letters';
         }
         break;
-        
+
       case 'cardNumber':
         if (!value.trim()) {
           errorMessage = 'Card number is required';
@@ -129,7 +134,7 @@ const Checkout = () => {
           errorMessage = 'Please enter a valid 16-digit card number';
         }
         break;
-        
+
       case 'expiryMonth':
         if (!value.trim()) {
           errorMessage = 'Month is required';
@@ -140,7 +145,7 @@ const Checkout = () => {
           }
         }
         break;
-        
+
       case 'expiryYear':
         if (!value.trim()) {
           errorMessage = 'Year is required';
@@ -164,7 +169,7 @@ const Checkout = () => {
           }
         }
         break;
-        
+
       case 'cvv':
         if (!value.trim()) {
           errorMessage = 'CVV is required';
@@ -172,11 +177,11 @@ const Checkout = () => {
           errorMessage = 'Enter a valid 3-digit CVV';
         }
         break;
-        
+
       default:
         break;
     }
-    
+
     return errorMessage;
   };
 
@@ -186,13 +191,13 @@ const Checkout = () => {
       ...shippingDetails,
       [name]: value
     });
-    
+
     // Mark field as touched
     setFormTouched({
       ...formTouched,
       [name]: true
     });
-    
+
     // Validate on change
     setErrors({
       ...errors,
@@ -202,7 +207,7 @@ const Checkout = () => {
 
   const handlePaymentChange = (e) => {
     const { name, value } = e.target;
-    
+
     // Special handling for card number formatting
     if (name === 'cardNumber') {
       const formattedValue = formatCardNumber(value);
@@ -210,7 +215,7 @@ const Checkout = () => {
         ...paymentDetails,
         [name]: formattedValue
       });
-      
+
       // Validate the unformatted value
       setErrors({
         ...errors,
@@ -223,7 +228,7 @@ const Checkout = () => {
         ...paymentDetails,
         [name]: formattedValue
       });
-      
+
       setErrors({
         ...errors,
         [name]: validateField(name, formattedValue)
@@ -233,13 +238,13 @@ const Checkout = () => {
         ...paymentDetails,
         [name]: value
       });
-      
+
       setErrors({
         ...errors,
         [name]: validateField(name, value)
       });
     }
-    
+
     // Mark field as touched
     setFormTouched({
       ...formTouched,
@@ -249,13 +254,13 @@ const Checkout = () => {
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
-    
+
     // Mark field as touched
     setFormTouched({
       ...formTouched,
       [name]: true
     });
-    
+
     // Validate on blur
     setErrors({
       ...errors,
@@ -286,51 +291,51 @@ const Checkout = () => {
     // Validate all fields
     const newErrors = {};
     let isValid = true;
-    
+
     // Validate shipping details
     Object.keys(shippingDetails).forEach(field => {
       const error = validateField(field, shippingDetails[field]);
       newErrors[field] = error;
       if (error) isValid = false;
     });
-    
+
     // Validate payment details
     Object.keys(paymentDetails).forEach(field => {
       const error = validateField(field, paymentDetails[field]);
       newErrors[field] = error;
       if (error) isValid = false;
     });
-    
+
     // Validate card expiry date
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1; // JavaScript months are 0-indexed
-    
+
     let expiryYear = parseInt(paymentDetails.expiryYear, 10);
     if (paymentDetails.expiryYear.length === 2) {
       expiryYear = 2000 + expiryYear;
     }
-    
+
     if (expiryYear === currentYear && parseInt(paymentDetails.expiryMonth, 10) < currentMonth) {
       newErrors.expiryMonth = 'Card has expired';
       isValid = false;
     }
-    
+
     // Update all errors
     setErrors(newErrors);
-    
+
     // Mark all fields as touched
     const allTouched = {};
     Object.keys(formTouched).forEach(field => {
       allTouched[field] = true;
     });
     setFormTouched(allTouched);
-    
+
     return isValid;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Validate form data
     if (!validateForm()) {
       return;
@@ -345,6 +350,7 @@ const Checkout = () => {
   return (
     <>
       <NavBar />
+      <h1 className="checkout-title">Checkout</h1>
       <Container className="checkout-container">
         <Form onSubmit={handleSubmit} noValidate>
           <Row className="checkout-content">
@@ -356,14 +362,14 @@ const Checkout = () => {
                 <Form.Control
                   type="text"
                   name="fullName"
-                  className={`checkout-input ${formTouched.fullName && errors.fullName ? 'is-invalid' : ''}`}
+                  className={`checkout-input checkout-name ${formTouched.fullName && errors.fullName ? 'is-invalid' : ''}`}
                   placeholder="Enter your full name"
                   value={shippingDetails.fullName}
                   onChange={handleShippingChange}
                   onBlur={handleBlur}
                   required
                 />
-                {formTouched.fullName && errors.fullName && 
+                {formTouched.fullName && errors.fullName &&
                   <div className="invalid-feedback">{errors.fullName}</div>
                 }
               </div>
@@ -371,16 +377,16 @@ const Checkout = () => {
               <div className="checkout-form-group">
                 <Form.Label className="checkout-label">Address</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="textarea"
                   name="address"
-                  className={`checkout-input ${formTouched.address && errors.address ? 'is-invalid' : ''}`}
+                  className={`checkout-input checkout-address ${formTouched.address && errors.address ? 'is-invalid' : ''}`}
                   placeholder="Enter your address"
                   value={shippingDetails.address}
                   onChange={handleShippingChange}
                   onBlur={handleBlur}
                   required
                 />
-                {formTouched.address && errors.address && 
+                {formTouched.address && errors.address &&
                   <div className="invalid-feedback">{errors.address}</div>
                 }
               </div>
@@ -392,14 +398,14 @@ const Checkout = () => {
                     <Form.Control
                       type="text"
                       name="city"
-                      className={`checkout-input ${formTouched.city && errors.city ? 'is-invalid' : ''}`}
+                      className={`checkout-input checkout-city ${formTouched.city && errors.city ? 'is-invalid' : ''}`}
                       placeholder="City"
                       value={shippingDetails.city}
                       onChange={handleShippingChange}
                       onBlur={handleBlur}
                       required
                     />
-                    {formTouched.city && errors.city && 
+                    {formTouched.city && errors.city &&
                       <div className="invalid-feedback">{errors.city}</div>
                     }
                   </div>
@@ -410,14 +416,14 @@ const Checkout = () => {
                     <Form.Control
                       type="text"
                       name="state"
-                      className={`checkout-input ${formTouched.state && errors.state ? 'is-invalid' : ''}`}
+                      className={`checkout-input checkout-state ${formTouched.state && errors.state ? 'is-invalid' : ''}`}
                       placeholder="State"
                       value={shippingDetails.state}
                       onChange={handleShippingChange}
                       onBlur={handleBlur}
                       required
                     />
-                    {formTouched.state && errors.state && 
+                    {formTouched.state && errors.state &&
                       <div className="invalid-feedback">{errors.state}</div>
                     }
                   </div>
@@ -429,16 +435,16 @@ const Checkout = () => {
                   <div className="checkout-form-group">
                     <Form.Label className="checkout-label">Zip Code</Form.Label>
                     <Form.Control
-                      type="text"
+                      type="number"
                       name="zipCode"
-                      className={`checkout-input ${formTouched.zipCode && errors.zipCode ? 'is-invalid' : ''}`}
+                      className={`checkout-input checkout-zip-code ${formTouched.zipCode && errors.zipCode ? 'is-invalid' : ''}`}
                       placeholder="Zip Code"
                       value={shippingDetails.zipCode}
                       onChange={handleShippingChange}
                       onBlur={handleBlur}
                       required
                     />
-                    {formTouched.zipCode && errors.zipCode && 
+                    {formTouched.zipCode && errors.zipCode &&
                       <div className="invalid-feedback">{errors.zipCode}</div>
                     }
                   </div>
@@ -447,16 +453,16 @@ const Checkout = () => {
                   <div className="checkout-form-group">
                     <Form.Label className="checkout-label">Phone</Form.Label>
                     <Form.Control
-                      type="tel"
+                      type="number"
                       name="phone"
-                      className={`checkout-input ${formTouched.phone && errors.phone ? 'is-invalid' : ''}`}
+                      className={`checkout-input checkout-phone-number ${formTouched.phone && errors.phone ? 'is-invalid' : ''}`}
                       placeholder="Phone number"
                       value={shippingDetails.phone}
                       onChange={handleShippingChange}
                       onBlur={handleBlur}
                       required
                     />
-                    {formTouched.phone && errors.phone && 
+                    {formTouched.phone && errors.phone &&
                       <div className="invalid-feedback">{errors.phone}</div>
                     }
                   </div>
@@ -475,14 +481,14 @@ const Checkout = () => {
                   <Form.Control
                     type="text"
                     name="cardholderName"
-                    className={`checkout-input ${formTouched.cardholderName && errors.cardholderName ? 'is-invalid' : ''}`}
+                    className={`checkout-input checkout-cardholder ${formTouched.cardholderName && errors.cardholderName ? 'is-invalid' : ''}`}
                     placeholder="Name on card"
                     value={paymentDetails.cardholderName}
                     onChange={handlePaymentChange}
                     onBlur={handleBlur}
                     required
                   />
-                  {formTouched.cardholderName && errors.cardholderName && 
+                  {formTouched.cardholderName && errors.cardholderName &&
                     <div className="invalid-feedback">{errors.cardholderName}</div>
                   }
                 </div>
@@ -495,7 +501,7 @@ const Checkout = () => {
                   <Form.Control
                     type="text"
                     name="cardNumber"
-                    className={`checkout-input ${formTouched.cardNumber && errors.cardNumber ? 'is-invalid' : ''}`}
+                    className={`checkout-input checkout-cardnumber ${formTouched.cardNumber && errors.cardNumber ? 'is-invalid' : ''}`}
                     placeholder="1234 5678 9012 3456"
                     value={paymentDetails.cardNumber}
                     onChange={handlePaymentChange}
@@ -503,20 +509,20 @@ const Checkout = () => {
                     maxLength="19"
                     required
                   />
-                  {formTouched.cardNumber && errors.cardNumber && 
+                  {formTouched.cardNumber && errors.cardNumber &&
                     <div className="invalid-feedback">{errors.cardNumber}</div>
                   }
                 </div>
               </div>
 
-              <Row>
-                <Col md={4}>
+              <Row className="align-items-center">
+                <Col md={6} xs={12}>
                   <div className="checkout-form-group">
                     <Form.Label className="checkout-label">Expiry Month</Form.Label>
                     <Form.Control
-                      type="text"
+                      type="number"
                       name="expiryMonth"
-                      className={`checkout-input ${formTouched.expiryMonth && errors.expiryMonth ? 'is-invalid' : ''}`}
+                      className={`checkout-input checkout-month ${formTouched.expiryMonth && errors.expiryMonth ? 'is-invalid' : ''}`}
                       placeholder="MM"
                       value={paymentDetails.expiryMonth}
                       onChange={handlePaymentChange}
@@ -524,18 +530,19 @@ const Checkout = () => {
                       maxLength="2"
                       required
                     />
-                    {formTouched.expiryMonth && errors.expiryMonth && 
+                    {formTouched.expiryMonth && errors.expiryMonth && (
                       <div className="invalid-feedback">{errors.expiryMonth}</div>
-                    }
+                    )}
                   </div>
                 </Col>
-                <Col md={4}>
+
+                <Col md={6} xs={12}>
                   <div className="checkout-form-group">
                     <Form.Label className="checkout-label">Expiry Year</Form.Label>
                     <Form.Control
-                      type="text"
+                      type="number"
                       name="expiryYear"
-                      className={`checkout-input ${formTouched.expiryYear && errors.expiryYear ? 'is-invalid' : ''}`}
+                      className={`checkout-input checkout-year ${formTouched.expiryYear && errors.expiryYear ? 'is-invalid' : ''}`}
                       placeholder="YY"
                       value={paymentDetails.expiryYear}
                       onChange={handlePaymentChange}
@@ -543,18 +550,21 @@ const Checkout = () => {
                       maxLength="4"
                       required
                     />
-                    {formTouched.expiryYear && errors.expiryYear && 
+                    {formTouched.expiryYear && errors.expiryYear && (
                       <div className="invalid-feedback">{errors.expiryYear}</div>
-                    }
+                    )}
                   </div>
                 </Col>
-                <Col md={4}>
+              </Row>
+
+              <Row className="align-items-center">
+                <Col md={12} xs={12}>
                   <div className="checkout-form-group">
                     <Form.Label className="checkout-label">CVV</Form.Label>
                     <Form.Control
-                      type="password"
+                      type="number"
                       name="cvv"
-                      className={`checkout-input ${formTouched.cvv && errors.cvv ? 'is-invalid' : ''}`}
+                      className={`checkout-input checkout-cvv ${formTouched.cvv && errors.cvv ? 'is-invalid' : ''}`}
                       placeholder="123"
                       value={paymentDetails.cvv}
                       onChange={handlePaymentChange}
@@ -562,13 +572,12 @@ const Checkout = () => {
                       maxLength="3"
                       required
                     />
-                    {formTouched.cvv && errors.cvv && 
+                    {formTouched.cvv && errors.cvv && (
                       <div className="invalid-feedback">{errors.cvv}</div>
-                    }
+                    )}
                   </div>
                 </Col>
               </Row>
-
               <div className="checkout-total">
                 <div className="checkout-amount">
                   <span>Payment amount:</span>
@@ -576,9 +585,11 @@ const Checkout = () => {
                 </div>
               </div>
 
-              <Button type="submit" className="checkout-pay-button">
-                PAY
-              </Button>
+              <div className="button-container">
+                <Button type="submit" className="checkout-pay-button">
+                  PAY
+                </Button>
+              </div>
             </Col>
           </Row>
         </Form>

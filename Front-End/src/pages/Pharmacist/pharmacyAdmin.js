@@ -11,6 +11,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  
   // Fetch products from backend
   useEffect(() => {
     fetchProducts();

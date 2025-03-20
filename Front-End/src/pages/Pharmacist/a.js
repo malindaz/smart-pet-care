@@ -312,7 +312,7 @@ const PharmacyEdit = () => {
               <Form.Group className="pharmacy-Edit-Form">
                 <Form.Label className="pharmacy-Edit-Form-label">Category:</Form.Label>
                 <Form.Select
-                  className={`pharmacy-Edit-Form-select pharmacy-Edit-Form-category ${formTouched.category && errors.category ? 'is-invalid' : ''}`}
+                  className={`pharmacy-Edit-Form-select ${formTouched.category && errors.category ? 'is-invalid' : ''}`}
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
@@ -337,7 +337,7 @@ const PharmacyEdit = () => {
               <Form.Group className="pharmacy-Edit-Form">
                 <Form.Label className="pharmacy-Edit-Form-label">Product Name:</Form.Label>
                 <Form.Control
-                  className={`pharmacy-Edit-Form-control pharmacy-Edit-Form-name ${formTouched.name && errors.name ? 'is-invalid' : ''}`}
+                  className={`pharmacy-Edit-Form-control ${formTouched.name && errors.name ? 'is-invalid' : ''}`}
                   type="text"
                   name="name"
                   value={formData.name}
@@ -355,7 +355,7 @@ const PharmacyEdit = () => {
               <Form.Group className="pharmacy-Edit-Form">
                 <Form.Label className="pharmacy-Edit-Form-label">Price (Rs):</Form.Label>
                 <Form.Control
-                  className={`pharmacy-Edit-Form-control pharmacy-Edit-Form-price ${formTouched.price && errors.price ? 'is-invalid' : ''}`}
+                  className={`pharmacy-Edit-Form-control ${formTouched.price && errors.price ? 'is-invalid' : ''}`}
                   type="text"
                   name="price"
                   value={formData.price}
@@ -373,7 +373,7 @@ const PharmacyEdit = () => {
               <Form.Group className="pharmacy-Edit-Form">
                 <Form.Label className="pharmacy-Edit-Form-label">Description:</Form.Label>
                 <Form.Control
-                  className={`pharmacy-Edit-Form-control pharmacy-Edit-Form-description ${formTouched.description && errors.description ? 'is-invalid' : ''}`}
+                  className={`pharmacy-Edit-Form-control ${formTouched.description && errors.description ? 'is-invalid' : ''}`}
                   as="textarea"
                   name="description"
                   value={formData.description}
@@ -392,7 +392,7 @@ const PharmacyEdit = () => {
               <Form.Group className="pharmacy-Edit-Form">
                 <Form.Label className="pharmacy-Edit-Form-label">Product Image:</Form.Label>
                 <Form.Control
-                  className={`pharmacy-Edit-Form-control pharmacy-Edit-Form-image ${formTouched.image && errors.image ? 'is-invalid' : ''}`}
+                  className={`pharmacy-Edit-Form-control ${formTouched.image && errors.image ? 'is-invalid' : ''}`}
                   type="file"
                   accept="image/*"
                   onChange={handleImageChange}
