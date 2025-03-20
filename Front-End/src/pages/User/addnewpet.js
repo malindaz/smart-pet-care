@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import "../../css/addnewpet.css";
 import axios from "axios";
@@ -20,6 +19,10 @@ const AddNewPet = () => {
     ownerName: "",
     photo: null,  
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleChange = (e) => {
     setPet({ ...pet, [e.target.name]: e.target.value });

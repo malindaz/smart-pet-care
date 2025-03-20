@@ -11,6 +11,8 @@ const MyPets = () => {
 
   // Fetch all pets from the API
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const fetchPets = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/pets/all"); // Adjust the API URL
@@ -94,6 +96,7 @@ const MyPets = () => {
                 <div className="malinda-buttons">
                 <Link to={`/editpetdetails/${selectedPet.id}`} className="malinda-edit-btn">✏️ Edit Profile</Link>
                 <Link to={`/addrecord/${selectedPet.id}`} className="malinda-add-record-btn">➕ Add Medical Record</Link>
+                <Link to={`/addrecord/${selectedPet.id}`} className="malinda-delete-btn">🗑️ Delete Profile</Link>
                 </div>
 
                 <h3>Medical History</h3>
