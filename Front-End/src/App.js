@@ -27,7 +27,7 @@ import EditPetDetails from "./pages/User/editpetdetails";
 
 //import Admin pages
 import VetRequests from "./pages/Admin/vetrequests";
-
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 //import Veterinarian pages
 
@@ -70,7 +70,10 @@ function App() {
           <Route path="/editpetdetails/:id" element={<EditPetDetails />} />
           <Route path="/myappointments" element={<MyAppointments />} />
 
-          {/*Veterinarian Routes*/ }
+          {/*Admin Routes*/ }
+
+          <Route path="/vetrequests" element={<VetRequests />} />
+          <Route path="/admin-dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
 
 
           {/*Pharmacist Routes*/ } 
