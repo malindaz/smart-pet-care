@@ -230,10 +230,16 @@ const updateUserProfile = async (req, res) => {
 
 // @desc    Delete user account
 // @route   DELETE /api/users/profile
-// @access  Private
+// @access  Public
 const deleteUser = async (req, res) => {
     try {
-        const user = await User.findById(req.user._id);
+        const { email } = req.body;
+        
+        if (!email) {
+            return res.status(400).json({ success: false, message: 'Email is required' });
+        }
+
+        const user = await User.findOne({ email });
         
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' });

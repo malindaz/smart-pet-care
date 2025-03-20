@@ -80,7 +80,7 @@ router.post('/register', handleUpload, processUploadedFile, registerUser);
 router.post('/login', loginUser);
 router.get('/profile', protect, getUserProfile);
 router.put('/profile', protect, handleUpload, processUploadedFile, updateUserProfile);
-router.delete('/profile', protect, deleteUser);
+router.delete('/profile', deleteUser);
 router.post('/logout', protect, logout);
 
 // Add a route to serve profile images (as a fallback if static middleware isn't configured properly)
