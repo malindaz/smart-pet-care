@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
-import { auth } from '../../firebase';
-import '../../css/VerifyOTP.css';
+import { auth } from '../firebase';
+import '../css/VerifyOTP.css';
 
 const VerifyOTP = () => {
     const navigate = useNavigate();

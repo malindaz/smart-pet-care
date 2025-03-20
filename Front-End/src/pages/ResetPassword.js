@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { auth } from '../../firebase';
+import { auth } from '../firebase';
 import { confirmPasswordReset } from "firebase/auth";
-import '../../css/ResetPassword.css';
+import '../css/ResetPassword.css';
 
 const ResetPassword = () => {
     const [formData, setFormData] = useState({ password: '', confirmPassword: '' });
