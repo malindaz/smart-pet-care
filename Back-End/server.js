@@ -6,9 +6,7 @@ const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const path = require('path');
 const { connectDB } = require('./utils/db');
-const fileUpload = require('express-fileupload');
-
-
+const fileupload = require('express-fileupload');
 
 const pharmacyRoutes = require('./Routes/pharmacyRoutes');
 const userRoutes = require('./Routes/userRoutes');
@@ -18,91 +16,86 @@ const veterinarianRoutes = require('./Routes/veterinarianRoutes');
 const addnewroute = require('./Routes/addnewroute');
 const adminRoutes = require('./Routes/adminRoutes');
 
+
+
 // Load environment variables
 dotenv.config();
 
 // Create Express app
 const app = express();
 
+// Security middleware
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 
-// Middleware
+// CORS configuration
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
 }));
+
+// Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(fileUpload({
-  createParentPath: true,
-  limits: { 
-    fileSize: 5 * 1024 * 1024 // 5MB limit
-  },
-}));
+app.use(fileupload({
+    createParentPath: true,
+    limits: { fileSize: 100 * 1024 * 1024 } // 10MB
+}))
+
 // Serve static files from uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
-
-
-// Security middleware
-app.use(helmet()); // Set security HTTP headers
-
-app.use(cors({
-  origin: 'http://localhost:3000', // Allow only the frontend URL
-  credentials: true
-}));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again after 15 minutes'
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again after 15 minutes'
 });
 app.use('/api', limiter);
+
+// Routes
+app.use('/api/users', userRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/pharmacy', pharmacyRoutes);
 app.use('/api/addrecords', addrecordsroute);
 app.use('/api/veterinarians', veterinarianRoutes);
 app.use('/api/pets', addnewroute);
+
 app.use('/api/admin', adminRoutes);
+
+app.use('/uploads', express.static('uploads'));
+
+
 
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+    app.use(morgan('dev'));
 }
-
 
 // Connect to MongoDB
 connectDB();
 
-
-// Routes
-app.use('/api/users',userRoutes); 
-
-
-
 // Simple route for testing
 app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'Server is running',
-  });
+    res.status(200).json({
+        status: 'success',
+        message: 'Server is running',
+    });
 });
-
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    status: 'error',
-    message: 'Something went wrong on the server',
-  });
+    console.error(err.stack);
+    res.status(500).json({
+        status: 'error',
+        message: err.message || 'Something went wrong on the server',
+    });
 });
 
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });

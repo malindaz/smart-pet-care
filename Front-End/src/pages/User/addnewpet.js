@@ -5,6 +5,7 @@ import "../../css/addnewpet.css";
 import axios from "axios";
 import Footer from "../../components/Footer";
 
+
 const AddNewPet = () => {
   const navigate = useNavigate();
   const [pet, setPet] = useState({
@@ -17,30 +18,87 @@ const AddNewPet = () => {
     microchipID: "",
     lastCheckup: "",
     ownerName: "",
+    photo: null,  
   });
 
   const handleChange = (e) => {
     setPet({ ...pet, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e) => {
+    setPet({ ...pet, photo: e.target.files[0] });
+    console.log("📷 Selected file:", e.target.files[0]); 
+  };
+  
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    const formData = new FormData();
+    formData.append('name', pet.name);
+    formData.append('species', pet.species);
+    formData.append('breed', pet.breed);
+    formData.append('age', pet.age);
+    formData.append('weight', pet.weight);
+    formData.append('gender', pet.gender);
+    formData.append('microchipID', pet.microchipID);
+    formData.append('lastCheckup', pet.lastCheckup);
+    formData.append('ownerName', pet.ownerName);
+  
+    if (pet.photo) {
+      formData.append('photo', pet.photo); 
+    } else {
+      console.error('No file selected');
+      return;
+    }
+  
     try {
-      await axios.post("http://localhost:5000/api/pets/add", pet);
-      alert("Pet added successfully!");
-      navigate("/mypets");
+      const response = await axios.post('http://localhost:5000/api/pets/add', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      console.log('Pet added:', response.data);
+      alert('Pet added successfully!');
     } catch (error) {
-      console.error("Error adding pet", error);
-      alert("Failed to add pet.");
+      console.error('Error adding pet:', error);
+      alert('Failed to add pet');
     }
   };
+  
+  
+  
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const formData = new FormData();
+  //     Object.keys(pet).forEach((key) => {
+  //       formData.append(key, pet[key]);
+  //     });
+
+  //     await axios.post("http://localhost:5000/api/pets/add", formData, {
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     });
+
+  //     alert("Pet added successfully!");
+  //     navigate("/mypets");
+  //   } catch (error) {
+  //     console.error("Error adding pet", error);
+  //     alert("Failed to add pet.");
+  //   }
+  // };
 
   return (
     <>
       <NavBar />
       <div className="malinda-form-container">
         <h1 className="malinda-page-title">Add New Pet</h1>
-        <form className="malinda-pet-form" onSubmit={handleSubmit}>
+        <form className="malinda-pet-form" onSubmit={handleSubmit} encType="multipart/form-data">
+
+     
           <label>Name:
             <input type="text" name="name" value={pet.name} onChange={handleChange} required />
           </label>
@@ -71,6 +129,9 @@ const AddNewPet = () => {
           </label>
           <label>Owner Name:
             <input type="text" name="ownerName" value={pet.ownerName} onChange={handleChange} required />
+          </label>
+          <label>Pet Photo:
+            <input type="file" accept="image/*" onChange={handleFileChange} required />
           </label>
           <div className="malinda-button-container">
             <Link to="/mypets" className="malinda-cancel-btn">Cancel</Link>

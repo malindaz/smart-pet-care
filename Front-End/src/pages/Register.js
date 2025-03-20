@@ -6,6 +6,7 @@ import { FaUser, FaEnvelope, FaPhone, FaLock, FaMapMarkerAlt } from "react-icons
 import axios from 'axios';
 import "../css/Register.css";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -91,7 +92,7 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+    
         try {
             setLoading(true);
     
@@ -111,20 +112,13 @@ const Register = () => {
     
             // Create FormData object for file upload
             const formDataObj = new FormData();
-            
-            // Explicitly add each field to FormData
-            formDataObj.append('username', formData.username);
-            formDataObj.append('firstName', formData.firstName);
-            formDataObj.append('lastName', formData.lastName);
-            formDataObj.append('email', formData.email);
-            formDataObj.append('phoneNumber', formData.phoneNumber);
-            formDataObj.append('password', formData.password);
-            formDataObj.append('address', formData.address);
-            
-            // Add profile image if exists
-            if (formData.profileImage) {
-                formDataObj.append('profileImage', formData.profileImage);
-            }
+            Object.keys(formData).forEach(key => {
+                if (key === 'profileImage' && formData[key]) {
+                    formDataObj.append('profileImage', formData[key]);
+                } else if (key !== 'confirmPassword') {
+                    formDataObj.append(key, formData[key]);
+                }
+            });
     
             const response = await axios.post('http://localhost:5000/api/users/register', formDataObj, {
                 headers: {
@@ -132,18 +126,45 @@ const Register = () => {
                 }
             });
     
-            if (response.data.success) {
-                toast.success('Registration successful! Please login with your credentials.');
-                navigate('/login');
+            console.log("Response from server:", response.data); // Debugging
+    
+            if (response.data?.success) {
+                toast.success('Registration successful! Redirecting to login...');
+    
+                // Delay navigation so the toast message is visible
+                setTimeout(() => {
+                    navigate('/login');
+                }, 2000); // Wait 2 seconds before redirecting
+    
+                // Clear form data
+                setFormData({
+                    username: '',
+                    firstName: '',
+                    lastName: '',
+                    phoneNumber: '',
+                    email: '',
+                    password: '',
+                    confirmPassword: '',
+                    address: '',
+                    profileImage: null
+                });
+                setImagePreview(null);
+            } else {
+                toast.error(response.data?.message || 'Registration failed. Please try again.');
             }
         } catch (error) {
             console.error('Registration Error:', error);
-            toast.error(error.response?.data?.message || 'Registration failed. Please try again.');
+            if (error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('Registration failed. Please try again.');
+            }
         } finally {
             setLoading(false);
         }
     };
-
+    
+    
     return (
         <div>
             <NavBar/>
@@ -328,6 +349,7 @@ const Register = () => {
                 </form>
             </div>
         </div>
+        <Footer/> 
         </div>
     );
 };

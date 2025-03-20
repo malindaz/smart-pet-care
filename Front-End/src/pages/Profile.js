@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import '../css/Profile.css';
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -313,6 +314,7 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+           <Footer/> 
         </div>
     );
 };

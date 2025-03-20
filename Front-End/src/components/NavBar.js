@@ -251,9 +251,11 @@ const NavBar = () => {
                         </Link>
                       </li>
                       <li className="user-navbar-dropdown-item">
-                        <Link to="/pets" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
+
+                        <Link to="/mypets" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
                           <Award size={16} /> My Pets
                         </Link>
+                        
                       </li>
                       <li className="user-navbar-dropdown-item">
                         <Link to="/myappointments" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
@@ -370,6 +372,7 @@ const NavBar = () => {
           {user && (
             <>
               <li className="user-navbar-mobile-divider"></li>
+
               <li>
                 <Link 
                   to="/profile" 
@@ -411,6 +414,13 @@ const NavBar = () => {
                   <LogOut size={16} /> Logout
                 </button>
               </li>
+
+              <li><Link to="/profile" onClick={toggleMobileMenu}>My Profile</Link></li>
+              <li><Link to="/mypets" onClick={toggleMobileMenu}>My Pets</Link></li>
+              <li><Link to="/my-appointments" onClick={toggleMobileMenu}>My Appointments</Link></li>
+              <li><Link to="/my-orders" onClick={toggleMobileMenu}>My Orders</Link></li>
+              <li><button className="user-navbar-mobile-logout-btn" onClick={handleLogout}>Logout</button></li>
+
             </>
           )}
           {!user && (

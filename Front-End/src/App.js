@@ -20,7 +20,11 @@ import ApplyVet from "./pages/User/applyvet";
 import MyPets from "./pages/User/mypets";
 import AddRecord from "./pages/User/addrecord";
 import AddNewPet from "./pages/User/addnewpet";
+
 import MyAppointments from "./pages/User/MyAppointments"
+
+
+import EditPetDetails from "./pages/User/editpetdetails";
 
 //import Admin pages
 import VetRequests from "./pages/Admin/vetrequests";
@@ -64,13 +68,7 @@ function App() {
           <Route path="/mypets" element={<MyPets />} />
           <Route path="/addrecord" element={<AddRecord />} />
           <Route path="/addnewpet" element={<AddNewPet />} />
-          <Route path="/myappointments" element={<MyAppointments />} />
-                 
-          
-          {/*Admin Routes*/}
-
-          <Route path="/vetrequests" element={<VetRequests />} />
-
+          <Route path="/editpetdetails/:id" element={<EditPetDetails />} />
 
           {/*Veterinarian Routes*/ }
 
