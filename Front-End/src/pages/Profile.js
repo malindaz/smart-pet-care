@@ -13,6 +13,7 @@ const Profile = () => {
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const fileInputRef = useRef(null);
     
     // API base URL - adjust this to match your server
@@ -137,21 +138,15 @@ const Profile = () => {
     };
 
     const handleDelete = async () => {
+        setShowDeleteConfirmation(true);
+    };
+
+    const confirmDelete = async () => {
         setLoading(true);
         try {
-            const token = userData.token;
-            if (!token) {
-                toast.error('Authentication required');
-                return;
-            }
-            
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            };
-            
-            const response = await axios.delete(`${baseURL}/api/users/profile`, config);
+            const response = await axios.delete(`${baseURL}/api/users/profile`, {
+                data: { email: userData.email }
+            });
             
             if (response.data.success) {
                 localStorage.removeItem('userData');
@@ -163,7 +158,12 @@ const Profile = () => {
             toast.error(error.response?.data?.message || 'Failed to delete account');
         } finally {
             setLoading(false);
+            setShowDeleteConfirmation(false);
         }
+    };
+
+    const cancelDelete = () => {
+        setShowDeleteConfirmation(false);
     };
 
     const handleCancelEdit = () => {
@@ -315,6 +315,24 @@ const Profile = () => {
                 </div>
             </div>
            <Footer/> 
+
+            {/* Delete Confirmation Dialog */}
+            {showDeleteConfirmation && (
+                <div className="delete_confirmation_dialog">
+                    <div className="delete_confirmation_content">
+                        <h3>Delete Account</h3>
+                        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                        <div className="delete_confirmation_buttons">
+                            <button className="delete_confirm_button" onClick={confirmDelete}>
+                                Delete Account
+                            </button>
+                            <button className="delete_cancel_button" onClick={cancelDelete}>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
