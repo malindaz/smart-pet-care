@@ -17,17 +17,18 @@ import Home from "./pages/Home";
 // Import user pages
 import AppointmentForm from "./pages/User/AppointmentForm";
 import ApplyVet from "./pages/User/applyvet";
-
-// Import Admin pages
-
-
-
-
 import MyPets from "./pages/User/mypets";
 import AddRecord from "./pages/User/addrecord";
 import AddNewPet from "./pages/User/addnewpet";
+
+import MyAppointments from "./pages/User/MyAppointments"
+
+
 import EditPetDetails from "./pages/User/editpetdetails";
+
 //import Admin pages
+import VetRequests from "./pages/Admin/vetrequests";
+
 
 //import Veterinarian pages
 
@@ -36,47 +37,30 @@ import Pharmacy from "./pages/Pharmacist/pharmacy";
 import PharmacyAdmin from "./pages/Pharmacist/pharmacyAdmin";
 import PharmacyEdit from "./pages/Pharmacist/pharmacyEdit";
 
-// Import Veterinarian pages
-
-// Import Pharmacist pages
+// Import your route components
+import AdminRoute from './Routes/AdminRoute';
+import VetRoute from './Routes/VetRoute';
+import PharmacistRoute from './Routes/PharmacistRoute';
+import ProtectedRoute from './Routes/ProtectedRoute';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <ToastContainer 
-          position="top-center" 
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick  rtl={false} pauseOnFocusLoss draggable pauseOnHover />
         <Routes>
 
-          {/* Public Routes */}
-          <Route path="/signup" element={<Register />} />
-
-          
-           {/*Main Routes  */}
+       
+           {/*Main Routes*/}
 
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          
-          
-                 
-          
-          {/* Add Admin Routes Here */}
+          <Route path="/reset-password" element={<ResetPassword />} />        
 
-
-          {/*Add User Routes Here*/ }
+          {/*User Routes*/}
 
           <Route path="/profile" element={<Profile />} />
           <Route path="/appointment-form" element={<AppointmentForm />} />
@@ -86,10 +70,10 @@ function App() {
           <Route path="/addnewpet" element={<AddNewPet />} />
           <Route path="/editpetdetails/:id" element={<EditPetDetails />} />
 
+          {/*Veterinarian Routes*/ }
 
-          {/*Add Veterinarian Routes Here*/ }
 
-          {/*Add Pharmacist Routes Here*/ } 
+          {/*Pharmacist Routes*/ } 
           <Route path="/pharmacy" element={<Pharmacy />} />
           <Route path="/pharmacyAdmin" element={<PharmacyAdmin />} />
           <Route path="/pharmacy-edit" element={<PharmacyEdit />} />

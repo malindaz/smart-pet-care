@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="footer-main">
         <div className="footer-column">
           <div className="footer-logo">
-            <h2>PetPal</h2>
+            <h2>PET WELL HUB</h2>
             <p>Smart Pet Care Management System</p>
           </div>
           <p className="footer-tagline">

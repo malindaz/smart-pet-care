@@ -195,8 +195,9 @@ exports.createAppointment = async (req, res) => {
 // Get user's appointments - for authenticated users
 exports.getUserAppointments = async (req, res) => {
   try {
-    // In a real implementation, you'd get the user ID from authentication
     const { email } = req.query;
+    
+    console.log("Fetching appointments for email:", email);
     
     if (!email) {
       return res.status(400).json({
@@ -205,7 +206,12 @@ exports.getUserAppointments = async (req, res) => {
       });
     }
     
-    const appointments = await Appointment.find({ email }).sort({ date: 1, time: 1 });
+    // Find all appointments for this email (case insensitive)
+    const appointments = await Appointment.find({ 
+      email: { $regex: new RegExp('^' + email + '$', 'i') } 
+    }).sort({ date: 1, time: 1 });
+    
+    console.log(`Found ${appointments.length} appointments for ${email}`);
     
     res.status(200).json({
       success: true,

@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { ShoppingCart, User, LogOut, UserPlus, Calendar, ShoppingBag, Award, Bell } from 'lucide-react';
 import '../css/NavBar.css';
+import Logo from '../assets/images/Logo.png';
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [cartItemCount, setCartItemCount] = useState(0);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadNotifications, setUnreadNotifications] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Check localStorage for user data
@@ -22,6 +29,25 @@ const NavBar = () => {
         console.error('Error parsing user data:', error);
       }
     }
+    
+    // Mock cart item count - replace with actual cart logic
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      try {
+        const cart = JSON.parse(storedCart);
+        setCartItemCount(cart.length || 0);
+      } catch (error) {
+        console.error('Error parsing cart data:', error);
+      }
+    }
+
+    // Mock notifications - replace with actual notification logic
+    setNotifications([
+      { id: 1, text: 'Your appointment has been confirmed', read: false, time: '2 hours ago' },
+      { id: 2, text: 'Your order #12345 has been shipped', read: false, time: '1 day ago' },
+      { id: 3, text: 'Welcome to PetWellHub!', read: true, time: '3 days ago' }
+    ]);
+    setUnreadNotifications(2); // Number of unread notifications
   }, []);
 
   useEffect(() => {
@@ -40,11 +66,24 @@ const NavBar = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     if (isProfileDropdownOpen) setIsProfileDropdownOpen(false);
+    if (isNotificationDropdownOpen) setIsNotificationDropdownOpen(false);
   };
 
   const toggleProfileDropdown = (e) => {
     e.stopPropagation();
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
+    if (isNotificationDropdownOpen) setIsNotificationDropdownOpen(false);
+  };
+
+  const toggleNotificationDropdown = (e) => {
+    e.stopPropagation();
+    setIsNotificationDropdownOpen(!isNotificationDropdownOpen);
+    if (isProfileDropdownOpen) setIsProfileDropdownOpen(false);
+  };
+
+  const markAllAsRead = () => {
+    setNotifications(notifications.map(notification => ({ ...notification, read: true })));
+    setUnreadNotifications(0);
   };
 
   const handleLogout = async () => {
@@ -69,6 +108,7 @@ const NavBar = () => {
       // Close dropdowns
       setIsProfileDropdownOpen(false);
       setIsMobileMenuOpen(false);
+      setIsNotificationDropdownOpen(false);
       
       // Redirect to home
       navigate('/');
@@ -86,19 +126,26 @@ const NavBar = () => {
       if (isProfileDropdownOpen && !e.target.closest('.user-navbar-profile')) {
         setIsProfileDropdownOpen(false);
       }
+      if (isNotificationDropdownOpen && !e.target.closest('.user-navbar-notification')) {
+        setIsNotificationDropdownOpen(false);
+      }
     };
 
     document.addEventListener('click', closeDropdowns);
     return () => document.removeEventListener('click', closeDropdowns);
-  }, [isProfileDropdownOpen]);
+  }, [isProfileDropdownOpen, isNotificationDropdownOpen]);
+
+  // Check if the current path matches the link
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
 
   return (
     <header className={`user-navbar-header ${isScrolled ? 'user-navbar-scrolled' : ''}`}>
       <div className="user-navbar-container">
         <div className="user-navbar-logo">
           <Link to="/">
-            <img src="/assets/images/logo.png" alt="petpal+" className="user-navbar-logo-img" />
-            <span className="user-navbar-logo-text">PetPal<span className="user-navbar-plus">+</span></span>
+            <img src={Logo} alt="Petwellhub" className="user-navbar-logo-img" />
           </Link>
         </div>
 
@@ -106,32 +153,79 @@ const NavBar = () => {
         <nav className="user-navbar-nav">
           <ul className="user-navbar-links">
             <li className="user-navbar-link-item">
-              <Link to="/" className="user-navbar-link">Home</Link>
+              <Link to="/" className={`user-navbar-link ${isActive('/') ? 'user-navbar-active' : ''}`}>Home</Link>
             </li>
             <li className="user-navbar-link-item">
-              <Link to="/appointment-form" className="user-navbar-link">Book Appointment</Link>
+              <Link to="/appointment-form" className={`user-navbar-link ${isActive('/appointment-form') ? 'user-navbar-active' : ''}`}>Book Appointment</Link>
             </li>
             <li className="user-navbar-link-item">
-              <Link to="/pharmacy" className="user-navbar-link">Pharmacy</Link>
+              <Link to="/pharmacy" className={`user-navbar-link ${isActive('/pharmacy') ? 'user-navbar-active' : ''}`}>Pharmacy</Link>
             </li>
             <li className="user-navbar-link-item">
-              <Link to="/services" className="user-navbar-link">Services</Link>
+              <Link to="/apply-vet" className={`user-navbar-link ${isActive('/apply-vet') ? 'user-navbar-active' : ''}`}>Apply as Vet</Link>
             </li>
             <li className="user-navbar-link-item">
-              <Link to="/contact" className="user-navbar-link">Contact Us</Link>
-            </li>
-            <li className="user-navbar-link-item">
-              <Link to="/faq" className="user-navbar-link">FAQ</Link>
+              <Link to="/faq" className={`user-navbar-link ${isActive('/faq') ? 'user-navbar-active' : ''}`}>FAQ</Link>
             </li>
           </ul>
         </nav>
 
-        {/* User Profile Section with Become a Vet Button */}
+        {/* User Section with Cart, Notifications and Profile */}
         <div className="user-navbar-user-section">
-          {/* Become a Vet button - visible for all users */}
-          <Link to="/apply-vet" className="user-navbar-become-vet-btn">
-            Become a Vet
+          {/* Cart Icon */}
+          <Link to="/cart" className={`user-navbar-cart-icon ${isActive('/cart') ? 'user-navbar-active-icon' : ''}`}>
+            <ShoppingCart size={22} />
+            {cartItemCount > 0 && (
+              <span className="user-navbar-cart-badge">{cartItemCount}</span>
+            )}
           </Link>
+          
+          {/* Notification Bell */}
+          {user && (
+            <div className="user-navbar-notification" onClick={(e) => e.stopPropagation()}>
+              <div className="user-navbar-notification-icon" onClick={toggleNotificationDropdown}>
+                <Bell size={22} />
+                {unreadNotifications > 0 && (
+                  <span className="user-navbar-notification-badge">{unreadNotifications}</span>
+                )}
+              </div>
+              
+              {isNotificationDropdownOpen && (
+                <div className="user-navbar-notification-dropdown">
+                  <div className="user-navbar-notification-header">
+                    <span className="user-navbar-notification-title">Notifications</span>
+                    {unreadNotifications > 0 && (
+                      <button className="user-navbar-mark-read" onClick={markAllAsRead}>
+                        Mark all as read
+                      </button>
+                    )}
+                  </div>
+                  <ul className="user-navbar-notification-list">
+                    {notifications.length > 0 ? (
+                      notifications.map(notification => (
+                        <li 
+                          key={notification.id} 
+                          className={`user-navbar-notification-item ${notification.read ? 'user-navbar-read' : 'user-navbar-unread'}`}
+                        >
+                          <div className="user-navbar-notification-content">
+                            <p className="user-navbar-notification-text">{notification.text}</p>
+                            <span className="user-navbar-notification-time">{notification.time}</span>
+                          </div>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="user-navbar-notification-empty">No notifications</li>
+                    )}
+                  </ul>
+                  <div className="user-navbar-notification-footer">
+                    <Link to="/notifications" className="user-navbar-view-all" onClick={() => setIsNotificationDropdownOpen(false)}>
+                      View all notifications
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
           
           <div className="user-navbar-profile" onClick={(e) => e.stopPropagation()}>
             {user ? (
@@ -141,7 +235,7 @@ const NavBar = () => {
                     <img src={user.profileImage} alt={user.username || 'User'} className="user-navbar-avatar" />
                   ) : (
                     <div className="user-navbar-avatar-placeholder">
-                      {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
+                      <User size={20} />
                     </div>
                   )}
                 </div>
@@ -149,33 +243,34 @@ const NavBar = () => {
                   <div className="user-navbar-dropdown">
                     <div className="user-navbar-dropdown-header">
                       <span className="user-navbar-greeting">Hello, {user.username || 'User'}!</span>
-                      {/* <span className="user-navbar-email">{localStorage.getItem('userEmail')}</span> */}
                     </div>
                     <ul className="user-navbar-dropdown-menu">
                       <li className="user-navbar-dropdown-item">
                         <Link to="/profile" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
-                          <i className="fas fa-user"></i> My Profile
+                          <User size={16} /> My Profile
                         </Link>
                       </li>
                       <li className="user-navbar-dropdown-item">
+
                         <Link to="/mypets" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
-                          <i className="fas fa-paw"></i> My Pets
+                          <Award size={16} /> My Pets
                         </Link>
+                        
                       </li>
                       <li className="user-navbar-dropdown-item">
-                        <Link to="/my-appointments" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
-                          <i className="fas fa-calendar-check"></i> My Appointments
+                        <Link to="/myappointments" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
+                          <Calendar size={16} /> My Appointments
                         </Link>
                       </li>
                       <li className="user-navbar-dropdown-item">
                         <Link to="/my-orders" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
-                          <i className="fas fa-shopping-bag"></i> My Orders
+                          <ShoppingBag size={16} /> My Orders
                         </Link>
                       </li>
                       <li className="user-navbar-dropdown-divider"></li>
                       <li className="user-navbar-dropdown-item">
                         <button className="user-navbar-logout-btn" onClick={handleLogout}>
-                          <i className="fas fa-sign-out-alt"></i> Logout
+                          <LogOut size={16} /> Logout
                         </button>
                       </li>
                     </ul>
@@ -184,8 +279,11 @@ const NavBar = () => {
               </div>
             ) : (
               <div className="user-navbar-auth-buttons">
-                <Link to="/login" className="user-navbar-login-btn">Login</Link>
-                <Link to="/register" className="user-navbar-signup-btn">Sign Up</Link>
+                <Link to="/login" className={`user-navbar-login-btn ${isActive('/login') ? 'user-navbar-active-btn' : ''}`}>Login</Link>
+                <Link to="/register" className={`user-navbar-signup-btn ${isActive('/register') ? 'user-navbar-active-btn' : ''}`}>
+                  <UserPlus size={16} className="user-navbar-signup-icon" />
+                  <span>Sign Up</span>
+                </Link>
               </div>
             )}
           </div>
@@ -204,29 +302,148 @@ const NavBar = () => {
       {/* Mobile Navigation Menu */}
       <div className={`user-navbar-mobile-menu ${isMobileMenuOpen ? 'user-navbar-open' : ''}`}>
         <ul className="user-navbar-mobile-links">
-          <li><Link to="/" onClick={toggleMobileMenu}>Home</Link></li>
-          <li><Link to="/appointment-form" onClick={toggleMobileMenu}>Book Appointment</Link></li>
-          <li><Link to="/pharmacy" onClick={toggleMobileMenu}>Pharmacy</Link></li>
-          <li><Link to="/services" onClick={toggleMobileMenu}>Services</Link></li>
-          <li><Link to="/contact" onClick={toggleMobileMenu}>Contact Us</Link></li>
-          <li><Link to="/faq" onClick={toggleMobileMenu}>FAQ</Link></li>
-          {/* Become a Vet button in mobile menu - visible for all users */}
-          <li><Link to="/apply-vet" onClick={toggleMobileMenu}>Become a Vet</Link></li>
+          <li>
+            <Link 
+              to="/" 
+              className={isActive('/') ? 'user-navbar-mobile-active' : ''} 
+              onClick={toggleMobileMenu}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/appointment-form" 
+              className={isActive('/appointment-form') ? 'user-navbar-mobile-active' : ''} 
+              onClick={toggleMobileMenu}
+            >
+              Book Appointment
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/pharmacy" 
+              className={isActive('/pharmacy') ? 'user-navbar-mobile-active' : ''} 
+              onClick={toggleMobileMenu}
+            >
+              Pharmacy
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/apply-vet" 
+              className={isActive('/apply-vet') ? 'user-navbar-mobile-active' : ''} 
+              onClick={toggleMobileMenu}
+            >
+              Apply as Vet
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/faq" 
+              className={isActive('/faq') ? 'user-navbar-mobile-active' : ''} 
+              onClick={toggleMobileMenu}
+            >
+              FAQ
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/cart" 
+              className={isActive('/cart') ? 'user-navbar-mobile-active' : ''} 
+              onClick={toggleMobileMenu}
+            >
+              <ShoppingCart size={16} /> Cart
+              {cartItemCount > 0 && <span className="user-navbar-mobile-cart-badge">{cartItemCount}</span>}
+            </Link>
+          </li>
+          {user && (
+            <li>
+              <Link 
+                to="/notifications" 
+                className={isActive('/usernotifications') ? 'user-navbar-mobile-active' : ''} 
+                onClick={toggleMobileMenu}
+              >
+                <Bell size={16} /> Notifications
+                {unreadNotifications > 0 && <span className="user-navbar-mobile-notification-badge">{unreadNotifications}</span>}
+              </Link>
+            </li>
+          )}
           {user && (
             <>
               <li className="user-navbar-mobile-divider"></li>
+
+              <li>
+                <Link 
+                  to="/profile" 
+                  className={isActive('/profile') ? 'user-navbar-mobile-active' : ''} 
+                  onClick={toggleMobileMenu}
+                >
+                  <User size={16} /> My Profile
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/pets" 
+                  className={isActive('/pets') ? 'user-navbar-mobile-active' : ''} 
+                  onClick={toggleMobileMenu}
+                >
+                  <Award size={16} /> My Pets
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/my-appointments" 
+                  className={isActive('/myappointments') ? 'user-navbar-mobile-active' : ''} 
+                  onClick={toggleMobileMenu}
+                >
+                  <Calendar size={16} /> My Appointments
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/my-orders" 
+                  className={isActive('/my-orders') ? 'user-navbar-mobile-active' : ''} 
+                  onClick={toggleMobileMenu}
+                >
+                  <ShoppingBag size={16} /> My Orders
+                </Link>
+              </li>
+              <li>
+                <button className="user-navbar-mobile-logout-btn" onClick={handleLogout}>
+                  <LogOut size={16} /> Logout
+                </button>
+              </li>
+
               <li><Link to="/profile" onClick={toggleMobileMenu}>My Profile</Link></li>
               <li><Link to="/mypets" onClick={toggleMobileMenu}>My Pets</Link></li>
               <li><Link to="/my-appointments" onClick={toggleMobileMenu}>My Appointments</Link></li>
               <li><Link to="/my-orders" onClick={toggleMobileMenu}>My Orders</Link></li>
               <li><button className="user-navbar-mobile-logout-btn" onClick={handleLogout}>Logout</button></li>
+
             </>
           )}
           {!user && (
             <>
               <li className="user-navbar-mobile-divider"></li>
-              <li><Link to="/login" onClick={toggleMobileMenu}>Login</Link></li>
-              <li><Link to="/register" onClick={toggleMobileMenu}>Sign Up</Link></li>
+              <li>
+                <Link 
+                  to="/login" 
+                  className={isActive('/login') ? 'user-navbar-mobile-active' : ''} 
+                  onClick={toggleMobileMenu}
+                >
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/register" 
+                  className={isActive('/register') ? 'user-navbar-mobile-active' : ''} 
+                  onClick={toggleMobileMenu}
+                >
+                  <UserPlus size={16} /> Sign Up
+                </Link>
+              </li>
             </>
           )}
         </ul>

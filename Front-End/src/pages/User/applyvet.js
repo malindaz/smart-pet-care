@@ -3,6 +3,8 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../css/User/applyvet.css';
+import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 
 const ApplyVet = () => {
   // Form states
@@ -411,6 +413,8 @@ for (const key in formData) {
   // Render progress bar
   const renderProgressBar = () => {
     return (
+      <>
+      <NavBar/>
       <div className="applyvet-progress-container">
         <div className="applyvet-progress-bar">
           <div 
@@ -435,6 +439,7 @@ for (const key in formData) {
           <span className={formStep === 4 ? 'applyvet-current-step' : ''}>Final Details</span>
         </div>
       </div>
+      </>
     );
   };
 
@@ -997,6 +1002,7 @@ for (const key in formData) {
         </ol>
       </div>
     </div>
+    
   );
 };
 
