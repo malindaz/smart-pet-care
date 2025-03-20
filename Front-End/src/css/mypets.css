@@ -1,16 +1,3 @@
-/* Modern Color Scheme */
-:root {
-  --primary: #39558a;
-  --primary-light: #e8f0fe;
-  --secondary: #34a853;
-  --accent: #fbbc05;
-  --warning: #ea4335;
-  --dark: #202124;
-  --gray: #5f6368;
-  --light-gray: #f1f3f4;
-  --white: #ffffff;
-}
-
 /* Base styling */
 .malinda-pet-health-container {
   max-width: 1200px;
@@ -18,20 +5,20 @@
   margin-top: 65px;
   padding: 20px;
   font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-  color: var(--dark);
+  color: #202124;
 }
 
 .malinda-page-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--primary);
+  color: #39558a;
   margin-bottom: 10px;
 }
 
 .malinda-page-description {
   font-size: 1.2rem;
   font-weight: bold;
-  color: var(--gray);
+  color: #5f6368;
   margin-bottom: 40px;
 }
 
@@ -47,7 +34,7 @@
 /* Sidebar Styling */
 .malinda-pet-sidebar {
   width: 280px;
-  background-color: var(--white);
+  background-color: #ffffff;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -56,8 +43,8 @@
 .malinda-pet-sidebar h3 {
   font-size: 1.3rem;
   margin-bottom: 20px;
-  color: var(--dark);
-  border-bottom: 2px solid var(--light-gray);
+  color: #202124;
+  border-bottom: 2px solid #f1f3f4;
   padding-bottom: 12px;
 }
 
@@ -79,13 +66,13 @@
 }
 
 .malinda-pet-item:hover {
-  background-color: var(--primary-light);
+  background-color: #e8f0fe;
   transform: translateX(5px);
 }
 
 .malinda-pet-item.active {
-  background-color: var(--primary);
-  color: var(--white);
+  background-color: #39558a;
+  color: #ffffff;
   box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
 }
 
@@ -95,12 +82,12 @@
 
 .malinda-pet-species {
   font-size: 0.9rem;
-  color: var(--gray);
+  color: #5f6368;
   opacity: 0.8;
 }
 
 .malinda-pet-item.active .malinda-pet-species {
-  color: var(--white);
+  color: #ffffff;
   opacity: 0.9;
 }
 
@@ -109,7 +96,7 @@
   display: block;
   width: 91%;
   padding: 12px;
-  background: var(--secondary);
+  background: #34a853;
   color: white;
   text-decoration: none;
   border-radius: 8px;
@@ -128,7 +115,7 @@
 /* Pet Profile Area */
 .malinda-pet-profile {
   flex: 1;
-  background-color: var(--white);
+  background-color: #ffffff;
   border-radius: 12px;
   padding: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -144,11 +131,11 @@
 .malinda-pet-profile p {
   font-size: 1.1rem;
   margin: 10px 0;
-  color: var(--dark);
+  color: #202124;
 }
 
 .malinda-pet-profile p strong {
-  color: var(--gray);
+  color: #5f6368;
   font-weight: 600;
 }
 
@@ -159,29 +146,14 @@
   margin: 25px 0;
 }
 
-.malinda-edit-btn, .malinda-add-record-btn  {
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.malinda-delete-btn{
-  background-color: var(--warning);
-  color: var(--white);
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  border-color: #ea4335;
-}
 .malinda-edit-btn {
-  background-color: var(--accent);
-  color: var(--dark);
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #fbbc05;
+  color: #202124;
 }
 
 .malinda-edit-btn:hover {
@@ -191,8 +163,13 @@
 }
 
 .malinda-add-record-btn {
-  background-color: var(--secondary);
+  background-color: #34a853;
   color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .malinda-add-record-btn:hover {
@@ -201,97 +178,15 @@
   box-shadow: 0 4px 12px rgba(52, 168, 83, 0.3);
 }
 
-/* Section Titles */
-.malinda-pet-profile h3 {
-  font-size: 1.4rem;
-  color: var(--primary);
-  margin: 30px 0 15px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--primary-light);
-}
-
-/* Lists */
-.malinda-pet-profile ul {
-  padding-left: 20px;
-  margin-bottom: 25px;
-}
-
-.malinda-pet-profile li {
-  margin-bottom: 10px;
-  padding: 12px;
-  background-color: var(--light-gray);
+.malinda-delete-btn {
+  background-color: #ea4335;
+  color: #ffffff;
+  padding: 10px 20px;
   border-radius: 8px;
-  list-style-type: none;
-}
-
-.malinda-pet-profile li strong {
-  color: var(--primary);
-}
-
-/* All Pets View */
-.malinda-all-pets-profile {
-  flex: 1;
-  background-color: var(--white);
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.malinda-all-pets-profile h2 {
-  font-size: 1.8rem;
-  color: var(--primary);
-  margin-top: 0;
-  margin-bottom: 20px;
-}
-
-.malinda-all-pets-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.malinda-pet-card {
-  background-color: var(--light-gray);
-  border-radius: 12px;
-  padding: 20px;
-  transition: all 0.2s ease;
-}
-
-.malinda-pet-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-.malinda-pet-card h3 {
-  font-size: 1.3rem;
-  color: var(--primary);
-  margin-top: 0;
-  margin-bottom: 15px;
-}
-
-.malinda-pet-card p {
-  margin: 8px 0;
-  font-size: 1rem;
-}
-
-.malinda-view-btn {
-  display: block;
-  width: 90%;
-  padding: 10px;
-  background: var(--primary);
-  color: white;
   text-decoration: none;
-  border-radius: 8px;
-  text-align: center;
-  margin-top: 15px;
+  font-size: 1rem;
   font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.malinda-view-btn:hover {
-  background: #3b78e7;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+  border-color: #ea4335;
 }
 
 /* Responsive Design */
@@ -331,8 +226,4 @@
   .malinda-all-pets-grid {
     grid-template-columns: 1fr;
   }
-
-
 }
-
-
