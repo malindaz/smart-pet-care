@@ -38,38 +38,31 @@ const AddNewPet = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const formData = new FormData();
-    formData.append('name', pet.name);
-    formData.append('species', pet.species);
-    formData.append('breed', pet.breed);
-    formData.append('age', pet.age);
-    formData.append('weight', pet.weight);
-    formData.append('gender', pet.gender);
-    formData.append('microchipID', pet.microchipID);
-    formData.append('lastCheckup', pet.lastCheckup);
-    formData.append('ownerName', pet.ownerName);
-  
-    if (pet.photo) {
-      formData.append('photo', pet.photo); 
-    } else {
-      console.error('No file selected');
+    if (!pet.photo) {
+      alert("Please select a pet photo before submitting.");
       return;
     }
   
+    const formData = new FormData();
+    Object.keys(pet).forEach((key) => formData.append(key, pet[key]));
+    formData.append("photo", pet.photo); // Append file separately
+  
     try {
-      const response = await axios.post('http://localhost:5000/api/pets/add', formData, {
+      const response = await axios.post("http://localhost:5000/api/pets/add", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
   
-      console.log('Pet added:', response.data);
-      alert('Pet added successfully!');
+      console.log("Pet added:", response.data);
+      alert("Pet added successfully!");
+      navigate("/mypets");
     } catch (error) {
-      console.error('Error adding pet:', error);
-      alert('Failed to add pet');
+      console.error("Error adding pet:", error);
+      alert("Failed to add pet.");
     }
   };
+  
   
   
   
