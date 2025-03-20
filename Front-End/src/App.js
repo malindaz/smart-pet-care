@@ -4,12 +4,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Import components from correct paths
-import Register from "./components/auth/Register";
-import Login from "./components/auth/Login";
-import ForgotPassword from './components/auth/ForgotPassword';
-import VerifyOTP from './components/auth/VerifyOTP';
-import ResetPassword from './components/auth/ResetPassword';
-import Profile from "./components/profile/Profile";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import ForgotPassword from './pages/ForgotPassword';
+import VerifyOTP from './pages/VerifyOTP';
+import ResetPassword from './pages/ResetPassword';
+import Profile from "./pages/Profile";
 
 // Import main pages
 import Home from "./pages/Home";
@@ -56,6 +56,10 @@ function App() {
           pauseOnHover
         />
         <Routes>
+
+          {/* Public Routes */}
+          <Route path="/signup" element={<Register />} />
+
           
            {/*Main Routes  */}
 
