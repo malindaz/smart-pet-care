@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import "../../css/mypets.css";
+import axios from "axios";
+
 
 const MyPets = () => {
   const [pets, setPets] = useState([]);
@@ -28,6 +30,24 @@ const MyPets = () => {
 
     fetchPets();
   }, []);
+
+
+  const handleDeletePet = async (petId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this pet?");
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(`http://localhost:5000/api/pets/${petId}`);
+      alert("Pet deleted successfully!");
+      //fetchPets(); // Refresh pet list after deletion
+      setSelectedPet(null); // Reset selected pet
+    } catch (error) {
+      console.error("Error deleting pet:", error);
+      alert("Failed to delete pet.");
+    }
+  };
+
+
 
   return (
     <>
@@ -96,7 +116,7 @@ const MyPets = () => {
                 <div className="malinda-buttons">
                 <Link to={`/editpetdetails/${selectedPet.id}`} className="malinda-edit-btn">✏️ Edit Profile</Link>
                 <Link to={`/addrecord/${selectedPet.id}`} className="malinda-add-record-btn">➕ Add Medical Record</Link>
-                <Link to={`/addrecord/${selectedPet.id}`} className="malinda-delete-btn">🗑️ Delete Profile</Link>
+                <button onClick={() => handleDeletePet(selectedPet._id)} className="malinda-delete-btn">🗑️ Delete Profile</button>
                 </div>
 
                 <h3>Medical History</h3>

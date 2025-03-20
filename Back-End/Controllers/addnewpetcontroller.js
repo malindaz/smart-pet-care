@@ -86,16 +86,24 @@ exports.updatePet = async (req, res) => {
 };
 
 
-// Delete a pet
 exports.deletePet = async (req, res) => {
   try {
-    const deletedPet = await Pet.findByIdAndDelete(req.params.id);
-    if (!deletedPet) {
-      return res.status(404).json({ message: 'Pet not found' });
+    const pet = await Pet.findById(req.params.id);
+    if (!pet) {
+      return res.status(404).json({ message: "Pet not found" });
     }
-    res.status(200).json({ message: 'Pet deleted successfully' });
+
+    // Delete associated pet image if exists
+    if (pet.photo) {
+      fs.unlink(pet.photo, (err) => {
+        if (err) console.error("Error deleting file:", err);
+      });
+    }
+
+    await Pet.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Pet deleted successfully!" });
   } catch (error) {
-    res.status(500).json({ message: 'Error deleting pet', error });
+    console.error("Error deleting pet:", error);
+    res.status(500).json({ message: "Server error while deleting pet", error });
   }
 };
-
