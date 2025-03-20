@@ -1,16 +1,41 @@
-const Pet = require('../models/addnewpetmodel');
+const Pet = require('../Models/addnewpetmodel');
 
 
-// Add a new pet
+
 exports.addPet = async (req, res) => {
   try {
-    const newPet = new Pet(req.body);
+    console.log("📂 File received:", req.file); // Debugging
+    console.log("📝 Form data:", req.body);
+
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    const petData = req.body;
+    petData.photoPath = req.file.path; // Save file path
+
+    const newPet = new Pet(petData);
     await newPet.save();
+
     res.status(201).json(newPet);
   } catch (error) {
+    console.error("❌ Error adding pet:", error);
     res.status(400).json({ message: error.message });
   }
 };
+
+
+
+// Add a new pet
+// exports.addPet = async (req, res) => {
+//   try {
+//     const newPet = new Pet(req.body);
+//     await newPet.save();
+//     res.status(201).json(newPet);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// };
 
 // Get all pets
 exports.getAllPets = async (req, res) => {

@@ -133,6 +133,7 @@
 .malinda-add-record-btn {
   background-color: #5cb85c;
   color: white;
+  margin-left: 10px;
 }
 
 .malinda-add-record-btn:hover {

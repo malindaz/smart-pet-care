@@ -15,6 +15,7 @@ const veterinarianRoutes = require('./Routes/veterinarianRoutes');
 const addnewroute = require('./Routes/addnewroute');
 
 
+
 // Load environment variables
 dotenv.config();
 
@@ -54,6 +55,16 @@ app.use('/api/pharmacy', pharmacyRoutes);
 app.use('/api/addrecords', addrecordsroute);
 app.use('/api/veterinarians', veterinarianRoutes);
 app.use('/api/pets', addnewroute);
+<<<<<<< HEAD
+<<<<<<< HEAD
+app.use('/uploads', express.static('uploads'));
+
+=======
+>>>>>>> 6684a34f59bffb3c7f268a8212ca47fcf5f5a08b
+=======
+app.use('/uploads', express.static('uploads'));
+
+>>>>>>> 49ffb601803e3cba76b1552c83dfad81d5b0adb0
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
