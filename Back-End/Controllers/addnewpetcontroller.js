@@ -4,25 +4,36 @@ const Pet = require('../Models/addnewpetmodel');
 
 exports.addPet = async (req, res) => {
   try {
-    console.log("📂 File received:", req.file); // Debugging
+    console.log("📂 File received:", req.file);
     console.log("📝 Form data:", req.body);
 
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const petData = req.body;
-    petData.photoPath = req.file.path; // Save file path
+    const petData = {
+      name: req.body.name,
+      species: req.body.species,
+      breed: req.body.breed,
+      age: req.body.age,
+      weight: req.body.weight,
+      gender: req.body.gender,
+      microchipID: req.body.microchipID,
+      lastCheckup: req.body.lastCheckup,
+      ownerName: req.body.ownerName,
+      photo: req.file.path,  // Store file path correctly
+    };
 
     const newPet = new Pet(petData);
     await newPet.save();
 
-    res.status(201).json(newPet);
+    res.status(201).json({ message: "Pet added successfully!", pet: newPet });
   } catch (error) {
     console.error("❌ Error adding pet:", error);
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: "Server error while adding pet", error: error.message });
   }
 };
+
 
 
 

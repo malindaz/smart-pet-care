@@ -8,21 +8,25 @@ const fs = require('fs');
 
 
 const uploadDir = "uploads/";
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// Configure Multer storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "uploads/");
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname));
+    },
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 }, // Limit to 5MB
+  fileFilter: (req, file, cb) => {
+    if (!file.mimetype.startsWith("image/")) {
+      return cb(new Error("Only image files are allowed"), false);
+    }
+    cb(null, true);
   },
 });
 
-const upload = multer({ storage });
+
 
 // Use Multer middleware for file upload
 router.post("/add", upload.single("photo"), petController.addPet);
