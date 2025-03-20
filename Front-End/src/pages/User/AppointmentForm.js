@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../css/User/AppointmentForm.css';
-// import NavBar from '../../components/NavBar';
+import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 
 const AppointmentForm = () => {
   const [formData, setFormData] = useState({
@@ -240,7 +241,7 @@ const AppointmentForm = () => {
   
   return (
     <>
-    {/* <NavBar /> */}
+     <NavBar /> 
     <div className="book-appointment-container">
       <h2 className="book-appointment-title">Schedule a Pet Care Appointment</h2>
       
@@ -471,6 +472,7 @@ const AppointmentForm = () => {
         )}
       </form>
     </div>
+    <Footer/>
     </>
   );
 };

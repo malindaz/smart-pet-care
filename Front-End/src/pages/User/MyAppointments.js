@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../css/User/myappointments.css';
+import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 
 const MyAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -217,6 +219,8 @@ const MyAppointments = () => {
   };
 
   return (
+    <>
+    <NavBar/>
     <div className="view-myappointments-container">
       <h1 className="view-myappointments-title">My Appointments</h1>
       
@@ -418,6 +422,8 @@ const MyAppointments = () => {
         </div>
       )}
     </div>
+    <Footer/>
+    </>
   );
 };
 

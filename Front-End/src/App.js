@@ -33,9 +33,11 @@ import Pharmacy from "./pages/Pharmacist/pharmacy";
 import PharmacyAdmin from "./pages/Pharmacist/pharmacyAdmin";
 import PharmacyEdit from "./pages/Pharmacist/pharmacyEdit";
 
-
-
-// Import Pharmacist pages
+// Import your route components
+import AdminRoute from './Routes/AdminRoute';
+import VetRoute from './Routes/VetRoute';
+import PharmacistRoute from './Routes/PharmacistRoute';
+import ProtectedRoute from './Routes/ProtectedRoute';
 
 function App() {
   return (
@@ -54,7 +56,7 @@ function App() {
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/reset-password" element={<ResetPassword />} />        
 
-          {/*User Routes*/ }
+          {/*User Routes*/}
 
           <Route path="/profile" element={<Profile />} />
           <Route path="/appointment-form" element={<AppointmentForm />} />
@@ -65,15 +67,15 @@ function App() {
           <Route path="/myappointments" element={<MyAppointments />} />
                  
           
-          {/* Admin Routes*/}
+          {/*Admin Routes*/}
 
           <Route path="/vetrequests" element={<VetRequests />} />
 
 
-          {/*Add Veterinarian Routes Here*/ }
+          {/*Veterinarian Routes*/ }
 
 
-          {/*Add Pharmacist Routes Here*/ } 
+          {/*Pharmacist Routes*/ } 
           <Route path="/pharmacy" element={<Pharmacy />} />
           <Route path="/pharmacyAdmin" element={<PharmacyAdmin />} />
           <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
