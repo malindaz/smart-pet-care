@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../css/Admin/AdminNavBar.css';
+import '../../css/Admin/AdminNavBar.css';
 
 const AdminNavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
