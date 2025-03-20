@@ -84,7 +84,7 @@ const MyPets = () => {
           ) : (
             selectedPet && (
               <div className="malinda-pet-profile">
-                <h2>{selectedPet.name}'s Profile</h2>
+                <h2>{selectedPet.name}'s profile</h2>
                 <p><strong>Species:</strong> {selectedPet.species}</p>
                 <p><strong>Breed:</strong> {selectedPet.breed}</p>
                 <p><strong>Age:</strong> {selectedPet.age} years</p>
@@ -92,8 +92,8 @@ const MyPets = () => {
                 
                 {/* Buttons for Editing Profile & Adding Medical Records */}
                 <div className="malinda-buttons">
-                  <Link to={`/editpetdetails/${selectedPet.id}`} className="malinda-edit-btn">✏️ Edit Profile</Link>
-                  <Link to={`/add-medical-record/${selectedPet.id}`} className="malinda-add-btn">➕ Add Medical Record</Link>
+                <Link to={`/editpetdetails/${selectedPet.id}`} className="malinda-edit-btn">✏️ Edit Profile</Link>
+                <Link to={`/addrecord/${selectedPet.id}`} className="malinda-add-record-btn">➕ Add Medical Record</Link>
                 </div>
 
                 <h3>Medical History</h3>

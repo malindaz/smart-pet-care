@@ -20,6 +20,7 @@ const veterinarianRoutes = require('./Routes/veterinarianRoutes');
 const addnewroute = require('./Routes/addnewroute');
 
 
+
 // Load environment variables
 dotenv.config();
 
@@ -69,7 +70,7 @@ app.use('/api/addrecords', addrecordsroute);
 app.use('/api/veterinarians', veterinarianRoutes);
 
 app.use('/api/pets', addnewroute);
-
+app.use('/uploads', express.static('uploads'));
 
 
 // Development logging
