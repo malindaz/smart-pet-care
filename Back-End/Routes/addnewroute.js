@@ -5,8 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-
-
+// Create uploads directory if it doesn't exist
 const uploadDir = "uploads/";
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
@@ -21,7 +20,6 @@ const storage = multer.diskStorage({
   },
 });
 
-
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ["image/png", "image/jpg", "image/jpeg"];
   if (!allowedTypes.includes(file.mimetype)) {
@@ -32,22 +30,15 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, 
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
   fileFilter: fileFilter,
 });
 
-module.exports = upload;
-
-
-router.post("/add", upload.single("photo"), petController.addPet);
-
-
-
-
+// Define routes
 router.post('/add', upload.single('photo'), petController.addPet);  
 router.get('/all', petController.getAllPets);
 router.get('/:id', petController.getPetById);
-router.delete("/:id", petController.deletePet);
+router.delete('/:id', petController.deletePet);
 router.put('/:petId', petController.updatePet);
 
 module.exports = router;

@@ -65,8 +65,8 @@ function App() {
           {/*User Routes*/}
 
           <Route path="/profile" element={<Profile />} />
-          <Route path="/appointment-form" element={<ProtectedRoute><AppointmentForm /></ProtectedRoute>} />
-          <Route path="/apply-vet" element={<ProtectedRoute><ApplyVet /></ProtectedRoute>} />
+          <Route path="/appointment-form" element={<AppointmentForm />} />
+          <Route path="/apply-vet" element={<ApplyVet />} />
           <Route path="/mypets" element={<MyPets />} />
           <Route path="/addrecord" element={<AddRecord />} />
           <Route path="/addnewpet" element={<AddNewPet />} />
