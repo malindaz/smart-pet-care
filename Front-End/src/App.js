@@ -38,6 +38,9 @@ import VetAppointments from "./pages/Veterinarian/VetAppointments";
 import Pharmacy from "./pages/Pharmacist/pharmacy";
 import PharmacyAdmin from "./pages/Pharmacist/pharmacyAdmin";
 import PharmacyEdit from "./pages/Pharmacist/pharmacyEdit";
+import Cart from "./pages/Shoping Cart/cart";
+import {CartProvider} from "./pages/Shoping Cart/cartContext";
+import CheckoutPage from "./pages/Shoping Cart/checkout";
 
 // Import Veterinarian pages
 
