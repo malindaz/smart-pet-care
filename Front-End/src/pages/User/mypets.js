@@ -49,6 +49,20 @@ const MyPets = () => {
     }
   };
 
+  const getPhotoUrl = (pet) => {
+    if (pet.photo) {
+      return `http://localhost:5000/${pet.photo}`;
+    }
+  
+    // Return placeholder based on species
+    if (pet.species.toLowerCase() === "dog") {
+      return "/images/dog-placeholder.jpg";
+    } else if (pet.species.toLowerCase() === "cat") {
+      return "/images/cat-placeholder.jpg";
+    }
+    return "/images/pet-placeholder.jpg";
+  };
+  
 
 
   return (
@@ -61,7 +75,7 @@ const MyPets = () => {
         </p>
 
         <div className="malinda-pet-dashboard">
-          {/* Sidebar */}
+          {/* Sidebar - No photos here */}
           <div className="malinda-pet-sidebar">
             <h3>My Pets</h3>
             <ul className="malinda-pet-list">
@@ -93,15 +107,19 @@ const MyPets = () => {
                 <div className="malinda-all-pets-grid">
                   {pets.map((pet) => (
                     <div key={pet.id} className="malinda-pet-card">
+                      <div className="malinda-pet-photo">
+                        <img src={getPhotoUrl(pet)} alt={`${pet.name}`} />
+                      </div>
                       <h3>{pet.name}</h3>
                       <p><strong>Species:</strong> {pet.species}</p>
                       <p><strong>Breed:</strong> {pet.breed}</p>
                       <p><strong>Age:</strong> {pet.age} years</p>
                       <p><strong>Weight:</strong> {pet.weight} kg</p>
                       <p><strong>Last Checkup:</strong> {new Date(pet.lastCheckup).toLocaleDateString()}</p>
-                      <Link to={`/pet-details/${pet.id}`} className="malinda-view-btn">View Details</Link>
-                      <button onClick={() => handleDeletePet(pet._id)} className="malinda-delete-btn">Delete</button>
-
+                      <div className="malinda-card-buttons">
+                        <Link to={`/pet-details/${pet.id}`} className="malinda-view-btn">View Details</Link>
+                        <button onClick={() => handleDeletePet(pet._id)} className="malinda-delete-btn">Delete</button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -110,17 +128,25 @@ const MyPets = () => {
           ) : (
             selectedPet && (
               <div className="malinda-pet-profile">
-                <h2>{selectedPet.name}'s profile</h2>
-                <p><strong>Species:</strong> {selectedPet.species}</p>
-                <p><strong>Breed:</strong> {selectedPet.breed}</p>
-                <p><strong>Age:</strong> {selectedPet.age} years</p>
-                <p><strong>Weight:</strong> {selectedPet.weight} kg</p>
+                <div className="malinda-profile-header">
+                  <div className="malinda-pet-photo-large">
+                    <img src={getPhotoUrl(selectedPet)} alt={`${selectedPet.name}`} />
+                  </div>
+                  <div className="malinda-profile-info">
+                    <h2>{selectedPet.name}'s profile</h2>
+                    <p><strong>Species:</strong> {selectedPet.species}</p>
+                    <p><strong>Breed:</strong> {selectedPet.breed}</p>
+                    <p><strong>Age:</strong> {selectedPet.age} years</p>
+                    <p><strong>Weight:</strong> {selectedPet.weight} kg</p>
+                  </div>
+                </div>
                 
                 {/* Buttons for Editing Profile & Adding Medical Records */}
                 <div className="malinda-buttons">
-                <Link to={`/editpetdetails/${selectedPet.id}`} className="malinda-edit-btn">✏️ Edit Profile</Link>
-                <Link to={`/addrecord/${selectedPet.id}`} className="malinda-add-record-btn">➕ Add Medical Record</Link>
-                <button onClick={() => handleDeletePet(selectedPet._id)} className="malinda-delete-btn">🗑️ Delete Profile</button>
+                  <Link to={`/editpetdetails/${selectedPet.id}`} className="malinda-edit-btn">✏️ Edit Profile</Link>
+                  <Link to={`/addrecord/${selectedPet.id}`} className="malinda-add-record-btn">➕ Add Medical Record</Link>
+                  <Link to={`/uploadphoto/${selectedPet.id}`} className="malinda-upload-photo-btn">📷 Upload Photo</Link>
+                  <button onClick={() => handleDeletePet(selectedPet._id)} className="malinda-delete-btn">🗑️ Delete Profile</button>
                 </div>
 
                 <h3>Medical History</h3>
