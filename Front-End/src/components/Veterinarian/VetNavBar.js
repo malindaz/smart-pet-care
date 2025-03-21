@@ -142,7 +142,7 @@ const VetNavBar = () => {
     <header className={`vet-navbar-header ${isScrolled ? 'vet-navbar-scrolled' : ''}`}>
       <div className="vet-navbar-container">
         <div className="vet-navbar-logo">
-          <Link to="/vet-dashboard">
+          <Link to="/vetdashboard">
             <img src={Logo} alt="Petwellhub" className="vet-navbar-logo-img" />
           </Link>
         </div>

@@ -47,7 +47,7 @@ const Login = () => {
                         navigate('/admin-dashboard');
                         break;
                     case 2:
-                        navigate('/vet-dashboard');
+                        navigate('/vetdashboard');
                         break;
                     case 3:
                         navigate('/pharmacist-dashboard');
