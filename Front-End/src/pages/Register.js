@@ -186,7 +186,7 @@ const Register = () => {
                                 <div className="Registerpage-image-placeholder">
                                     {formData.firstName && formData.lastName ? 
                                         `${formData.firstName[0]}${formData.lastName[0]}`.toUpperCase() : 
-                                        'Add Photo'}
+                                        ''}
                                 </div>
                             )}
                         </div>
