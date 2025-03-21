@@ -40,6 +40,12 @@ import {CartProvider} from "./pages/Shoping Cart/cartContext";
 import CheckoutPage from "./pages/Shoping Cart/checkout";
 
 
+import ProtectedRoute from "./Routes/ProtectedRoute";
+import AdminRoute from "./Routes/AdminRoute";
+import VetRoute from "./Routes/VetRoute";
+import PharmacistRoute from "./Routes/PharmacistRoute";
+
+
 function App() {
   return (
     <CartProvider>
@@ -71,18 +77,18 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           
           {/* Add Admin Routes Here */}
-          <Route path="/vetrequests" element={<VetRequests />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/vetrequests" element={<adminRoute><VetRequests /></adminRoute>} />
+          <Route path="/admin-dashboard" element={<adminRoute><AdminDashboard /></adminRoute>} />
 
           {/*Add User Routes Here*/ }
 
           <Route path="/profile" element={<Profile />} />
-          <Route path="/appointment-form" element={<AppointmentForm />} />
-          <Route path="/apply-vet" element={<ApplyVet />} />
+          <Route path="/appointment-form" element={<ProtectedRoute><AppointmentForm /></ProtectedRoute>} />
+          <Route path="/apply-vet" element={<ProtectedRoute><ApplyVet /></ProtectedRoute>} />
           <Route path="/mypets" element={<MyPets />} />
           <Route path="/addrecord" element={<AddRecord />} />
           <Route path="/addnewpet" element={<AddNewPet />} />
-          <Route path="/myappointments" element={<MyAppointments />} />
+          <Route path="/myappointments" element={<ProtectedRoute><MyAppointments /></ProtectedRoute>} />
           <Route path="/editpetdetails" element={<EditPetDetails />} /> 
           <Route path="/editpetdetails/:petId" element={<EditPetDetails />} />
     
@@ -93,8 +99,8 @@ function App() {
           <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
 
             {/* Add Veterinarian Routes Here */}
-            <Route path="/vetdashboard" element={<VetDashboard />} />
-            <Route path="/vetappointments" element={<VetAppointments />} />
+            <Route path="/vetdashboard" element={<VetRoute><VetDashboard /></VetRoute>} />
+            <Route path="/vetappointments" element={<VetRoute><VetAppointments /></VetRoute>} />
 
             {/* Add Pharmacist Routes Here */}
             <Route path="/cart" element={<Cart />} />
