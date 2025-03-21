@@ -72,8 +72,10 @@ function App() {
           <Route path="/editpetdetails/:id" element={<EditPetDetails />} />
           <Route path="/myappointments" element={<MyAppointments />} />
 
+
           {/*Vet Routes*/ }
           <Route path="/vet-appointments" element={<VetAppintments />} />
+
 
 
           {/*Admin Routes*/ }
