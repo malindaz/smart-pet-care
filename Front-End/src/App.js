@@ -30,7 +30,8 @@ import VetRequests from "./pages/Admin/vetrequests";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 //import Veterinarian pages
-import VetAppintments from "./pages/Veterinarian/VetAppointments";
+import VetDashboard from "./pages/Veterinarian/VetDashboard";
+import VetAppointments from "./pages/Veterinarian/VetAppointments";
 
 
 //import Pharmacist pages
@@ -74,7 +75,8 @@ function App() {
 
 
           {/*Vet Routes*/ }
-          <Route path="/vet-appointments" element={<VetAppintments />} />
+          <Route path="/vet-appointments" element={<VetAppointments />} />
+          <Route path="/vet-dashboard" element={<VetDashboard />} />
 
 
 
