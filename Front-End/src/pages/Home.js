@@ -1,205 +1,144 @@
-import React, { useState, useEffect } from "react";
-import { Bell, Calendar, ChevronRight, PawPrint, Settings, LineChart, Heart, User, Plus } from "lucide-react";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
-import "../css/Homepage.css";
+import React from 'react';
+import { Calendar, HeartPulse, Pill, ShieldCheck, MessageCircle, ArrowRight, Search } from 'lucide-react';
+import '../css/Homepage.css';
+import NavBar  from '../components/NavBar';
+import Footer  from '../components/Footer';
+import heroPetImage from '../assets/images/hero-pet.jpg';
+import aiAssistantImage from '../assets/images/ai-assistant.png';
+import testimonial1Image from '../assets/images/testimonial-1.jpg';
+import testimonial2Image from '../assets/images/testimonial-2.jpg';
+import testimonial3Image from '../assets/images/testimonial-3.jpg';
 
-function Home() {
-  const [petData, setPetData] = useState({
-    name: "Buddy",
-    species: "Dog",
-    breed: "Golden Retriever",
-    age: 3,
-    weight: 65,
-    lastFeeding: "Today, 8:30 AM",
-    lastWalk: "Today, 7:15 AM",
-    upcomingVet: "March 15, 2:00 PM",
-    healthScore: 92
-  });
 
-  const [notifications, setNotifications] = useState([
-    { id: 1, message: "Time for Buddy's evening meal", time: "5:00 PM" },
-    { id: 2, message: "Medication reminder: Heart worm pill", time: "Tomorrow" },
-    { id: 3, message: "Low on dog food - 2 days remaining", time: "March 12" }
-  ]);
-
-  // Simulate fetch data
-  useEffect(() => {
-    // This would be an API call in a real app
-    console.log("Fetching pet data...");
-  }, []);
-
+const Home = () => {
   return (
-    <>
-    <NavBar/>
     <div className="homepage-container">
+      <NavBar />
       
-      
-      <div className="homepage-hero">
+      {/* Hero Section */}
+      <section className="homepage-hero">
         <div className="homepage-hero-content">
-          <h1>Welcome Back to PetPal</h1>
-          <p>Your smart companion for better pet care</p>
+          <h1>Complete Health Care For Your Furry Friends</h1>
+          <p>An all-in-one platform to manage your pet's health, appointments, medications, and more</p>
+          <div className="homepage-search-box">
+            <input type="text" placeholder="Search for services, medications, etc." />
+            <button className="homepage-search-btn">
+              <Search size={20} />
+            </button>
+          </div>
+          <div className="homepage-hero-btns">
+            <button className="homepage-primary-btn">Get Started <ArrowRight size={16} /></button>
+            <button className="homepage-secondary-btn">Book Appointment</button>
+          </div>
         </div>
-      </div>
-
-      <div className="homepage-dashboard">
-        <div className="homepage-main-content">
-          <section className="homepage-pet-profile">
-            <div className="homepage-profile-header">
-              <div className="homepage-profile-image">
-                {/* This would be an actual image in production */}
-                <div className="homepage-profile-placeholder">
-                  <PawPrint size={40} />
-                </div>
-              </div>
-              <div className="homepage-profile-info">
-                <h2>{petData.name}</h2>
-                <p>{petData.breed} • {petData.age} years old</p>
-              </div>
-              <div className="homepage-health-score">
-                <div className="homepage-score-circle">
-                  <span>{petData.healthScore}</span>
-                </div>
-                <p>Health Score</p>
-              </div>
-            </div>
-            
-            <div className="homepage-quick-stats">
-              <div className="homepage-stat">
-                <Calendar size={20} />
-                <div>
-                  <h4>Last Feeding</h4>
-                  <p>{petData.lastFeeding}</p>
-                </div>
-              </div>
-              <div className="homepage-stat">
-                <PawPrint size={20} />
-                <div>
-                  <h4>Last Walk</h4>
-                  <p>{petData.lastWalk}</p>
-                </div>
-              </div>
-              <div className="homepage-stat">
-                <Heart size={20} />
-                <div>
-                  <h4>Upcoming Vet</h4>
-                  <p>{petData.upcomingVet}</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="homepage-activity-feed">
-            <div className="homepage-section-header">
-              <h3>Recent Activity</h3>
-              <button className="homepage-view-all">View All <ChevronRight size={16} /></button>
-            </div>
-            <div className="homepage-activity-list">
-              <div className="homepage-activity-item">
-                <div className="homepage-activity-icon">
-                  <Heart className="homepage-icon-success" />
-                </div>
-                <div className="homepage-activity-content">
-                  <h4>Morning Medicine</h4>
-                  <p>Administered on time</p>
-                  <span className="homepage-activity-time">Today, 8:45 AM</span>
-                </div>
-              </div>
-              <div className="homepage-activity-item">
-                <div className="homepage-activity-icon">
-                  <PawPrint className="homepage-icon-success" />
-                </div>
-                <div className="homepage-activity-content">
-                  <h4>Morning Walk</h4>
-                  <p>30 minutes, 1.2 miles</p>
-                  <span className="homepage-activity-time">Today, 7:15 AM</span>
-                </div>
-              </div>
-              <div className="homepage-activity-item">
-                <div className="homepage-activity-icon">
-                  <LineChart className="homepage-icon-warning" />
-                </div>
-                <div className="homepage-activity-content">
-                  <h4>Weight Check</h4>
-                  <p>65 lbs (+0.5 lbs from last week)</p>
-                  <span className="homepage-activity-time">Yesterday, 6:30 PM</span>
-                </div>
-              </div>
-            </div>
-          </section>
+        <div className="homepage-hero-image">
+          <img src={heroPetImage} alt="Happy dog and cat" />
         </div>
+      </section>
 
-        <div className="homepage-sidebar">
-          <section className="homepage-notifications">
-            <div className="homepage-section-header">
-              <h3>Notifications</h3>
-              <Bell size={20} />
+      {/* Services Section */}
+      <section className="homepage-services">
+        <h2>Our Services</h2>
+        <p className="homepage-section-subtitle">Everything you need for your pet's well-being</p>
+        
+        <div className="homepage-services-grid">
+          <div className="homepage-service-card">
+            <div className="homepage-service-icon">
+            <MessageCircle size={40} color="#00C2CB" />
             </div>
-            <div className="homepage-notification-list">
-              {notifications.map(notification => (
-                <div key={notification.id} className="homepage-notification-item">
-                  <p>{notification.message}</p>
-                  <span className="homepage-notification-time">{notification.time}</span>
-                </div>
-              ))}
+            <h3>AI Health Assistant</h3>
+            <p>Get instant answers about your pet's symptoms and basic health concerns</p>
+          </div>
+          
+          
+          <div className="homepage-service-card">
+            <div className="homepage-service-icon">
+              <HeartPulse size={40} color="#00C2CB" />
             </div>
-          </section>
-
-          <section className="homepage-quick-actions">
-            <div className="homepage-section-header">
-              <h3>Quick Actions</h3>
+            <h3>Health Records</h3>
+            <p>Track your pet's health history, vaccinations, and medical documents</p>
+          </div>
+          
+          <div className="homepage-service-card">
+            <div className="homepage-service-icon">
+              <Pill size={40} color="#00C2CB" />
             </div>
-            <div className="homepage-actions-grid">
-              <button className="homepage-action-button">
-                <Calendar size={24} />
-                <span>Schedule</span>
-              </button>
-              <button className="homepage-action-button">
-                <PawPrint size={24} />
-                <span>Log Walk</span>
-              </button>
-              <button className="homepage-action-button">
-                <LineChart size={24} />
-                <span>Track Weight</span>
-              </button>
-              <button className="homepage-action-button">
-                <Settings size={24} />
-                <span>Settings</span>
-              </button>
+            <h3>Pharmacy</h3>
+            <p>Order medications and supplements with home delivery options</p>
+          </div>
+          
+          <div className="homepage-service-card">
+            <div className="homepage-service-icon">
+              <Calendar size={40} color="#00C2CB" />
             </div>
-          </section>
-
-          <section className="homepage-household">
-            <div className="homepage-section-header">
-              <h3>Household Pets</h3>
-            </div>
-            <div className="homepage-pet-list">
-              <div className="homepage-pet-item homepage-active">
-                <div className="homepage-mini-profile">
-                  <PawPrint size={16} />
-                </div>
-                <span>Buddy</span>
-              </div>
-              <div className="homepage-pet-item">
-                <div className="homepage-mini-profile">
-                  <PawPrint size={16} />
-                </div>
-                <span>Luna</span>
-              </div>
-              <div className="homepage-add-pet">
-                <div className="homepage-add-circle">
-                  <Plus size={16} />
-                </div>
-                <span>Add Pet</span>
-              </div>
-            </div>
-          </section>
+            <h3>Appointment Scheduling</h3>
+            <p>Book appointments with veterinarians online and manage your schedule</p>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Health Assistant Highlight */}
+      <section className="homepage-ai-assistant">
+        <div className="homepage-ai-content">
+          <h2>AI-Powered Health Assistant</h2>
+          <p>Our intelligent chatbot helps identify potential health issues and provides immediate guidance for your pets.</p>
+          <ul className="homepage-feature-list">
+            <li><ShieldCheck size={20} color="#00C2CB" /> Symptom identification</li>
+            <li><ShieldCheck size={20} color="#00C2CB" /> First-aid instructions</li>
+            <li><ShieldCheck size={20} color="#00C2CB" /> Behavior analysis</li>
+            <li><ShieldCheck size={20} color="#00C2CB" /> Diet recommendations</li>
+          </ul>
+          <button className="homepage-primary-btn">Try Health Assistant <ArrowRight size={16} /></button>
+        </div>
+        <div className="homepage-ai-image">
+          <img src={aiAssistantImage} alt="AI pet health assistant" />
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="homepage-testimonials">
+        <h2>What Pet Parents Say</h2>
+        <p className="homepage-section-subtitle">Stories from our happy customers</p>
+        
+        <div className="homepage-testimonial-carousel">
+          <div className="homepage-testimonial-card">
+            <div className="homepage-testimonial-image">
+              <img src={testimonial1Image} alt="Pet owner testimonial" />
+            </div>
+            <p>"The AI assistant helped me identify my dog's skin condition quickly. The appointment scheduling was seamless, and we got the right treatment within hours!"</p>
+            <h4>Sarah & Max</h4>
+          </div>
+          
+          <div className="homepage-testimonial-card">
+            <div className="homepage-testimonial-image">
+              <img src={testimonial2Image} alt="Pet owner testimonial" />
+            </div>
+            <p>"Having all my cat's health records in one place has made vet visits so much easier. The medication reminders are a lifesaver!"</p>
+            <h4>James & Whiskers</h4>
+          </div>
+          
+          <div className="homepage-testimonial-card">
+            <div className="homepage-testimonial-image">
+              <img src={testimonial3Image} alt="Pet owner testimonial" />
+            </div>
+            <p>"I love that I can order prescription food and medications through the same platform. It's convenient and always arrives on time."</p>
+            <h4>Emma & Buddy</h4>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="homepage-cta">
+        <div className="homepage-cta-content">
+          <h2>Ready to give your pet the best care?</h2>
+          <p>Join thousands of pet parents who trust our platform for their furry friends' health needs.</p>
+          <button className="homepage-primary-btn">Create Free Account <ArrowRight size={16} /></button>
+        </div>
+      </section>
+
+      <Footer />
     </div>
-    <Footer/>
-    </>
   );
-}
+};
 
 export default Home;

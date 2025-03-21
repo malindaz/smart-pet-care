@@ -1,29 +1,16 @@
 /* AppointmentForm.css */
-:root {
-  --primary: #26b3a9; /* Turquoise */
-  --primary-dark: #1a8f87;
-  --primary-light: #e6f7f6;
-  --white: #ffffff;
-  --black: #333333;
-  --light-gray: #f5f5f5;
-  --mid-gray: #e0e0e0;
-  --text-gray: #555555;
-  --error: #e53935;
-  --success: #43a047;
-}
-
 .book-appointment-container {
   max-width: 800px;
   margin: 100px auto 50px;
   padding: 2.5rem;
-  background-color: var(--white);
+  background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   font-family: 'Open Sans', 'Segoe UI', Roboto, sans-serif;
 }
 
 .book-appointment-title {
-  color: var(--primary);
+  color: #20B2AA;
   text-align: center;
   margin-bottom: 2rem;
   font-size: 2.2rem;
@@ -40,7 +27,7 @@
   transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background-color: var(--primary);
+  background-color: #20B2AA;
   border-radius: 3px;
 }
 
@@ -53,15 +40,15 @@
 
 .book-appointment-success {
   background-color: rgba(67, 160, 71, 0.1);
-  color: var(--success);
-  border-left: 5px solid var(--success);
+  color: #43a047;
+  border-left: 5px solid #43a047;
   animation: fadeIn 0.5s ease forwards;
 }
 
 .book-appointment-error {
   background-color: rgba(229, 57, 53, 0.1);
-  color: var(--error);
-  border-left: 5px solid var(--error);
+  color: #e53935;
+  border-left: 5px solid #e53935;
 }
 
 .book-appointment-form {
@@ -71,7 +58,7 @@
 }
 
 .book-appointment-section {
-  background-color: var(--light-gray);
+  background-color: #f5f5f5;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
@@ -83,11 +70,11 @@
 }
 
 .book-appointment-section-title {
-  color: var(--primary);
+  color: #20B2AA;
   font-size: 1.35rem;
   margin-bottom: 1.5rem;
   padding-bottom: 10px;
-  border-bottom: 2px solid var(--mid-gray);
+  border-bottom: 2px solid #e0e0e0;
   font-weight: 600;
 }
 
@@ -100,7 +87,7 @@
   display: block;
   margin-bottom: 0.6rem;
   font-weight: 500;
-  color: var(--black);
+  color: #333333;
   font-size: 0.95rem;
 }
 
@@ -109,21 +96,21 @@
 .book-appointment-textarea {
   width: 100%;
   padding: 12px 15px;
-  border: 1px solid var(--mid-gray);
+  border: 1px solid #e0e0e0;
   border-radius: 6px;
   font-size: 1rem;
   transition: all 0.2s ease-in-out;
-  background-color: var(--white);
-  color: var(--black);
+  background-color: #ffffff;
+  color: #333333;
   box-sizing: border-box;
 }
 
 .book-appointment-input:focus,
 .book-appointment-select:focus,
 .book-appointment-textarea:focus {
-  border-color: var(--primary);
+  border-color: #20B2AA;
   outline: 0;
-  box-shadow: 0 0 0 3px rgba(38, 179, 169, 0.15);
+  box-shadow: 0 0 0 3px rgba(32, 178, 170, 0.15);
 }
 
 .book-appointment-input::placeholder,
@@ -153,8 +140,8 @@
 }
 
 .book-appointment-button {
-  background-color: var(--primary);
-  color: var(--white);
+  background-color: #20B2AA;
+  color: #ffffff;
   border: none;
   padding: 14px 32px;
   font-size: 1rem;
@@ -162,14 +149,14 @@
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(38, 179, 169, 0.2);
+  box-shadow: 0 4px 10px rgba(32, 178, 170, 0.2);
   min-width: 180px;
 }
 
 .book-appointment-button:hover {
-  background-color: var(--primary-dark);
+  background-color: #008B8B;
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(38, 179, 169, 0.3);
+  box-shadow: 0 6px 15px rgba(32, 178, 170, 0.3);
 }
 
 .book-appointment-button:active {
@@ -198,7 +185,7 @@
   left: 0;
   width: 100%;
   height: 3px;
-  background-color: var(--mid-gray);
+  background-color: #e0e0e0;
   z-index: 1;
 }
 
@@ -206,26 +193,26 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: var(--white);
-  border: 3px solid var(--mid-gray);
+  background-color: #ffffff;
+  border: 3px solid #e0e0e0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  color: var(--text-gray);
+  color: #555555;
   position: relative;
   z-index: 2;
 }
 
 .book-appointment-progress-step.active {
-  border-color: var(--primary);
-  color: var(--primary);
+  border-color: #20B2AA;
+  color: #20B2AA;
 }
 
 .book-appointment-progress-step.completed {
-  background-color: var(--primary);
-  border-color: var(--primary);
-  color: var(--white);
+  background-color: #20B2AA;
+  border-color: #20B2AA;
+  color: #ffffff;
 }
 
 .book-appointment-progress-label {
@@ -235,7 +222,7 @@
   transform: translateX(-50%);
   font-size: 0.8rem;
   font-weight: 500;
-  color: var(--text-gray);
+  color: #555555;
   white-space: nowrap;
 }
 
@@ -248,7 +235,7 @@
 }
 
 .book-appointment-pet-icon {
-  border: 2px solid var(--mid-gray);
+  border: 2px solid #e0e0e0;
   border-radius: 8px;
   padding: 12px;
   flex: 1 0 calc(25% - 12px);
@@ -256,18 +243,18 @@
   text-align: center;
   cursor: pointer;
   transition: all 0.25s ease;
-  background-color: var(--white);
+  background-color: #ffffff;
 }
 
 .book-appointment-pet-icon.active {
-  border-color: var(--primary);
-  background-color: var(--primary-light);
+  border-color: #20B2AA;
+  background-color: #e6f7f6;
 }
 
 .book-appointment-pet-icon span {
   display: block;
   font-size: 0.9rem;
-  color: var(--black);
+  color: #333333;
 }
 
 /* Time slots */
@@ -280,28 +267,28 @@
 
 .book-appointment-time-slot {
   padding: 10px 15px;
-  border: 1px solid var(--mid-gray);
+  border: 1px solid #e0e0e0;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
-  background-color: var(--white);
-  color: var(--black);
+  background-color: #ffffff;
+  color: #333333;
 }
 
 .book-appointment-time-slot.active {
-  background-color: var(--primary);
-  color: var(--white);
-  border-color: var(--primary);
+  background-color: #20B2AA;
+  color: #ffffff;
+  border-color: #20B2AA;
 }
 
 .book-appointment-info {
-  color: var(--text-gray);
+  color: #555555;
   font-style: italic;
   margin: 10px 0;
 }
 
 .book-appointment-loading {
-  color: var(--text-gray);
+  color: #555555;
   margin: 10px 0;
   display: flex;
   align-items: center;
@@ -312,7 +299,7 @@
   width: 16px;
   height: 16px;
   margin-right: 8px;
-  border: 2px solid var(--primary);
+  border: 2px solid #20B2AA;
   border-top-color: transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -321,11 +308,11 @@
 /* Form validation styling */
 .book-appointment-input.error,
 .book-appointment-select.error {
-  border-color: var(--error);
+  border-color: #e53935;
 }
 
 .book-appointment-error-text {
-  color: var(--error);
+  color: #e53935;
   font-size: 0.85rem;
   margin-top: 0.25rem;
   font-weight: 500;

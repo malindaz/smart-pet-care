@@ -30,6 +30,8 @@ import VetRequests from "./pages/Admin/vetrequests";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 //import Veterinarian pages
+import VetAppintments from "./pages/Veterinarian/VetAppointments";
+
 
 //import Pharmacist pages
 import Pharmacy from "./pages/Pharmacist/pharmacy";
@@ -62,13 +64,19 @@ function App() {
           {/*User Routes*/}
 
           <Route path="/profile" element={<Profile />} />
-          <Route path="/appointment-form" element={<AppointmentForm />} />
-          <Route path="/apply-vet" element={<ApplyVet />} />
+          <Route path="/appointment-form" element={<ProtectedRoute><AppointmentForm /></ProtectedRoute>} />
+          <Route path="/apply-vet" element={<ProtectedRoute><ApplyVet /></ProtectedRoute>} />
           <Route path="/mypets" element={<MyPets />} />
           <Route path="/addrecord" element={<AddRecord />} />
           <Route path="/addnewpet" element={<AddNewPet />} />
           <Route path="/editpetdetails/:id" element={<EditPetDetails />} />
           <Route path="/myappointments" element={<MyAppointments />} />
+
+
+          {/*Vet Routes*/ }
+          <Route path="/vet-appointments" element={<VetAppintments />} />
+
+
 
           {/*Admin Routes*/ }
 

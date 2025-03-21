@@ -39,4 +39,8 @@ router.patch(
   appointmentController.updateAppointmentStatus
 );
 
+router.get('/all', appointmentController.getAllAppointments);
+router.put('/:id/accept', appointmentController.acceptAppointment);
+router.put('/:id/reject', appointmentController.rejectAppointment);
+
 module.exports = router;

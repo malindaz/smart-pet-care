@@ -265,3 +265,53 @@ exports.updateAppointmentStatus = async (req, res) => {
     });
   }
 };
+
+// Fetch all appointments
+exports.getAllAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find();
+    res.status(200).json(appointments);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching appointments", error });
+  }
+};
+
+// Accept an appointment
+exports.acceptAppointment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedAppointment = await Appointment.findByIdAndUpdate(
+      id,
+      { status: 'confirmed' },
+      { new: true }
+    );
+
+    if (!updatedAppointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    res.status(200).json(updatedAppointment);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating appointment", error });
+  }
+};
+
+// Reject an appointment
+exports.rejectAppointment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedAppointment = await Appointment.findByIdAndUpdate(
+      id,
+      { status: 'cancelled' },
+      { new: true }
+    );
+
+    if (!updatedAppointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    res.status(200).json(updatedAppointment);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating appointment", error });
+  }
+};
