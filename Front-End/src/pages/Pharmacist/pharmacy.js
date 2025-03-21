@@ -10,7 +10,7 @@ import "../../css/Pharmacy/pharmacy.css";
 const ProductList = () => {
   // State to store fetched product data
   const [products, setProducts] = useState([]);
-  
+
   // State to handle search functionality
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -25,7 +25,7 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  
+
   // Function to fetch pharmacy product data from the backend
   const fetchProducts = async () => {
     try {
@@ -74,7 +74,7 @@ const ProductList = () => {
       <NavBar />
       <Container className="pharmacy-Container">
         <h1 className="pharmacy-h1">Pharmacy Products</h1>
-        
+
         {/* Search Bar */}
         <div className="pharmacy-Search-bar">
           <input
@@ -101,29 +101,29 @@ const ProductList = () => {
                     <Col key={product._id} xs={12} sm={6} md={4} lg={3} className="pharmacy-align-items-stretch">
                       <Card className="pharmacy-Card">
                         <div className="pharmacy-Card-img-container">
-                          <Card.Img 
-                            variant="top" 
-                            src={getImageSrc(product.image)} 
-                            className="pharmacy-Card-img-scale" 
-                            alt={product.name} 
+                          <Card.Img
+                            variant="top"
+                            src={getImageSrc(product.image)}
+                            className="pharmacy-Card-img-scale"
+                            alt={product.name}
                           />
                         </div>
                         <Card.Body className="pharmacy-Card-body">
                           <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
                           <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
                           <Card.Text className="pharmacy-Price-text">Rs. {product.price}</Card.Text>
-                          
+
                           {/* Add to Cart Button */}
-                          <Button 
-                            className="pharmacy-Btn-addToCart" 
+                          <Button
+                            className="pharmacy-Btn-addToCart"
                             onClick={() => addToCart(product)}
                           >
                             Add to Cart
                           </Button>
 
                           {/* Buy Now Button */}
-                          <Button 
-                            className="pharmacy-Btn-buy-now" 
+                          <Button
+                            className="pharmacy-Btn-buy-now"
                             onClick={() => handleBuyNow(product)}
                           >
                             Buy Now
@@ -139,7 +139,7 @@ const ProductList = () => {
           )
         )}
       </Container>
-      <Footer/>
+      <Footer />
     </>
   );
 };

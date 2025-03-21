@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Table, Button, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../Shoping Cart/cartContext';
@@ -8,21 +8,28 @@ import { FaTrash, FaMinus, FaPlus } from 'react-icons/fa';
 import '../../css/Shoping Cart/cart.css';
 
 const Cart = () => {
-  const navigate = useNavigate();
-  const { cart, cartTotal, removeFromCart, updateQuantity, clearCart } = useCart();
+  const navigate = useNavigate(); // Hook to programmatically navigate between routes
+  const { cart, cartTotal, removeFromCart, updateQuantity, clearCart } = useCart(); // Extracting cart-related functions from context
 
+  // Scroll to the top when this component loads
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Function to handle checkout process
   const handleCheckout = () => {
     if (cart.length === 0) {
-      alert('Your cart is empty.');
+      alert('Your cart is empty.'); // Alert if cart is empty
       return;
     }
-    navigate('/checkout', { state: { cart, cartTotal } });
+    navigate('/checkout', { state: { cart, cartTotal } }); // Navigate to checkout page with cart details
   };
 
+  // Function to get product image source
   const getImageSrc = (image) => {
-    if (!image) return "/placeholder-image.png";
-    if (image.startsWith("http") || image.startsWith("data:image")) return image;
-    return `http://localhost:5000${image}`;
+    if (!image) return "/placeholder-image.png"; // Default placeholder image
+    if (image.startsWith("http") || image.startsWith("data:image")) return image; // If image URL is absolute
+    return `http://localhost:5000${image}`; // Otherwise, prepend server URL
   };
 
   return (
@@ -31,6 +38,7 @@ const Cart = () => {
       <Container className="cart-container">
         <h1 className="cart-h1">Your Shopping Cart</h1>
 
+        {/* Display message if cart is empty */}
         {cart.length === 0 ? (
           <div className="cart-empty">
             <h3 className="cart-empty-text">Your cart is empty</h3>
@@ -91,6 +99,7 @@ const Cart = () => {
               </div>
             </div>
 
+            {/* Order summary section */}
             <div className="cart-summary">
               <Card>
                 <Card.Body>

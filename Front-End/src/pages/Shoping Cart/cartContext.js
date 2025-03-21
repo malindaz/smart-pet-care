@@ -13,13 +13,13 @@ export const CartProvider = ({ children }) => {
     const savedCart = localStorage.getItem('pharmacy_cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
-  
+
   const [cartTotal, setCartTotal] = useState(0);
 
   // Update localStorage and calculate total whenever cart changes
   useEffect(() => {
     localStorage.setItem('pharmacy_cart', JSON.stringify(cart));
-    
+
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     setCartTotal(total);
   }, [cart]);
@@ -28,12 +28,12 @@ export const CartProvider = ({ children }) => {
   const addToCart = (product) => {
     setCart(prevCart => {
       const existingItem = prevCart.find(item => item._id === product._id);
-      
+
       if (existingItem) {
         // If item exists, increase quantity
-        return prevCart.map(item => 
-          item._id === product._id 
-            ? { ...item, quantity: item.quantity + 1 } 
+        return prevCart.map(item =>
+          item._id === product._id
+            ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       } else {
@@ -54,11 +54,11 @@ export const CartProvider = ({ children }) => {
       removeFromCart(productId);
       return;
     }
-    
-    setCart(prevCart => 
-      prevCart.map(item => 
-        item._id === productId 
-          ? { ...item, quantity } 
+
+    setCart(prevCart =>
+      prevCart.map(item =>
+        item._id === productId
+          ? { ...item, quantity }
           : item
       )
     );

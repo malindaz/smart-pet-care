@@ -131,7 +131,7 @@ const PharmacyEdit = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     let processedValue = value;
-    
+
     // Special handling for price to ensure proper format
     if (name === 'price') {
       // Allow only valid decimal numbers
@@ -293,9 +293,9 @@ const PharmacyEdit = () => {
     <>
       <NavBar />
       <h1 className="pharmacy-Edit-Form-h1">
-          {editMode ? 'Edit Product' : 'Add New Product'}
-        </h1>
-      <Container className="pharmacy-Edit-Form-Container">     
+        {editMode ? 'Edit Product' : 'Add New Product'}
+      </h1>
+      <Container className="pharmacy-Edit-Form-Container">
 
         {message.text && (
           <Alert variant={message.type} className="my-3">

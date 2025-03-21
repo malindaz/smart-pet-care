@@ -103,23 +103,29 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 65vh; /* Adjust height to center vertically */
+  height: 60vh;
+  /* Adjust height to center vertically */
   text-align: center;
 }
 
 .cart-empty-text {
   font-size: 24px;
   margin-bottom: 20px;
+  color: #5f6368;
 }
+
 /* Buttons */
 .cart-actions {
   display: flex;
-  justify-content: center; /* Centers horizontally */
-  gap: 10px; /* Adds space between buttons */
-  margin-top: 20px; /* Adjusts spacing */
+  justify-content: center;
+  /* Centers horizontally */
+  gap: 10px;
+  /* Adds space between buttons */
+  margin-top: 20px;
+  /* Adjusts spacing */
 }
 
-.cart-btn-primary, 
+.cart-btn-primary,
 .cart-btn-danger {
   background-color: #0ca82e;
   color: white;
@@ -170,8 +176,10 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  display: block; /* Makes the button take full width of its container */
-  margin: 20px auto; /* Centers horizontally */
+  display: block;
+  /* Makes the button take full width of its container */
+  margin: 20px auto;
+  /* Centers horizontally */
   text-align: center;
   transition: background-color 0.3s ease;
 }

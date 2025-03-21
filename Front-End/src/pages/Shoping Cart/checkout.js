@@ -119,9 +119,9 @@ const Checkout = () => {
         if (!value.trim()) {
           errorMessage = 'Phone number is required';
         } else if (!/^0/.test(value)) {
-            errorMessage = 'Phone number must start with 0';
+          errorMessage = 'Phone number must start with 0';
         } else if (!/^\d{10}$/.test(value.replace(/\D/g, ''))) {
-            errorMessage = 'Phone number must be exactly 10 digits long';
+          errorMessage = 'Phone number must be exactly 10 digits long';
         }
         break;
 
