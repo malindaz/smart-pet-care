@@ -1,0 +1,236 @@
+/* Center the form and add spacing */
+.pharmacy-Edit-Form-Container {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Form title */
+.pharmacy-Edit-Form-h1 {
+  margin-top: 100px;
+  text-align: center;
+  color: #2c3e50;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* Form fields */
+
+.pharmacy-Edit-Form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.pharmacy-Edit-Form-control,
+.pharmacy-Edit-Form-select {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  transition: border 0.3s;
+}
+
+.pharmacy-Edit-Form-control:focus,
+.pharmacy-Edit-Form-select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+.pharmacy-Edit-Form-category,
+.pharmacy-Edit-Form-name,
+.pharmacy-Edit-Form-price,
+.pharmacy-Edit-Form-image {
+  width: 300px;
+}
+
+.pharmacy-Edit-Form-description {
+  width: 400px;
+}
+
+/* Validation styles */
+/* Updated Validation Styles */
+.pharmacy-Edit-Form {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+/* Validation messages - Fixed positioning */
+.invalid-feedback {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.875rem;
+  color: #dc3545;
+  position: static; /* Add this */
+  transform: translateY(-20px); /* Lift messages closer */
+}
+
+.pharmacy-Edit-Form-control.is-invalid,
+.pharmacy-Edit-Form-select.is-invalid {
+  border-color: #dc3545;
+  padding-right: 2.25rem;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem 1.25rem;
+}
+
+/* Remove focus shadow for invalid inputs */
+.pharmacy-Edit-Form-control.is-invalid:focus,
+.pharmacy-Edit-Form-select.is-invalid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  border-color: #dc3545;
+}
+
+/* Image Upload Error State */
+.pharmacy-Edit-Form .form-control-file.is-invalid {
+  border-color: #dc3545;
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+/* Error Message Alignment */
+.pharmacy-Edit-Form .form-text.text-muted {
+  margin-top: 0.5rem;
+  display: block;
+}
+
+/* Alert messages */
+.pharmacy-Edit-Form-alert {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+.pharmacy-Edit-Form-alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.pharmacy-Edit-Form-alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+/* Image preview container */
+.pharmacy-Edit-Form-ImagePreview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 0.75rem;
+  border: 1px solid #ccc;
+}
+
+/* Invalid image preview */
+.pharmacy-Edit-Form-ImagePreview.is-invalid {
+  border-color: #dc3545;
+}
+
+.pharmacy-Edit-Form-Img-thumbnail {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Buttons container */
+.pharmacy-Edit-Form-Btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Save button */
+.pharmacy-Edit-Form-Btn-save {
+  background-color: #0ca82e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.pharmacy-Edit-Form-Btn-save:hover {
+  background-color: #218838;
+}
+
+/* Cancel button */
+.pharmacy-Edit-Form-Btn-cancel {
+  background-color: #5f6368;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.pharmacy-Edit-Form-Btn-cancel:hover {
+  background-color: #bed5e1;
+  color: #495057;
+}
+
+/* Loading spinner */
+.pharmacy-Edit-Form-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  vertical-align: text-bottom;
+  border: 0.2em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border 0.75s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spinner-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .pharmacy-Edit-Form-Container {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+
+  .pharmacy-Edit-Form-Btn-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pharmacy-Edit-Form-Btn-save,
+  .pharmacy-Edit-Form-Btn-cancel {
+    width: 100%;
+  }
+}

@@ -1,0 +1,258 @@
+/* Main container for the pharmacy page */
+.pharmacy-Container {
+  margin-bottom: 20px;
+  margin-top: 110px;
+}
+
+/* Title Styling */
+.pharmacy-h1 {
+  font-weight: bold;
+  color: #1abc9c;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Search Bar Container */
+.pharmacy-Search-bar {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+/* Search Input Field */
+.pharmacy-Form-control {
+  max-width: 250px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  /* Keeps margin to the right */
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #1abc9c;
+  text-align: left;
+  position: relative;
+  flex-grow: 1;
+  /* Allows the search bar to expand */
+}
+
+/* Change placeholder text color */
+.pharmacy-Form-control::placeholder {
+  color: #1abc9c;
+  opacity: 1;
+  /* Ensures full visibility */
+}
+
+.pharmacy-Form-control:focus {
+  background-color: #ffffff;
+  /* White background */
+  border-color: #00C2CB;
+  /* Darker blue border */
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  /* Blue glow effect */
+}
+
+/* Product Card Styling */
+.pharmacy-Card {
+  min-width: 250px;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  flex-shrink: 0;
+  /* Prevents card from shrinking */
+  border: 2px solid #1abc9c;
+  /* Adds blue border */
+  border-radius: 10px;
+  /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow effect */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  /* Smooth transition */
+}
+
+/* Card Hover Effect */
+.pharmacy-Card:hover {
+  transform: scale(1.05);
+  /* Enlarges card on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  /* Deeper shadow for pop effect */
+  z-index: 1;
+  /* Ensures the hovered card appears above others */
+}
+
+/* Card Image Container */
+.pharmacy-Card-img-container {
+  height: 200px;
+  /* Defines fixed height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Centers image horizontally */
+  overflow: hidden;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+/* Product Image Styling */
+.pharmacy-Card-img-scale {
+  max-height: 200px;
+  /* Restricts image height */
+  object-fit: contain;
+  /* Ensures full visibility without stretching */
+  display: block;
+  margin: 0 auto;
+  /* Centers image horizontally */
+}
+
+/* Card Body Content */
+.pharmacy-Card-body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Product Title */
+.pharmacy-Card-title {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Product Description */
+.pharmacy-Card-text {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 3px;
+}
+
+/* Product Price Styling */
+.pharmacy-Price-text {
+  color: #28a745;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  margin-top: 3px;
+}
+
+/* "Add to Cart" Button */
+.pharmacy-Btn-addToCart {
+  background-color: #00C2CB;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px 10px;
+  transition: background-color 0.3s ease;
+}
+
+/* Button Hover Effect */
+.pharmacy-Btn-addToCart:hover {
+  background-color: #00a9b1;
+}
+
+/* "Buy Now" Button */
+.pharmacy-Btn-buy-now {
+  background-color: #0ca82e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px 10px;
+  transition: background-color 0.3s ease;
+}
+
+/* Button Hover Effect */
+.pharmacy-Btn-buy-now:hover {
+  background-color: #068330;
+}
+
+/* Scrollable Product List Row */
+.pharmacy-Row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  /* Enables horizontal scrolling */
+  padding-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
+}
+
+/* Custom Scrollbar Styling */
+.pharmacy-Row::-webkit-scrollbar {
+  height: 8px;
+  /* Sets scrollbar height */
+}
+
+.pharmacy-Row::-webkit-scrollbar-thumb {
+  background: #1abc9c;
+  /* Scrollbar color */
+  border-radius: 5px;
+}
+
+.pharmacy-Row::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Scrollbar track color */
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .pharmacy-Form-control {
+    width: 100%;
+    /* Makes search bar full width */
+  }
+
+  .pharmacy-Card-img-top {
+    height: 150px;
+    /* Adjusts image size for smaller screens */
+  }
+}
+
+/* Section Title Styling */
+.pharmacy-Medications-title {
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1abc9c;
+  text-align: left;
+  display: block;
+  margin-bottom: 20px;
+}
+
+/* Horizontal Divider */
+.pharmacy-hr {
+  margin-top: 30px;
+  height: 1px;
+  /* Adjust thickness */
+  background-color: #1abc9c;
+  border: none;
+}
+
+
+/* "No Items Found" Message Styling */
+.pharmacy-no-items-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #5f6368;
+}

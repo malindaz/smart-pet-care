@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 const { check } = require('express-validator');
 const {
   getProducts,
@@ -10,15 +11,32 @@ const {
 
 const router = express.Router();
 
+// Configure Multer for image uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Save images in "uploads" folder
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage });
+
+// Serve images statically
+router.use('/uploads', express.static('uploads'));
+
+
 // Get all products
 router.get('/', getProducts);
 
 // Get product by ID
 router.get('/:id', getProductById);
 
-// Create new product (Validation: All fields are required)
+// Create a new product (with validation & image upload)
 router.post(
   '/',
+  upload.single('image'),
   [
     check('category', 'Category is required').not().isEmpty(),
     check('name', 'Name is required').not().isEmpty(),
@@ -28,10 +46,10 @@ router.post(
   createProduct
 );
 
-// Update product by ID
-router.put('/:id', updateProduct);
+// Update a product (with optional image upload)
+router.put('/:id', upload.single('image'), updateProduct);
 
-// Delete product by ID
+// Delete a product by ID
 router.delete('/:id', deleteProduct);
 
 module.exports = router;

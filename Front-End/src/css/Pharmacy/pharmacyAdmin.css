@@ -1,0 +1,71 @@
+.pharmacy-Add-btn {
+  background-color: #0ca82e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.pharmacy-Add-btn:hover {
+  background-color: #218838;
+}
+
+.pharmacy-Btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pharmacy-Btn-edit, .pharmacy-Btn-delete {
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.pharmacy-Btn-edit {
+  background-color: #ffc107;
+  border: none;
+}
+
+.pharmacy-Btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.pharmacy-Btn-delete {
+  background-color: #dc3545;
+  border: none;
+}
+
+.pharmacy-Btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .checkout-product-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .checkout-product-image {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+}
