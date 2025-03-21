@@ -21,8 +21,6 @@ import MyPets from "./pages/User/mypets";
 import AddRecord from "./pages/User/addrecord";
 import AddNewPet from "./pages/User/addnewpet";
 import MyAppointments from "./pages/User/MyAppointments"
-
-
 import EditPetDetails from "./pages/User/editpetdetails";
 
 //import Admin pages
@@ -33,7 +31,6 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import VetDashboard from "./pages/Veterinarian/VetDashboard";
 import VetAppointments from "./pages/Veterinarian/VetAppointments";
 
-
 //import Pharmacist pages
 import Pharmacy from "./pages/Pharmacist/pharmacy";
 import PharmacyAdmin from "./pages/Pharmacist/pharmacyAdmin";
@@ -42,9 +39,6 @@ import Cart from "./pages/Shoping Cart/cart";
 import {CartProvider} from "./pages/Shoping Cart/cartContext";
 import CheckoutPage from "./pages/Shoping Cart/checkout";
 
-// Import Veterinarian pages
-
-// Import Pharmacist pages
 
 function App() {
   return (
@@ -67,7 +61,6 @@ function App() {
           {/* Public Routes */}
           <Route path="/signup" element={<Register />} />
 
-          
            {/*Main Routes  */}
 
           <Route path="/" element={<Home />} />
@@ -77,11 +70,9 @@ function App() {
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           
-          
-                 
-          
           {/* Add Admin Routes Here */}
-
+          <Route path="/vetrequests" element={<VetRequests />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
           {/*Add User Routes Here*/ }
 
@@ -91,10 +82,8 @@ function App() {
           <Route path="/mypets" element={<MyPets />} />
           <Route path="/addrecord" element={<AddRecord />} />
           <Route path="/addnewpet" element={<AddNewPet />} />
-
-
-
-          {/*Add Veterinarian Routes Here*/ }
+          <Route path="/myappointments" element={<MyAppointments />} />
+          <Route path="/editpetdetails" element={<EditPetDetails />} />     
 
           {/*Add Pharmacist Routes Here*/ } 
           <Route path="/pharmacy" element={<Pharmacy />} />
@@ -102,6 +91,8 @@ function App() {
           <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
 
             {/* Add Veterinarian Routes Here */}
+            <Route path="/vetdashboard" element={<VetDashboard />} />
+            <Route path="/vetappointments" element={<VetAppointments />} />
 
             {/* Add Pharmacist Routes Here */}
             <Route path="/cart" element={<Cart />} />
