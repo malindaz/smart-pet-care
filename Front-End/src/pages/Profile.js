@@ -187,6 +187,34 @@ const Profile = () => {
         return `http://localhost:5000/${cleanPath}`;
     };
 
+    const EditField = ({ label, name, value, type = "text", onChange, icon, multiline = false }) => {
+        return (
+            <div className="profile_edit_field">
+                <div className="profile_input_icon">
+                    <i className={`fas fa-${icon}`}></i>
+                </div>
+                {multiline ? (
+                    <textarea
+                        name={name}
+                        value={value || ''}
+                        onChange={onChange}
+                        className="profile_input"
+                        placeholder={`Enter your ${label.toLowerCase()}`}
+                    />
+                ) : (
+                    <input
+                        type={type}
+                        name={name}
+                        value={value || ''}
+                        onChange={onChange}
+                        className="profile_input"
+                        placeholder={`Enter your ${label.toLowerCase()}`}
+                    />
+                )}
+            </div>
+        );
+    };
+
     if (!userData) {
         return <div className="profile_loading">Loading...</div>;
     }
@@ -258,58 +286,98 @@ const Profile = () => {
                     </div>
 
                     <div className="profile_info">
-                        <div className="profile_info_item">
-                            <label>Email</label>
-                            {isEditing ? (
-                                <input
-                                    type="email"
+                        {isEditing ? (
+                            <div className="profile_edit_form">
+                                <div className="profile_input_row">
+                                    <EditField
+                                        label="First Name"
+                                        name="firstName"
+                                        value={formData.firstName}
+                                        onChange={handleInputChange}
+                                        icon="user"
+                                    />
+                                    <EditField
+                                        label="Last Name"
+                                        name="lastName"
+                                        value={formData.lastName}
+                                        onChange={handleInputChange}
+                                        icon="user"
+                                    />
+                                </div>
+                                <EditField
+                                    label="Email"
                                     name="email"
+                                    type="email"
                                     value={formData.email}
                                     onChange={handleInputChange}
+                                    icon="envelope"
                                 />
-                            ) : (
-                                <p>{userData.email}</p>
-                            )}
-                        </div>
-                        <div className="profile_info_item">
-                            <label>Phone Number</label>
-                            {isEditing ? (
-                                <input
-                                    type="tel"
+                                <EditField
+                                    label="Phone Number"
                                     name="phoneNumber"
+                                    type="tel"
                                     value={formData.phoneNumber}
                                     onChange={handleInputChange}
+                                    icon="phone"
                                 />
-                            ) : (
-                                <p>{userData.phoneNumber}</p>
-                            )}
-                        </div>
-                        <div className="profile_info_item">
-                            <label>Address</label>
-                            {isEditing ? (
-                                <textarea
+                                <EditField
+                                    label="Address"
                                     name="address"
                                     value={formData.address}
                                     onChange={handleInputChange}
+                                    icon="home"
+                                    multiline={true}
                                 />
-                            ) : (
-                                <p>{userData.address}</p>
-                            )}
-                        </div>
+                            </div>
+                        ) : (
+                            <>
+                                <div className="profile_info_item">
+                                    <label>Full Name</label>
+                                    <p>{userData.firstName} {userData.lastName}</p>
+                                </div>
+                                <div className="profile_info_item">
+                                    <label>Email</label>
+                                    <p>{userData.email}</p>
+                                </div>
+                                <div className="profile_info_item">
+                                    <label>Phone Number</label>
+                                    <p>{userData.phoneNumber}</p>
+                                </div>
+                                <div className="profile_info_item">
+                                    <label>Address</label>
+                                    <p>{userData.address}</p>
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     <div className="profile_actions">
                         {isEditing ? (
-                            <>
-                                <button className="profile_save_button" onClick={handleUpdate}>Save Changes</button>
-                                <button className="profile_cancel_button" onClick={handleCancelEdit}>Cancel</button>
-                            </>
+                            <div className="profile_edit_actions">
+                                <button className="profile_save_button" onClick={handleUpdate}>
+                                    <i className="fas fa-check"></i>
+                                    Save Changes
+                                </button>
+                                <button className="profile_cancel_button" onClick={handleCancelEdit}>
+                                    <i className="fas fa-times"></i>
+                                    Cancel
+                                </button>
+                            </div>
                         ) : (
-                            <>
-                                <button className="profile_edit_button" onClick={() => setIsEditing(true)}>Edit Profile</button>
-                                <button className="profile_delete_button" onClick={handleDelete}>Delete Account</button>
-                                <button className="profile_logout_button" onClick={handleLogout}>Logout</button>
-                            </>
+                            <div className="profile_view_actions">
+                                <button className="profile_edit_button" onClick={() => setIsEditing(true)}>
+                                    <i className="fas fa-edit"></i>
+                                    Edit Profile
+                                </button>
+                                <button className="profile_delete_button" onClick={handleDelete}>
+                                    <i className="fas fa-trash-alt"></i>
+                                    Delete Account
+                                </button>
+                                <button className="profile_logout_button" onClick={handleLogout}>
+                                    <i className="fas fa-sign-out-alt"></i>
+                                    Logout
+                                </button>
+                            </div>
                         )}
                     </div>
                 </div>

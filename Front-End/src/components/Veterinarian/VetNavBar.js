@@ -12,7 +12,7 @@ import {
   Settings,
   HelpCircle
 } from 'lucide-react';
-import '../../css/Veterinarian/vetnavbar.css';
+import '../../css/Veterinarian/VetNavBar.css';
 import Logo from '../../assets/images/Logo.png';
 
 const VetNavBar = () => {
