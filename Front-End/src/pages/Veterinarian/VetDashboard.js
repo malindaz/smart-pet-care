@@ -17,7 +17,7 @@ import Footer from '../../components/Footer';
 const VetDashboard = () => {
   return (
     <>
-    {/* <VetNavBar/> */}
+    <VetNavBar/>
     <div className="vet-dashboard-container">
       <div className="vet-dashboard-header">
         <h1>Veterinarian Dashboard</h1>
