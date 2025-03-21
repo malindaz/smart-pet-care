@@ -1,6 +1,6 @@
 const Pet = require('../Models/addnewpetmodel');
-
-
+const fs = require('fs');
+const path = require('path');
 
 exports.addPet = async (req, res) => {
   try {
@@ -14,39 +14,31 @@ exports.addPet = async (req, res) => {
     const petData = {
       name: req.body.name,
       species: req.body.species,
-      breed: req.body.breed,
-      age: req.body.age,
-      weight: req.body.weight,
+      breed: req.body.breed || "",
+      age: req.body.age || 0,
+      weight: req.body.weight || 0,
       gender: req.body.gender,
-      microchipID: req.body.microchipID,
+      microchipID: req.body.microchipID || "",
       lastCheckup: req.body.lastCheckup,
       ownerName: req.body.ownerName,
-      photo: req.file.path,  // Store file path correctly
+      photo: req.file.path.replace(/\\/g, '/'), // Ensure correct path format
     };
 
     const newPet = new Pet(petData);
     await newPet.save();
 
-    res.status(201).json({ message: "Pet added successfully!", pet: newPet });
+    res.status(201).json({ 
+      message: "Pet added successfully!", 
+      pet: newPet 
+    });
   } catch (error) {
     console.error("❌ Error adding pet:", error);
-    res.status(500).json({ message: "Server error while adding pet", error: error.message });
+    res.status(500).json({ 
+      message: "Server error while adding pet", 
+      error: error.message 
+    });
   }
 };
-
-
-
-
-// Add a new pet
-// exports.addPet = async (req, res) => {
-//   try {
-//     const newPet = new Pet(req.body);
-//     await newPet.save();
-//     res.status(201).json(newPet);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// };
 
 // Get all pets
 exports.getAllPets = async (req, res) => {
@@ -54,10 +46,9 @@ exports.getAllPets = async (req, res) => {
     const pets = await Pet.find();
     res.status(200).json(pets);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching pets', error });
+    res.status(500).json({ message: 'Error fetching pets', error: error.message });
   }
 };
-
 
 // Get a pet by ID
 exports.getPetById = async (req, res) => {
@@ -68,23 +59,28 @@ exports.getPetById = async (req, res) => {
     }
     res.status(200).json(pet);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching pet data', error });
+    res.status(500).json({ message: 'Error fetching pet data', error: error.message });
   }
 };
 
 // Update pet details
 exports.updatePet = async (req, res) => {
   try {
-    const updatedPet = await Pet.findByIdAndUpdate(req.params.petId, req.body, { new: true });
+    const updatedPet = await Pet.findByIdAndUpdate(
+      req.params.petId, 
+      req.body, 
+      { new: true, runValidators: true }
+    );
+    
     if (!updatedPet) {
       return res.status(404).json({ message: 'Pet not found' });
     }
+    
     res.status(200).json(updatedPet);
   } catch (error) {
-    res.status(500).json({ message: 'Error updating pet', error });
+    res.status(500).json({ message: 'Error updating pet', error: error.message });
   }
 };
-
 
 exports.deletePet = async (req, res) => {
   try {
@@ -95,15 +91,16 @@ exports.deletePet = async (req, res) => {
 
     // Delete associated pet image if exists
     if (pet.photo) {
-      fs.unlink(pet.photo, (err) => {
-        if (err) console.error("Error deleting file:", err);
-      });
+      const filePath = path.join(process.cwd(), pet.photo);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
     }
 
     await Pet.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: "Pet deleted successfully!" });
   } catch (error) {
     console.error("Error deleting pet:", error);
-    res.status(500).json({ message: "Server error while deleting pet", error });
+    res.status(500).json({ message: "Server error while deleting pet", error: error.message });
   }
 };

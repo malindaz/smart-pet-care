@@ -59,6 +59,19 @@ const Register = () => {
             setImagePreview(URL.createObjectURL(file));
         }
     };
+    
+    // Add a function to remove the profile image
+    const removeProfileImage = () => {
+        setFormData(prev => ({
+            ...prev,
+            profileImage: null
+        }));
+        setImagePreview(null);
+        
+        // Reset the file input
+        const fileInput = document.getElementById('profileImage');
+        if (fileInput) fileInput.value = '';
+    };
 
     const validateField = (name, value) => {
         let errors = {...validationErrors};
@@ -174,19 +187,27 @@ const Register = () => {
             <div className="Registerpage-card">
                 <div className="Registerpage-header">
                     <h1>Create Account</h1>
-                   
                 </div>
                 
                 <form className="Registerpage-form" onSubmit={handleSubmit}>
                     <div className="Registerpage-image-upload">
                         <div className="Registerpage-image-preview">
                             {imagePreview ? (
-                                <img src={imagePreview} alt="Profile Preview" />
+                                <>
+                                    <img src={imagePreview} alt="Profile Preview" />
+                                    <button 
+                                        type="button"
+                                        className="Registerpage-remove-image"
+                                        onClick={removeProfileImage}
+                                    >
+                                        ×
+                                    </button>
+                                </>
                             ) : (
                                 <div className="Registerpage-image-placeholder">
                                     {formData.firstName && formData.lastName ? 
                                         `${formData.firstName[0]}${formData.lastName[0]}`.toUpperCase() : 
-                                        'Add Photo'}
+                                        ''}
                                 </div>
                             )}
                         </div>
@@ -201,6 +222,9 @@ const Register = () => {
                         <label htmlFor="profileImage" className="Registerpage-upload-button">
                             Choose Profile Picture
                         </label>
+                        <p className="Registerpage-optional-text">
+                            (Optional)
+                        </p>
                     </div>
 
                     <div className="Registerpage-form-section">
