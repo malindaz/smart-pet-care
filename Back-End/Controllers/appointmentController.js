@@ -266,6 +266,33 @@ exports.updateAppointmentStatus = async (req, res) => {
   }
 };
 
+// Delete appointment
+exports.deleteAppointment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const appointment = await Appointment.findByIdAndDelete(id);
+    
+    if (!appointment) {
+      return res.status(404).json({
+        success: false,
+        message: 'Appointment not found'
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      message: 'Appointment deleted successfully'
+    });
+  } catch (error) {
+    console.error('Error deleting appointment:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error while deleting appointment'
+    });
+  }
+};
+
 // Fetch all appointments
 exports.getAllAppointments = async (req, res) => {
   try {

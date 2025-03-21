@@ -1,4 +1,3 @@
-/* AdminNavBar.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 .admin-navbar-header {
@@ -43,8 +42,9 @@
 }
 
 .admin-navbar-logo-img {
-  height: 36px;
+  height: 42px;
   margin-right: 0.5rem;
+  object-fit: contain;
 }
 
 .admin-navbar-logo-text {
@@ -54,14 +54,7 @@
 }
 
 .admin-navbar-plus {
-  color: #40E0D0;
-}
-
-.admin-navbar-admin-text {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #6a26cd;
-  margin-left: 5px;
+  color: #20B2AA;
 }
 
 /* Navigation Links */
@@ -78,12 +71,13 @@
 }
 
 .admin-navbar-link-item {
-  margin: 0 0.2rem;
+  margin: 0 0.5rem;
   position: relative;
 }
 
 .admin-navbar-link {
-  display: block;
+  display: flex;
+  align-items: center;
   padding: 0.5rem 1rem;
   color: #333;
   text-decoration: none;
@@ -93,12 +87,55 @@
   border-radius: 4px;
 }
 
-.admin-navbar-link:hover {
-  color: #6a26cd;
-  background-color: rgba(106, 38, 205, 0.05);
+.admin-navbar-icon {
+  margin-right: 6px;
 }
 
-/* Admin Profile Section */
+.admin-navbar-link:hover {
+  color: #20B2AA;
+  background-color: rgba(32, 178, 170, 0.05);
+}
+
+.admin-navbar-link.admin-navbar-active {
+  color: #20B2AA;
+  position: relative;
+}
+
+.admin-navbar-link.admin-navbar-active:after {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: #20B2AA;
+  transform: translateX(-50%);
+}
+
+.admin-navbar-link:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: #20B2AA;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.admin-navbar-link:hover:after {
+  width: 80%;
+}
+
+/* User Section with Notifications and Profile */
+.admin-navbar-user-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* User Profile */
 .admin-navbar-profile {
   position: relative;
 }
@@ -120,7 +157,7 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #6a26cd;
+  border: 2px solid #20B2AA;
 }
 
 .admin-navbar-avatar-placeholder {
@@ -130,10 +167,13 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #6a26cd;
+  background-color: #20B2AA;
   color: white;
-  font-weight: 600;
-  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.admin-navbar-avatar-placeholder:hover {
+  background-color: #008B8B;
 }
 
 /* Dropdown Menu */
@@ -165,7 +205,7 @@
 .admin-navbar-dropdown-header {
   padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  background-color: #f9f9f9;
+  background-color: #f5f5f5;
 }
 
 .admin-navbar-greeting {
@@ -195,15 +235,15 @@
   transition: all 0.3s ease;
 }
 
-.admin-navbar-dropdown-link i {
+.admin-navbar-dropdown-link svg {
   margin-right: 0.75rem;
-  font-size: 1rem;
   width: 20px;
-  color: #6a26cd;
+  color: #20B2AA;
 }
 
 .admin-navbar-dropdown-link:hover {
-  background-color: rgba(106, 38, 205, 0.05);
+  background-color: rgba(32, 178, 170, 0.05);
+  color: #20B2AA;
 }
 
 .admin-navbar-dropdown-divider {
@@ -227,36 +267,13 @@
   transition: all 0.3s ease;
 }
 
-.admin-navbar-logout-btn i {
+.admin-navbar-logout-btn svg {
   margin-right: 0.75rem;
-  font-size: 1rem;
   width: 20px;
 }
 
 .admin-navbar-logout-btn:hover {
   background-color: rgba(255, 107, 107, 0.05);
-}
-
-/* Auth Buttons */
-.admin-navbar-auth-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.admin-navbar-login-btn {
-  padding: 0.5rem 1rem;
-  color: #6a26cd;
-  background-color: transparent;
-  border: 1px solid #6a26cd;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
-
-.admin-navbar-login-btn:hover {
-  background-color: rgba(106, 38, 205, 0.05);
 }
 
 /* Mobile Toggle Button */
@@ -318,13 +335,20 @@
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 0.5rem 0;
   transition: all 0.3s ease;
 }
 
 .admin-navbar-mobile-links a:hover {
-  color: #6a26cd;
+  color: #20B2AA;
+}
+
+.admin-navbar-mobile-links a.admin-navbar-mobile-active {
+  color: #20B2AA;
+  font-weight: 600;
 }
 
 .admin-navbar-mobile-divider {
@@ -344,62 +368,177 @@
   color: #ff6b6b;
   padding: 0.5rem 0;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Responsive Styles */
-@media (max-width: 992px) {
-  .admin-navbar-nav {
-    display: none;
-  }
-
-  .admin-navbar-mobile-toggle {
-    display: flex;
-    align-items: center;
-  }
-
-  .admin-navbar-mobile-menu {
-    display: block;
-  }
-
-  .admin-navbar-mobile-menu.admin-navbar-open {
-    max-height: 500px;
-  }
+/* Notification styling */
+.admin-navbar-notification {
+  position: relative;
+  margin-right: 1rem;
 }
 
-@media (max-width: 768px) {
-  .admin-navbar-container {
-    padding: 0 1rem;
-    height: 60px;
-  }
-
-  .admin-navbar-logo-img {
-    height: 30px;
-  }
-
-  .admin-navbar-logo-text {
-    font-size: 1.2rem;
-  }
-  
-  .admin-navbar-admin-text {
-    font-size: 0.8rem;
-  }
-
-  .admin-navbar-auth-buttons {
-    gap: 8px;
-  }
-
-  .admin-navbar-login-btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
-  }
+.admin-navbar-notification-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  color: #555;
+  transition: color 0.3s ease;
+  padding: 8px;
+  border-radius: 50%;
 }
 
-@media (max-width: 576px) {
-  .admin-navbar-auth-buttons {
-    display: none;
-  }
-
-  .admin-navbar-mobile-menu.admin-navbar-open {
-    max-height: 600px;
-  }
+.admin-navbar-notification-icon:hover {
+  color: #20B2AA;
+  background-color: rgba(32, 178, 170, 0.05);
 }
+
+.admin-navbar-notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.admin-navbar-notification-dropdown {
+  position: absolute;
+  top: 100%;
+  right: -10px;
+  margin-top: 10px;
+  width: 300px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.admin-navbar-notification-header {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-navbar-notification-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.admin-navbar-mark-read {
+  background: none;
+  border: none;
+  color: #4a90e2;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.admin-navbar-notification-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.admin-navbar-notification-item {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f5f5f5;
+  transition: background-color 0.3s ease;
+}
+
+.admin-navbar-notification-item:hover {
+  background-color: #f9f9f9;
+}
+
+.admin-navbar-notification-item.admin-navbar-unread {
+  background-color: #f0f7ff;
+}
+
+.admin-navbar-notification-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-navbar-notification-text {
+  margin: 0 0 5px 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.admin-navbar-notification-time {
+  font-size: 11px;
+  color: #999;
+}
+
+.admin-navbar-notification-empty {
+  padding: 15px;
+  text-align: center;
+  color: #999;
+  font-size: 13px;
+}
+
+.admin-navbar-notification-footer {
+  padding: 10px 15px;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+
+.admin-navbar-view-all {
+  font-size: 12px;
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.admin-navbar-view-all:hover {
+  text-decoration: underline;
+}
+
+/* Mobile notification badge */
+.admin-navbar-mobile-notification-badge {
+  margin-left: 5px;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Logo styling */
+.admin-navbar-logo {
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.admin-navbar-logo-img {
+  height: 230px;
+  width: 500px;
+  transition: all 0.3s ease;
+  margin-top: 5px;
+  margin-left: -200px;
+}
+
+.admin-navbar-scrolled .admin-navbar-logo-img {
+  height: 230px;
+}
+

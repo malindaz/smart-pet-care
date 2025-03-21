@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import '../../css/Admin/VetRequests.css';
+import AdminNavBar from '../../components/Admin/AdminNavBar';
+import Footer from '../../components/Footer';
 
 const VetRequests = () => {
   const [vetRequests, setVetRequests] = useState([]);
@@ -34,23 +36,24 @@ const VetRequests = () => {
     fetchVetRequests();
   }, []);
 
-  // Handle status update (approve/reject)
-  const handleStatusUpdate = async (id, status) => {
-    setProcessingId(id);
+
+const handleStatusUpdate = async (id, status) => {
+  setProcessingId(id);
+  
+  try {
+    const token = localStorage.getItem('token');
     
-    try {
-      const token = localStorage.getItem('token');
-      
-      const response = await axios.put(
-        'http://localhost:5000/api/admin/update-status',
-        { id, status },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+    const response = await axios.put(
+      'http://localhost:5000/api/admin/update-status',
+      { id, status },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      );
-      
+      }
+    );
+    
+    if (response.data.success) {
       // Update the local state
       setVetRequests(vetRequests.map(request => 
         request._id === id ? { ...request, status } : request
@@ -58,13 +61,20 @@ const VetRequests = () => {
       
       toast.success(`Veterinarian request ${status === 'approved' ? 'approved' : 'rejected'} successfully`);
       
-    } catch (error) {
-      console.error('Error updating veterinarian status:', error);
-      toast.error('Failed to update veterinarian status');
-    } finally {
-      setProcessingId(null);
+      if (status === 'approved') {
+        toast.info('User level updated to Veterinarian (Level 2)');
+      }
+    } else {
+      throw new Error(response.data.error || 'Failed to update request');
     }
-  };
+    
+  } catch (error) {
+    console.error('Error updating veterinarian status:', error);
+    toast.error(`Failed to update status: ${error.response?.data?.error || error.message}`);
+  } finally {
+    setProcessingId(null);
+  }
+};
 
   // Toggle expanded view
   const toggleExpand = (id) => {
@@ -91,6 +101,8 @@ const VetRequests = () => {
   }
 
   return (
+    <>
+    <AdminNavBar/>
     <div className="admin-vetrequests-container">
       <h1 className="admin-vetrequests-title">Veterinarian Applications</h1>
       
@@ -133,9 +145,25 @@ const VetRequests = () => {
               >
                 <div className="admin-vetrequests-card-header">
                   <div className="admin-vetrequests-vet-info">
-                    <div className="admin-vetrequests-profile-image">
-                      <img src={request.profileImage} alt={`${request.firstName} ${request.lastName}`} />
-                    </div>
+                  <div className="admin-vetrequests-profile-image">
+                          {request.profileImage ? (
+                            <img 
+                              src={request.profileImage.startsWith('http') 
+                                ? request.profileImage 
+                                : `http://localhost:5000/${request.profileImage}`} 
+                              alt={`${request.firstName} ${request.lastName}`} 
+                              onError={(e) => {
+                                e.target.onerror = null; 
+                                e.target.src = 'https://via.placeholder.com/60?text=No+Image';
+                              }}
+                            />
+                          ) : (
+                            <img 
+                              src="https://via.placeholder.com/60?text=No+Image" 
+                              alt={`${request.firstName} ${request.lastName}`} 
+                            />
+                          )}
+                        </div>
                     <div className="admin-vetrequests-vet-details">
                       <h3>{request.firstName} {request.lastName}</h3>
                       <p>{request.specialization} • {request.yearsOfExperience} years exp.</p>
@@ -283,6 +311,8 @@ const VetRequests = () => {
         </>
       )}
     </div>
+    <Footer/>
+    </>
   );
 };
 
