@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import '../../css/Admin/VetRequests.css';
+import AdminNavBar from '../../components/Admin/AdminNavBar';
+import Footer from '../../components/Footer';
 
 const VetRequests = () => {
   const [vetRequests, setVetRequests] = useState([]);
@@ -99,6 +101,8 @@ const handleStatusUpdate = async (id, status) => {
   }
 
   return (
+    <>
+    <AdminNavBar/>
     <div className="admin-vetrequests-container">
       <h1 className="admin-vetrequests-title">Veterinarian Applications</h1>
       
@@ -307,6 +311,8 @@ const handleStatusUpdate = async (id, status) => {
         </>
       )}
     </div>
+    <Footer/>
+    </>
   );
 };
 
