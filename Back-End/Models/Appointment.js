@@ -47,6 +47,10 @@ const appointmentSchema = new mongoose.Schema({
   notes: {
     type: String
   },
+  IsPaid: {
+    type: Boolean,
+    default: false
+  },
   status: {
     type: String,
     enum: ['scheduled', 'confirmed', 'completed', 'cancelled'],

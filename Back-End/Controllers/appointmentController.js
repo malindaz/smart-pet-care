@@ -195,8 +195,9 @@ exports.createAppointment = async (req, res) => {
 // Get user's appointments - for authenticated users
 exports.getUserAppointments = async (req, res) => {
   try {
-    // In a real implementation, you'd get the user ID from authentication
     const { email } = req.query;
+    
+    console.log("Fetching appointments for email:", email);
     
     if (!email) {
       return res.status(400).json({
@@ -205,7 +206,12 @@ exports.getUserAppointments = async (req, res) => {
       });
     }
     
-    const appointments = await Appointment.find({ email }).sort({ date: 1, time: 1 });
+    // Find all appointments for this email (case insensitive)
+    const appointments = await Appointment.find({ 
+      email: { $regex: new RegExp('^' + email + '$', 'i') } 
+    }).sort({ date: 1, time: 1 });
+    
+    console.log(`Found ${appointments.length} appointments for ${email}`);
     
     res.status(200).json({
       success: true,
@@ -257,5 +263,82 @@ exports.updateAppointmentStatus = async (req, res) => {
       success: false,
       message: 'Server error while updating appointment'
     });
+  }
+};
+
+// Delete appointment
+exports.deleteAppointment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const appointment = await Appointment.findByIdAndDelete(id);
+    
+    if (!appointment) {
+      return res.status(404).json({
+        success: false,
+        message: 'Appointment not found'
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      message: 'Appointment deleted successfully'
+    });
+  } catch (error) {
+    console.error('Error deleting appointment:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error while deleting appointment'
+    });
+  }
+};
+
+// Fetch all appointments
+exports.getAllAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find();
+    res.status(200).json(appointments);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching appointments", error });
+  }
+};
+
+// Accept an appointment
+exports.acceptAppointment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedAppointment = await Appointment.findByIdAndUpdate(
+      id,
+      { status: 'confirmed' },
+      { new: true }
+    );
+
+    if (!updatedAppointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    res.status(200).json(updatedAppointment);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating appointment", error });
+  }
+};
+
+// Reject an appointment
+exports.rejectAppointment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedAppointment = await Appointment.findByIdAndUpdate(
+      id,
+      { status: 'cancelled' },
+      { new: true }
+    );
+
+    if (!updatedAppointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    res.status(200).json(updatedAppointment);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating appointment", error });
   }
 };

@@ -1,0 +1,223 @@
+/* vet-dashboard.css */
+.vet-dashboard-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+.vet-dashboard-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.vet-dashboard-header h1 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.vet-dashboard-header p {
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+.vet-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.vet-dashboard-card {
+    height: 250px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.vet-dashboard-card-content {
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: #fff;
+}
+
+.vet-dashboard-icon-wrapper {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1rem;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.vet-dashboard-icon {
+    width: 32px;
+    height: 32px;
+    color: white;
+}
+
+.vet-dashboard-card-content h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.vet-dashboard-card-content p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    max-width: 200px;
+    transition: all 0.3s ease;
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Turquoise gradients for vet dashboard cards - different shades */
+.view-appointments {
+    background: linear-gradient(135deg, #20B2AA, #008080);
+}
+
+.pet-records {
+    background: linear-gradient(135deg, #5fd3ca, #0c857e);
+}
+
+.medical-reports {
+    background: linear-gradient(135deg, #40C4BC, #00a39b);
+}
+
+.appointment-history {
+    background: linear-gradient(135deg, #1fcec4, #00756d);
+}
+
+.prescriptions {
+    background: linear-gradient(135deg, #7be0d9, #00968e);
+}
+
+.analytics {
+    background: linear-gradient(135deg, #00d4c9, #007973);
+}
+
+.profile {
+    background: linear-gradient(135deg, #2edfd6, #00908a);
+}
+
+.settings {
+    background: linear-gradient(135deg, #00e0d8, #007070);
+}
+
+/* Hover Effects */
+.vet-dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.vet-dashboard-card:hover .vet-dashboard-icon-wrapper {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.vet-dashboard-card:hover .vet-dashboard-card-content h2 {
+    transform: translateY(-2px);
+}
+
+.vet-dashboard-card:hover .vet-dashboard-card-content p {
+    opacity: 1;
+}
+
+.vet-dashboard-card:hover .card-overlay {
+    background: rgba(0, 0, 0, 0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .vet-dashboard-container {
+        padding: 1rem;
+    }
+
+    .vet-dashboard-header h1 {
+        font-size: 2rem;
+    }
+
+    .vet-dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .vet-dashboard-card {
+        height: 200px;
+    }
+
+    .vet-dashboard-card-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .vet-dashboard-card-content p {
+        font-size: 0.8rem;
+    }
+}
+
+/* Animation for cards on page load */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.vet-dashboard-card {
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: calc(var(--animation-order) * 0.1s);
+}
+
+.vet-dashboard-card.disabled {
+    position: relative;
+    opacity: 0.7;
+}
+
+.vet-dashboard-card.disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.coming-soon-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.disabled .vet-dashboard-card-content {
+    pointer-events: none;
+}

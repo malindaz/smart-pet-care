@@ -1,0 +1,231 @@
+/* vet-viewappointment CSS - Smart Pet Health Care Styling */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.vet-viewappointment-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.vet-viewappointment-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.vet-viewappointment-header h1 {
+  color: #20B2AA; /* Turquoise */
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.vet-viewappointment-header p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.vet-viewappointment-filter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.vet-viewappointment-filter span {
+  margin-right: 0.5rem;
+  font-weight: 500;
+  color: #444;
+}
+
+.vet-viewappointment-select {
+  padding: 0.6rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.vet-viewappointment-select:focus {
+  border-color: #20B2AA;
+}
+
+.vet-viewappointment-loading,
+.vet-viewappointment-empty {
+  text-align: center;
+  padding: 3rem 0;
+  color: #666;
+}
+
+.vet-viewappointment-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(32, 178, 170, 0.2);
+  border-radius: 50%;
+  border-top-color: #20B2AA;
+  margin: 0 auto 1rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.vet-viewappointment-table-container {
+  overflow-x: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: white;
+}
+
+.vet-viewappointment-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.vet-viewappointment-table th {
+  background-color: #008080; /* Dark Turquoise */
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 500;
+}
+
+.vet-viewappointment-table th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.vet-viewappointment-table th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.vet-viewappointment-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.vet-viewappointment-row-scheduled {
+  background-color: #f9f9f9;
+}
+
+.vet-viewappointment-row-confirmed {
+  background-color: rgba(32, 178, 170, 0.1);
+}
+
+.vet-viewappointment-row-cancelled {
+  background-color: rgba(255, 99, 71, 0.05);
+}
+
+.vet-viewappointment-status {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.vet-viewappointment-status-scheduled {
+  background-color: #f9f9f9;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.vet-viewappointment-status-confirmed {
+  background-color: rgba(32, 178, 170, 0.15);
+  color: #008080;
+  border: 1px solid rgba(32, 178, 170, 0.3);
+}
+
+.vet-viewappointment-status-cancelled {
+  background-color: rgba(255, 99, 71, 0.15);
+  color: #FF6347;
+  border: 1px solid rgba(255, 99, 71, 0.3);
+}
+
+.vet-viewappointment-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.vet-viewappointment-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.vet-viewappointment-btn-accept {
+  background-color: #20B2AA;
+  color: white;
+}
+
+.vet-viewappointment-btn-accept:hover {
+  background-color: #008080;
+}
+
+.vet-viewappointment-btn-reject {
+  background-color: #fff;
+  color: #FF6347;
+  border: 1px solid #FF6347;
+}
+
+.vet-viewappointment-btn-reject:hover {
+  background-color: #FFF1F0;
+}
+
+.vet-viewappointment-status-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 500;
+}
+
+.vet-viewappointment-status-icon i {
+  font-size: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .vet-viewappointment-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .vet-viewappointment-table {
+    font-size: 0.8rem;
+  }
+  
+  .vet-viewappointment-table th,
+  .vet-viewappointment-table td {
+    padding: 0.8rem 0.5rem;
+  }
+  
+  .vet-viewappointment-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .vet-viewappointment-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .vet-viewappointment-filter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .vet-viewappointment-select {
+    width: 100%;
+  }
+}

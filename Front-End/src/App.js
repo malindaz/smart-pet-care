@@ -17,86 +17,85 @@ import Home from "./pages/Home";
 // Import user pages
 import AppointmentForm from "./pages/User/AppointmentForm";
 import ApplyVet from "./pages/User/applyvet";
-
-// Import Admin pages
-
-
-
-
 import MyPets from "./pages/User/mypets";
 import AddRecord from "./pages/User/addrecord";
 import AddNewPet from "./pages/User/addnewpet";
+import MyAppointments from "./pages/User/MyAppointments"
+
+
+import EditPetDetails from "./pages/User/editpetdetails";
 
 //import Admin pages
+import VetRequests from "./pages/Admin/vetrequests";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 //import Veterinarian pages
+import VetDashboard from "./pages/Veterinarian/VetDashboard";
+import VetAppointments from "./pages/Veterinarian/VetAppointments";
+
 
 //import Pharmacist pages
 import Pharmacy from "./pages/Pharmacist/pharmacy";
 import PharmacyAdmin from "./pages/Pharmacist/pharmacyAdmin";
 import PharmacyEdit from "./pages/Pharmacist/pharmacyEdit";
 
-// Import Cart Context Provider
-import { CartProvider } from "./pages/Shoping Cart/cartContext";
-import Cart from "./pages/Shoping Cart/cart"
-import CheckoutPage from "./pages/Shoping Cart/checkout";
+// Import Veterinarian pages
+
+// Import Pharmacist pages
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <div className="App">
-          <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/verify-otp" element={<VerifyOTP />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
+    <Router>
+      <div className="App">
+        <ToastContainer 
+          position="top-center" 
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <Routes>
 
-            {/* Protected Routes */}
-            <Route path="/profile" element={<Profile />} />
+          {/* Public Routes */}
+          <Route path="/signup" element={<Register />} />
 
-            {/* Default Route */}
-            <Route path="/Login" element={<Login />} />
+          
+           {/*Main Routes  */}
 
-            {/* Add Main Routes Here */}
-            <Route path="/" element={<Home />} />
-
-
-            {/* Add Admin Routes Here */}
-
-            {/*Add User Routes Here*/}
-
-            <Route path="/appointment-form" element={<AppointmentForm />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verify-otp" element={<VerifyOTP />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          
+          
+                 
+          
+          {/* Add Admin Routes Here */}
 
 
+          {/*Add User Routes Here*/ }
 
-            <Route path="/mypets" element={<MyPets />} />
-            <Route path="/addrecord" element={<AddRecord />} />
-            <Route path="/addnewpet" element={<AddNewPet />} />
-
-            {/*Add Admin Routes Here*/}
-
-
-            {/*Add Veterinarian Routes Here*/}
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/appointment-form" element={<AppointmentForm />} />
+          <Route path="/apply-vet" element={<ApplyVet />} />
+          <Route path="/mypets" element={<MyPets />} />
+          <Route path="/addrecord" element={<AddRecord />} />
+          <Route path="/addnewpet" element={<AddNewPet />} />
 
 
-            {/*Add Pharmacist Routes Here*/}
-            <Route path="/pharmacy" element={<Pharmacy />} />
-            <Route path="/pharmacyAdmin" element={<PharmacyAdmin />} />
-            <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
+
+          {/*Add Veterinarian Routes Here*/ }
+
+          {/*Add Pharmacist Routes Here*/ } 
+          <Route path="/pharmacy" element={<Pharmacy />} />
+          <Route path="/pharmacyAdmin" element={<PharmacyAdmin />} />
+          <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
 
             {/* Add Veterinarian Routes Here */}
 

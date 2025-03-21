@@ -10,7 +10,8 @@ const petSchema = new mongoose.Schema({
   gender: { type: String, required: true },
   microchipID: String,
   lastCheckup: Date,
-  ownerName: { type: String, required: true }
+  ownerName: { type: String, required: true },
+  photo: { type: String },
 });
 
 module.exports = mongoose.model('Pet', petSchema);

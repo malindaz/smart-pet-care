@@ -1,33 +1,20 @@
-/* NavBar.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-:root {
-  --primary-color: #4a7aff;
-  --primary-dark: #3a67e0;
-  --secondary-color: #ff6b6b;
-  --text-color: #333;
-  --text-light: #777;
-  --background-light: #ffffff;
-  --background-gray: #f9f9f9;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --transition: all 0.3s ease;
-}
 
 .user-navbar-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: var(--background-light);
+  background-color: #ffffff;
   z-index: 1000;
   padding: 0.5rem 0;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   font-family: 'Poppins', sans-serif;
 }
 
 .user-navbar-scrolled {
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
 }
@@ -55,18 +42,19 @@
 }
 
 .user-navbar-logo-img {
-  height: 36px;
+  height: 42px;
   margin-right: 0.5rem;
+  object-fit: contain;
 }
 
 .user-navbar-logo-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-color);
+  color: #333;
 }
 
 .user-navbar-plus {
-  color: var(--primary-color);
+  color: #20B2AA;
 }
 
 /* Navigation Links */
@@ -83,27 +71,105 @@
 }
 
 .user-navbar-link-item {
-  margin: 0 0.2rem;
+  margin: 0 0.5rem;
   position: relative;
 }
 
 .user-navbar-link {
-  display: block;
+  display: flex;
+  align-items: center;
   padding: 0.5rem 1rem;
-  color: var(--text-color);
+  color: #333;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   border-radius: 4px;
 }
 
 .user-navbar-link:hover {
-  color: var(--primary-color);
-  background-color: rgba(74, 122, 255, 0.05);
+  color: #20B2AA;
+  background-color: rgba(32, 178, 170, 0.05);
 }
 
-/* User Profile Section */
+.user-navbar-link.user-navbar-active {
+  color: #20B2AA;
+  position: relative;
+}
+
+.user-navbar-link.user-navbar-active:after {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: #20B2AA;
+  transform: translateX(-50%);
+}
+
+.user-navbar-link:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: #20B2AA;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.user-navbar-link:hover:after {
+  width: 80%;
+}
+
+/* User Section with Cart and Profile */
+.user-navbar-user-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Cart Icon */
+.user-navbar-cart-icon {
+  position: relative;
+  color: #333;
+  transition: all 0.3s ease;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.user-navbar-cart-icon:hover {
+  color: #20B2AA;
+  background-color: rgba(32, 178, 170, 0.05);
+}
+
+.user-navbar-cart-icon.user-navbar-active-icon {
+  color: #20B2AA;
+}
+
+.user-navbar-cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #20B2AA;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  height: 18px;
+  width: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* User Profile */
 .user-navbar-profile {
   position: relative;
 }
@@ -125,7 +191,7 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--primary-color);
+  border: 2px solid #20B2AA;
 }
 
 .user-navbar-avatar-placeholder {
@@ -135,10 +201,13 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: var(--primary-color);
+  background-color: #20B2AA;
   color: white;
-  font-weight: 600;
-  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.user-navbar-avatar-placeholder:hover {
+  background-color: #008B8B;
 }
 
 /* Dropdown Menu */
@@ -147,9 +216,9 @@
   top: 100%;
   right: 0;
   width: 220px;
-  background-color: var(--background-light);
+  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-top: 0.5rem;
   overflow: hidden;
   z-index: 100;
@@ -170,13 +239,13 @@
 .user-navbar-dropdown-header {
   padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  background-color: var(--background-gray);
+  background-color: #f5f5f5;
 }
 
 .user-navbar-greeting {
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--text-color);
+  color: #333;
 }
 
 .user-navbar-dropdown-menu {
@@ -187,28 +256,28 @@
 
 .user-navbar-dropdown-item {
   padding: 0;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .user-navbar-dropdown-link {
   display: flex;
   align-items: center;
   padding: 0.75rem 1rem;
-  color: var(--text-color);
+  color: #333;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
-.user-navbar-dropdown-link i {
+.user-navbar-dropdown-link svg {
   margin-right: 0.75rem;
-  font-size: 1rem;
   width: 20px;
-  color: var(--primary-color);
+  color: #20B2AA;
 }
 
 .user-navbar-dropdown-link:hover {
-  background-color: rgba(74, 122, 255, 0.05);
+  background-color: rgba(32, 178, 170, 0.05);
+  color: #20B2AA;
 }
 
 .user-navbar-dropdown-divider {
@@ -228,13 +297,12 @@
   font-family: inherit;
   font-size: 0.9rem;
   text-align: left;
-  color: var(--secondary-color);
-  transition: var(--transition);
+  color: #ff6b6b;
+  transition: all 0.3s ease;
 }
 
-.user-navbar-logout-btn i {
+.user-navbar-logout-btn svg {
   margin-right: 0.75rem;
-  font-size: 1rem;
   width: 20px;
 }
 
@@ -250,34 +318,50 @@
 
 .user-navbar-login-btn {
   padding: 0.5rem 1rem;
-  color: var(--primary-color);
+  color: #20B2AA;
   background-color: transparent;
-  border: 1px solid var(--primary-color);
+  border: 1px solid #20B2AA;
   border-radius: 4px;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .user-navbar-login-btn:hover {
-  background-color: rgba(74, 122, 255, 0.05);
+  background-color: rgba(32, 178, 170, 0.05);
+}
+
+.user-navbar-login-btn.user-navbar-active-btn {
+  background-color: rgba(32, 178, 170, 0.1);
+  color: #008B8B;
 }
 
 .user-navbar-signup-btn {
   padding: 0.5rem 1rem;
   color: white;
-  background-color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  background-color: #20B2AA;
+  border: 1px solid #20B2AA;
   border-radius: 4px;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .user-navbar-signup-btn:hover {
-  background-color: var(--primary-dark);
+  background-color: #008B8B;
+}
+
+.user-navbar-signup-btn.user-navbar-active-btn {
+  background-color: #008B8B;
+}
+
+.user-navbar-signup-icon {
+  margin-right: 2px;
 }
 
 /* Mobile Toggle Button */
@@ -298,8 +382,8 @@
   display: block;
   height: 2px;
   width: 100%;
-  background-color: var(--text-color);
-  transition: var(--transition);
+  background-color: #333;
+  transition: all 0.3s ease;
 }
 
 .user-navbar-hamburger.user-navbar-active span:nth-child(1) {
@@ -317,8 +401,8 @@
 /* Mobile Menu */
 .user-navbar-mobile-menu {
   display: none;
-  background-color: var(--background-light);
-  box-shadow: var(--shadow);
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease;
@@ -335,17 +419,24 @@
 }
 
 .user-navbar-mobile-links a {
-  color: var(--text-color);
+  color: #333;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 0.5rem 0;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .user-navbar-mobile-links a:hover {
-  color: var(--primary-color);
+  color: #20B2AA;
+}
+
+.user-navbar-mobile-links a.user-navbar-mobile-active {
+  color: #20B2AA;
+  font-weight: 600;
 }
 
 .user-navbar-mobile-divider {
@@ -362,9 +453,22 @@
   font-family: inherit;
   font-size: 1rem;
   font-weight: 500;
-  color: var(--secondary-color);
+  color: #ff6b6b;
   padding: 0.5rem 0;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-navbar-mobile-cart-badge {
+  background-color: #20B2AA;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 0.1rem 0.4rem;
+  margin-left: 5px;
 }
 
 /* Responsive Styles */
@@ -394,7 +498,7 @@
   }
 
   .user-navbar-logo-img {
-    height: 30px;
+    height: 36px;
   }
 
   .user-navbar-logo-text {
@@ -419,41 +523,178 @@
   .user-navbar-mobile-menu.user-navbar-open {
     max-height: 600px;
   }
-
-  .user-navbar-mobile-links li:nth-last-child(-n+3)::before {
-    content: '';
-    display: block;
-    height: 1px;
-    background-color: rgba(0, 0, 0, 0.05);
-    margin: 0.75rem 0;
-  }
 }
 
-/* User section with Become a Vet button */
-.user-navbar-user-section {
+/* Logo styling */
+.user-navbar-logo {
+  padding: 0.5rem 0;
   display: flex;
   align-items: center;
-  gap: 15px;
 }
 
-.user-navbar-become-vet-btn {
-  display: inline-block;
-  padding: 8px 16px;
-  background-color: #4CAF50;
+.user-navbar-logo-img {
+  height: 230px;
+  width: 500px;
+  transition: all 0.3s ease;
+  margin-top: 5px;
+  margin-left: -200px;
+}
+
+.user-navbar-scrolled .user-navbar-logo-img {
+  height: 230px;
+}
+
+/* Notification styling */
+.user-navbar-notification {
+  position: relative;
+  margin-right: 1rem;
+}
+
+.user-navbar-notification-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.user-navbar-notification-icon:hover {
+  color: #20B2AA;
+  background-color: rgba(32, 178, 170, 0.05);
+}
+
+.user-navbar-notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #e74c3c;
   color: white;
-  border-radius: 4px;
-  font-weight: 500;
-  text-decoration: none;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.user-navbar-notification-dropdown {
+  position: absolute;
+  top: 100%;
+  right: -10px;
+  margin-top: 10px;
+  width: 300px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.user-navbar-notification-header {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-navbar-notification-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.user-navbar-mark-read {
+  background: none;
+  border: none;
+  color: #4a90e2;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.user-navbar-notification-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.user-navbar-notification-item {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f5f5f5;
   transition: background-color 0.3s ease;
 }
 
-.user-navbar-become-vet-btn:hover {
-  background-color: #3e8e41;
+.user-navbar-notification-item:hover {
+  background-color: #f9f9f9;
 }
 
-/* Mobile menu adjustments */
+.user-navbar-notification-item.user-navbar-unread {
+  background-color: #f0f7ff;
+}
+
+.user-navbar-notification-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-navbar-notification-text {
+  margin: 0 0 5px 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.user-navbar-notification-time {
+  font-size: 11px;
+  color: #999;
+}
+
+.user-navbar-notification-empty {
+  padding: 15px;
+  text-align: center;
+  color: #999;
+  font-size: 13px;
+}
+
+.user-navbar-notification-footer {
+  padding: 10px 15px;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+
+.user-navbar-view-all {
+  font-size: 12px;
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.user-navbar-view-all:hover {
+  text-decoration: underline;
+}
+
+/* Mobile notification badge */
+.user-navbar-mobile-notification-badge {
+  margin-left: 5px;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .user-navbar-become-vet-btn {
-    display: none; /* Hide button on mobile, use mobile menu instead */
+  .user-navbar-logo-img {
+    height: 35px;
   }
 }

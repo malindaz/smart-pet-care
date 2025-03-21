@@ -1,22 +1,25 @@
-/* Base styling - same as before */
+/* Base styling */
 .malinda-pet-health-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 40px auto;
+  margin-top: 65px;
   padding: 20px;
-  margin-top: 100px;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  color: #202124;
 }
 
 .malinda-page-title {
-  font-size: 2rem;
-  color: #2c3e50;
-  margin-bottom: 5px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #39558a;
+  margin-bottom: 10px;
 }
 
 .malinda-page-description {
   font-size: 1.2rem;
-  color: #555;
-  margin-bottom: 30px;
+  font-weight: bold;
+  color: #5f6368;
+  margin-bottom: 40px;
 }
 
 /* Pet Dashboard Layout */
@@ -30,284 +33,197 @@
 
 /* Sidebar Styling */
 .malinda-pet-sidebar {
-  width: 250px;
-  background-color: #f8f9fa;
-  border-radius: 10px;
+  width: 280px;
+  background-color: #ffffff;
+  border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .malinda-pet-sidebar h3 {
   font-size: 1.3rem;
-  margin-bottom: 15px;
-  color: #2c3e50;
-  border-bottom: 2px solid #e0e0e0;
-  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: #202124;
+  border-bottom: 2px solid #f1f3f4;
+  padding-bottom: 12px;
 }
 
 .malinda-pet-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 20px 0;
+  margin: 0 0 25px 0;
 }
 
 .malinda-pet-item {
   padding: 12px 15px;
-  border-radius: 6px;
-  margin-bottom: 8px;
+  border-radius: 8px;
+  margin-bottom: 10px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .malinda-pet-item:hover {
-  background-color: #b9bdc0;
+  background-color: #e8f0fe;
+  transform: translateX(5px);
 }
 
 .malinda-pet-item.active {
-  background-color: #3a464e;
-  color: white;
+  background-color: #39558a;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
 }
 
 .malinda-pet-name {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .malinda-pet-species {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: #5f6368;
+  opacity: 0.8;
 }
 
 .malinda-pet-item.active .malinda-pet-species {
-  color: #e0e0e0;
-}
-
-/* Pet Profile Area */
-.malinda-pet-profile {
-  flex: 1;
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  padding: 25px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.malinda-profile-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid #e0e0e0;
-}
-
-.malinda-profile-header h2 {
-  font-size: 1.8rem;
-  color: #2c3e50;
-  margin: 0;
-}
-
-.malinda-profile-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.malinda-edit-btn, .malinda-add-record-btn {
-  padding: 8px 16px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: background-color 0.2s;
-}
-
-.malinda-edit-btn {
-  background-color: #f0ad4e;
-  color: white;
-}
-
-.malinda-edit-btn:hover {
-  background-color: #ec971f;
-}
-
-.malinda-add-record-btn {
-  background-color: #5cb85c;
-  color: white;
-}
-
-.malinda-add-record-btn:hover {
-  background-color: #449d44;
-}
-
-/* Profile Tabs */
-.malinda-profile-tabs {
-  display: flex;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 20px;
-}
-
-.malinda-tab-btn {
-  padding: 10px 20px;
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #6c757d;
-  transition: all 0.2s;
-}
-
-.malinda-tab-btn:hover {
-  color: #9aa6ad;
-  background: #4f5558;
-}
-
-.malinda-tab-btn.active {
-  color: #3498db;
-  border-bottom-color: #3498db;
-}
-
-/* Profile Content Sections */
-.malinda-profile-section {
-  padding: 10px 0;
-}
-
-.malinda-info-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  width: 90%;
-}
-
-.malinda-info-item {
-  background-color: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.malinda-info-label {
-  font-weight: bold;
-  color: #6c757d;
-  display: block;
-  margin-bottom: 5px;
-  font-size: 0.9rem;
-}
-
-.malinda-info-value {
-  font-size: 1.1rem;
-  color: #2c3e50;
+  color: #ffffff;
+  opacity: 0.9;
 }
 
 /* Add button */
 .malinda-add-btn {
   display: block;
-  width: 92%;
-  padding: 10px;
-  background: #4caf50;
+  width: 91%;
+  padding: 12px;
+  background: #34a853;
   color: white;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 8px;
   text-align: center;
-  transition: background-color 0.2s;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(52, 168, 83, 0.3);
 }
 
 .malinda-add-btn:hover {
-  background: #369439;
+  background: #2d9249;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 168, 83, 0.4);
 }
 
-/* Extra small phones */
-@media (max-width: 375px) {
-  .malinda-page-title {
-    font-size: 1.3rem;
+/* Pet Profile Area */
+.malinda-pet-profile {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.malinda-pet-profile h2 {
+  font-size: 1.5rem;
+  color: rgb(18, 18, 19);
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.malinda-pet-profile p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  color: #202124;
+}
+
+.malinda-pet-profile p strong {
+  color: #5f6368;
+  font-weight: 600;
+}
+
+/* Action Buttons */
+.malinda-buttons {
+  display: flex;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.malinda-edit-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #fbbc05;
+  color: #202124;
+}
+
+.malinda-edit-btn:hover {
+  background-color: #e0a800;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(251, 188, 5, 0.3);
+}
+
+.malinda-add-record-btn {
+  background-color: #34a853;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.malinda-add-record-btn:hover {
+  background-color: #2d9249;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 168, 83, 0.3);
+}
+
+.malinda-delete-btn {
+  background-color: #ea4335;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border-color: #ea4335;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .malinda-pet-dashboard {
+    flex-direction: column;
+  }
+  
+  .malinda-pet-sidebar {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .malinda-all-pets-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
-
-/*//////////////////////////////////*/
-/* Medical History Table */
-.malinda-medical-table {
-  width: 120%;
-  border-collapse: collapse;
-  margin-top: 15px;
-  align-content: left;
+@media (max-width: 480px) {
+  .malinda-page-title {
+    font-size: 1.8rem;
+  }
+  
+  .malinda-page-description {
+    font-size: 1rem;
+  }
+  
+  .malinda-buttons {
+    flex-direction: column;
+  }
+  
+  .malinda-edit-btn, .malinda-add-record-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .malinda-all-pets-grid {
+    grid-template-columns: 1fr;
+  }
 }
-
-.malinda-medical-table th,
-.malinda-medical-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-.malinda-medical-table th {
-  background-color: #2c3e50;
-  color: white;
-}
-
-/* Vaccination Table */
-.malinda-vaccination-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-
-.malinda-vaccination-table th,
-.malinda-vaccination-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-.malinda-vaccination-table th {
-  background-color: #2c3e50;
-  color: white;
-}
-
-/* Vaccination Status */
-.malinda-status-ok {
-  color: green;
-  font-weight: bold;
-}
-
-.malinda-status-warning {
-  color: orange;
-  font-weight: bold;
-}
-
-.malinda-status-overdue {
-  color: red;
-  font-weight: bold;
-}
-
-/* Allergies List */
-.malinda-allergies-list {
-  list-style: none;
-  padding: 0;
-}
-
-.malinda-allergies-list li {
-  background: #fff3cd;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 5px;
-}
-
-/* No Data Message */
-.malinda-no-data {
-  font-size: 1rem;
-  color: #888;
-  margin-top: 10px;
-  font-style: italic;
-}
-
-/* Care Plan Section */
-.malinda-care-item {
-  background-color: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
-}
-

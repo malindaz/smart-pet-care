@@ -1,399 +1,447 @@
-/* External CSS - homepage.css */
+/* Homepage Styles */
+
+/* Global Styles */
+
 
 /* Main Container */
 .homepage-container {
-    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-    color: #333;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  /* Hero Section */
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Common Styles */
+.homepage-primary-btn {
+  background-color: #00C2CB;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.homepage-primary-btn:hover {
+  background-color: #00a9b1;
+}
+
+.homepage-secondary-btn {
+  background-color: white;
+  color: #00C2CB;
+  border: 2px solid #00C2CB;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.homepage-secondary-btn:hover {
+  background-color: #f0feff;
+}
+
+h2 {
+  font-size: 32px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.homepage-section-subtitle {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* Hero Section */
+.homepage-hero {
+  display: flex;
+  align-items: center;
+  padding: 80px 10%;
+  background-color: #f0feff;
+  min-height: 600px;
+}
+
+.homepage-hero-content {
+  flex: 1;
+  padding-right: 40px;
+}
+
+.homepage-hero-content h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.homepage-hero-content p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.homepage-search-box {
+  display: flex;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.homepage-search-box input {
+  flex: 1;
+  padding: 16px 20px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.homepage-search-btn {
+  background-color: #00C2CB;
+  color: white;
+  border: none;
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.homepage-hero-btns {
+  display: flex;
+  gap: 16px;
+}
+
+.homepage-hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homepage-hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Services Section */
+.homepage-services {
+  padding: 80px 10%;
+  text-align: center;
+}
+
+.homepage-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.homepage-service-card {
+  background-color: white;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.homepage-service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.homepage-service-icon {
+  background-color: #f0feff;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.homepage-service-card h3 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.homepage-service-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* AI Assistant Section */
+.homepage-ai-assistant {
+  display: flex;
+  align-items: center;
+  padding: 80px 10%;
+  background-color: #f8f8f8;
+}
+
+.homepage-ai-content {
+  flex: 1;
+  padding-right: 40px;
+}
+
+.homepage-ai-content h2 {
+  text-align: left;
+}
+
+.homepage-ai-content p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.homepage-feature-list {
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.homepage-feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #333;
+}
+
+.homepage-ai-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.homepage-ai-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Testimonials Section */
+.homepage-testimonials {
+  padding: 80px 10%;
+  text-align: center;
+}
+
+.homepage-testimonial-carousel {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  padding: 20px 0;
+  scroll-snap-type: x mandatory;
+}
+
+.homepage-testimonial-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.homepage-testimonial-card {
+  flex: 0 0 300px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  scroll-snap-align: start;
+}
+
+.homepage-testimonial-image {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #00C2CB;
+}
+
+.homepage-testimonial-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.homepage-testimonial-card p {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.homepage-testimonial-card h4 {
+  color: #333;
+  font-size: 16px;
+}
+
+/* CTA Section */
+.homepage-cta {
+  background-color: #00C2CB;
+  padding: 80px 10%;
+  text-align: center;
+  border-radius: 16px;
+  margin: 0 10% 80px;
+}
+
+.homepage-cta-content h2 {
+  color: white;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.homepage-cta-content p {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 30px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.homepage-cta .homepage-primary-btn {
+  background-color: white;
+  color: #00C2CB;
+  margin: 0 auto;
+  display: inline-flex;
+}
+
+.homepage-cta .homepage-primary-btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* Footer */
+.homepage-footer {
+  background-color: #333;
+  color: white;
+  padding: 60px 10% 30px;
+}
+
+.homepage-footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.homepage-footer-company {
+  flex: 1;
+  min-width: 200px;
+}
+
+.homepage-footer-company h3 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #00C2CB;
+}
+
+.homepage-footer-company p {
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.homepage-footer-links {
+  flex: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.homepage-footer-column {
+  flex: 1;
+  min-width: 120px;
+}
+
+.homepage-footer-column h4 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.homepage-footer-column ul {
+  list-style: none;
+}
+
+.homepage-footer-column ul li {
+  margin-bottom: 10px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.homepage-footer-column ul li:hover {
+  color: #00C2CB;
+}
+
+.homepage-footer-bottom {
+  border-top: 1px solid #444;
+  padding-top: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
   .homepage-hero {
-    background: linear-gradient(135deg, #5b8af5, #41d7a7);
-    border-radius: 12px;
-    padding: 40px 30px;
-    margin:100px 0;
-    color: white;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .homepage-hero-content {
-    max-width: 600px;
-  }
-  
-  .homepage-hero h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-    font-weight: 700;
-  }
-  
-  .homepage-hero p {
-    font-size: 18px;
-    opacity: 0.9;
-  }
-  
-  /* Dashboard Layout */
-  .homepage-dashboard {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 24px;
-    margin-bottom: 40px;
-  }
-  
-  /* Main Content Area */
-  .homepage-main-content {
-    display: flex;
     flex-direction: column;
-    gap: 24px;
-  }
-  
-  /* Pet Profile Section */
-  .homepage-pet-profile {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    padding: 24px;
-  }
-  
-  .homepage-profile-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 24px;
-  }
-  
-  .homepage-profile-image {
-    margin-right: 16px;
-  }
-  
-  .homepage-profile-placeholder {
-    width: 80px;
-    height: 80px;
-    background-color: #f0f7ff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #5b8af5;
-  }
-  
-  .homepage-profile-info {
-    flex: 1;
-  }
-  
-  .homepage-profile-info h2 {
-    font-size: 24px;
-    margin: 0 0 4px 0;
-    font-weight: 600;
-  }
-  
-  .homepage-profile-info p {
-    color: #666;
-    margin: 0;
-  }
-  
-  .homepage-health-score {
     text-align: center;
   }
   
-  .homepage-score-circle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #41d7a7, #5b8af5);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: 700;
-    margin: 0 auto 8px;
+  .homepage-hero-content {
+    padding-right: 0;
+    margin-bottom: 40px;
   }
   
-  .homepage-health-score p {
-    margin: 0;
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .homepage-quick-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-  
-  .homepage-stat {
-    background-color: #f8fafc;
-    border-radius: 8px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .homepage-stat svg {
-    margin-right: 12px;
-    color: #5b8af5;
-  }
-  
-  .homepage-stat h4 {
-    margin: 0 0 4px 0;
-    font-size: 14px;
-    color: #666;
-    font-weight: 500;
-  }
-  
-  .homepage-stat p {
-    margin: 0;
-    font-weight: 600;
-  }
-  
-  /* Activity Feed */
-  .homepage-activity-feed {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    padding: 24px;
-  }
-  
-  .homepage-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .homepage-section-header h3 {
-    font-size: 18px;
-    margin: 0;
-    font-weight: 600;
-  }
-  
-  .homepage-view-all {
-    background: none;
-    border: none;
-    color: #5b8af5;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  
-  .homepage-activity-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .homepage-activity-item {
-    display: flex;
-    align-items: flex-start;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #f0f0f0;
-  }
-  
-  .homepage-activity-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-  
-  .homepage-activity-icon {
-    margin-right: 16px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: #f0f7ff;
-    display: flex;
-    align-items: center;
+  .homepage-hero-btns {
     justify-content: center;
   }
   
-  .homepage-icon-success {
-    color: #41d7a7;
+  .homepage-ai-assistant {
+    flex-direction: column-reverse;
   }
   
-  .homepage-icon-warning {
-    color: #f59b42;
+  .homepage-ai-content {
+    padding-right: 0;
+    text-align: center;
+    margin-top: 40px;
   }
   
-  .homepage-activity-content {
-    flex: 1;
-  }
-  
-  .homepage-activity-content h4 {
-    margin: 0 0 4px 0;
-    font-size: 16px;
-    font-weight: 600;
-  }
-  
-  .homepage-activity-content p {
-    margin: 0 0 4px 0;
-    color: #666;
-  }
-  
-  .homepage-activity-time {
-    font-size: 12px;
-    color: #999;
-  }
-  
-  /* Sidebar */
-  .homepage-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  
-  .homepage-sidebar section {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    padding: 24px;
-  }
-  
-  /* Notifications */
-  .homepage-notification-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .homepage-notification-item {
-    padding: 12px;
-    background-color: #f8fafc;
-    border-radius: 8px;
-    border-left: 3px solid #5b8af5;
-  }
-  
-  .homepage-notification-item p {
-    margin: 0 0 4px 0;
-    font-weight: 500;
-  }
-  
-  .homepage-notification-time {
-    font-size: 12px;
-    color: #999;
-  }
-  
-  /* Quick Actions */
-  .homepage-actions-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  
-  .homepage-action-button {
-    background-color: #f8fafc;
-    border: none;
-    border-radius: 8px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .homepage-feature-list li {
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
+  }
+}
+
+@media (max-width: 768px) {
+  .homepage-services-grid {
+    grid-template-columns: 1fr;
   }
   
-  .homepage-action-button:hover {
-    background-color: #f0f7ff;
-  }
-  
-  .homepage-action-button svg {
-    margin-bottom: 8px;
-    color: #5b8af5;
-  }
-  
-  .homepage-action-button span {
-    font-size: 14px;
-    font-weight: 500;
-  }
-  
-  /* Household Pets */
-  .homepage-pet-list {
-    display: flex;
+  .homepage-testimonial-carousel {
     flex-direction: column;
-    gap: 12px;
+    gap: 20px;
   }
   
-  .homepage-pet-item {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
+  .homepage-testimonial-card {
+    flex: none;
+    width: 100%;
   }
   
-  .homepage-active {
-    background-color: #f0f7ff;
+  .homepage-footer-content {
+    flex-direction: column;
+    gap: 30px;
   }
   
-  .homepage-mini-profile {
-    width: 32px;
-    height: 32px;
-    background-color: #e6effd;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 12px;
-    color: #5b8af5;
+  .homepage-footer-links {
+    flex-direction: column;
+    gap: 30px;
   }
-  
-  .homepage-add-pet {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    color: #999;
-    cursor: pointer;
-  }
-  
-  .homepage-add-circle {
-    width: 32px;
-    height: 32px;
-    background-color: #f0f0f0;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 12px;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 900px) {
-    .homepage-dashboard {
-      grid-template-columns: 1fr;
-    }
-    
-    .homepage-quick-stats {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  
-  @media (max-width: 600px) {
-    .homepage-quick-stats {
-      grid-template-columns: 1fr;
-    }
-    
-    .homepage-hero {
-      padding: 30px 20px;
-    }
-    
-    .homepage-hero h1 {
-      font-size: 26px;
-    }
-    
-    .homepage-profile-header {
-      flex-direction: column;
-      text-align: center;
-    }
-    
-    .homepage-profile-image {
-      margin-right: 0;
-      margin-bottom: 16px;
-    }
-    
-    .homepage-profile-info {
-      margin-bottom: 16px;
-    }
-  }
+}
