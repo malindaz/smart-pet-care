@@ -21,8 +21,6 @@ import MyPets from "./pages/User/mypets";
 import AddRecord from "./pages/User/addrecord";
 import AddNewPet from "./pages/User/addnewpet";
 import MyAppointments from "./pages/User/MyAppointments"
-
-
 import EditPetDetails from "./pages/User/editpetdetails";
 
 //import Admin pages
@@ -33,7 +31,6 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import VetDashboard from "./pages/Veterinarian/VetDashboard";
 import VetAppointments from "./pages/Veterinarian/VetAppointments";
 
-
 //import Pharmacist pages
 import Pharmacy from "./pages/Pharmacist/pharmacy";
 import PharmacyAdmin from "./pages/Pharmacist/pharmacyAdmin";
@@ -42,9 +39,6 @@ import Cart from "./pages/Shoping Cart/cart";
 import {CartProvider} from "./pages/Shoping Cart/cartContext";
 import CheckoutPage from "./pages/Shoping Cart/checkout";
 
-// Import Veterinarian pages
-
-// Import Pharmacist pages
 
 function App() {
   return (
