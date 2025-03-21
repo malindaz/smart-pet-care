@@ -45,6 +45,7 @@ import PharmacyEdit from "./pages/Pharmacist/pharmacyEdit";
 
 function App() {
   return (
+    <CartProvider>
     <Router>
       <div className="App">
         <ToastContainer 
