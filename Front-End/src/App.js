@@ -67,7 +67,6 @@ function App() {
           {/* Public Routes */}
           <Route path="/signup" element={<Register />} />
 
-          
            {/*Main Routes  */}
 
           <Route path="/" element={<Home />} />
@@ -77,11 +76,9 @@ function App() {
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           
-          
-                 
-          
           {/* Add Admin Routes Here */}
-
+          <Route path="/vetrequests" element={<VetRequests />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
           {/*Add User Routes Here*/ }
 
@@ -91,10 +88,8 @@ function App() {
           <Route path="/mypets" element={<MyPets />} />
           <Route path="/addrecord" element={<AddRecord />} />
           <Route path="/addnewpet" element={<AddNewPet />} />
-
-
-
-          {/*Add Veterinarian Routes Here*/ }
+          <Route path="/myappointments" element={<MyAppointments />} />
+          <Route path="/editpetdetails" element={<EditPetDetails />} />     
 
           {/*Add Pharmacist Routes Here*/ } 
           <Route path="/pharmacy" element={<Pharmacy />} />
@@ -102,6 +97,8 @@ function App() {
           <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
 
             {/* Add Veterinarian Routes Here */}
+            <Route path="/vetdashboard" element={<VetDashboard />} />
+            <Route path="/vetappointments" element={<VetAppointments />} />
 
             {/* Add Pharmacist Routes Here */}
             <Route path="/cart" element={<Cart />} />
