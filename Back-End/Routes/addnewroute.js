@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const petController = require('../controllers/addnewpetcontroller');
+const petController = require('../Controllers/addnewpetcontroller');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Create uploads directory if it doesn't exist
+// ✅ Ensure the uploads directory exists
 const uploadDir = "uploads/";
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
+// ✅ Configure Multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -34,11 +35,11 @@ const upload = multer({
   fileFilter: fileFilter,
 });
 
-// Define routes
-router.post('/add', upload.single('photo'), petController.addPet);  
+// ✅ Define routes with `upload.single('photo')` for file uploads
+router.post('/add', upload.single('photo'), petController.addPet);
 router.get('/all', petController.getAllPets);
 router.get('/:id', petController.getPetById);
 router.delete('/:id', petController.deletePet);
-router.put('/:petId', petController.updatePet);
+router.put('/:petId', upload.single('photo'), petController.updatePet); // ✅ Fix applied here
 
 module.exports = router;

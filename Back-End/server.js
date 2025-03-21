@@ -32,6 +32,7 @@ dotenv.config();
 
 // Serve static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static('uploads'));
 
 // Increase request body size limit
 app.use(bodyParser.json({ limit: '10mb' }));
