@@ -115,8 +115,7 @@ const ProductList = () => {
                           
                           {/* Add to Cart Button */}
                           <Button 
-                            variant="primary" 
-                            className="pharmacy-Btn-primary" 
+                            className="pharmacy-Btn-addToCart" 
                             onClick={() => addToCart(product)}
                           >
                             Add to Cart
@@ -124,8 +123,7 @@ const ProductList = () => {
 
                           {/* Buy Now Button */}
                           <Button 
-                            variant="success" 
-                            className="pharmacy-Btn-buy-now mt-2" 
+                            className="pharmacy-Btn-buy-now" 
                             onClick={() => handleBuyNow(product)}
                           >
                             Buy Now

@@ -100,8 +100,8 @@ const PharmacyEdit = () => {
           errorMessage = 'Product description is required';
         } else if (value.trim().length < 10) {
           errorMessage = 'Description must be at least 10 characters';
-        } else if (value.trim().length > 50) {
-          errorMessage = 'Description cannot exceed 50 characters';
+        } else if (value.trim().length > 100) {
+          errorMessage = 'Description cannot exceed 100 characters';
         }
         break;
 
@@ -234,8 +234,6 @@ const PharmacyEdit = () => {
     e.preventDefault();
 
     if (!validateForm()) {
-      setMessage({ text: 'Please fix the errors in the form', type: 'danger' });
-      // Scroll to top to show error message
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -294,10 +292,10 @@ const PharmacyEdit = () => {
   return (
     <>
       <NavBar />
-      <Container className="pharmacy-Edit-Form-Container">
-        <h1 className="pharmacy-Edit-Form-Form-h1">
+      <h1 className="pharmacy-Edit-Form-h1">
           {editMode ? 'Edit Product' : 'Add New Product'}
         </h1>
+      <Container className="pharmacy-Edit-Form-Container">     
 
         {message.text && (
           <Alert variant={message.type} className="my-3">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../Shoping Cart/cartContext';
@@ -12,10 +12,10 @@ const Checkout = () => {
   const location = useLocation();
   const { cart, cartTotal, clearCart } = useCart();
 
-   // Scroll to top when this component loads
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
+  // Scroll to top when this component loads
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // If coming from Buy Now, use that product, otherwise use cart
   const products = location.state?.product ? [{ ...location.state.product, quantity: 1 }] : cart;
@@ -76,6 +76,8 @@ const Checkout = () => {
           errorMessage = 'Full name is required';
         } else if (!/^[a-zA-Z\s]+$/.test(value)) {
           errorMessage = 'Name should only contain letters';
+        } else if (value.trim().length <= 5) {
+          errorMessage = 'Name should be more than 5 letters';
         }
         break;
 
@@ -84,22 +86,24 @@ const Checkout = () => {
           errorMessage = 'Address is required';
         } else if (value.length < 5) {
           errorMessage = 'Please enter a valid address';
+        } else if (!/^[a-zA-Z0-9\s/,.-]+$/.test(value)) {
+          errorMessage = 'Please enter a valid address';
         }
         break;
 
       case 'city':
         if (!value.trim()) {
           errorMessage = 'City is required';
-        } else if (!/^[a-zA-Z\s]+$/.test(value)) {
-          errorMessage = 'City should only contain letters';
+        } else if (!/^[a-zA-Z\s,/-]+$/.test(value)) {
+          errorMessage = 'Please enter a valid city name';
         }
         break;
 
       case 'state':
         if (!value.trim()) {
           errorMessage = 'State is required';
-        } else if (!/^[a-zA-Z\s]+$/.test(value)) {
-          errorMessage = 'State should only contain letters';
+        } else if (!/^[a-zA-Z\s,/-]+$/.test(value)) {
+          errorMessage = 'Please enter a valid state name';
         }
         break;
 
@@ -114,8 +118,10 @@ const Checkout = () => {
       case 'phone':
         if (!value.trim()) {
           errorMessage = 'Phone number is required';
+        } else if (!/^0/.test(value)) {
+            errorMessage = 'Phone number must start with 0';
         } else if (!/^\d{10}$/.test(value.replace(/\D/g, ''))) {
-          errorMessage = 'Please enter a valid 10-digit phone number';
+            errorMessage = 'Phone number must be exactly 10 digits long';
         }
         break;
 
@@ -585,7 +591,7 @@ const Checkout = () => {
                 </div>
               </div>
 
-              <div className="button-container">
+              <div className="checkout-button-container">
                 <Button type="submit" className="checkout-pay-button">
                   PAY
                 </Button>

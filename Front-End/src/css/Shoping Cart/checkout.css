@@ -12,7 +12,7 @@
 .checkout-title {
   text-align: center;
   margin-top: 100px;
-  margin-bottom: -80px !important;
+  margin-bottom: -80px;
 }
 
 /* Header Section*/
@@ -115,7 +115,7 @@
 /* Error message styling */
 .invalid-feedback {
   position: absolute;
-  bottom: -35px;
+  bottom: -38px;
   left: 0;
   width: 100%;
   margin-top: 0.25rem;
@@ -191,21 +191,24 @@
 /* Payment Button*/
 /* Primary styling for the payment button */
 .checkout-pay-button {
-  width: 300px;
-  padding: 1rem;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
+  background-color: #00C2CB;
   color: white;
-  font-size: 1.125rem;
-  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 100px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px 10px;
+  transition: background-color 0.3s ease;
 }
 
 /* Button hover effect */
 .checkout-pay-button:hover {
-  background-color: #0056b3;
+  background-color: #00a9b1;
 }
 
 /* Focus effect for accessibility */
@@ -214,7 +217,7 @@
   box-shadow: 0 0 0 3px rgba(255, 107, 129, 0.3);
 }
 
-.button-container {
+.checkout-button-container {
   display: flex;
   justify-content: center; /* Centers horizontally */
   align-items: center; /* Centers vertically (if needed) */

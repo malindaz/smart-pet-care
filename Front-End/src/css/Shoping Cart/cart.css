@@ -1,7 +1,7 @@
 /* Cart container */
 .cart-container {
   padding: 40px 20px;
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 /* Cart title */
@@ -9,7 +9,8 @@
   text-align: center;
   font-size: 28px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  color: #1abc9c;
 }
 
 /* Layout for cart items and summary */
@@ -47,7 +48,8 @@
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-  margin-bottom: 10px;
+  color: #666;
+  margin-bottom: 20px;
 }
 
 .cart-summary-total {
@@ -55,6 +57,7 @@
   justify-content: space-between;
   font-size: 18px;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 /* Shopping cart table */
@@ -77,8 +80,8 @@
 }
 
 .cart-img {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: 4px;
 }
@@ -118,15 +121,22 @@
 
 .cart-btn-primary, 
 .cart-btn-danger {
-  background-color: #007bff;
+  background-color: #0ca82e;
+  color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-align: center; /* Ensures text is centered inside */
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
 }
 
 .cart-btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #068330;
 }
 
 .cart-btn-danger {
@@ -139,21 +149,36 @@
 
 
 .cart-btn-secondary {
+  background-color: #5f6368;
+  color: white;
   border: none;
+  border-radius: 8px;
   padding: 5px 10px;
-  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
 }
 
 .cart-btn-success {
-  background-color: #28a745;
+  background-color: #0ca82e;
+  color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  width: 100%;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: block; /* Makes the button take full width of its container */
+  margin: 20px auto; /* Centers horizontally */
+  text-align: center;
+  transition: background-color 0.3s ease;
 }
 
+
 .cart-btn-success:hover {
-  background-color: #218838;
+  background-color: #068330;
 }
 
 /* Responsive */

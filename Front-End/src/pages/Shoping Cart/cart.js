@@ -101,7 +101,7 @@ const Cart = () => {
                       <span>Rs. {cartTotal.toFixed(2)}</span>
                     </div>
                     <div>
-                      <span>Shipping:</span>
+                      <span>Discount:</span>
                       <span>Rs. 0.00</span>
                     </div>
                     <hr />
