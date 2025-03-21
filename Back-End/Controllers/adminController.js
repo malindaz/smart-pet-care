@@ -34,16 +34,28 @@ exports.updateVeterinarianStatus = async (req, res) => {
     
     // If approved, update user level from 4 to 2
     if (status === 'approved') {
-      const userUpdated = await User.findOneAndUpdate(
-        { email: vetRequest.email },
-        { userLevel: 2 },
-        { new: true }
-      );
-      
-      if (!userUpdated) {
-        return res.status(404).json({
-          success: false,
-          error: 'User associated with this veterinarian request not found'
+      try {
+        const userUpdated = await User.findOneAndUpdate(
+          { email: vetRequest.email },
+          { userLevel: 2 },
+          { new: true }
+        );
+        
+        if (!userUpdated) {
+          console.log(`User with email ${vetRequest.email} not found`);
+          return res.status(404).json({
+            success: false,
+            error: 'User associated with this veterinarian request not found'
+          });
+        }
+        
+        console.log(`User ${userUpdated.email} updated to level 2`);
+      } catch (userError) {
+        console.error('Error updating user level:', userError);
+        return res.status(500).json({ 
+          success: false, 
+          error: 'Error updating user level', 
+          details: userError.message 
         });
       }
     }
