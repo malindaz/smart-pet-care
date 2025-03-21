@@ -119,23 +119,30 @@ const MyAppointments = () => {
   };
 
   // Handle cancel appointment
-  const handleCancel = async (id) => {
-    if (window.confirm('Are you sure you want to cancel this appointment?')) {
-      try {
-        const response = await axios.patch(`http://localhost:5000/api/appointments/${id}/status`, {
-          status: 'cancelled'
-        });
-        
-        if (response.data.success) {
-          setCancelSuccess(true);
-          setTimeout(() => setCancelSuccess(false), 3000);
-          fetchAppointments();
+// Handle cancel appointment
+const handleCancel = async (id) => {
+  if (window.confirm('Are you sure you want to cancel this appointment?')) {
+    try {
+      const response = await axios.patch(`http://localhost:5000/api/appointments/${id}/status`, {
+        status: 'cancelled'
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          // Include authorization if needed
+          // 'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
-      } catch (err) {
-        setError(`Error cancelling appointment: ${err.message}`);
+      });
+      
+      if (response.data.success) {
+        setCancelSuccess(true);
+        setTimeout(() => setCancelSuccess(false), 3000);
+        fetchAppointments();
       }
+    } catch (err) {
+      setError(`Error cancelling appointment: ${err.message}`);
     }
-  };
+  }
+};
 
   // Handle payment
   const handlePayment = (appointmentId) => {
@@ -143,44 +150,50 @@ const MyAppointments = () => {
     window.location.href = `/payment?appointmentId=${appointmentId}`;
   };
 
-  // Handle save updated appointment
-  const handleSave = async () => {
-    try {
-      // Validate inputs
-      if (!editAppointment.time) {
-        setError('Please select a time slot');
-        return;
-      }
-      
-      // First check if the time slot is available
-      const isSameDateTime = appointments.some(app => 
-        app._id !== editAppointment._id && 
-        formatDateForInput(app.date) === editAppointment.date && 
-        app.time === editAppointment.time
-      );
-      
-      if (isSameDateTime) {
-        setError('This time slot is already booked. Please select another time.');
-        return;
-      }
-      
-      // Update the appointment
-      const response = await axios.patch(`http://localhost:5000/api/appointments/${editAppointment._id}`, {
-        date: editAppointment.date,
-        time: editAppointment.time,
-        notes: editAppointment.notes || ''
-      });
-      
-      if (response.data.success) {
-        setUpdateSuccess(true);
-        setTimeout(() => setUpdateSuccess(false), 3000);
-        setEditAppointment(null);
-        fetchAppointments();
-      }
-    } catch (err) {
-      setError(`Error updating appointment: ${err.message}`);
+// Handle save updated appointment
+const handleSave = async () => {
+  try {
+    // Validate inputs
+    if (!editAppointment.time) {
+      setError('Please select a time slot');
+      return;
     }
-  };
+    
+    // First check if the time slot is available
+    const isSameDateTime = appointments.some(app => 
+      app._id !== editAppointment._id && 
+      formatDateForInput(app.date) === editAppointment.date && 
+      app.time === editAppointment.time
+    );
+    
+    if (isSameDateTime) {
+      setError('This time slot is already booked. Please select another time.');
+      return;
+    }
+    
+    // Update the appointment 
+    const response = await axios.patch(`http://localhost:5000/api/appointments/${editAppointment._id}`, {
+      date: editAppointment.date,
+      time: editAppointment.time,
+      notes: editAppointment.notes || ''
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        // Include authorization if needed
+        // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    
+    if (response.data.success) {
+      setUpdateSuccess(true);
+      setTimeout(() => setUpdateSuccess(false), 3000);
+      setEditAppointment(null);
+      fetchAppointments();
+    }
+  } catch (err) {
+    setError(`Error updating appointment: ${err.message}`);
+  }
+};
 
   // Handle cancel edit
   const handleCancelEdit = () => {
@@ -317,7 +330,7 @@ const MyAppointments = () => {
           {!loading && userEmail && appointments.length > 0 && !editAppointment && (
             <button 
               className="view-myappointments-add-btn"
-              onClick={() => window.location.href = '/schedule'}
+              onClick={() => window.location.href = '/appointment-form'}
             >
               + New Appointment
             </button>
@@ -380,7 +393,7 @@ const MyAppointments = () => {
               <p>You don't have any appointments scheduled yet.</p>
               <button 
                 className="view-myappointments-schedule-btn"
-                onClick={() => window.location.href = '/schedule'}
+                onClick={() => window.location.href = '/appointment-form'}
               >
                 Schedule an Appointment
               </button>

@@ -99,13 +99,13 @@ const AdminNavBar = () => {
       setIsNotificationDropdownOpen(false);
       
       // Redirect to admin login
-      navigate('/admin/login');
+      navigate('/');
     } catch (error) {
       console.error('Logout error:', error);
       // Still clear local storage and redirect even if there's an error
       localStorage.clear();
       setAdmin(null);
-      navigate('/admin/login');
+      navigate('/');
     }
   };
 

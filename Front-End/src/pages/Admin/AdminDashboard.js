@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import '../../css/Admin/admindashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -38,7 +39,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Card 2 - Manage Veterinarian Requests */}
-        <div className="admin-dashboard-card manage-vet-requests" style={{"--animation-order": 2}}>
+        <Link to="/vetrequests" className="admin-dashboard-card manage-vet-requests" style={{"--animation-order": 2}}>
           <div className="card-overlay"></div>
           <div className="admin-dashboard-card-content">
             <div className="admin-dashboard-icon-wrapper">
@@ -47,7 +48,7 @@ const AdminDashboard = () => {
             <h2>Manage Veterinarian Requests</h2>
             <p>Review and approve veterinarian registration applications</p>
           </div>
-        </div>
+        </Link>
 
         {/* Card 3 - Manage Pet Health Records */}
         <div className="admin-dashboard-card manage-health-records" style={{"--animation-order": 3}}>

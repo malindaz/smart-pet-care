@@ -1,49 +1,73 @@
 // routes/appointmentRoutes.js
 const express = require('express');
 const router = express.Router();
-const { check } = require('express-validator');
-const appointmentController = require('../controllers/appointmentController');
+const { 
+  createAppointment, 
+  getUserAppointments, 
+  getAvailableTimes, 
+  updateAppointmentStatus,
+  deleteAppointment,
+  getAllAppointments,
+  acceptAppointment,
+  rejectAppointment
+} = require('../controllers/appointmentController');
+const { protect } = require('../middleware/authMiddleware');
 
-// Get available appointment times
-router.get(
-  '/available-times',
-  appointmentController.getAvailableTimes
-);
+// Public routes
+router.get('/available-times', getAvailableTimes);
+router.post('/', createAppointment);
 
-// Create new appointment
-router.post(
-  '/',
-  [
-    check('petName', 'Pet name is required').notEmpty(),
-    check('petType', 'Valid pet type is required').notEmpty(),
-    check('ownerName', 'Owner name is required').notEmpty(),
-    check('email', 'Valid email is required').isEmail(),
-    check('phone', 'Phone number is required').notEmpty(),
-    // Fix the date validation - accept string format
-    check('date', 'Date is required').notEmpty(),
-    check('time', 'Time is required').notEmpty(),
-    check('serviceType', 'Service type is required').notEmpty()
-  ],
-  appointmentController.createAppointment
-);
+// User-specific routes
+router.get('/user', getUserAppointments);
 
-// Get user's appointments 
-router.get(
-  '/user',
-  appointmentController.getUserAppointments
-);
+// Update appointment
+router.patch('/:id', protect, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { date, time, notes } = req.body;
+    
+    // Validate required fields
+    if (!date || !time) {
+      return res.status(400).json({
+        success: false,
+        message: 'Date and time are required fields'
+      });
+    }
+    
+    // Find and update the appointment
+    const appointment = await Appointment.findByIdAndUpdate(
+      id,
+      { date, time, notes },
+      { new: true, runValidators: true }
+    );
+    
+    if (!appointment) {
+      return res.status(404).json({
+        success: false,
+        message: 'Appointment not found'
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      data: appointment
+    });
+  } catch (error) {
+    console.error('Error updating appointment:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error while updating appointment'
+    });
+  }
+});
 
-// Update appointment status 
-router.patch(
-  '/:id',
-  appointmentController.updateAppointmentStatus
-);
+// Update appointment status
+router.patch('/:id/status', updateAppointmentStatus);
 
-// Delete appointment
-router.delete('/:id', appointmentController.deleteAppointment);
-
-router.get('/all', appointmentController.getAllAppointments);
-router.put('/:id/accept', appointmentController.acceptAppointment);
-router.put('/:id/reject', appointmentController.rejectAppointment);
+// Admin routes
+router.get('/', protect, getAllAppointments);
+router.patch('/:id/accept', protect, acceptAppointment);
+router.patch('/:id/reject', protect, rejectAppointment);
+router.delete('/:id', protect, deleteAppointment);
 
 module.exports = router;
