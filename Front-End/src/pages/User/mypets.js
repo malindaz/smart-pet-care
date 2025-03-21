@@ -41,8 +41,8 @@ const MyPets = () => {
     try {
       await axios.delete(`http://localhost:5000/api/pets/${petId}`);
       alert("Pet deleted successfully!");
-      fetchPets(); // Refresh pet list after deletion
-      setSelectedPet(null); // Reset selected pet
+      fetchPets(); 
+      setSelectedPet(null); 
     } catch (error) {
       console.error("Error deleting pet:", error);
       alert("Failed to delete pet.");
@@ -54,7 +54,7 @@ const MyPets = () => {
       return `http://localhost:5000/${pet.photo}`;
     }
   
-    // Return placeholder based on species
+    
     if (pet.species.toLowerCase() === "dog") {
       return "/images/dog-placeholder.jpg";
     } else if (pet.species.toLowerCase() === "cat") {
@@ -75,7 +75,7 @@ const MyPets = () => {
         </p>
 
         <div className="malinda-pet-dashboard">
-          {/* Sidebar - No photos here */}
+          
           <div className="malinda-pet-sidebar">
             <h3>My Pets</h3>
             <ul className="malinda-pet-list">
@@ -99,7 +99,7 @@ const MyPets = () => {
             <Link to="/addnewpet" className="malinda-add-btn">➕ Add New Pet</Link>
           </div>
 
-          {/* Show All Pets */}
+          
           {selectedPet === "all" ? (
             <div className="malinda-all-pets-profile">
               <h2>All Pets</h2>
@@ -141,11 +141,11 @@ const MyPets = () => {
                   </div>
                 </div>
                 
-                {/* Buttons for Editing Profile & Adding Medical Records */}
+                
                 <div className="malinda-buttons">
-                  <Link to={`/editpetdetails/${selectedPet.id}`} className="malinda-edit-btn">✏️ Edit Profile</Link>
-                  <Link to={`/addrecord/${selectedPet.id}`} className="malinda-add-record-btn">➕ Add Medical Record</Link>
-                  <Link to={`/uploadphoto/${selectedPet.id}`} className="malinda-upload-photo-btn">📷 Upload Photo</Link>
+                <Link to={`/editpetdetails/${selectedPet._id}`} className="malinda-edit-btn">✏️ Edit Profile</Link>
+                <Link to={`/addrecord/${selectedPet.id}`} className="malinda-add-record-btn">➕ Add Medical Record</Link>
+                 { /*<Link to={`/uploadphoto/${selectedPet.id}`} className="malinda-upload-photo-btn">📷 Upload Photo</Link>*/}
                   <button onClick={() => handleDeletePet(selectedPet._id)} className="malinda-delete-btn">🗑️ Delete Profile</button>
                 </div>
 

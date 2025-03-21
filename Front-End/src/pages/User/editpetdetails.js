@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar";
-import "../../css/addnewpet.css";
 import axios from "axios";
 import Footer from "../../components/Footer";
+import "../../css/addnewpet.css";
 
-const EditPet = () => {
-  const navigate = useNavigate();
+const EditPetDetails = () => {
   const { petId } = useParams(); 
-  console.log("Pet ID:", petId); 
+  const navigate = useNavigate();
 
   const [pet, setPet] = useState({
     name: "",
@@ -20,44 +19,63 @@ const EditPet = () => {
     microchipID: "",
     lastCheckup: "",
     ownerName: "",
+    photo: null,
   });
 
-  const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-useEffect(() => {
-  const fetchPetData = async () => {
-    try {
-      const response = await axios.get(`http://localhost:5000/api/pets/${petId}`);
-      setPet(response.data);
-    } catch (error) {
-      console.error("Error fetching pet data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Fetch pet details when component loads
+  useEffect(() => {
+    const fetchPet = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/pets/${petId}`);
+        setPet(response.data);
+      } catch (error) {
+        console.error("Error fetching pet details:", error);
+      }
+    };
+    fetchPet();
+  }, [petId]);
 
-  fetchPetData();
-}, [petId]);
-
-if (loading) {
-  return <p>Loading...</p>;
-}
-
+  // Handle input change
   const handleChange = (e) => {
-    
     setPet({ ...pet, [e.target.name]: e.target.value });
   };
 
+  // Handle file change
+  const handleFileChange = (e) => {
+    setPet({ ...pet, photo: e.target.files[0] });
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData();
+    for (const key in pet) {
+      if (key !== "photo") {
+        formData.append(key, pet[key]);
+      }
+    }
+    if (pet.photo instanceof File) {
+      formData.append("photo", pet.photo);
+    }
+
     try {
-      
-      await axios.put(`http://localhost:5000/api/pets/${petId}`, pet);
-      alert("Pet details updated successfully");
-      navigate("/mypets"); 
+      await axios.put(`http://localhost:5000/api/pets/${petId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("Pet details updated successfully!");
+      navigate("/mypets");
     } catch (error) {
-      console.error("Error updating pet data:", error);
-      alert("Failed to update pet details");
+      console.error("Error updating pet:", error);
+      alert("Failed to update pet.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -66,99 +84,44 @@ if (loading) {
       <NavBar />
       <div className="malinda-form-container">
         <h1 className="malinda-page-title">Edit Pet Details</h1>
-        <form className="malinda-pet-form" onSubmit={handleSubmit}>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={pet.name}
-            onChange={handleChange}
-            required
-          />
-
-          <label>Species:</label>
-          <input
-            type="text"
-            name="species"
-            value={pet.species}
-            onChange={handleChange}
-            required
-          />
-
-          <label>Breed:</label>
-          <input
-            type="text"
-            name="breed"
-            value={pet.breed}
-            onChange={handleChange}
-          />
-
-          <label>Age (years):</label>
-          <input
-            type="number"
-            name="age"
-            value={pet.age}
-            onChange={handleChange}
-            min="1"
-          />
-
-          <label>Weight (kg):</label>
-          <input
-            type="number"
-            name="weight"
-            value={pet.weight}
-            onChange={handleChange}
-            min="0.1"
-            step="0.1"
-            required
-          />
-
-          <label>Gender:</label>
-          <select
-            name="gender"
-            value={pet.gender}
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled>
-              Select
-            </option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-
-          <label>Microchip ID:</label>
-          <input
-            type="text"
-            name="microchipID"
-            value={pet.microchipID}
-            onChange={handleChange}
-          />
-
-          <label>Last Checkup Date:</label>
-          <input
-            type="date"
-            name="lastCheckup"
-            value={pet.lastCheckup ? pet.lastCheckup.split("T")[0] : ""}
-            onChange={handleChange}
-            required
-          />
-
-          <label>Owner Name:</label>
-          <input
-            type="text"
-            name="ownerName"
-            value={pet.ownerName}
-            onChange={handleChange}
-            required
-          />
-
+        <form className="malinda-pet-form" onSubmit={handleSubmit} encType="multipart/form-data">
+          <label>Name:
+            <input type="text" name="name" value={pet.name} onChange={handleChange} required />
+          </label>
+          <label>Species:
+            <input type="text" name="species" value={pet.species} onChange={handleChange} required />
+          </label>
+          <label>Breed:
+            <input type="text" name="breed" value={pet.breed} onChange={handleChange} />
+          </label>
+          <label>Age (years):
+            <input type="number" name="age" value={pet.age} onChange={handleChange} min="1" />
+          </label>
+          <label>Weight (kg):
+            <input type="number" name="weight" value={pet.weight} onChange={handleChange} min="0.1" step="0.1" required />
+          </label>
+          <label>Gender:
+            <select name="gender" value={pet.gender} onChange={handleChange} required>
+              <option value="" disabled>Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </label>
+          <label>Microchip ID:
+            <input type="text" name="microchipID" value={pet.microchipID} onChange={handleChange} />
+          </label>
+          <label>Last Checkup Date:
+            <input type="date" name="lastCheckup" value={pet.lastCheckup} onChange={handleChange} required />
+          </label>
+          <label>Owner Name:
+            <input type="text" name="ownerName" value={pet.ownerName} onChange={handleChange} required />
+          </label>
+          <label>Pet Photo:
+            <input type="file" name="photo" accept="image/*" onChange={handleFileChange} />
+          </label>
           <div className="malinda-button-container">
-            <Link to="/mypets" className="malinda-cancel-btn">
-              Cancel
-            </Link>
-            <button type="submit" className="malinda-submit-btn">
-              Update Pet Details
+            <button type="submit" className="malinda-submit-btn" disabled={isSubmitting}>
+              {isSubmitting ? "Updating..." : "Update Pet"}
             </button>
           </div>
         </form>
@@ -168,4 +131,4 @@ if (loading) {
   );
 };
 
-export default EditPet;
+export default EditPetDetails;

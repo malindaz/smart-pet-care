@@ -83,7 +83,9 @@ function App() {
           <Route path="/addrecord" element={<AddRecord />} />
           <Route path="/addnewpet" element={<AddNewPet />} />
           <Route path="/myappointments" element={<MyAppointments />} />
-          <Route path="/editpetdetails" element={<EditPetDetails />} />     
+          <Route path="/editpetdetails" element={<EditPetDetails />} /> 
+          <Route path="/editpetdetails/:petId" element={<EditPetDetails />} />
+    
 
           {/*Add Pharmacist Routes Here*/ } 
           <Route path="/pharmacy" element={<Pharmacy />} />

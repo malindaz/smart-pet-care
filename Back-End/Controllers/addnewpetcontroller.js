@@ -1,6 +1,8 @@
 const Pet = require('../Models/addnewpetmodel');
 const fs = require('fs');
 const path = require('path');
+const express = require("express");
+const app = express();
 
 exports.addPet = async (req, res) => {
   try {
@@ -104,3 +106,5 @@ exports.deletePet = async (req, res) => {
     res.status(500).json({ message: "Server error while deleting pet", error: error.message });
   }
 };
+
+
