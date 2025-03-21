@@ -11,9 +11,7 @@ const MyPets = () => {
   const [selectedPet, setSelectedPet] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch all pets from the API
-  useEffect(() => {
-    window.scrollTo(0, 0);
+
 
     const fetchPets = async () => {
       try {
@@ -28,6 +26,10 @@ const MyPets = () => {
       }
     };
 
+      // Fetch all pets from the API
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    
     fetchPets();
   }, []);
 
@@ -39,7 +41,7 @@ const MyPets = () => {
     try {
       await axios.delete(`http://localhost:5000/api/pets/${petId}`);
       alert("Pet deleted successfully!");
-      //fetchPets(); // Refresh pet list after deletion
+      fetchPets(); // Refresh pet list after deletion
       setSelectedPet(null); // Reset selected pet
     } catch (error) {
       console.error("Error deleting pet:", error);
@@ -98,6 +100,8 @@ const MyPets = () => {
                       <p><strong>Weight:</strong> {pet.weight} kg</p>
                       <p><strong>Last Checkup:</strong> {new Date(pet.lastCheckup).toLocaleDateString()}</p>
                       <Link to={`/pet-details/${pet.id}`} className="malinda-view-btn">View Details</Link>
+                      <button onClick={() => handleDeletePet(pet._id)} className="malinda-delete-btn">Delete</button>
+
                     </div>
                   ))}
                 </div>

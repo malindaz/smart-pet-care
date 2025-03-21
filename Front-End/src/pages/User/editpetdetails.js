@@ -158,7 +158,7 @@ if (loading) {
               Cancel
             </Link>
             <button type="submit" className="malinda-submit-btn">
-              Update Pet
+              Update Pet Details
             </button>
           </div>
         </form>

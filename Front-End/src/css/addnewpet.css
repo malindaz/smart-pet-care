@@ -1,9 +1,10 @@
+/* Form Styling */
 .malinda-form-container {
   width: 50%;
   padding: 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
@@ -12,8 +13,10 @@
 
 .malinda-page-title {
   text-align: center;
-  font-size: 24px;
-  margin-top: 5px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #39558a;
+  margin-bottom: 20px;
 }
 
 .malinda-pet-form {
@@ -23,115 +26,60 @@
 }
 
 .malinda-pet-form label {
-  font-size: 16px;
+  font-size: 1.1rem;
   font-weight: bold;
+  color: #202124;
 }
 
 .malinda-pet-form input,
 .malinda-pet-form select {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   margin-top: 5px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
+  font-size: 1rem;
 }
 
 .malinda-button-container {
   display: flex;
-  justify-content: flex-end; /* Aligns buttons to the right */
-  gap: 10px; /* Adds spacing between buttons */
-  margin-top: 10px;
-  margin-bottom: 10px;
-  height: 50px;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
 }
-  
-  .malinda-page-title {
-    text-align: center;
-    font-size: 24px;
-    margin-top: 5px;
-  }
-  
-  .malinda-pet-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .malinda-pet-form label {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .malinda-pet-form input,
-  .malinda-pet-form select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  .malinda-button-container {
-    display: flex;
-    justify-content: flex-end; /* Aligns buttons to the right */
-    gap: 10px; /* Adds spacing between buttons */
-    margin-top: 10px;
-    margin-bottom: 10px;
-    height: 50px;
-  }
-    
-  .malinda-submit-btn, .cancel-btn {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 150px;
-    text-align: center;
-  }
-  
-  .malinda-submit-btn {
-    background: #28a745;
-    color: white;
-  }
-  
-  .malinda-submit-btn:hover {
-    background: #218838;
-  }
-  
-  .malinda-cancel-btn {
-    background: #ff2020;
-    color: white;
-    height: 20px;
-    
-  }
-  
-  .malinda-cancel-btn:hover {
-    background: #942a2a;
-  }
-  
+
+/* Button Styling */
 .malinda-submit-btn, .malinda-cancel-btn {
-  padding: 10px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  width: 150px;
+  font-size: 1rem;
+  font-weight: 600;
   text-align: center;
+  transition: all 0.2s ease;
 }
 
 .malinda-submit-btn {
-  background: #28a745;
+  background: #34a853;
   color: white;
+  box-shadow: 0 2px 8px rgba(52, 168, 83, 0.3);
 }
 
 .malinda-submit-btn:hover {
-  background: #218838;
+  background: #2d9249;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 168, 83, 0.4);
 }
 
 .malinda-cancel-btn {
-  background: #ff2020;
+  background: #ea4335;
   color: white;
-  height: 20px;
+  box-shadow: 0 2px 8px rgba(234, 67, 53, 0.3);
 }
 
 .malinda-cancel-btn:hover {
-  background: #942a2a;
+  background: #d93025;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(234, 67, 53, 0.4);
 }
