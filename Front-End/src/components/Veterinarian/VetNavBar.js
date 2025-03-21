@@ -109,13 +109,13 @@ const VetNavBar = () => {
       setIsNotificationDropdownOpen(false);
       
       // Redirect to vet login
-      navigate('/vet/login');
+      navigate('/');
     } catch (error) {
       console.error('Logout error:', error);
       // Still clear local storage and redirect even if there's an error
       localStorage.clear();
       setVet(null);
-      navigate('/vet/login');
+      navigate('/');
     }
   };
 

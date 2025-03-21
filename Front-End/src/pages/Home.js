@@ -3,8 +3,9 @@ import { Calendar, HeartPulse, Pill, ShieldCheck, MessageCircle, ArrowRight, Sea
 import '../css/Homepage.css';
 import NavBar  from '../components/NavBar';
 import Footer  from '../components/Footer';
+import ChatbotIcon from '../components/ChatbotIcon';
 import heroPetImage from '../assets/images/hero-pet.jpg';
-import aiAssistantImage from '../assets/images/ai-assistant.png';
+import aiAssistantImage from '../assets/images/ai-assistant.jpg';
 import testimonial1Image from '../assets/images/testimonial-1.jpg';
 import testimonial2Image from '../assets/images/testimonial-2.jpg';
 import testimonial3Image from '../assets/images/testimonial-3.jpg';
@@ -27,8 +28,8 @@ const Home = () => {
             </button>
           </div>
           <div className="homepage-hero-btns">
-            <button className="homepage-primary-btn">Get Started <ArrowRight size={16} /></button>
-            <button className="homepage-secondary-btn">Book Appointment</button>
+            <button className="homepage-primary-btn" onClick={() => window.location.href = '/register'}>Get Started <ArrowRight size={16} /></button>
+            <button className="homepage-secondary-btn"  onClick={() => window.location.href = '/appointment-form'}>Book Appointment</button>
           </div>
         </div>
         <div className="homepage-hero-image">
@@ -135,7 +136,7 @@ const Home = () => {
           <button className="homepage-primary-btn">Create Free Account <ArrowRight size={16} /></button>
         </div>
       </section>
-
+      <ChatbotIcon />
       <Footer />
     </div>
   );
