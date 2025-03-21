@@ -1,23 +1,5 @@
-// controllers/veterinarianController.js
 const Veterinarian = require('../Models/Veterinarian');
-const fs = require('fs');
 const path = require('path');
-
-// Upload directory configuration
-const uploadDir = path.join(__dirname, '../uploads');
-const profileImagesDir = path.join(uploadDir, 'profile-images');
-const licenseDocumentsDir = path.join(uploadDir, 'license-documents');
-
-// Ensure directories exist
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
-if (!fs.existsSync(profileImagesDir)) {
-  fs.mkdirSync(profileImagesDir);
-}
-if (!fs.existsSync(licenseDocumentsDir)) {
-  fs.mkdirSync(licenseDocumentsDir);
-}
 
 // Apply to become a veterinarian
 exports.applyVeterinarian = async (req, res) => {
@@ -28,64 +10,81 @@ exports.applyVeterinarian = async (req, res) => {
       licenseNumber, licenseIssuingAuthority, licenseExpiryDate,
       specialization, yearsOfExperience,
       clinicName, clinicAddress, city, state, zipCode,
-      availableDays, availableTimeStart, availableTimeEnd,
+      availableTimeStart, availableTimeEnd,
       emergencyServices, homeVisits, bio, agreeToTerms
     } = req.body;
 
-    // Parse JSON strings from form data
-    const education = JSON.parse(req.body.education);
-    const additionalCertifications = req.body.additionalCertifications 
-      ? JSON.parse(req.body.additionalCertifications) 
-      : [];
-    const parsedAvailableDays = Array.isArray(availableDays) 
-      ? availableDays 
-      : JSON.parse(availableDays);
-
-    // Handle file uploads
+    // Check if files were uploaded
     if (!req.files || !req.files.profileImage || !req.files.licenseCopy) {
-      return res.status(400).json({ message: 'Profile image and license copy are required' });
+      return res.status(400).json({ 
+        success: false,
+        message: 'Profile image and license copy are required' 
+      });
     }
 
-    const profileImage = req.files.profileImage;
-    const licenseCopy = req.files.licenseCopy;
+    // Parse JSON strings from form data safely
+    let education = [];
+    try {
+      education = req.body.education ? JSON.parse(req.body.education) : [];
+    } catch (error) {
+      console.error('Error parsing education:', error);
+      education = [];
+    }
 
-    // Generate unique filenames
-    const profileImageName = `${Date.now()}-${profileImage.name}`;
-    const licenseCopyName = `${Date.now()}-${licenseCopy.name}`;
+    let additionalCertifications = [];
+    try {
+      additionalCertifications = req.body.additionalCertifications 
+        ? JSON.parse(req.body.additionalCertifications) 
+        : [];
+    } catch (error) {
+      console.error('Error parsing additionalCertifications:', error);
+      additionalCertifications = [];
+    }
 
-    // Save files to server
-    const profileImagePath = path.join(profileImagesDir, profileImageName);
-    const licenseCopyPath = path.join(licenseDocumentsDir, licenseCopyName);
+    let parsedAvailableDays = [];
+    try {
+      parsedAvailableDays = req.body.availableDays
+        ? JSON.parse(req.body.availableDays)
+        : [];
+    } catch (error) {
+      console.error('Error parsing availableDays:', error);
+      parsedAvailableDays = [];
+    }
 
-    await profileImage.mv(profileImagePath);
-    await licenseCopy.mv(licenseCopyPath);
+    // Get file paths
+    const profileImageFile = req.files.profileImage[0];
+    const licenseCopyFile = req.files.licenseCopy[0];
+
+    // Create paths relative to the uploads directory
+    const profileImagePath = `/uploads/profile-images/${path.basename(profileImageFile.path)}`;
+    const licenseCopyPath = `/uploads/license-documents/${path.basename(licenseCopyFile.path)}`;
 
     // Create new veterinarian document
     const newVeterinarian = new Veterinarian({
-      firstName,
-      lastName,
-      email,
-      phone,
-      licenseNumber,
-      licenseIssuingAuthority,
-      licenseExpiryDate,
-      specialization,
-      yearsOfExperience: Number(yearsOfExperience),
-      education,
-      additionalCertifications,
-      clinicName,
-      clinicAddress,
-      city,
-      state,
-      zipCode,
+      firstName: firstName || '',
+      lastName: lastName || '',
+      email: email || '',
+      phone: phone || '',
+      licenseNumber: licenseNumber || '',
+      licenseIssuingAuthority: licenseIssuingAuthority || '',
+      licenseExpiryDate: licenseExpiryDate || new Date(),
+      specialization: specialization || '',
+      yearsOfExperience: Number(yearsOfExperience) || 0,
+      education: education,
+      additionalCertifications: additionalCertifications,
+      clinicName: clinicName || '',
+      clinicAddress: clinicAddress || '',
+      city: city || '',
+      state: state || '',
+      zipCode: zipCode || '',
       availableDays: parsedAvailableDays,
-      availableTimeStart,
-      availableTimeEnd,
+      availableTimeStart: availableTimeStart || '',
+      availableTimeEnd: availableTimeEnd || '',
       emergencyServices: emergencyServices === 'true' || emergencyServices === true,
       homeVisits: homeVisits === 'true' || homeVisits === true,
-      bio,
-      profileImage: `/uploads/profile-images/${profileImageName}`,
-      licenseCopy: `/uploads/license-documents/${licenseCopyName}`
+      bio: bio || '',
+      profileImage: profileImagePath,
+      licenseCopy: licenseCopyPath
     });
 
     // Save to database

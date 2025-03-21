@@ -8,33 +8,34 @@ import Footer from "../../components/Footer";
 
 const ApplyVet = () => {
   // Form states
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    licenseNumber: '',
-    licenseIssuingAuthority: '',
-    licenseExpiryDate: '',
-    specialization: '',
-    yearsOfExperience: '',
-    clinicName: '',
-    clinicAddress: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    availableDays: [],
-    availableTimeStart: '',
-    availableTimeEnd: '',
-    education: [{ institution: '', degree: '', yearCompleted: '' }],
-    profileImage: null,
-    licenseCopy: null,
-    additionalCertifications: [],
-    emergencyServices: false,
-    homeVisits: false,
-    bio: '',
-    agreeToTerms: false
-  });
+// At the beginning of your ApplyVet component, update the initial state:
+const [formData, setFormData] = useState({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  licenseNumber: '',
+  licenseIssuingAuthority: '',
+  licenseExpiryDate: '',
+  specialization: '',
+  yearsOfExperience: '',
+  clinicName: '',
+  clinicAddress: '',
+  city: '',
+  state: '',
+  zipCode: '',
+  availableDays: [],
+  availableTimeStart: '',
+  availableTimeEnd: '',
+  education: [{ institution: '', degree: '', yearCompleted: '' }],
+  profileImage: null,
+  licenseCopy: null,
+  additionalCertifications: [],
+  emergencyServices: false,
+  homeVisits: false,
+  bio: '',
+  agreeToTerms: false
+});
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -336,26 +337,27 @@ const ApplyVet = () => {
       // Create form data object for file uploads
       const submitData = new FormData();
       
-      // Add all form data to FormData
-// In handleSubmit function, modify this part:
-for (const key in formData) {
-    if (key === 'education' || key === 'additionalCertifications' || key === 'availableDays') {
-      // Make sure the value exists before stringifying
-      if (formData[key]) {
-        submitData.append(key, JSON.stringify(formData[key]));
-      } else {
-        // Provide default empty arrays if the value is undefined
-        submitData.append(key, JSON.stringify([]));
+      // Add all form data to FormData with proper error handling
+      for (const key in formData) {
+        if (key === 'education' || key === 'additionalCertifications' || key === 'availableDays') {
+          // Always provide a fallback empty array for these fields
+          submitData.append(key, JSON.stringify(formData[key] || []));
+        } else if (key === 'profileImage' || key === 'licenseCopy') {
+          // Only append files if they exist
+          if (formData[key]) {
+            submitData.append(key, formData[key]);
+          }
+        } else if (key === 'yearsOfExperience') {
+          // Ensure numeric fields are not undefined
+          submitData.append(key, formData[key] || '0');
+        } else if (typeof formData[key] === 'boolean') {
+          // Handle boolean values
+          submitData.append(key, formData[key]);
+        } else {
+          // For other fields, convert undefined or null to empty string
+          submitData.append(key, formData[key] == null ? '' : formData[key]);
+        }
       }
-    } else if (key === 'profileImage' || key === 'licenseCopy') {
-      // Only append files if they exist
-      if (formData[key]) {
-        submitData.append(key, formData[key]);
-      }
-    } else {
-      submitData.append(key, formData[key] === undefined ? '' : formData[key]);
-    }
-  }
       
       // Submit form data to API
       const response = await axios.post('http://localhost:5000/api/veterinarians/apply', submitData, {
