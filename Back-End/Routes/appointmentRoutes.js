@@ -27,17 +27,20 @@ router.post(
   appointmentController.createAppointment
 );
 
-// Get user's appointments (would normally be protected by authentication)
+// Get user's appointments 
 router.get(
   '/user',
   appointmentController.getUserAppointments
 );
 
-// Update appointment status (would normally be protected by authentication)
+// Update appointment status 
 router.patch(
   '/:id',
   appointmentController.updateAppointmentStatus
 );
+
+// Delete appointment
+router.delete('/:id', appointmentController.deleteAppointment);
 
 router.get('/all', appointmentController.getAllAppointments);
 router.put('/:id/accept', appointmentController.acceptAppointment);

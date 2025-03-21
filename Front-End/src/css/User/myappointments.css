@@ -614,3 +614,19 @@
     font-size: 0.9rem;
   }
 }
+
+.view-myappointments-pay-btn {
+  background-color: transparent; /* Transparent background */
+  border: 2px solid #40E0D0; /* Light turquoise border */
+  color: #40E0D0; /* Light turquoise text */
+  padding: 8px 16px; /* Adjust padding */
+  font-size: 16px; /* Adjust font size */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+.view-myappointments-pay-btn:hover {
+  background-color: #40E0D0; /* Light turquoise background on hover */
+  color: white; /* White text on hover */
+}

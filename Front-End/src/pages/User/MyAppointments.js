@@ -137,6 +137,12 @@ const MyAppointments = () => {
     }
   };
 
+  // Handle payment
+  const handlePayment = (appointmentId) => {
+    // Redirect to payment page with appointment ID
+    window.location.href = `/payment?appointmentId=${appointmentId}`;
+  };
+
   // Handle save updated appointment
   const handleSave = async () => {
     try {
@@ -575,18 +581,29 @@ const MyAppointments = () => {
                             <div className="view-myappointments-card-footer">
                               {!isAppointmentPast(appointment.date) && appointment.status !== 'cancelled' && (
                                 <>
-                                  <button 
-                                    className="view-myappointments-edit-btn"
-                                    onClick={() => handleEdit(appointment)}
-                                  >
-                                    Reschedule
-                                  </button>
-                                  <button 
-                                    className="view-myappointments-cancel-appointment-btn"
-                                    onClick={() => handleCancel(appointment._id)}
-                                  >
-                                    Cancel
-                                  </button>
+                                  {appointment.status === 'scheduled' ? (
+                                    <>
+                                      <button 
+                                        className="view-myappointments-edit-btn"
+                                        onClick={() => handleEdit(appointment)}
+                                      >
+                                        Reschedule
+                                      </button>
+                                      <button 
+                                        className="view-myappointments-cancel-appointment-btn"
+                                        onClick={() => handleCancel(appointment._id)}
+                                      >
+                                        Cancel
+                                      </button>
+                                    </>
+                                  ) : appointment.status === 'confirmed' ? (
+                                    <button 
+                                      className="view-myappointments-pay-btn"
+                                      onClick={() => handlePayment(appointment._id)}
+                                    >
+                                      Pay Now
+                                    </button>
+                                  ) : null}
                                 </>
                               )}
                             </div>
