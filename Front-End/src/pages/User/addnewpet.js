@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import "../../css/addnewpet.css";
 import axios from "axios";
@@ -30,7 +31,7 @@ const AddNewPet = () => {
 
   const handleFileChange = (e) => {
     setPet({ ...pet, photo: e.target.files[0] });
-    console.log("📷 Selected file:", e.target.files[0]); 
+    console.log(" Selected file:", e.target.files[0]); 
   };
   
   
@@ -45,7 +46,7 @@ const AddNewPet = () => {
   
     const formData = new FormData();
     Object.keys(pet).forEach((key) => formData.append(key, pet[key]));
-    formData.append("photo", pet.photo); // Append file separately
+    formData.append("photo", pet.photo); 
   
     try {
       const response = await axios.post("http://localhost:5000/api/pets/add", formData, {
@@ -63,9 +64,7 @@ const AddNewPet = () => {
     }
   };
   
-  
-  
-  
+
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();

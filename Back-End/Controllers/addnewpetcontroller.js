@@ -21,7 +21,7 @@ exports.addPet = async (req, res) => {
       microchipID: req.body.microchipID,
       lastCheckup: req.body.lastCheckup,
       ownerName: req.body.ownerName,
-      photo: req.file.path,  // Store file path correctly
+      photo: req.file.path, 
     };
 
     const newPet = new Pet(petData);

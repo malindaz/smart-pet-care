@@ -7,8 +7,8 @@ import Footer from "../../components/Footer";
 
 const EditPet = () => {
   const navigate = useNavigate();
-  const { petId } = useParams(); // Extract petId from the URL
-  console.log("Pet ID:", petId); // Log to debug the petId
+  const { petId } = useParams(); 
+  console.log("Pet ID:", petId); 
 
   const [pet, setPet] = useState({
     name: "",
@@ -44,17 +44,17 @@ if (loading) {
 }
 
   const handleChange = (e) => {
-    // Update state with the new field values
+    
     setPet({ ...pet, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send updated pet data to backend
+      
       await axios.put(`http://localhost:5000/api/pets/${petId}`, pet);
       alert("Pet details updated successfully");
-      navigate("/mypets"); // Redirect after successful update
+      navigate("/mypets"); 
     } catch (error) {
       console.error("Error updating pet data:", error);
       alert("Failed to update pet details");

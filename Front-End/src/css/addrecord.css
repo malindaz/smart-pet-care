@@ -1,4 +1,4 @@
-/* Form Styling */
+
 .malinda-add-record-container {
   max-width: 90%;
   width: 500px;
@@ -46,7 +46,7 @@
   font-size: 1rem;
 }
 
-/* Button Styling */
+
 .malinda-button {
   margin-left: auto;
   margin-top: 10px;
@@ -65,7 +65,7 @@
   background: #2980b9;
 }
 
-/* ✅ Responsive Design */
+/* Responsive Design */
 @media (max-width: 768px) {
   .malinda-add-record-container {
     width: 95%;

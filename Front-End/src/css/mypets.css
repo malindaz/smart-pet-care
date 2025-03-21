@@ -1,4 +1,4 @@
-/* Base Styling */
+
 .malinda-pet-health-container {
   max-width: 1200px;
   margin: 40px auto;
@@ -22,7 +22,7 @@
   margin-bottom: 40px;
 }
 
-/* Pet Dashboard Layout */
+
 .malinda-pet-dashboard {
   display: flex;
   gap: 30px;
@@ -31,7 +31,7 @@
   text-align: left;
 }
 
-/* Sidebar Styling */
+
 .malinda-pet-sidebar {
   width: 280px;
   background-color: #ffffff;
@@ -91,7 +91,7 @@
   opacity: 0.9;
 }
 
-/* Add Button */
+
 .malinda-add-btn {
   display: block;
   width: 91%;
@@ -112,7 +112,7 @@
   box-shadow: 0 4px 12px rgba(52, 168, 83, 0.4);
 }
 
-/* Pet Profile Area */
+
 .malinda-pet-profile {
   flex: 1;
   background-color: #ffffff;
@@ -139,7 +139,7 @@
   font-weight: 600;
 }
 
-/* Action Buttons */
+
 .malinda-buttons {
   display: flex;
   gap: 15px;
@@ -195,7 +195,7 @@
   box-shadow: 0 4px 12px rgba(234, 67, 53, 0.3);
 }
 
-/* All Pets Grid */
+
 .malinda-all-pets-profile {
   flex: 1;
   background-color: #ffffff;
@@ -240,7 +240,7 @@
   box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .malinda-pet-dashboard {
     flex-direction: column;
@@ -278,9 +278,5 @@
   .malinda-all-pets-grid {
     grid-template-columns: 1fr;
   }
-
- 
-  
-
 
 }
