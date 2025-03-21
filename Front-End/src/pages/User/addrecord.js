@@ -33,7 +33,7 @@ const AddRecord = () => {
       });
   
       const data = await response.json();
-      console.log("API Response:", data); // Debugging line
+      console.log("API Response:", data); 
   
       if (data.success) {
         alert(`Pet health record submitted successfully! Pet ID: ${data.petId}`);
@@ -66,7 +66,7 @@ const AddRecord = () => {
       <div className="malinda-add-record-container">
         <h2 className="malinda-h2">Add Pet Health Record</h2>
         <form onSubmit={handleSubmit} className="malinda-record-form">
-          {/* Remove the petId input field as it will be auto-generated */}
+          
           
           <label className="malinda-record-text malinda-label">Pet Name:</label>
           <input

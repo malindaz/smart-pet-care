@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
   },
 });
 
-//  Allow Only PNG, JPG, JPEG
+
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ["image/png", "image/jpg", "image/jpeg"];
   if (!allowedTypes.includes(file.mimetype)) {
@@ -32,21 +32,19 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
+  limits: { fileSize: 5 * 1024 * 1024 }, 
   fileFilter: fileFilter,
 });
 
 module.exports = upload;
 
 
-
-// Use Multer middleware for file upload
 router.post("/add", upload.single("photo"), petController.addPet);
 
 
 
-// Corrected Routes
-router.post('/add', upload.single('photo'), petController.addPet);  // Ensure file upload works
+
+router.post('/add', upload.single('photo'), petController.addPet);  
 router.get('/all', petController.getAllPets);
 router.get('/:id', petController.getPetById);
 router.delete("/:id", petController.deletePet);

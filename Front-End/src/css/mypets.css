@@ -1,4 +1,4 @@
-/* Base styling */
+
 .malinda-pet-health-container {
   max-width: 1200px;
   margin: 40px auto;
@@ -22,7 +22,7 @@
   margin-bottom: 40px;
 }
 
-/* Pet Dashboard Layout */
+
 .malinda-pet-dashboard {
   display: flex;
   gap: 30px;
@@ -31,7 +31,7 @@
   text-align: left;
 }
 
-/* Sidebar Styling */
+
 .malinda-pet-sidebar {
   width: 280px;
   background-color: #ffffff;
@@ -91,7 +91,7 @@
   opacity: 0.9;
 }
 
-/* Add button */
+
 .malinda-add-btn {
   display: block;
   width: 91%;
@@ -112,7 +112,7 @@
   box-shadow: 0 4px 12px rgba(52, 168, 83, 0.4);
 }
 
-/* Pet Profile Area */
+
 .malinda-pet-profile {
   flex: 1;
   background-color: #ffffff;
@@ -139,7 +139,7 @@
   font-weight: 600;
 }
 
-/* Action Buttons */
+
 .malinda-buttons {
   display: flex;
   gap: 15px;
@@ -181,25 +181,76 @@
 .malinda-delete-btn {
   background-color: #ea4335;
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 10px 10px;
   border-radius: 8px;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   border-color: #ea4335;
 }
 
-/* Responsive Design */
+.malinda-delete-btn:hover {
+  background-color: #d93025;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(234, 67, 53, 0.3);
+}
+
+
+.malinda-all-pets-profile {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.malinda-all-pets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.malinda-pet-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.malinda-pet-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.malinda-view-btn {
+  display: inline-block;
+  padding: 10px 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #34a853;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.malinda-view-btn:hover {
+  background-color: #2d9249;
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+}
+
+
 @media (max-width: 768px) {
   .malinda-pet-dashboard {
     flex-direction: column;
   }
-  
+
   .malinda-pet-sidebar {
     width: 100%;
     margin-bottom: 20px;
   }
-  
+
   .malinda-all-pets-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
@@ -209,21 +260,23 @@
   .malinda-page-title {
     font-size: 1.8rem;
   }
-  
+
   .malinda-page-description {
     font-size: 1rem;
   }
-  
+
   .malinda-buttons {
     flex-direction: column;
   }
-  
-  .malinda-edit-btn, .malinda-add-record-btn {
+
+  .malinda-edit-btn,
+  .malinda-add-record-btn {
     width: 100%;
     text-align: center;
   }
-  
+
   .malinda-all-pets-grid {
     grid-template-columns: 1fr;
   }
+
 }

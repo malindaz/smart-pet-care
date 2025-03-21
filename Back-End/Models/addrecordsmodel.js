@@ -80,7 +80,7 @@ const petRecordSchema = new mongoose.Schema({
   }
 });
 
-// Middleware to auto-generate petId before saving
+// Middleware to auto generate petId before saving
 petRecordSchema.pre('validate', async function (next) {
   if (!this.petId) {
     try {
