@@ -77,8 +77,8 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           
           {/* Add Admin Routes Here */}
-          <Route path="/vetrequests" element={<adminRoute><VetRequests /></adminRoute>} />
-          <Route path="/admin-dashboard" element={<adminRoute><AdminDashboard /></adminRoute>} />
+          <Route path="/vetrequests" element={<AdminRoute><VetRequests /></AdminRoute>} />
+          <Route path="/admin-dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
 
           {/*Add User Routes Here*/ }
 
@@ -99,8 +99,8 @@ function App() {
           <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
 
             {/* Add Veterinarian Routes Here */}
-            <Route path="/vetdashboard" element={<VetRoute><VetDashboard /></VetRoute>} />
-            <Route path="/vetappointments" element={<VetRoute><VetAppointments /></VetRoute>} />
+            <Route path="/vetdashboard" element={<VetDashboard />} />
+            <Route path="/vetappointments" element={<VetAppointments />} />
 
             {/* Add Pharmacist Routes Here */}
             <Route path="/cart" element={<Cart />} />
