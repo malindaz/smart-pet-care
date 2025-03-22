@@ -16,13 +16,9 @@ const VetRequests = () => {
   useEffect(() => {
     const fetchVetRequests = async () => {
       try {
-        const token = localStorage.getItem('token');
-        
-        const response = await axios.get('http://localhost:5000/api/admin/requests', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        setLoading(true);
+        // No token needed
+        const response = await axios.get('http://localhost:5000/api/admin/requests');
         
         setVetRequests(response.data.data);
         setLoading(false);
@@ -32,49 +28,43 @@ const VetRequests = () => {
         setLoading(false);
       }
     };
-
+  
     fetchVetRequests();
   }, []);
 
 
-const handleStatusUpdate = async (id, status) => {
-  setProcessingId(id);
-  
-  try {
-    const token = localStorage.getItem('token');
+  const handleStatusUpdate = async (id, status) => {
+    setProcessingId(id);
     
-    const response = await axios.put(
-      'http://localhost:5000/api/admin/update-status',
-      { id, status },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
+    try {
+      // No token needed
+      const response = await axios.put(
+        'http://localhost:5000/api/admin/update-status',
+        { id, status }
+      );
+      
+      if (response.data.success) {
+        // Update the local state
+        setVetRequests(vetRequests.map(request => 
+          request._id === id ? { ...request, status } : request
+        ));
+        
+        toast.success(`Veterinarian request ${status === 'approved' ? 'approved' : 'rejected'} successfully`);
+        
+        if (status === 'approved') {
+          toast.info('User level updated to Veterinarian (Level 2)');
         }
+      } else {
+        throw new Error(response.data.error || 'Failed to update request');
       }
-    );
-    
-    if (response.data.success) {
-      // Update the local state
-      setVetRequests(vetRequests.map(request => 
-        request._id === id ? { ...request, status } : request
-      ));
       
-      toast.success(`Veterinarian request ${status === 'approved' ? 'approved' : 'rejected'} successfully`);
-      
-      if (status === 'approved') {
-        toast.info('User level updated to Veterinarian (Level 2)');
-      }
-    } else {
-      throw new Error(response.data.error || 'Failed to update request');
+    } catch (error) {
+      console.error('Error updating veterinarian status:', error);
+      toast.error(`Failed to update status: ${error.response?.data?.error || error.message}`);
+    } finally {
+      setProcessingId(null);
     }
-    
-  } catch (error) {
-    console.error('Error updating veterinarian status:', error);
-    toast.error(`Failed to update status: ${error.response?.data?.error || error.message}`);
-  } finally {
-    setProcessingId(null);
-  }
-};
+  };
 
   // Toggle expanded view
   const toggleExpand = (id) => {

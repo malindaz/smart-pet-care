@@ -4,7 +4,7 @@ const adminController = require('../Controllers/adminController');
 const { protect } = require('../Middleware/authMiddleware');
 
 router.get(
-  '/requests',   adminController.getAllVeterinarianRequests
+  '/requests', adminController.getAllVeterinarianRequests
 );
 
 router.put(
