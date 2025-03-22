@@ -77,18 +77,18 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           
           {/* Add Admin Routes Here */}
-          <Route path="/vetrequests" element={<AdminRoute><VetRequests /></AdminRoute>} />
-          <Route path="/admin-dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+          <Route path="/vetrequests" element={<VetRequests />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
           {/*Add User Routes Here*/ }
 
           <Route path="/profile" element={<Profile />} />
-          <Route path="/appointment-form" element={<ProtectedRoute><AppointmentForm /></ProtectedRoute>} />
-          <Route path="/apply-vet" element={<ProtectedRoute><ApplyVet /></ProtectedRoute>} />
+          <Route path="/appointment-form" element={<AppointmentForm />} />
+          <Route path="/apply-vet" element={<ApplyVet />} />
           <Route path="/mypets" element={<MyPets />} />
           <Route path="/addrecord" element={<AddRecord />} />
           <Route path="/addnewpet" element={<AddNewPet />} />
-          <Route path="/myappointments" element={<ProtectedRoute><MyAppointments /></ProtectedRoute>} />
+          <Route path="/myappointments" element={<MyAppointments />} />
           <Route path="/editpetdetails" element={<EditPetDetails />} /> 
           <Route path="/editpetdetails/:petId" element={<EditPetDetails />} />
     

@@ -83,3 +83,8 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(234, 67, 53, 0.4);
 }
+
+.malinda-error-message {
+  color: red;
+  margin-top: 10px;
+}
