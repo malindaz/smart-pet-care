@@ -1,4 +1,3 @@
-// controllers/appointmentController.js
 const Appointment = require('../Models/Appointment');
 const { validationResult } = require('express-validator');
 
@@ -340,5 +339,46 @@ exports.rejectAppointment = async (req, res) => {
     res.status(200).json(updatedAppointment);
   } catch (error) {
     res.status(500).json({ message: "Error updating appointment", error });
+  }
+};
+
+// Add this to appointmentController.js
+exports.updateAppointment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { date, time, notes } = req.body;
+    
+    // Validate required fields
+    if (!date || !time) {
+      return res.status(400).json({
+        success: false,
+        message: 'Date and time are required fields'
+      });
+    }
+    
+    // Find and update the appointment
+    const appointment = await Appointment.findByIdAndUpdate(
+      id,
+      { date, time, notes },
+      { new: true, runValidators: true }
+    );
+    
+    if (!appointment) {
+      return res.status(404).json({
+        success: false,
+        message: 'Appointment not found'
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      data: appointment
+    });
+  } catch (error) {
+    console.error('Error updating appointment:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error while updating appointment'
+    });
   }
 };

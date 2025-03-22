@@ -118,28 +118,25 @@ const MyAppointments = () => {
     fetchAvailableTimes(newDate);
   };
 
-  // Handle cancel appointment
+  
 // Handle cancel appointment
 const handleCancel = async (id) => {
   if (window.confirm('Are you sure you want to cancel this appointment?')) {
     try {
       const response = await axios.patch(`http://localhost:5000/api/appointments/${id}/status`, {
         status: 'cancelled'
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          // Include authorization if needed
-          // 'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
       });
       
       if (response.data.success) {
         setCancelSuccess(true);
         setTimeout(() => setCancelSuccess(false), 3000);
-        fetchAppointments();
+        fetchAppointments(); // Refresh the appointments list
+      } else {
+        setError(response.data.message || 'Failed to cancel appointment');
       }
     } catch (err) {
-      setError(`Error cancelling appointment: ${err.message}`);
+      console.error('Cancel error:', err);
+      setError(`Error cancelling appointment: ${err.response?.data?.message || err.message}`);
     }
   }
 };
@@ -159,7 +156,7 @@ const handleSave = async () => {
       return;
     }
     
-    // First check if the time slot is available
+    // Check if the time slot is available (excluding current appointment)
     const isSameDateTime = appointments.some(app => 
       app._id !== editAppointment._id && 
       formatDateForInput(app.date) === editAppointment.date && 
@@ -176,22 +173,19 @@ const handleSave = async () => {
       date: editAppointment.date,
       time: editAppointment.time,
       notes: editAppointment.notes || ''
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        // Include authorization if needed
-        // 'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
     });
     
     if (response.data.success) {
       setUpdateSuccess(true);
       setTimeout(() => setUpdateSuccess(false), 3000);
       setEditAppointment(null);
-      fetchAppointments();
+      fetchAppointments(); // Refresh the appointments list
+    } else {
+      setError(response.data.message || 'Failed to update appointment');
     }
   } catch (err) {
-    setError(`Error updating appointment: ${err.message}`);
+    console.error('Update error:', err);
+    setError(`Error updating appointment: ${err.response?.data?.message || err.message}`);
   }
 };
 
