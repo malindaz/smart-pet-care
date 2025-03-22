@@ -35,28 +35,23 @@ exports.updateVeterinarianStatus = async (req, res) => {
     // If approved, update user level from 4 to 2
     if (status === 'approved') {
       try {
-        const userUpdated = await User.findOneAndUpdate(
-          { email: vetRequest.email },
-          { userLevel: 2 },
-          { new: true }
-        );
+        // Make sure you're querying for the user with the correct field
+        // Assuming email is the common field between Veterinarian and User
+        const user = await User.findOne({ email: vetRequest.email });
         
-        if (!userUpdated) {
+        if (!user) {
           console.log(`User with email ${vetRequest.email} not found`);
-          return res.status(404).json({
-            success: false,
-            error: 'User associated with this veterinarian request not found'
-          });
+          // Continue even if user not found - don't return early
+          console.error('User associated with this veterinarian request not found');
+        } else {
+          // Update user level
+          user.userLevel = 2;
+          await user.save();
+          console.log(`User ${user.email} updated to level 2`);
         }
-        
-        console.log(`User ${userUpdated.email} updated to level 2`);
       } catch (userError) {
         console.error('Error updating user level:', userError);
-        return res.status(500).json({ 
-          success: false, 
-          error: 'Error updating user level', 
-          details: userError.message 
-        });
+        // Continue with the response even if there's an error updating the user
       }
     }
     
