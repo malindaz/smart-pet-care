@@ -26,6 +26,8 @@ import EditPetDetails from "./pages/User/editpetdetails";
 //import Admin pages
 import VetRequests from "./pages/Admin/vetrequests";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import PharmacyRequests from "./pages/Admin/pharmacyRequests";
+import UserRoleManagement from "./pages/Admin/UserRoleManagement";
 
 //import Veterinarian pages
 import VetDashboard from "./pages/Veterinarian/VetDashboard";
@@ -38,7 +40,7 @@ import PharmacyEdit from "./pages/Pharmacist/pharmacyEdit";
 import Cart from "./pages/Shoping Cart/cart";
 import {CartProvider} from "./pages/Shoping Cart/cartContext";
 import CheckoutPage from "./pages/Shoping Cart/checkout";
-
+import PharmacyRegistration from "./pages/Pharmacist/PharmacyRegistration"
 
 // import ProtectedRoute from "./Routes/ProtectedRoute";
 // import AdminRoute from "./Routes/AdminRoute";
@@ -79,6 +81,8 @@ function App() {
           {/* Add Admin Routes Here */}
           <Route path="/vetrequests" element={<VetRequests />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/pharmacy-requests" element={<PharmacyRequests />} />
+          <Route path="/user-management" element={<UserRoleManagement />} />
 
           {/*Add User Routes Here*/ }
 
@@ -97,6 +101,7 @@ function App() {
           <Route path="/pharmacy" element={<Pharmacy />} />
           <Route path="/pharmacyAdmin" element={<PharmacyAdmin />} />
           <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
+          <Route path="/pharmacy-registration" element={<PharmacyRegistration />} />
 
             {/* Add Veterinarian Routes Here */}
             <Route path="/vetdashboard" element={<VetDashboard />} />

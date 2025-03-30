@@ -1,0 +1,284 @@
+/* src/css/Admin/PharmacyRegistration.css */
+.pharmacy-registration-container {
+  max-width: 900px;
+  margin: 100px auto 0;
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.pharmacy-registration-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.pharmacy-registration-header h2 {
+  color: #35B4AA;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.pharmacy-registration-header p {
+  color: #000;
+  font-size: 1.1rem;
+}
+
+/* Progress bar styles */
+.pharmacy-progress-container {
+  margin-bottom: 2.5rem;
+}
+
+.pharmacy-progress-bar {
+  height: 8px;
+  background-color: #edf8f7;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.pharmacy-progress-fill {
+  height: 100%;
+  background-color: #35B4AA;
+  transition: width 0.3s ease;
+}
+
+.pharmacy-step-indicators {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.pharmacy-step-indicator {
+  width: 36px;
+  height: 36px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #000;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.pharmacy-step-indicator.active {
+  background-color: #35B4AA;
+  color: white;
+  box-shadow: 0 2px 8px rgba(53, 180, 170, 0.3);
+}
+
+.pharmacy-step-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.pharmacy-current-step {
+  font-weight: 600;
+  color: #35B4AA;
+}
+
+/* Form styles */
+.pharmacy-registration-form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  border: 1px solid #f0f0f0;
+}
+
+.pharmacy-registration-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.pharmacy-registration-section {
+  background-color: white;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.pharmacy-registration-section h2 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pharmacy-registration-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.pharmacy-registration-grid input,
+.pharmacy-registration-services input,
+.pharmacy-registration-hours-row input,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.pharmacy-registration-hours-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.pharmacy-registration-hours-row label {
+  min-width: 100px;
+}
+
+.pharmacy-registration-services {
+  margin-bottom: 1rem;
+}
+
+.pharmacy-registration-service-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pharmacy-registration-service-input button {
+  padding: 0.5rem 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pharmacy-registration-service-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pharmacy-registration-service-tag {
+  background-color: #3498db;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pharmacy-registration-service-tag button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.pharmacy-registration-checkboxes {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pharmacy-registration-pharmacist-card {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.pharmacy-registration-remove-pharmacist,
+.pharmacy-registration-add-pharmacist {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pharmacy-registration-upload-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.pharmacy-registration-upload-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pharmacy-registration-upload-field input[type="file"] {
+  border: 1px dashed #ddd;
+  padding: 1rem;
+}
+
+.pharmacy-registration-submit {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.pharmacy-registration-submit button {
+  padding: 1rem 2rem;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pharmacy-registration-submit button:hover {
+  background-color: #27ae60;
+}
+
+.pharmacy-registration-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.pharmacy-registration-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pharmacy-registration-container {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .pharmacy-registration-grid,
+  .pharmacy-registration-upload-grid {
+    grid-template-columns: 1fr;
+  }
+}
