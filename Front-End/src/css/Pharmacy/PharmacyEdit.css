@@ -222,27 +222,8 @@ form {
   font-weight: 500;
   margin-left: 5px;
   position: relative;
-  padding-left: 20px;
-  margin-top: -35px;
+  margin-top: 10px;
   margin-bottom: 20px;
-}
-
-.pharmacy-edit-form-group .invalid-feedback::before {
-  content: "!";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 16px;
-  height: 16px;
-  background-color: var(--danger);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: bold;
-  margin-top: 1px;
 }
 
 /* Image Preview */
