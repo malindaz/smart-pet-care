@@ -25,7 +25,6 @@
 }
 
 .pharmacy-Btn-edit, .pharmacy-Btn-delete {
-  color: white;
   border: none;
   border-radius: 8px;
   padding: 8px 18px;
@@ -40,21 +39,25 @@
 }
 
 .pharmacy-Btn-edit {
-  background-color: #ffc107;
-  border: none;
+  background-color: white;
+  color: #00C2CB;
+  border: 1px solid #00C2CB;
 }
 
 .pharmacy-Btn-edit:hover {
-  background-color: #e0a800;
+  background-color: #00C2CB;
+  color: white;
 }
 
 .pharmacy-Btn-delete {
-  background-color: #dc3545;
-  border: none;
+  background-color: #ffff;
+  color: #dc3545;
+  border: 1px solid #dc3545;
 }
 
 .pharmacy-Btn-delete:hover {
-  background-color: #c82333;
+  background-color: #dc3545;
+  color: white;
 }
 
 /* Mobile Responsiveness */

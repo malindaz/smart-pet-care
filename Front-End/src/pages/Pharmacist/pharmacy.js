@@ -84,60 +84,61 @@ const ProductList = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
+        <Container className="pharmacy-content">
+          {/* Display message if no products match the search criteria */}
+          {filteredProducts.length === 0 ? (
+            <div className="pharmacy-no-items-found">
+              <h3>No Items Found</h3>
+            </div>
+          ) : (
+            /* Rendering products categorized into sections */
+            Object.entries(categories).map(([category, items]) =>
+              items.length > 0 && (
+                <div key={category}>
+                  <h2 className="pharmacy-Medications-title">{category}</h2>
+                  <Row className="pharmacy-Row">
+                    {items.map((product) => (
+                      <Col key={product._id} xs={12} sm={6} md={4} lg={3} className="pharmacy-align-items-stretch">
+                        <Card className="pharmacy-Card">
+                          <div className="pharmacy-Card-img-container">
+                            <Card.Img
+                              variant="top"
+                              src={getImageSrc(product.image)}
+                              className="pharmacy-Card-img-scale"
+                              alt={product.name}
+                            />
+                          </div>
+                          <Card.Body className="pharmacy-Card-body">
+                            <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
+                            <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
+                            <Card.Text className="pharmacy-Price-text">Rs. {product.price}</Card.Text>
 
-        {/* Display message if no products match the search criteria */}
-        {filteredProducts.length === 0 ? (
-          <div className="pharmacy-no-items-found">
-            <h3>No Items Found</h3>
-          </div>
-        ) : (
-          /* Rendering products categorized into sections */
-          Object.entries(categories).map(([category, items]) =>
-            items.length > 0 && (
-              <div key={category}>
-                <h2 className="pharmacy-Medications-title">{category}</h2>
-                <Row className="pharmacy-Row">
-                  {items.map((product) => (
-                    <Col key={product._id} xs={12} sm={6} md={4} lg={3} className="pharmacy-align-items-stretch">
-                      <Card className="pharmacy-Card">
-                        <div className="pharmacy-Card-img-container">
-                          <Card.Img
-                            variant="top"
-                            src={getImageSrc(product.image)}
-                            className="pharmacy-Card-img-scale"
-                            alt={product.name}
-                          />
-                        </div>
-                        <Card.Body className="pharmacy-Card-body">
-                          <Card.Title className="pharmacy-Card-title">{product.name}</Card.Title>
-                          <Card.Text className="pharmacy-Card-text">{product.description}</Card.Text>
-                          <Card.Text className="pharmacy-Price-text">Rs. {product.price}</Card.Text>
+                            {/* Add to Cart Button */}
+                            <Button
+                              className="pharmacy-Btn-addToCart"
+                              onClick={() => addToCart(product)}
+                            >
+                              Add to Cart
+                            </Button>
 
-                          {/* Add to Cart Button */}
-                          <Button
-                            className="pharmacy-Btn-addToCart"
-                            onClick={() => addToCart(product)}
-                          >
-                            Add to Cart
-                          </Button>
-
-                          {/* Buy Now Button */}
-                          <Button
-                            className="pharmacy-Btn-buy-now"
-                            onClick={() => handleBuyNow(product)}
-                          >
-                            Buy Now
-                          </Button>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  ))}
-                </Row>
-                <hr className='pharmacy-hr' />
-              </div>
+                            {/* Buy Now Button */}
+                            <Button
+                              className="pharmacy-Btn-buy-now"
+                              onClick={() => handleBuyNow(product)}
+                            >
+                              Buy Now
+                            </Button>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
+                  <hr className='pharmacy-hr' />
+                </div>
+              )
             )
-          )
-        )}
+          )}
+        </Container>
       </Container>
       <Footer />
     </>

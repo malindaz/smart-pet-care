@@ -252,13 +252,8 @@
 }
 
 .checkout-pay-button:hover {
-  background-color: rgba(32, 178, 170, 0.05);
-}
-
-/* Focus effect for accessibility */
-.checkout-pay-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 107, 129, 0.3);
+  background-color: #00C2CB;
+  color: white;
 }
 
 .checkout-button-container {
@@ -329,7 +324,7 @@ input[type="number"] {
   animation: fadeIn 0.5s ease-out;
 }
 
-.checkout-pay-button:focus {
+.checkout-pay-button {
   animation: pulse 1.5s infinite;
 }
 

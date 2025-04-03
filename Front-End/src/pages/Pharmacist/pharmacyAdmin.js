@@ -93,27 +93,28 @@ const ProductList = () => {
             />
           </div>
         </div>
-
-        {/* No items found */}
-        {filteredProducts.length === 0 ? (
-          <div className="pharmacy-no-items-found">
-            <h3>No Items Found</h3>
-          </div>
-        ) : (
-          Object.entries(categories).map(([category, items]) =>
-            items.length > 0 && (
-              <div key={category}>
-                <h2 className="pharmacy-Medications-title">{category}</h2>
-                <Row className="pharmacy-Row">
-                  {items.map((product) => (
-                    <ProductCard key={product._id} product={product} handleEdit={handleEdit} handleDelete={handleDelete} />
-                  ))}
-                </Row>
-                <hr className="pharmacy-hr" />
-              </div>
+        <Container className="pharmacy-content">
+          {/* No items found */}
+          {filteredProducts.length === 0 ? (
+            <div className="pharmacy-no-items-found">
+              <h3>No Items Found</h3>
+            </div>
+          ) : (
+            Object.entries(categories).map(([category, items]) =>
+              items.length > 0 && (
+                <div key={category}>
+                  <h2 className="pharmacy-Medications-title">{category}</h2>
+                  <Row className="pharmacy-Row">
+                    {items.map((product) => (
+                      <ProductCard key={product._id} product={product} handleEdit={handleEdit} handleDelete={handleDelete} />
+                    ))}
+                  </Row>
+                  <hr className="pharmacy-hr" />
+                </div>
+              )
             )
-          )
-        )}
+          )}
+        </Container>
       </Container>
       <Footer />
     </>
