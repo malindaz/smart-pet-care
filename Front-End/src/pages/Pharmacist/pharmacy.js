@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../Shoping Cart/cartContext";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../css/Pharmacy/pharmacy.css";
 
 const ProductList = () => {
@@ -26,6 +28,20 @@ const ProductList = () => {
   }, []);
 
 
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    toast.success(`${product.name} added to cart!`, {
+      className: "pharmacy-toast",
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  
   // Function to fetch pharmacy product data from the backend
   const fetchProducts = async () => {
     try {
@@ -116,7 +132,7 @@ const ProductList = () => {
                             {/* Add to Cart Button */}
                             <Button
                               className="pharmacy-Btn-addToCart"
-                              onClick={() => addToCart(product)}
+                              onClick={() => handleAddToCart(product)}
                             >
                               Add to Cart
                             </Button>
@@ -141,6 +157,7 @@ const ProductList = () => {
         </Container>
       </Container>
       <Footer />
+      <ToastContainer />
     </>
   );
 };

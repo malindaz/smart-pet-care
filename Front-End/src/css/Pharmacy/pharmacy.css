@@ -225,6 +225,24 @@
   /* Scrollbar track color */
 }
 
+/* Toast Messages */
+.pharmacy-toast {
+  background-color: white;
+  color: #00C2CB;
+  font-weight: bold;
+  border: 2px solid #00C2CB;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.pharmacy-toast .Toastify__toast-icon svg {
+  fill: #00C2CB ;
+}
+
+.pharmacy-toast .Toastify__progress-bar {
+  background-color: #00C2CB;
+}
+
 /* Responsive Design for Smaller Screens */
 @media (max-width: 768px) {
   .pharmacy-Form-control {

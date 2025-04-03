@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../css/Pharmacy/pharmacyAdmin.css";
 import Footer from "../../components/Footer";
-import NavBar from "../../components/NavBar";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PmcyAdminNavBar from "../../components/pharmacy-admin-navbar";
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -12,6 +16,9 @@ const ProductList = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
 
+  const MySwal = withReactContent(Swal);
+
+  
   // Fetch products from backend
   useEffect(() => {
     fetchProducts();
@@ -63,27 +70,59 @@ const ProductList = () => {
 
   // Handle product deletion
   const handleDelete = async (productId) => {
-    try {
-      console.log("Attempting to delete product with ID:", productId);
-      await axios.delete(`http://localhost:5000/api/pharmacy/${productId}`);
-      setProducts((prevProducts) => prevProducts.filter(product => product._id !== productId));
-    } catch (error) {
-      console.error('Error deleting product:', error.message);
-      alert(`Error deleting product (ID: ${productId}): ${error.message}`);
-    }
+    MySwal.fire({
+      className: "pharmacy-admin-alart",
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`http://localhost:5000/api/pharmacy/${productId}`, {
+            method: "DELETE",
+          });
+  
+          if (response.ok) {
+            // Update local state to reflect the deletion
+            setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
+  
+            // Show success message
+            toast.success("Product deleted successfully!", {
+              className: "pharmacyAdmin-tosat",
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              theme: "colored",
+            });
+  
+            // Optionally, refresh the products list
+            // fetchProducts();  // Uncomment this if you prefer to refresh the entire list from the backend
+          }
+        } catch (error) {
+          console.error("Error deleting product:", error);
+        }
+      }
+    });
   };
+  
+  
+
 
   return (
     <>
-      <NavBar />
+      <PmcyAdminNavBar />
       <Container className="pharmacy-Container">
         <h1 className="pharmacy-h1">Pharmacy Admin Panel</h1>
 
         {/* Search and Add New */}
         <div className="pharmacy-Header-controls">
-          <Button variant="success" className="pharmacy-Add-btn" onClick={handleAddNew}>
-            Add New Product
-          </Button>
           <div className="pharmacy-Search-bar">
             <input
               type="text"

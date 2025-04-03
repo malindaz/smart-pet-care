@@ -377,6 +377,25 @@ form {
   font-weight: bold;
 }
 
+/* Toast Messages */
+.pharmacy-edit-toast {
+  background-color: white !important;
+  color: #00C2CB !important;
+  font-weight: bold;
+  border: 2px solid #00C2CB;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.pharmacy-edit-toast .Toastify__toast-icon svg {
+  fill: #00C2CB !important;
+}
+
+.pharmacy-edit-toast .Toastify__progress-bar {
+  background-color: #00C2CB !important;
+}
+
+
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }

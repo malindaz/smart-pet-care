@@ -3,7 +3,9 @@ import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import "../../css/Pharmacy/PharmacyEdit.css";
 import Footer from "../../components/Footer";
-import NavBar from "../../components/NavBar";
+import PmcyAdminNavBar from "../../components/pharmacy-admin-navbar";
+import { toast, ToastContainer } from "react-toastify";
+
 
 const PharmacyEdit = () => {
   const location = useLocation();
@@ -250,7 +252,7 @@ const PharmacyEdit = () => {
       if (formData.image instanceof File) {
         formDataToSend.append('image', formData.image);
       } else if (editMode && product.image) {
-        formDataToSend.append('image', product.image); // Retain old image path
+        formDataToSend.append('image', product.image);
       }
 
       const url = editMode
@@ -263,35 +265,38 @@ const PharmacyEdit = () => {
         body: formDataToSend,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || `Error: ${response.status} ${response.statusText}`);
+      if (response.ok) {
+        // ✅ Show success toast notification
+        toast.success(editMode ? "Product updated successfully!" : "New product added successfully!", {
+          className: "pharmacy-edit-toast",
+          position: "top-right",
+          autoClose: 1400,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+        });
+
+        // Redirect after a short delay
+        setTimeout(() => {
+          navigate('/pharmacyAdmin', { replace: true });
+          window.location.reload();
+        }, 1500);
       }
-
-      setMessage({
-        text: editMode ? 'Product updated successfully!' : 'Product added successfully!',
-        type: 'success'
-      });
-
-      // Redirect after a short delay to show success message
-      setTimeout(() => {
-        navigate('/pharmacyAdmin', { replace: true });
-      }, 1500);
     } catch (error) {
       console.error('Error submitting form:', error.message);
-      setMessage({ text: error.message || 'An error occurred while saving the product', type: 'danger' });
-      // Scroll to top to show error message
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setLoading(false);
     }
   };
 
+
   const handleCancel = () => navigate('/pharmacyAdmin');
 
   return (
     <>
-      <NavBar />
+      <PmcyAdminNavBar />
       <div className="pharmacy-edit-page-wrapper">
         <h1 className="pharmacy-edit-form-title">
           {editMode ? 'Edit Product' : 'Add New Product'}
@@ -452,6 +457,7 @@ const PharmacyEdit = () => {
               </Form>
             </Card.Body>
           </Card>
+          <ToastContainer />
         </Container>
       </div>
       <Footer />
