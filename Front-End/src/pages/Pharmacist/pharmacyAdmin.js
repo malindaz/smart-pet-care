@@ -71,14 +71,18 @@ const ProductList = () => {
   // Handle product deletion
   const handleDelete = async (productId) => {
     MySwal.fire({
-      className: "pharmacy-admin-alart",
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "This action cannot be undone!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: '<i class="fas fa-trash-alt"></i> Yes, delete it!',
+      cancelButtonText: '<i class="fas fa-times"></i> Cancel',
+      customClass: {
+        popup: "custom-swal-popup",
+        title: "custom-swal-title",
+        confirmButton: "custom-swal-confirm",
+        cancelButton: "custom-swal-cancel",
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
