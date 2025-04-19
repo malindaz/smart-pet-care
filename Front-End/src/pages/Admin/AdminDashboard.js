@@ -27,7 +27,7 @@ const AdminDashboard = () => {
 
       <div className="admin-dashboard-grid">
         {/* Card 1 - Manage Roles */}
-        <div className="admin-dashboard-card manage-roles" style={{"--animation-order": 1}}>
+        <Link to="/user-management" className="admin-dashboard-card manage-roles" style={{"--animation-order": 1}}>
           <div className="card-overlay"></div>
           <div className="admin-dashboard-card-content">
             <div className="admin-dashboard-icon-wrapper">
@@ -36,7 +36,8 @@ const AdminDashboard = () => {
             <h2>Manage Roles</h2>
             <p>Assign and modify user permissions and system roles</p>
           </div>
-        </div>
+       
+        </Link>
 
         {/* Card 2 - Manage Veterinarian Requests */}
         <Link to="/vetrequests" className="admin-dashboard-card manage-vet-requests" style={{"--animation-order": 2}}>
@@ -50,7 +51,19 @@ const AdminDashboard = () => {
           </div>
         </Link>
 
-        {/* Card 3 - Manage Pet Health Records */}
+         {/* Card 3 - Manage Pharmacy Requests */}
+         <Link to="/pharmacy-requests" className="admin-dashboard-card manage-vet-requests" style={{"--animation-order": 2}}>
+          <div className="card-overlay"></div>
+          <div className="admin-dashboard-card-content">
+            <div className="admin-dashboard-icon-wrapper">
+              <FontAwesomeIcon icon={faUserMd} className="admin-dashboard-icon" />
+            </div>
+            <h2>Manage Pharmacy Requests</h2>
+            <p>Review and approve Pharmacy registration applications</p>
+          </div>
+        </Link>
+
+        {/* Card 4 - Manage Pet Health Records */}
         <div className="admin-dashboard-card manage-health-records" style={{"--animation-order": 3}}>
           <div className="card-overlay"></div>
           <div className="admin-dashboard-card-content">
@@ -62,7 +75,7 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Card 4 - Manage Appointments */}
+        {/* Card 5 - Manage Appointments */}
         <div className="admin-dashboard-card manage-appointments" style={{"--animation-order": 4}}>
           <div className="card-overlay"></div>
           <div className="admin-dashboard-card-content">
@@ -74,7 +87,7 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Card 5 - Clinic Management */}
+        {/* Card 6 - Clinic Management */}
         <div className="admin-dashboard-card clinic-management" style={{"--animation-order": 5}}>
           <div className="card-overlay"></div>
           <div className="admin-dashboard-card-content">
@@ -86,7 +99,7 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Card 6 - Analytics & Reports */}
+        {/* Card 7 - Analytics & Reports */}
         <div className="admin-dashboard-card analytics-reports" style={{"--animation-order": 6}}>
           <div className="card-overlay"></div>
           <div className="admin-dashboard-card-content">
@@ -98,7 +111,7 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Card 7 - Notifications */}
+        {/* Card 8 - Notifications */}
         <div className="admin-dashboard-card notifications" style={{"--animation-order": 7}}>
           <div className="card-overlay"></div>
           <div className="admin-dashboard-card-content">
@@ -110,7 +123,7 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Card 8 - System Settings */}
+        {/* Card 9 - System Settings */}
         <div className="admin-dashboard-card system-settings" style={{"--animation-order": 8}}>
           <div className="card-overlay"></div>
           <div className="admin-dashboard-card-content">
