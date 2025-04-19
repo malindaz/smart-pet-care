@@ -5,10 +5,7 @@ import Footer from "../../components/Footer";
 
 const AddRecord = () => {
   const [record, setRecord] = useState({
-    petName: "",
-    species: "",
-    breed: "",
-    gender: "",
+  
     age: "",
     weight: "",
     vaccinationStatus: "",
@@ -38,10 +35,7 @@ const AddRecord = () => {
       if (data.success) {
         alert(`Pet health record submitted successfully! Pet ID: ${data.petId}`);
         setRecord({
-          petName: "",
-          species: "",
-          breed: "",
-          gender: "",
+         
           age: "",
           weight: "",
           vaccinationStatus: "",
@@ -68,49 +62,7 @@ const AddRecord = () => {
         <form onSubmit={handleSubmit} className="malinda-record-form">
           
           
-          <label className="malinda-record-text malinda-label">Pet Name:</label>
-          <input
-            type="text"
-            name="petName"
-            value={record.petName}
-            onChange={handleChange}
-            required
-            className="malinda-input"
-          />
-
-          <label className="malinda-record-text malinda-label">Species:</label>
-          <input
-            type="text"
-            name="species"
-            value={record.species}
-            onChange={handleChange}
-            required
-            className="malinda-input"
-          />
-
-          <label className="malinda-record-text malinda-label">Breed:</label>
-          <input
-            type="text"
-            name="breed"
-            value={record.breed}
-            onChange={handleChange}
-            required
-            className="malinda-input"
-          />
-
-          <label className="malinda-record-text malinda-label">Gender:</label>
-          <select 
-            name="gender"
-            value={record.gender}
-            onChange={handleChange}
-            required
-            className="malinda-input malinda-record-text"
-          >
-            <option value="" disabled>Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="unknown">Unknown</option>
-          </select>
+          
 
           <label className="malinda-record-text malinda-label">Age (in years):</label>
           <input

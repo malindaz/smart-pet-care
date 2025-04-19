@@ -4,6 +4,9 @@ import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import "../../css/mypets.css";
 import axios from "axios";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+
 
 
 const MyPets = () => {
@@ -64,6 +67,80 @@ const MyPets = () => {
   };
   
 
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+    const img = new Image();
+    
+    
+    img.src = '../../assets/images/Logo.png';
+
+    
+    img.onload = () => {
+      // Add logo to top-right corner
+      const imgWidth = 50;
+      const imgHeight = 20;
+      const pageWidth = doc.internal.pageSize.getWidth();
+      doc.addImage(img, 'PNG', pageWidth - imgWidth - 10, 10, imgWidth, imgHeight);
+  
+      // Add title
+      doc.setFontSize(20);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Registered Pet List', 105, 30, { align: 'center' });
+  
+      // Add table
+      autoTable(doc, {
+        startY: 40, // Adjust based on title and logo height
+        head: [['Name', 'Species', 'Breed', 'Age', 'Weight (kg)', 'Last Checkup']],
+        body: pets.map(pet => [
+          pet.name,
+          pet.species,
+          pet.breed,
+          pet.age,
+          pet.weight,
+          new Date(pet.lastCheckup).toLocaleDateString()
+        ]),
+        theme: 'grid',
+        margin: { horizontal: 10 },
+        styles: {
+          fontSize: 10,
+          cellPadding: 2,
+        },
+        headStyles: {
+          fillColor: '#073b9c',
+          textColor: '#ffffff',
+          fontSize: 12
+        }
+      });
+  
+      doc.save(`pets-report-${new Date().toISOString().split('T')[0]}.pdf`);
+    };
+  
+    // Handle image loading error
+    img.onerror = () => {
+      console.error('Error loading logo, generating PDF without it');
+      // Generate PDF without logo if image fails to load
+      autoTable(doc, {
+           head: [['Name', 'Species', 'Breed', 'Age', 'Weight (kg)', 'Last Checkup']],
+      body: pets.map(pet => [
+        pet.name,
+        pet.species,
+        pet.breed,
+        pet.age,
+        pet.weight,
+        new Date(pet.lastCheckup).toLocaleDateString()
+      ]),
+      theme: 'grid',
+      margin: { top: 20 }
+
+  
+      });
+      doc.save(`pets-report-${new Date().toISOString().split('T')[0]}.pdf`);
+    };
+  };
+
+  
+ 
+
 
   return (
     <>
@@ -102,7 +179,12 @@ const MyPets = () => {
           
           {selectedPet === "all" ? (
             <div className="malinda-all-pets-profile">
+              <div className="malinda-all-pets-header">
               <h2>All Pets</h2>
+              <button onClick={handleDownloadPDF} className="malinda-download-btn">
+                  📄 Download PDF
+                </button>
+                </div>
               {loading ? <p>Loading pets...</p> : (
                 <div className="malinda-all-pets-grid">
                   {pets.map((pet) => (

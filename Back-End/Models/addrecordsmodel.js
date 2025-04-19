@@ -15,26 +15,7 @@ const petRecordSchema = new mongoose.Schema({
     unique: true,
     trim: true
   },
-  petName: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  species: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  breed: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  gender: {
-    type: String,
-    required: true,
-    enum: ['male', 'female', 'unknown']
-  },
+ 
   age: {
     type: Number,
     required: true,
