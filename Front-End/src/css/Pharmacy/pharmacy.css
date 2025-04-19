@@ -6,10 +6,26 @@
 
 /* Title Styling */
 .pharmacy-h1 {
-  font-weight: bold;
-  color: #1abc9c;
+  font-size: 2.5rem;
+  font-weight: 700;
   text-align: center;
-  margin-top: 20px;
+  margin-bottom: 40px;
+  color: var(--primary-dark);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.pharmacy-h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  border-radius: 2px;
 }
 
 /* Search Bar Container */
@@ -17,6 +33,7 @@
   display: flex;
   margin-top: 20px;
   margin-left: 20px;
+  border-radius: 0px;
 }
 
 /* Search Input Field */
@@ -25,22 +42,19 @@
   margin-top: 20px;
   margin-bottom: 20px;
   margin-right: 20px;
-  /* Keeps margin to the right */
-  border-radius: 25px;
+  border-radius: 10px;
   padding: 10px;
   font-size: 16px;
   border: 2px solid #1abc9c;
   text-align: left;
   position: relative;
   flex-grow: 1;
-  /* Allows the search bar to expand */
 }
 
 /* Change placeholder text color */
 .pharmacy-Form-control::placeholder {
   color: #1abc9c;
   opacity: 1;
-  /* Ensures full visibility */
 }
 
 .pharmacy-Form-control:focus {
@@ -138,9 +152,9 @@
 
 /* "Add to Cart" Button */
 .pharmacy-Btn-addToCart {
-  background-color: #00C2CB;
-  color: white;
-  border: none;
+  background-color: white;
+  color: #00C2CB;
+  border: 1px solid #00C2CB;
   border-radius: 8px;
   padding: 12px 24px;
   font-size: 16px;
@@ -155,14 +169,15 @@
 
 /* Button Hover Effect */
 .pharmacy-Btn-addToCart:hover {
-  background-color: #00a9b1;
+  background-color: #00C2CB;
+  color: white;
 }
 
 /* "Buy Now" Button */
 .pharmacy-Btn-buy-now {
-  background-color: #0ca82e;
-  color: white;
-  border: none;
+  background-color: #ffff;
+  color: #0ca82e;
+  border: 1px solid #0ca82e;
   border-radius: 8px;
   padding: 12px 24px;
   font-size: 16px;
@@ -177,7 +192,8 @@
 
 /* Button Hover Effect */
 .pharmacy-Btn-buy-now:hover {
-  background-color: #068330;
+  background-color: #0ca82e;
+  color: white;
 }
 
 /* Scrollable Product List Row */
@@ -209,6 +225,24 @@
   /* Scrollbar track color */
 }
 
+/* Toast Messages */
+.pharmacy-toast {
+  background-color: white;
+  color: #00C2CB;
+  font-weight: bold;
+  border: 2px solid #00C2CB;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.pharmacy-toast .Toastify__toast-icon svg {
+  fill: #00C2CB ;
+}
+
+.pharmacy-toast .Toastify__progress-bar {
+  background-color: #00C2CB;
+}
+
 /* Responsive Design for Smaller Screens */
 @media (max-width: 768px) {
   .pharmacy-Form-control {
@@ -224,22 +258,20 @@
 
 /* Section Title Styling */
 .pharmacy-Medications-title {
-  margin-top: 20px;
-  margin-left: 20px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #1abc9c;
-  text-align: left;
-  display: block;
+  font-size: 1.8rem;
+  font-weight: 500;
   margin-bottom: 20px;
+  margin-left: 20px;
+  color: var(--primary-dark);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: relative;
 }
 
 /* Horizontal Divider */
 .pharmacy-hr {
   margin-top: 30px;
   height: 1px;
-  /* Adjust thickness */
-  background-color: #1abc9c;
+  background-color: var(--primary-dark);
   border: none;
 }
 
@@ -255,4 +287,31 @@
   font-size: 24px;
   margin-bottom: 20px;
   color: #5f6368;
+}
+
+.pharmacy-content {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 194, 203, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 5px rgba(0, 194, 203, 0.2);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 194, 203, 0.4);
+  }
+}
+
+.pharmacy-Btn-addToCart {
+  animation: pulse 1.5s infinite;
+}
+
+.pharmacy-Btn-buy-now {
+  animation: pulse 1.5s infinite;
 }
