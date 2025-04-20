@@ -14,9 +14,9 @@ const MyAppointments = () => {
   const [cancelSuccess, setCancelSuccess] = useState(false);
   const [activeTab, setActiveTab] = useState('upcoming');
 
-  // Get user email from localStorage with better error handling
+  // Get user email from localStorage
   const getUserEmail = () => {
-    // Check all possible variations of the email key
+    
     const possibleKeys = ['email', 'Email', 'userEmail', 'user_email', 'usermail'];
     
     for (const key of possibleKeys) {
