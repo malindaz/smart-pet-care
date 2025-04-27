@@ -7,8 +7,9 @@ router.get(
   '/requests', adminController.getAllVeterinarianRequests
 );
 
-router.put(
-  '/update-status', adminController.updateVeterinarianStatus
-);
+
+// Update veterinarian request status (approve/reject)
+router.put('/update-status', adminController.updateVetRequestStatus);
+
 
 module.exports = router;
