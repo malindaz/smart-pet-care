@@ -8,34 +8,33 @@ import Footer from "../../components/Footer";
 
 const ApplyVet = () => {
   // Form states
-// At the beginning of your ApplyVet component, update the initial state:
-const [formData, setFormData] = useState({
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
-  licenseNumber: '',
-  licenseIssuingAuthority: '',
-  licenseExpiryDate: '',
-  specialization: '',
-  yearsOfExperience: '',
-  clinicName: '',
-  clinicAddress: '',
-  city: '',
-  state: '',
-  zipCode: '',
-  availableDays: [],
-  availableTimeStart: '',
-  availableTimeEnd: '',
-  education: [{ institution: '', degree: '', yearCompleted: '' }],
-  profileImage: null,
-  licenseCopy: null,
-  additionalCertifications: [],
-  emergencyServices: false,
-  homeVisits: false,
-  bio: '',
-  agreeToTerms: false
-});
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    licenseNumber: '',
+    licenseIssuingAuthority: '',
+    licenseExpiryDate: '',
+    specialization: '',
+    yearsOfExperience: '',
+    clinicName: '',
+    clinicAddress: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    availableDays: [],
+    availableTimeStart: '',
+    availableTimeEnd: '',
+    education: [{ institution: '', degree: '', yearCompleted: '' }],
+    profileImage: null,
+    licenseCopy: null,
+    additionalCertifications: [],
+    emergencyServices: false,
+    homeVisits: false,
+    bio: '',
+    agreeToTerms: false
+  });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -87,9 +86,17 @@ const [formData, setFormData] = useState({
     } else {
       setFormData({ ...formData, [name]: value });
     }
+    
+    // Clear error when user starts typing in a field that had an error
+    if (errors[name]) {
+      setErrors(prevErrors => {
+        const updatedErrors = { ...prevErrors };
+        delete updatedErrors[name];
+        return updatedErrors;
+      });
+    }
   };
 
-  
   const handleEducationChange = (index, e) => {
     const { name, value } = e.target;
     const fieldName = name.split('.')[2]; // Get the third part (institution, degree, yearCompleted)
@@ -104,6 +111,16 @@ const [formData, setFormData] = useState({
       ...formData,
       education: updatedEducation
     });
+    
+    // Clear error for this field if it exists
+    const errorKey = `education.${index}.${fieldName}`;
+    if (errors[errorKey]) {
+      setErrors(prevErrors => {
+        const updatedErrors = { ...prevErrors };
+        delete updatedErrors[errorKey];
+        return updatedErrors;
+      });
+    }
   };
 
   // Add more education field
@@ -156,42 +173,71 @@ const [formData, setFormData] = useState({
 
     // Validate based on current step
     if (step === 1) {
+      // First Name validation
       if (!formData.firstName.trim()) {
         tempErrors.firstName = 'First name is required';
         isValid = false;
+      } else if (formData.firstName.trim().length < 2) {
+        tempErrors.firstName = 'First name must be at least 2 characters';
+        isValid = false;
+      } else if (!/^[a-zA-Z\s'-]+$/.test(formData.firstName)) {
+        tempErrors.firstName = 'First name can only contain letters, spaces, hyphens and apostrophes';
+        isValid = false;
       }
       
+      // Last Name validation
       if (!formData.lastName.trim()) {
         tempErrors.lastName = 'Last name is required';
         isValid = false;
+      } else if (formData.lastName.trim().length < 2) {
+        tempErrors.lastName = 'Last name must be at least 2 characters';
+        isValid = false;
+      } else if (!/^[a-zA-Z\s'-]+$/.test(formData.lastName)) {
+        tempErrors.lastName = 'Last name can only contain letters, spaces, hyphens and apostrophes';
+        isValid = false;
       }
       
+      // Email validation
       if (!formData.email.trim()) {
         tempErrors.email = 'Email is required';
         isValid = false;
-      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        tempErrors.email = 'Email is invalid';
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        tempErrors.email = 'Enter a valid email address';
         isValid = false;
       }
       
+      // Phone number validation
       if (!formData.phone.trim()) {
         tempErrors.phone = 'Phone number is required';
         isValid = false;
-      } else if (!/^\d{10}$/.test(formData.phone.replace(/[^0-9]/g, ''))) {
-        tempErrors.phone = 'Phone number should be 10 digits';
-        isValid = false;
+      } else {
+        // Clean phone number of non-numeric characters for validation
+        const cleanedPhone = formData.phone.replace(/[^0-9]/g, '');
+        if (cleanedPhone.length !== 10) {
+          tempErrors.phone = 'Phone number must be 10 digits';
+          isValid = false;
+        }
       }
     } else if (step === 2) {
+      // License number validation
       if (!formData.licenseNumber.trim()) {
         tempErrors.licenseNumber = 'License number is required';
         isValid = false;
-      }
-      
-      if (!formData.licenseIssuingAuthority.trim()) {
-        tempErrors.licenseIssuingAuthority = 'Licensing authority is required';
+      } else if (formData.licenseNumber.trim().length < 5) {
+        tempErrors.licenseNumber = 'License number should be at least 5 characters';
         isValid = false;
       }
       
+      // Licensing authority validation
+      if (!formData.licenseIssuingAuthority.trim()) {
+        tempErrors.licenseIssuingAuthority = 'Licensing authority is required';
+        isValid = false;
+      } else if (formData.licenseIssuingAuthority.trim().length < 3) {
+        tempErrors.licenseIssuingAuthority = 'Please enter a valid licensing authority';
+        isValid = false;
+      }
+      
+      // License expiry date validation
       if (!formData.licenseExpiryDate) {
         tempErrors.licenseExpiryDate = 'License expiry date is required';
         isValid = false;
@@ -204,73 +250,138 @@ const [formData, setFormData] = useState({
         }
       }
       
+      // Specialization validation
       if (!formData.specialization) {
         tempErrors.specialization = 'Specialization is required';
         isValid = false;
       }
       
+      // Years of experience validation
       if (!formData.yearsOfExperience) {
         tempErrors.yearsOfExperience = 'Years of experience is required';
         isValid = false;
-      } else if (isNaN(formData.yearsOfExperience) || formData.yearsOfExperience < 0) {
-        tempErrors.yearsOfExperience = 'Please enter a valid number';
+      } else if (isNaN(formData.yearsOfExperience) || Number(formData.yearsOfExperience) < 0) {
+        tempErrors.yearsOfExperience = 'Please enter a valid number of years';
         isValid = false;
       }
       
-      // Validate education
+      // Education validation - check each entry
       formData.education.forEach((edu, index) => {
         if (!edu.institution.trim()) {
-          tempErrors[`education.${index}.institution`] = 'Institution is required';
+          tempErrors[`education.${index}.institution`] = 'Institution name is required';
           isValid = false;
         }
+        
         if (!edu.degree.trim()) {
           tempErrors[`education.${index}.degree`] = 'Degree is required';
           isValid = false;
         }
+        
         if (!edu.yearCompleted.trim()) {
-          tempErrors[`education.${index}.yearCompleted`] = 'Year is required';
+          tempErrors[`education.${index}.yearCompleted`] = 'Year completed is required';
           isValid = false;
+        } else if (!/^\d{4}$/.test(edu.yearCompleted.trim())) {
+          tempErrors[`education.${index}.yearCompleted`] = 'Enter a valid 4-digit year';
+          isValid = false;
+        } else {
+          const year = parseInt(edu.yearCompleted.trim());
+          const currentYear = new Date().getFullYear();
+          if (year > currentYear || year < 1900) {
+            tempErrors[`education.${index}.yearCompleted`] = `Year must be between 1900 and ${currentYear}`;
+            isValid = false;
+          }
         }
       });
       
+      // License copy validation
       if (!formData.licenseCopy) {
         tempErrors.licenseCopy = 'License copy is required';
         isValid = false;
+      } else {
+        // Check file type if file is selected
+        const allowedFileTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+        if (!allowedFileTypes.includes(formData.licenseCopy.type)) {
+          tempErrors.licenseCopy = 'File must be PDF, JPG, or PNG';
+          isValid = false;
+        }
       }
+      
+      // Validate additional certifications if any
+      formData.additionalCertifications.forEach((cert, index) => {
+        // Only validate if at least one field is filled in
+        if (cert.name.trim() || cert.issuingBody.trim() || cert.year.trim()) {
+          if (!cert.year.trim()) {
+            tempErrors[`certification.${index}.year`] = 'Year is required';
+            isValid = false;
+          } else if (!/^\d{4}$/.test(cert.year.trim())) {
+            tempErrors[`certification.${index}.year`] = 'Enter a valid 4-digit year';
+            isValid = false;
+          }
+          
+          if (!cert.name.trim()) {
+            tempErrors[`certification.${index}.name`] = 'Certification name is required';
+            isValid = false;
+          }
+          
+          if (!cert.issuingBody.trim()) {
+            tempErrors[`certification.${index}.issuingBody`] = 'Issuing body is required';
+            isValid = false;
+          }
+        }
+      });
     } else if (step === 3) {
+      // Clinic name validation
       if (!formData.clinicName.trim()) {
         tempErrors.clinicName = 'Clinic name is required';
         isValid = false;
+      } else if (formData.clinicName.trim().length < 3) {
+        tempErrors.clinicName = 'Clinic name must be at least 3 characters';
+        isValid = false;
       }
       
+      // Address validation
       if (!formData.clinicAddress.trim()) {
         tempErrors.clinicAddress = 'Clinic address is required';
         isValid = false;
+      } else if (formData.clinicAddress.trim().length < 5) {
+        tempErrors.clinicAddress = 'Please enter a complete address';
+        isValid = false;
       }
       
+      // City validation
       if (!formData.city.trim()) {
         tempErrors.city = 'City is required';
         isValid = false;
-      }
-      
-      if (!formData.state.trim()) {
-        tempErrors.state = 'State is required';
+      } else if (!/^[a-zA-Z\s'-]+$/.test(formData.city)) {
+        tempErrors.city = 'Enter a valid city name';
         isValid = false;
       }
       
+      // State validation
+      if (!formData.state.trim()) {
+        tempErrors.state = 'State is required';
+        isValid = false;
+      } else if (!/^[a-zA-Z\s]+$/.test(formData.state)) {
+        tempErrors.state = 'Enter a valid state name';
+        isValid = false;
+      }
+      
+      // ZIP code validation
       if (!formData.zipCode.trim()) {
         tempErrors.zipCode = 'ZIP code is required';
         isValid = false;
       } else if (!/^\d{5}(-\d{4})?$/.test(formData.zipCode)) {
-        tempErrors.zipCode = 'Invalid ZIP code format';
+        tempErrors.zipCode = 'Enter a valid ZIP code (e.g., 12345 or 12345-6789)';
         isValid = false;
       }
       
+      // Available days validation
       if (formData.availableDays.length === 0) {
         tempErrors.availableDays = 'Please select at least one available day';
         isValid = false;
       }
       
+      // Time validation
       if (!formData.availableTimeStart) {
         tempErrors.availableTimeStart = 'Start time is required';
         isValid = false;
@@ -279,24 +390,41 @@ const [formData, setFormData] = useState({
       if (!formData.availableTimeEnd) {
         tempErrors.availableTimeEnd = 'End time is required';
         isValid = false;
-      } else if (formData.availableTimeStart >= formData.availableTimeEnd) {
+      } else if (formData.availableTimeStart && formData.availableTimeEnd && formData.availableTimeStart >= formData.availableTimeEnd) {
         tempErrors.availableTimeEnd = 'End time must be after start time';
         isValid = false;
       }
     } else if (step === 4) {
+      // Bio validation
       if (!formData.bio.trim()) {
         tempErrors.bio = 'Professional bio is required';
         isValid = false;
       } else if (formData.bio.trim().length < 100) {
-        tempErrors.bio = 'Bio should be at least 100 characters';
+        tempErrors.bio = `Bio should be at least 100 characters (currently ${formData.bio.trim().length})`;
         isValid = false;
       }
       
+      // Profile image validation
       if (!formData.profileImage) {
         tempErrors.profileImage = 'Profile image is required';
         isValid = false;
+      } else {
+        // Validate image type
+        const allowedImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        if (!allowedImageTypes.includes(formData.profileImage.type)) {
+          tempErrors.profileImage = 'File must be JPG or PNG';
+          isValid = false;
+        }
+        
+        // Validate image size (max 5MB)
+        const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+        if (formData.profileImage.size > maxSize) {
+          tempErrors.profileImage = 'Image must be less than 5MB';
+          isValid = false;
+        }
       }
       
+      // Terms and conditions validation
       if (!formData.agreeToTerms) {
         tempErrors.agreeToTerms = 'You must agree to the terms and conditions';
         isValid = false;
@@ -314,6 +442,12 @@ const [formData, setFormData] = useState({
       window.scrollTo(0, 0);
     } else {
       toast.error('Please fix the errors before proceeding');
+      // Scroll to the first error
+      const firstErrorField = document.querySelector('.applyvet-input-error');
+      if (firstErrorField) {
+        firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstErrorField.focus();
+      }
     }
   };
 
@@ -328,6 +462,12 @@ const [formData, setFormData] = useState({
     
     if (!validateForm(formStep)) {
       toast.error('Please fix the errors before submitting');
+      // Scroll to the first error
+      const firstErrorField = document.querySelector('.applyvet-input-error');
+      if (firstErrorField) {
+        firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstErrorField.focus();
+      }
       return;
     }
     
@@ -620,6 +760,20 @@ const [formData, setFormData] = useState({
                         className={errors[`education.${index}.institution`] ? 'applyvet-input-error' : ''}
                         />
                     {errors[`education.${index}.institution`] && 
+                      <span className="applyvet-error">{errors[`education.${index}.institution`]}</span>}
+                  </div>
+                  <div className="applyvet-form-group">
+                    <label htmlFor={`education.${index}.degree`}>Degree*</label>
+                    <input
+                      type="text"
+                      id={`education.${index}.degree`}
+                      name={`education.${index}.degree`}
+                      value={edu.degree}
+                      onChange={(e) => handleEducationChange(index, e)}
+                      placeholder="DVM, BVSc, etc."
+                      className={errors[`education.${index}.degree`] ? 'applyvet-input-error' : ''}
+                    />
+                    {errors[`education.${index}.degree`] && 
                       <span className="applyvet-error">{errors[`education.${index}.institution`]}</span>}
                   </div>
                   <div className="applyvet-form-group">
