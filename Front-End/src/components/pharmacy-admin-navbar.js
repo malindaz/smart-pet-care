@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ShoppingCart, User, LogOut, UserPlus, Calendar, ShoppingBag, Award, Bell } from 'lucide-react';
+import { ShoppingCart, User, LogOut, UserPlus, Calendar, ShoppingBag, Award } from 'lucide-react';
 import '../css/NavBar.css';
 import Logo from '../assets/images/Logo.png';
 
@@ -75,17 +75,6 @@ const PmcyAdminNavBar = () => {
     if (isNotificationDropdownOpen) setIsNotificationDropdownOpen(false);
   };
 
-  const toggleNotificationDropdown = (e) => {
-    e.stopPropagation();
-    setIsNotificationDropdownOpen(!isNotificationDropdownOpen);
-    if (isProfileDropdownOpen) setIsProfileDropdownOpen(false);
-  };
-
-  const markAllAsRead = () => {
-    setNotifications(notifications.map(notification => ({ ...notification, read: true })));
-    setUnreadNotifications(0);
-  };
-
   const handleLogout = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/users/logout', {
@@ -153,10 +142,7 @@ const PmcyAdminNavBar = () => {
         <nav className="user-navbar-nav">
           <ul className="user-navbar-links">
             <li className="user-navbar-link-item">
-              <Link to="/" className={`user-navbar-link ${isActive('/') ? 'user-navbar-active' : ''}`}>Home</Link>
-            </li>
-            <li className="user-navbar-link-item">
-              <Link to="/pharmacy" className={`user-navbar-link ${isActive('/pharmacy') ? 'user-navbar-active' : ''}`}>Pharmacy</Link>
+              <Link to="/pharmacistDashboard" className={`user-navbar-link ${isActive('/pharmacistDashboard') ? 'user-navbar-active' : ''}`}>Dashboard</Link>
             </li>
             <li className="user-navbar-link-item">
               <Link to="/pharmacyAdmin" className={`user-navbar-link ${isActive('/pharmacyAdmin') ? 'user-navbar-active' : ''}`}>Manage Products</Link>
@@ -283,18 +269,6 @@ const PmcyAdminNavBar = () => {
               {cartItemCount > 0 && <span className="user-navbar-mobile-cart-badge">{cartItemCount}</span>}
             </Link>
           </li>
-          {user && (
-            <li>
-              <Link
-                to="/notifications"
-                className={isActive('/usernotifications') ? 'user-navbar-mobile-active' : ''}
-                onClick={toggleMobileMenu}
-              >
-                <Bell size={16} /> Notifications
-                {unreadNotifications > 0 && <span className="user-navbar-mobile-notification-badge">{unreadNotifications}</span>}
-              </Link>
-            </li>
-          )}
           {user && (
             <>
               <li className="user-navbar-mobile-divider"></li>
