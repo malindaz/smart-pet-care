@@ -1,4 +1,3 @@
-#Readme file
 
 #SMART PET CARE MANAGEMENT SYSTEM
 ![image](https://github.com/user-attachments/assets/cd6592ac-2a26-4df2-a2be-4cfe480acffd)
