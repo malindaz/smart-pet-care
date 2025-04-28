@@ -113,7 +113,7 @@ const MyAppointments = () => {
     setEditAppointment({
       ...editAppointment,
       date: newDate,
-      time: '' // Reset time when date changes
+      time: '' 
     });
     fetchAvailableTimes(newDate);
   };
@@ -143,7 +143,7 @@ const handleCancel = async (id) => {
 
   // Handle payment
   const handlePayment = (appointmentId) => {
-    // Redirect to payment page with appointment ID
+    
     window.location.href = `/payment?appointmentId=${appointmentId}`;
   };
 
@@ -156,7 +156,7 @@ const handleSave = async () => {
       return;
     }
     
-    // Check if the time slot is available (excluding current appointment)
+    // Check if the time slot is available 
     const isSameDateTime = appointments.some(app => 
       app._id !== editAppointment._id && 
       formatDateForInput(app.date) === editAppointment.date && 
@@ -179,7 +179,7 @@ const handleSave = async () => {
       setUpdateSuccess(true);
       setTimeout(() => setUpdateSuccess(false), 3000);
       setEditAppointment(null);
-      fetchAppointments(); // Refresh the appointments list
+      fetchAppointments(); 
     } else {
       setError(response.data.message || 'Failed to update appointment');
     }
