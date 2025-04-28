@@ -76,20 +76,20 @@ const MyPets = () => {
 
     
     img.onload = () => {
-      // Add logo to top-right corner
+      
       const imgWidth = 50;
       const imgHeight = 20;
       const pageWidth = doc.internal.pageSize.getWidth();
       doc.addImage(img, 'PNG', pageWidth - imgWidth - 10, 10, imgWidth, imgHeight);
   
-      // Add title
+      
       doc.setFontSize(20);
       doc.setFont('helvetica', 'bold');
       doc.text('Registered Pet List', 105, 30, { align: 'center' });
   
-      // Add table
+      
       autoTable(doc, {
-        startY: 40, // Adjust based on title and logo height
+        startY: 40, 
         head: [['Name', 'Species', 'Breed', 'Age', 'Weight (kg)', 'Last Checkup']],
         body: pets.map(pet => [
           pet.name,
@@ -115,10 +115,10 @@ const MyPets = () => {
       doc.save(`pets-report-${new Date().toISOString().split('T')[0]}.pdf`);
     };
   
-    // Handle image loading error
+    
     img.onerror = () => {
       console.error('Error loading logo, generating PDF without it');
-      // Generate PDF without logo if image fails to load
+      
       autoTable(doc, {
            head: [['Name', 'Species', 'Breed', 'Age', 'Weight (kg)', 'Last Checkup']],
       body: pets.map(pet => [
