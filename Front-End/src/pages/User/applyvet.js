@@ -41,7 +41,6 @@ const ApplyVet = () => {
   const [formStep, setFormStep] = useState(1);
   const totalSteps = 4;
 
-  // Available specializations
   const specializations = [
     'General Practice',
     'Surgery',
@@ -67,7 +66,7 @@ const ApplyVet = () => {
     'Sunday'
   ];
 
-  // Handle input change
+  
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     
@@ -87,7 +86,7 @@ const ApplyVet = () => {
       setFormData({ ...formData, [name]: value });
     }
     
-    // Clear error when user starts typing in a field that had an error
+    
     if (errors[name]) {
       setErrors(prevErrors => {
         const updatedErrors = { ...prevErrors };
@@ -99,7 +98,7 @@ const ApplyVet = () => {
 
   const handleEducationChange = (index, e) => {
     const { name, value } = e.target;
-    const fieldName = name.split('.')[2]; // Get the third part (institution, degree, yearCompleted)
+    const fieldName = name.split('.')[2]; 
     
     const updatedEducation = [...formData.education];
     updatedEducation[index] = {
