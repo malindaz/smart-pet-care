@@ -1,0 +1,473 @@
+/* Main Container Styles */
+.pharm-main-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+  }
+  
+  .pharm-content-wrapper {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  /* Header Section Styles */
+  .pharm-header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .pharm-page-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .pharm-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 0;
+  }
+  
+  .pharm-action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .pharm-add-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4e73df;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+  
+  .pharm-add-btn:hover {
+    background-color: #2e59d9;
+    color: #fff;
+  }
+  
+  .pharm-btn-icon {
+    margin-right: 0.5rem;
+  }
+  
+  /* Stats Grid Styles */
+  .pharm-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .pharm-stat-card {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    box-shadow: 0 0.15rem 1.75rem rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s;
+  }
+  
+  .pharm-stat-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .pharm-stat-title {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .pharm-stat-values {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .pharm-stat-number {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .pharm-stat-trend {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  
+  .pharm-trend-positive {
+    color: #1cc88a;
+  }
+  
+  .pharm-trend-negative {
+    color: #e74a3b;
+  }
+  
+  /* Enhanced Filter Card Styles */
+.inventory-filter-card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  .inventory-filter-card:hover {
+    box-shadow: 0 0.5rem 1.5rem rgba(78, 115, 223, 0.15);
+  }
+  
+  .inventory-filter-header {
+    background: linear-gradient(to right, #4e73df, #6783e0);
+    color: #fff;
+    border-bottom: none;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 0.75rem 0.75rem 0 0;
+  }
+  
+  .inventory-filter-icon {
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+  }
+  
+  .inventory-lable {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .inventory-filter-card .card-body {
+    padding: 1.5rem;
+  }
+  
+  /* Form Element Styles */
+  .inventory-filter-card .form-label {
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .inventory-filter-card .form-select,
+  .inventory-filter-card .form-control {
+    border: 1px solid #e3e6f0;
+    border-radius: 0.5rem;
+    padding: 0.6rem 1rem;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    color: #333;
+    box-shadow: none;
+    background-color: #fcfcfd;
+  }
+  
+  .inventory-filter-card .form-select:focus,
+  .inventory-filter-card .form-control:focus {
+    border-color: #a8baff;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.2);
+    background-color: #fff;
+  }
+  
+  .inventory-filter-card .form-select:hover,
+  .inventory-filter-card .form-control:hover {
+    border-color: #c6d2ff;
+  }
+  
+  /* Price Range Input Group */
+  .inventory-filter-card .d-flex .form-control {
+    border-radius: 0.5rem;
+  }
+  
+  .inventory-filter-card .d-flex .form-control:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+  }
+  
+  .inventory-filter-card .d-flex .form-control:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 1px solid #e3e6f0;
+  }
+  
+  /* Action Buttons */
+  .inventory-filter-card .d-flex.justify-content-end {
+    margin-top: 0.5rem;
+  }
+  
+  .inventory-filter-card .btn-secondary {
+    background-color: #858796;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(133, 135, 150, 0.25);
+  }
+  
+  .inventory-filter-card .btn-secondary:hover {
+    background-color: #717384;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(133, 135, 150, 0.35);
+  }
+  
+  .inventory-filter-card .btn-secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(133, 135, 150, 0.25);
+  }
+  
+  /* Apply Button (if you want to add one) */
+  .inventory-filter-card .btn-primary {
+    background-color: #4e73df;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(78, 115, 223, 0.25);
+  }
+  
+  .inventory-filter-card .btn-primary:hover {
+    background-color: #3a5fd9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(78, 115, 223, 0.35);
+  }
+  
+  .inventory-filter-card .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(78, 115, 223, 0.25);
+  }
+  
+  /* Number Input Styling (remove arrows) */
+  /* Chrome, Safari, Edge, Opera */
+  .inventory-filter-card input[type=number]::-webkit-outer-spin-button,
+  .inventory-filter-card input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Firefox */
+  .inventory-filter-card input[type=number] {
+    -moz-appearance: textfield;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .inventory-filter-card .row {
+      flex-direction: column;
+    }
+    
+    .inventory-filter-card .col-md-3,
+    .inventory-filter-card .col-md-4,
+    .inventory-filter-card .col-md-2 {
+      width: 100%;
+      max-width: 100%;
+      flex: 0 0 100%;
+    }
+    
+    .inventory-filter-card .d-flex.justify-content-end {
+      margin-top: 1rem;
+    }
+  }
+  
+  /* Optional: Add visual indicator for active filters */
+  .inventory-filter-card .form-select option:checked,
+  .inventory-filter-card .form-select[value="All"],
+  .inventory-filter-card .form-control:not(:placeholder-shown) {
+    font-weight: 600;
+    color: #4e73df;
+  }
+  
+  /* Unique background for each filter section */
+  .inventory-filter-card .col-md-3:nth-child(1) .form-select {
+    background-color: rgba(78, 115, 223, 0.03);
+  }
+  
+  .inventory-filter-card .col-md-4 .form-control {
+    background-color: rgba(28, 200, 138, 0.03);
+  }
+  
+  .inventory-filter-card .col-md-2 .form-select {
+    background-color: rgba(246, 194, 62, 0.03);
+  }
+  
+  .inventory-filter-card .col-md-3:nth-child(4) .form-control {
+    background-color: rgba(54, 185, 204, 0.03);
+  }
+  /* Table Card Styles */
+  .inventory-table-card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.15rem 1.75rem rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+  
+  .inventory-table-header {
+    background-color: #fff;
+    border-bottom: 1px solid #e3e6f0;
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+  }
+  
+  .inventory-table-icon {
+    margin-right: 0.5rem;
+    color: #4e73df;
+  }
+  
+  .inventory-item-count {
+    margin-left: auto;
+    background-color: #f1f3ff;
+    color: #4e73df;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .inventory-table {
+    margin-bottom: 0;
+  }
+  
+  .inventory-table th {
+    border-top: none;
+    background-color: #f8f9fc;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #555;
+    padding: 0.75rem 1.25rem;
+  }
+  
+  .inventory-table td {
+    vertical-align: middle;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .inventory-stock-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-align: center;
+    min-width: 3rem;
+  }
+  
+  .inventory-in-stock {
+    background-color: #e7faf3;
+    color: #1cc88a;
+  }
+  
+  .inventory-low-stock {
+    background-color: #fef5e7;
+    color: #f6c23e;
+  }
+  
+  .inventory-out-of-stock {
+    background-color: #feeeee;
+    color: #e74a3b;
+  }
+  
+  .inventory-description {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    .pharm-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .pharm-header-section {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .pharm-action-buttons {
+      margin-top: 1rem;
+      width: 100%;
+    }
+    
+    .pharm-add-btn {
+      flex: 1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .pharm-content-wrapper {
+      padding: 1.5rem;
+    }
+    
+    .inventory-description {
+      max-width: 150px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .pharm-stats-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .pharm-page-title {
+      font-size: 1.5rem;
+    }
+    
+    .inventory-table-responsive {
+      margin-bottom: 0;
+    }
+  }
+  
+  /* PDF Download Link Styling */
+  a.pharm-add-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Additional Table Styles */
+  .table-responsive {
+    border-radius: 0 0 0.5rem 0.5rem;
+    overflow: hidden;
+  }
+  
+  /* Form Control Styles */
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #bac8f3;
+    box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+  }
+  
+  /* Button Style Overrides */
+  .btn-secondary {
+    background-color: #858796;
+    border-color: #858796;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #717384;
+    border-color: #6e707e;
+  }

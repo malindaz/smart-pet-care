@@ -1,4 +1,6 @@
 const Pharmacy = require('../models/Pharmacy');
+const fs = require('fs');  // Import fs module
+const path = require('path');  // Import path module
 
 // Get all products
 const getProducts = async (req, res) => {
@@ -63,13 +65,32 @@ const updateProduct = async (req, res) => {
 // Delete product
 const deleteProduct = async (req, res) => {
     try {
-        const deletedProduct = await Pharmacy.findByIdAndDelete(req.params.id);
+        const deletedProduct = await Pharmacy.findById(req.params.id);
         if (!deletedProduct) return res.status(404).json({ message: 'Product not found' });
-        res.json({ message: 'Product deleted' });
+
+        // Log image path for debugging
+        if (deletedProduct.image) {
+            const imagePath = path.join(__dirname, '..', deletedProduct.image);
+            console.log("Attempting to delete image:", imagePath); // Debugging log
+
+            if (fs.existsSync(imagePath)) {
+                fs.unlinkSync(imagePath); // Delete file
+                console.log("Image deleted successfully.");
+            } else {
+                console.log("Image file not found:", imagePath);
+            }
+        }
+
+        // Delete product from database
+        await Pharmacy.findByIdAndDelete(req.params.id);
+
+        res.json({ message: 'Product and image deleted' });
     } catch (err) {
+        console.error("Error in deleteProduct:", err); // Log error details
         res.status(500).json({ error: err.message });
     }
 };
+
 
 module.exports = {
     getProducts,

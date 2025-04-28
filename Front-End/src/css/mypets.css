@@ -381,4 +381,42 @@
   .malinda-all-pets-grid {
     grid-template-columns: 1fr;
   }
+
+  .malinda-download-btn {
+    background-color: #1365ff;
+    color: rgb(255, 0, 0);
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  
+  .malinda-download-btn:hover {
+    background-color: #2b4070;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(57, 85, 138, 0.3);
+  }
+  
+  .malinda-all-pets-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  @media (max-width: 768px) {
+    .malinda-all-pets-header {
+      flex-direction: column;
+      gap: 15px;
+      align-items: flex-start;
+    }
+    
+    .malinda-download-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
 }
+
