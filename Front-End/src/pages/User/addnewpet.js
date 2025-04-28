@@ -30,7 +30,7 @@ const AddNewPet = () => {
   const validate = () => {
     let newErrors = {};
 
-    // Name and Owner Name - Only letters and spaces
+    
     const nameRegex = /^[A-Za-z\s]+$/;
     if (!pet.name.match(nameRegex)) {
       newErrors.name = "Name should contain only letters.";
@@ -39,7 +39,7 @@ const AddNewPet = () => {
       newErrors.ownerName = "Owner Name should contain only letters.";
     }
 
-    // Species and Breed - Only letters, spaces, and hyphens
+    
     const speciesRegex = /^[A-Za-z\s-]+$/;
     if (pet.species && !pet.species.match(speciesRegex)) {
       newErrors.species = "Species should contain only letters.";
@@ -48,28 +48,28 @@ const AddNewPet = () => {
       newErrors.breed = "Breed should contain only letters.";
     }
 
-    // Age - Minimum 1
+    
     if (pet.age < 1 || isNaN(pet.age)) {
       newErrors.age = "Age must be at least 1 year.";
     }
 
-    // Weight - Minimum 0.1 kg
+    
     if (pet.weight < 0.1 || isNaN(pet.weight)) {
       newErrors.weight = "Weight must be at least 0.1 kg.";
     }
 
-    // Gender - Required selection
+    
     if (!pet.gender) {
       newErrors.gender = "Please select a gender.";
     }
 
-    // Microchip ID - Only alphanumeric
+    
     const microchipRegex = /^[A-Za-z0-9]+$/;
     if (pet.microchipID && !pet.microchipID.match(microchipRegex)) {
       newErrors.microchipID = "Microchip ID should be alphanumeric.";
     }
 
-    // Last Checkup Date - Should not be a future date
+    
     if (pet.lastCheckup) {
       const today = new Date().toISOString().split("T")[0];
       if (pet.lastCheckup > today) {
@@ -77,7 +77,7 @@ const AddNewPet = () => {
       }
     }
 
-    // Pet Photo - Required
+    
     if (!pet.photo) {
       newErrors.photo = "Please select a pet photo.";
     }
