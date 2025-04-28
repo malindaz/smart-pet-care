@@ -50,6 +50,7 @@ const AddRecord = () => {
       }
     } catch (error) {
       console.error('Error submitting form:', error);
+      //console.error('Error submitting form:', error);
       alert('Failed to submit the record. Please try again.');
     }
   };
