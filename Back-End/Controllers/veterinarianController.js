@@ -4,7 +4,7 @@ const path = require('path');
 // Apply to become a veterinarian
 exports.applyVeterinarian = async (req, res) => {
   try {
-    // Process form data
+    
     const {
       firstName, lastName, email, phone,
       licenseNumber, licenseIssuingAuthority, licenseExpiryDate,
@@ -55,11 +55,11 @@ exports.applyVeterinarian = async (req, res) => {
     const profileImageFile = req.files.profileImage[0];
     const licenseCopyFile = req.files.licenseCopy[0];
 
-    // Create paths relative to the uploads directory
+    
     const profileImagePath = `/uploads/profile-images/${path.basename(profileImageFile.path)}`;
     const licenseCopyPath = `/uploads/license-documents/${path.basename(licenseCopyFile.path)}`;
 
-    // Create new veterinarian document
+    
     const newVeterinarian = new Veterinarian({
       firstName: firstName || '',
       lastName: lastName || '',
