@@ -105,7 +105,7 @@ const AdminDashboard = () => {
                     </Link>
 
                     {/* Card 3 - Inventory Analytics */}
-                    <Link to="/inventory-analytics" className="pharm-card-link">
+                    <Link to="/PharmacyReport" className="pharm-card-link">
                         <div className="pharm-action-card pharm-analytics-card">
                             <div className="pharm-card-accent pharm-accent-green"></div>
                             <div className="pharm-card-content">

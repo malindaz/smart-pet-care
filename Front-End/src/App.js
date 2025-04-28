@@ -39,6 +39,7 @@ import Cart from "./pages/Shoping Cart/cart";
 import {CartProvider} from "./pages/Shoping Cart/cartContext";
 import CheckoutPage from "./pages/Shoping Cart/checkout";
 import PharmacyDashboard from "./pages/Pharmacist/PharmacyDashboard";
+import PharmacyReport from "./pages/Pharmacist/PharmacyReport";
 
 
 // import ProtectedRoute from "./Routes/ProtectedRoute";
@@ -99,6 +100,7 @@ function App() {
           <Route path="/pharmacyAdmin" element={<PharmacyAdmin />} />
           <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
           <Route path="/pharmacistDashboard" element={<PharmacyDashboard />} />
+          <Route path="/PharmacyReport" element={<PharmacyReport />} />
 
             {/* Add Veterinarian Routes Here */}
             <Route path="/vetdashboard" element={<VetDashboard />} />
