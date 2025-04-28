@@ -62,7 +62,7 @@ router.patch('/:id',  async (req, res) => {
   }
 });
 
-// Update appointment status
+// Update the status of appointment
 router.patch('/:id/status', updateAppointmentStatus);
 
 router.patch('/:id', updateAppointment);

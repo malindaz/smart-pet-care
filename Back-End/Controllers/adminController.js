@@ -15,60 +15,77 @@ exports.getAllVeterinarianRequests = async (req, res) => {
   }
 };
 
-// Update veterinarian request status
-exports.updateVeterinarianStatus = async (req, res) => {
+;
+// vet request appoves by admin
+exports.updateVetRequestStatus = async (req, res) => {
   try {
     const { id, status } = req.body;
-    
-    if (!id || !status || !['approved', 'rejected'].includes(status)) {
-      return res.status(400).json({ success: false, error: 'Invalid request parameters' });
+
+    if (!id || !status) {
+      return res.status(400).json({
+        success: false,
+        error: 'Request ID and status are required'
+      });
     }
-    
+
+    // Valid status values
+    const validStatuses = ['pending', 'approved', 'rejected'];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid status value. Must be pending, approved, or rejected.'
+      });
+    }
+
+    // Find the vet request - using the Veterinarian model instead of VetRequest
     const vetRequest = await Veterinarian.findById(id);
-    
+
     if (!vetRequest) {
-      return res.status(404).json({ success: false, error: 'Veterinarian request not found' });
+      return res.status(404).json({
+        success: false,
+        error: 'Veterinarian request not found'
+      });
     }
-    
-    // Update vet request status
+
+    // Update the vet request status
     vetRequest.status = status;
-    vetRequest.updatedAt = Date.now();
     await vetRequest.save();
-    
-    // If approved, update user level from 4 to 2
+
+    // If the request is approved, upgrade the user's level from 4 to 2
     if (status === 'approved') {
-      try {
-        // Make sure you're querying for the user with the correct field
-        // Assuming email is the common field between Veterinarian and User
-        const user = await User.findOne({ email: vetRequest.email });
-        
-        if (!user) {
-          console.log(`User with email ${vetRequest.email} not found`);
-          // Continue even if user not found - don't return early
-          console.error('User associated with this veterinarian request not found');
-        } else {
-          // Update user level
-          user.userLevel = 2;
-          await user.save();
-          console.log(`User ${user.email} updated to level 2`);
-        }
-      } catch (userError) {
-        console.error('Error updating user level:', userError);
-        // Continue with the response even if there's an error updating the user
+      
+      const user = await User.findOne({ email: vetRequest.email });
+      
+      if (!user) {
+        return res.status(200).json({
+          success: true,
+          warning: 'Vet request status updated, but user account not found',
+          data: vetRequest
+        });
+      }
+
+      // Update user level
+      if (user.userLevel === 4) {
+        user.userLevel = 2;
+        await user.save();
       }
     }
-    
-    res.status(200).json({
+
+    return res.status(200).json({
       success: true,
-      data: vetRequest,
-      message: `Veterinarian request ${status}`
+      message: `Veterinarian request ${status} successfully`,
+      data: vetRequest
     });
-    
+
   } catch (error) {
-    console.error('Error updating veterinarian status:', error);
-    res.status(500).json({ success: false, error: 'Server Error' });
+    console.error('Error updating vet request status:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Server error when updating veterinarian request status'
+    });
   }
 };
+
 
 // Get all pharmacy requests
 exports.getAllPharmacyRequests = async (req, res) => {
@@ -218,3 +235,4 @@ exports.deleteUser = async (req, res) => {
     });
   }
 };
+

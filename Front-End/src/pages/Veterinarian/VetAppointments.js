@@ -38,7 +38,7 @@ const VetAppointments = () => {
     }
   };
 
-  // Handle Reject
+  // Handle Reject function
   const handleReject = async (id) => {
     try {
       await axios.put(`http://localhost:5000/api/appointments/${id}/reject`);
