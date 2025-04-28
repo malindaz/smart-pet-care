@@ -13,12 +13,7 @@ exports.getAllVeterinarianRequests = async (req, res) => {
 };
 
 ;
-
-/**
- * Update veterinarian request status and upgrade user level if approved
- * @route PUT /api/admin/update-status
- * @access Admin only
- */
+// vet request appoves by admin
 exports.updateVetRequestStatus = async (req, res) => {
   try {
     const { id, status } = req.body;
@@ -55,7 +50,7 @@ exports.updateVetRequestStatus = async (req, res) => {
 
     // If the request is approved, upgrade the user's level from 4 to 2
     if (status === 'approved') {
-      // Find the user associated with this vet request
+      
       const user = await User.findOne({ email: vetRequest.email });
       
       if (!user) {
@@ -66,7 +61,7 @@ exports.updateVetRequestStatus = async (req, res) => {
         });
       }
 
-      // Update user level from 4 (regular user) to 2 (veterinarian)
+      // Update user level
       if (user.userLevel === 4) {
         user.userLevel = 2;
         await user.save();
