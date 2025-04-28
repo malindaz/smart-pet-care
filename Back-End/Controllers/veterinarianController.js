@@ -1,7 +1,7 @@
 const Veterinarian = require('../Models/Veterinarian');
 const path = require('path');
 
-// Apply to become a veterinarian
+
 exports.applyVeterinarian = async (req, res) => {
   try {
     
@@ -14,7 +14,7 @@ exports.applyVeterinarian = async (req, res) => {
       emergencyServices, homeVisits, bio, agreeToTerms
     } = req.body;
 
-    // Check if files were uploaded
+    
     if (!req.files || !req.files.profileImage || !req.files.licenseCopy) {
       return res.status(400).json({ 
         success: false,
@@ -22,7 +22,7 @@ exports.applyVeterinarian = async (req, res) => {
       });
     }
 
-    // Parse JSON strings from form data safely
+    
     let education = [];
     try {
       education = req.body.education ? JSON.parse(req.body.education) : [];
@@ -51,7 +51,7 @@ exports.applyVeterinarian = async (req, res) => {
       parsedAvailableDays = [];
     }
 
-    // Get file paths
+    
     const profileImageFile = req.files.profileImage[0];
     const licenseCopyFile = req.files.licenseCopy[0];
 
@@ -87,10 +87,10 @@ exports.applyVeterinarian = async (req, res) => {
       licenseCopy: licenseCopyPath
     });
 
-    // Save to database
+    
     await newVeterinarian.save();
 
-    // Send success response
+    
     res.status(201).json({
       success: true,
       message: 'Application submitted successfully',
