@@ -293,7 +293,8 @@ form {
 }
 
 .pharmacy-edit-btn-save:hover {
-  background-color: rgba(32, 178, 170, 0.05);
+  background-color: #00C2CB;
+  color: white;
 }
 
 .pharmacy-edit-btn-cancel {
@@ -303,7 +304,8 @@ form {
 }
 
 .pharmacy-edit-btn-cancel:hover {
-  background-color: rgba(244, 67, 54, 0.05) !important;
+  background-color: #F44336 !important;
+  color: white !important;
 }
 
 /* Spinner */
