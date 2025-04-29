@@ -13,6 +13,7 @@ import Profile from "././pages/Profile";
 
 // Import main pages
 import Home from "./pages/Home";
+import FAQ from "./pages/FAQ";
 
 // Import user pages
 import AppointmentForm from "./pages/User/AppointmentForm";
@@ -83,6 +84,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/FAQ" element={<FAQ />} />
           
           {/* Add Admin Routes Here */}
           <Route path="/vetrequests" element={<VetRequests />} />

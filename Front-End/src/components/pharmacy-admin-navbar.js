@@ -133,7 +133,7 @@ const PmcyAdminNavBar = () => {
     <header className={`user-navbar-header ${isScrolled ? 'user-navbar-scrolled' : ''}`}>
       <div className="user-navbar-container">
         <div className="user-navbar-logo">
-          <Link to="/">
+          <Link to="/pharmacistDashboard">
             <img src={Logo} alt="Petwellhub" className="user-navbar-logo-img" />
           </Link>
         </div>
