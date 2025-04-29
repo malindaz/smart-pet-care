@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -9,12 +9,8 @@ import Footer from "../components/Footer";
 const Profile = () => {
     const navigate = useNavigate();
     const [userData, setUserData] = useState(null);
-    const [isEditing, setIsEditing] = useState(false);
-    const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
-    const [imagePreview, setImagePreview] = useState(null);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-    const fileInputRef = useRef(null);
     
     // API base URL - adjust this to match your server
     const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -29,113 +25,15 @@ const Profile = () => {
             
             try {
                 const user = JSON.parse(storedUser);
-                // If we have a token, try to get fresh data from the server
-                if (user.token) {
-                    const config = {
-                        headers: {
-                            Authorization: `Bearer ${user.token}`
-                        }
-                    };
-                    
-                    const response = await axios.get(`${baseURL}/api/users/profile`, config);
-                    if (response.data.success) {
-                        const updatedUser = { ...response.data.user, token: user.token };
-                        localStorage.setItem('userData', JSON.stringify(updatedUser));
-                        setUserData(updatedUser);
-                        setFormData(updatedUser);
-                        return;
-                    }
-                }
-                
-                // If we couldn't get fresh data, use what we have in localStorage
                 setUserData(user);
-                setFormData(user);
             } catch (error) {
                 console.error('Error fetching user data:', error);
-                // Use stored data if fetch fails
-                const user = JSON.parse(storedUser);
-                setUserData(user);
-                setFormData(user);
+                toast.error('Failed to load user data');
             }
         };
         
         fetchUserData();
-    }, [navigate, baseURL]);
-
-    useEffect(() => {
-        console.log('User Data:', userData);
-        if (userData?.profileImage) {
-            console.log('Profile Image Path:', getImageUrl(userData.profileImage));
-        }
-    }, [userData]);
-
-    const handleInputChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setFormData({ ...formData, profileImage: file });
-            
-            // Create preview
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImagePreview(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const handleUpdate = async () => {
-        setLoading(true);
-        try {
-            const token = userData.token;
-            if (!token) {
-                toast.error('Authentication required');
-                return;
-            }
-            
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${token}`
-                }
-            };
-            
-            // Create FormData object for file upload
-            const submitData = new FormData();
-            submitData.append('firstName', formData.firstName);
-            submitData.append('lastName', formData.lastName);
-            submitData.append('email', formData.email);
-            submitData.append('phoneNumber', formData.phoneNumber);
-            submitData.append('address', formData.address);
-            
-            // Only append file if it's actually a File object (not a string path)
-            if (formData.profileImage instanceof File) {
-                submitData.append('profileImage', formData.profileImage);
-            }
-            
-            const response = await axios.put(`${baseURL}/api/users/profile`, submitData, config);
-            
-            if (response.data.success) {
-                // Update localStorage with new user data
-                const updatedUser = { ...response.data.user, token };
-                localStorage.setItem('userData', JSON.stringify(updatedUser));
-                
-                setUserData(updatedUser);
-                setFormData(updatedUser);
-                setImagePreview(null);
-                setIsEditing(false);
-                toast.success('Profile updated successfully!');
-            }
-        } catch (error) {
-            console.error('Error updating profile:', error);
-            toast.error(error.response?.data?.message || 'Failed to update profile');
-        } finally {
-            setLoading(false);
-        }
-    };
+    }, [navigate]);
 
     const handleDelete = async () => {
         setShowDeleteConfirmation(true);
@@ -166,12 +64,6 @@ const Profile = () => {
         setShowDeleteConfirmation(false);
     };
 
-    const handleCancelEdit = () => {
-        setFormData(userData);
-        setImagePreview(null);
-        setIsEditing(false);
-    };
-
     const handleLogout = () => {
         localStorage.removeItem('userData');
         navigate('/login');
@@ -185,34 +77,6 @@ const Profile = () => {
         // Remove the leading slash if it exists
         const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
         return `http://localhost:5000/${cleanPath}`;
-    };
-
-    const EditField = ({ label, name, value, type = "text", onChange, icon, multiline = false }) => {
-        return (
-            <div className="profile_edit_field">
-                <div className="profile_input_icon">
-                    <i className={`fas fa-${icon}`}></i>
-                </div>
-                {multiline ? (
-                    <textarea
-                        name={name}
-                        value={value || ''}
-                        onChange={onChange}
-                        className="profile_input"
-                        placeholder={`Enter your ${label.toLowerCase()}`}
-                    />
-                ) : (
-                    <input
-                        type={type}
-                        name={name}
-                        value={value || ''}
-                        onChange={onChange}
-                        className="profile_input"
-                        placeholder={`Enter your ${label.toLowerCase()}`}
-                    />
-                )}
-            </div>
-        );
     };
 
     if (!userData) {
@@ -230,41 +94,7 @@ const Profile = () => {
                 <div className="profile_card">
                     <div className="profile_header">
                         <div className="profile_image">
-                            {isEditing ? (
-                                <>
-                                    {imagePreview ? (
-                                        <img src={imagePreview} alt="Preview" />
-                                    ) : userData.profileImage ? (
-                                        <img 
-                                            src={getImageUrl(userData.profileImage)} 
-                                            alt="Profile" 
-                                            onError={(e) => {
-                                                console.error("Image failed to load:", userData.profileImage);
-                                                e.target.onerror = null;
-                                                e.target.style.display = "none";
-                                                e.target.parentNode.innerHTML = `<div class="profile_image_placeholder">${userData.firstName[0]}${userData.lastName[0]}</div>`;
-                                            }}
-                                        />
-                                    ) : (
-                                        <div className="profile_image_placeholder">
-                                            {userData.firstName[0]}{userData.lastName[0]}
-                                        </div>
-                                    )}
-                                    <input 
-                                        type="file" 
-                                        ref={fileInputRef}
-                                        style={{ display: 'none' }} 
-                                        accept="image/*"
-                                        onChange={handleFileChange}
-                                    />
-                                    <button 
-                                        className="profile_upload_button" 
-                                        onClick={() => fileInputRef.current.click()}
-                                    >
-                                        Change Photo
-                                    </button>
-                                </>
-                            ) : userData.profileImage ? (
+                            {userData.profileImage ? (
                                 <img 
                                     src={getImageUrl(userData.profileImage)} 
                                     alt="Profile" 
@@ -286,103 +116,43 @@ const Profile = () => {
                     </div>
 
                     <div className="profile_info">
-                        {isEditing ? (
-                            <div className="profile_edit_form">
-                                <div className="profile_input_row">
-                                    <EditField
-                                        label="First Name"
-                                        name="firstName"
-                                        value={formData.firstName}
-                                        onChange={handleInputChange}
-                                        icon="user"
-                                    />
-                                    <EditField
-                                        label="Last Name"
-                                        name="lastName"
-                                        value={formData.lastName}
-                                        onChange={handleInputChange}
-                                        icon="user"
-                                    />
-                                </div>
-                                <EditField
-                                    label="Email"
-                                    name="email"
-                                    type="email"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    icon="envelope"
-                                />
-                                <EditField
-                                    label="Phone Number"
-                                    name="phoneNumber"
-                                    type="tel"
-                                    value={formData.phoneNumber}
-                                    onChange={handleInputChange}
-                                    icon="phone"
-                                />
-                                <EditField
-                                    label="Address"
-                                    name="address"
-                                    value={formData.address}
-                                    onChange={handleInputChange}
-                                    icon="home"
-                                    multiline={true}
-                                />
-                            </div>
-                        ) : (
-                            <>
-                                <div className="profile_info_item">
-                                    <label>Full Name</label>
-                                    <p>{userData.firstName} {userData.lastName}</p>
-                                </div>
-                                <div className="profile_info_item">
-                                    <label>Email</label>
-                                    <p>{userData.email}</p>
-                                </div>
-                                <div className="profile_info_item">
-                                    <label>Phone Number</label>
-                                    <p>{userData.phoneNumber}</p>
-                                </div>
-                                <div className="profile_info_item">
-                                    <label>Address</label>
-                                    <p>{userData.address}</p>
-                                </div>
-                            </>
-                        )}
+                        <div className="profile_info_item">
+                            <label>Full Name</label>
+                            <p>{userData.firstName} {userData.lastName}</p>
+                        </div>
+                        <div className="profile_info_item">
+                            <label>Email</label>
+                            <p>{userData.email}</p>
+                        </div>
+                        <div className="profile_info_item">
+                            <label>Phone Number</label>
+                            <p>{userData.phoneNumber}</p>
+                        </div>
+                        <div className="profile_info_item">
+                            <label>Address</label>
+                            <p>{userData.address}</p>
+                        </div>
                     </div>
 
                     <div className="profile_actions">
-                        {isEditing ? (
-                            <div className="profile_edit_actions">
-                                <button className="profile_save_button" onClick={handleUpdate}>
-                                    <i className="fas fa-check"></i>
-                                    Save Changes
-                                </button>
-                                <button className="profile_cancel_button" onClick={handleCancelEdit}>
-                                    <i className="fas fa-times"></i>
-                                    Cancel
-                                </button>
-                            </div>
-                        ) : (
-                            <div className="profile_view_actions">
-                                <button className="profile_edit_button" onClick={() => setIsEditing(true)}>
-                                    <i className="fas fa-edit"></i>
-                                    Edit Profile
-                                </button>
-                                <button className="profile_delete_button" onClick={handleDelete}>
-                                    <i className="fas fa-trash-alt"></i>
-                                    Delete Account
-                                </button>
-                                <button className="profile_logout_button" onClick={handleLogout}>
-                                    <i className="fas fa-sign-out-alt"></i>
-                                    Logout
-                                </button>
-                            </div>
-                        )}
+                        <div className="profile_view_actions">
+                            <button className="profile_edit_button" onClick={() => navigate('/update-profile')}>
+                                <i className="fas fa-edit"></i>
+                                Edit Profile
+                            </button>
+                            <button className="profile_delete_button" onClick={handleDelete}>
+                                <i className="fas fa-trash-alt"></i>
+                                Delete Account
+                            </button>
+                            <button className="profile_logout_button" onClick={handleLogout}>
+                                <i className="fas fa-sign-out-alt"></i>
+                                Logout
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-           <Footer/> 
+            <Footer/>
 
             {/* Delete Confirmation Dialog */}
             {showDeleteConfirmation && (
