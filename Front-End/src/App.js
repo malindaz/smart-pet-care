@@ -10,6 +10,7 @@ import ForgotPassword from '././pages/ForgotPassword';
 import VerifyOTP from '././pages/VerifyOTP';
 import ResetPassword from '././pages/ResetPassword';
 import Profile from "././pages/Profile";
+import UpdateProfile from './pages/UpdateProfile';
 
 // Import main pages
 import Home from "./pages/Home";
@@ -93,6 +94,7 @@ function App() {
           {/*Add User Routes Here*/ }
 
           <Route path="/profile" element={<Profile />} />
+          <Route path="/update-profile" element={<UpdateProfile />} />
           <Route path="/appointment-form" element={<AppointmentForm />} />
           <Route path="/apply-vet" element={<ApplyVet />} />
           <Route path="/mypets" element={<MyPets />} />
