@@ -129,7 +129,7 @@ const AppointmentForm = () => {
       });
       
       setMessage({ 
-        text: 'Appointment scheduled successfully! We will notify you.', 
+        text: 'Appointment scheduled successfully! A confirmation email has been sent to your inbox.', 
         type: 'success' 
       });
       
