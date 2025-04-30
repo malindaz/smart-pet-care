@@ -75,6 +75,21 @@ def predict_disease():
             "message": "Please consult with a veterinarian for proper diagnosis and treatment."
         })
 
+# Add the original /predict endpoint for backwards compatibility
+@app.route("/predict", methods=["POST"])
+def predict_original():
+    """Original endpoint for direct symptom-to-disease prediction"""
+    data = request.json
+    symptoms = data.get("symptoms", "")
+    
+    if not symptoms:
+        return jsonify({"error": "No symptoms provided"}), 400
+    
+    transformed = disease_vectorizer.transform([symptoms])
+    prediction = disease_model.predict(transformed)[0]
+    
+    return jsonify({"disease": prediction})
+
 @app.route("/health", methods=["GET"])
 def health_check():
     """Simple health check endpoint"""
