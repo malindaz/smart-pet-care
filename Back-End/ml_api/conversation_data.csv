@@ -1,0 +1,172 @@
+text,intent
+hiya,greeting
+where can i find a vet,location_query
+how do i know if my dog has worms,disease_info
+show me your functions,capabilities
+book appointment for my dog,appointment
+how do i book a checkup,appointment
+best food for senior dogs,pet_care
+thanx,thanks
+i need some support,help
+make an appointment,appointment
+my cat keeps vomiting,symptom_report
+hii,greeting
+my cat is limping,symptom_report
+how to detect feline leukemia,disease_info
+what can you do,capabilities
+i require assistance,help
+my lizard stopped eating,symptom_report
+my dog is coughing,health_concern
+what are symptoms of parvovirus,disease_info
+my parrot isn't eating,health_concern
+what do you do,capabilities
+do i need urgent care,concern_level
+tell me about tick fever,disease_info
+start fresh,reset
+my dog has a rash,symptom_report
+how do you do,how_are_you
+thanks a lot,thanks
+evening,greeting
+hi,greeting
+how's it going,how_are_you
+my pet is coughing,symptom_report
+thanks a bunch,thanks
+are you a real person,bot_identity
+cya,goodbye
+heya,greeting
+hey,greeting
+should i worry,concern_level
+assist me,help
+my rabbit looks sick,health_concern
+something's wrong with my dog,health_concern
+heyyy,greeting
+sup,how_are_you
+talk to you later,goodbye
+heloo,greeting
+how r u,how_are_you
+clear everything,reset
+how to book a vet,appointment
+my dog is scratching a lot,symptom_report
+show me veterinary hospitals near me,location_query
+my cat has a fever,health_concern
+how to brush a dog’s teeth,pet_care
+do i need to go to the clinic,concern_level
+what is distemper,disease_info
+my turtle is hiding,health_concern
+how can you help,capabilities
+arrange a vet appointment,appointment
+nearest pet clinic,location_query
+find a vet nearby,location_query
+how's everything,how_are_you
+begin again,reset
+reset session,reset
+is my pet in danger,concern_level
+how often should i bathe my cat,pet_care
+good evening,greeting
+pet care near me,location_query
+are you human,bot_identity
+vets near my area,location_query
+helloo,greeting
+thank you,thanks
+is parvo deadly,disease_info
+what are signs of mange,disease_info
+morning,greeting
+what should i feed my puppy,pet_care
+Hi,greeting
+my pet is sick,health_concern
+what's up,how_are_you
+my fish is floating weirdly,health_concern
+who made you,bot_identity
+thank u,thanks
+how you doing,how_are_you
+how to take care of a hamster,pet_care
+can you tell me more about rabies,disease_info
+closest animal hospital,location_query
+restart conversation,reset
+what are your capabilities,capabilities
+hello,greeting
+help,help
+explain canine flu,disease_info
+i want to book an appointment,appointment
+really appreciate it,thanks
+helo,greeting
+my dog is ill,health_concern
+schedule pet checkup,appointment
+my dog limps,health_concern
+can i schedule a vet visit,appointment
+wipe history,reset
+should i see a vet,concern_level
+how are you,how_are_you
+my bird is not chirping,symptom_report
+what’s your name,bot_identity
+can you help me,help
+my cat keeps meowing,health_concern
+how are you doing,how_are_you
+what vaccines does a kitten need,pet_care
+how can you assist me,capabilities
+my hamster is shaking,symptom_report
+how are u,how_are_you
+peace out,goodbye
+emergency help,help
+tell me what you can do,capabilities
+is this an emergency,concern_level
+good morning,greeting
+goodbye,goodbye
+i need help,help
+set up a checkup,appointment
+many thanks,thanks
+hey there,greeting
+my pet is bleeding,symptom_report
+my hamster is slow,health_concern
+clear chat,reset
+much appreciated,thanks
+what are your features,capabilities
+HI,greeting
+what are you,bot_identity
+my kitten won't eat,health_concern
+my cat is not feeling well,health_concern
+where is the nearest vet,location_query
+bye bye,goodbye
+start over,reset
+can i groom my cat at home,pet_care
+tell me your name,bot_identity
+is this dangerous,concern_level
+thx,thanks
+is this normal,concern_level
+can i get help,help
+my cat is sneezing,health_concern
+hiii,greeting
+can i give human food to my dog,pet_care
+tell me your features,capabilities
+how often to clean the litter box,pet_care
+are you a bot,bot_identity
+do you have a name,bot_identity
+hellooo,greeting
+what should I do now,concern_level
+my dog is vomiting,health_concern
+who created you,bot_identity
+later,goodbye
+see ya,goodbye
+yo,greeting
+reset,reset
+catch you later,goodbye
+local vet services,location_query
+heyy,greeting
+symptoms of heartworm,disease_info
+when to deworm my puppy,pet_care
+my puppy has diarrhea,health_concern
+new chat,reset
+my pet has no energy,health_concern
+my pet isn't okay,health_concern
+see you,goodbye
+how serious is this,concern_level
+help me,help
+i need a vet visit,appointment
+any nearby animal doctor,location_query
+what services do you offer,capabilities
+my pet looks tired,health_concern
+who are you,bot_identity
+my rabbit has red eyes,symptom_report
+need some help,help
+bye,goodbye
+thanks,thanks

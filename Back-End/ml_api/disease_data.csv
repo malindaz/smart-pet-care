@@ -1,0 +1,251 @@
+symptoms,disease
+"""panting lethargy loss of appetite wheezing watery eyes""",Ear Infection
+"""bloody stool increased thirst itching panting anemia drooling vomiting""",Pancreatitis
+"""aggression itching watery eyes nasal discharge drooling hair loss difficulty moving""",Giardiasis
+"""dehydration bloody stool difficulty moving hair loss sneezing""",Upper Respiratory Infection
+"""increased thirst nasal discharge bloody stool aggression weakness difficulty moving""",Kennel Cough
+"""anemia hair loss head tilt drooling difficulty moving""",Liver Disease
+"""muscle twitching depression joint pain head tilt loss of appetite nasal discharge""",Upper Respiratory Infection
+"""coughing vomiting anemia increased thirst redness""",Kennel Cough
+"""weight loss redness diarrhea watery eyes loss of appetite joint pain""",Gastroenteritis
+"""fever hair loss redness seizures lethargy loss of appetite""",Heartworm
+"""nasal discharge head tilt depression urination itching weakness""",Ringworm
+"""increased thirst scratching muscle twitching drooling bloody stool head tilt""",Anemia
+"""scratching fever wheezing weakness urination muscle twitching""",Malnutrition
+"""depression joint pain nasal discharge itching""",Upper Respiratory Infection
+"""increased thirst depression vomiting difficulty moving nasal discharge joint pain""",Malnutrition
+"""aggression head tilt increased thirst vomiting""",Chronic Kidney Disease
+"""difficulty moving wheezing increased thirst head tilt weight loss aggression loss of appetite""",Feline AIDS
+"""vomiting urination sneezing nasal discharge aggression""",Kennel Cough
+"""coughing bloody stool nasal discharge difficulty moving""",Skin Allergy
+"""aggression head tilt dehydration loss of appetite coughing panting""",Diabetes
+"""head tilt watery eyes wheezing weight loss dehydration depression urination""",Liver Disease
+"""watery eyes weight loss loss of appetite aggression drooling nasal discharge muscle twitching""",Malnutrition
+"""aggression nasal discharge urination itching drooling fever""",Heat Stroke
+"""bloody stool seizures diarrhea panting weight loss""",Hypothyroidism
+"""muscle twitching head tilt depression vomiting scratching weight loss""",Leptospirosis
+"""urination difficulty moving scratching bloody stool vomiting""",Lymphoma
+"""drooling anemia depression nasal discharge redness""",Leptospirosis
+"""watery eyes seizures urination fever scratching anemia""",Leptospirosis
+"""increased thirst head tilt nasal discharge diarrhea joint pain redness""",Leptospirosis
+"""vomiting seizures hair loss watery eyes""",Parvovirus
+"""hair loss difficulty moving sneezing diarrhea seizures coughing""",Parvovirus
+"""watery eyes head tilt bloody stool seizures panting weight loss hair loss""",Malnutrition
+"""joint pain hair loss itching depression scratching anemia""",Skin Allergy
+"""panting seizures fever muscle twitching""",Toxoplasmosis
+"""redness nasal discharge weakness loss of appetite wheezing sneezing""",Heartworm
+"""dehydration panting loss of appetite urination""",Anemia
+"""difficulty moving head tilt weight loss weakness diarrhea dehydration coughing""",Asthma
+"""drooling fever depression difficulty moving anemia panting""",Hypothyroidism
+"""diarrhea sneezing hair loss joint pain depression""",Asthma
+"""panting hair loss watery eyes diarrhea muscle twitching""",Gastroenteritis
+"""increased thirst loss of appetite redness bloody stool nasal discharge""",Heat Stroke
+"""drooling aggression urination dehydration""",Feline Leukemia
+"""bloody stool drooling watery eyes nasal discharge vomiting urination diarrhea""",Parvovirus
+"""joint pain itching vomiting scratching""",Asthma
+"""depression sneezing lethargy weight loss""",Ear Infection
+"""itching redness watery eyes lethargy panting urination""",Anemia
+"""joint pain diarrhea fever coughing weakness depression urination""",Chronic Kidney Disease
+"""hair loss joint pain drooling anemia vomiting itching""",Heartworm
+"""nasal discharge fever joint pain urination difficulty moving depression increased thirst""",Diabetes
+"""weight loss fever weakness loss of appetite""",Asthma
+"""bloody stool watery eyes weakness diarrhea""",Rabies
+"""diarrhea fever dehydration lethargy""",Upper Respiratory Infection
+"""drooling coughing bloody stool seizures""",Heartworm
+"""dehydration bloody stool aggression difficulty moving""",Toxoplasmosis
+"""urination weakness redness sneezing depression muscle twitching""",Gastroenteritis
+"""anemia vomiting watery eyes aggression sneezing scratching""",Leptospirosis
+"""weight loss coughing difficulty moving nasal discharge""",Feline AIDS
+"""redness head tilt loss of appetite vomiting seizures""",Toxoplasmosis
+"""vomiting coughing scratching urination bloody stool diarrhea joint pain""",Arthritis
+"""depression diarrhea weight loss seizures lethargy hair loss sneezing""",Distemper
+"""wheezing lethargy muscle twitching hair loss bloody stool loss of appetite""",Tick Fever
+"""weakness joint pain itching watery eyes""",Pancreatitis
+"""fever bloody stool difficulty moving diarrhea watery eyes anemia redness""",Malnutrition
+"""hair loss drooling nasal discharge weight loss lethargy""",Heartworm
+"""anemia lethargy urination nasal discharge vomiting joint pain increased thirst""",Anemia
+"""lethargy redness head tilt muscle twitching""",Cushing's Syndrome
+"""bloody stool lethargy difficulty moving hair loss weight loss redness anemia""",Leptospirosis
+"""fever increased thirst wheezing aggression""",Malnutrition
+"""difficulty moving weight loss joint pain urination muscle twitching""",Feline AIDS
+"""head tilt diarrhea weakness loss of appetite drooling urination""",Gastroenteritis
+"""difficulty moving wheezing drooling depression diarrhea increased thirst fever""",Distemper
+"""lethargy coughing increased thirst drooling hair loss""",Lymphoma
+"""seizures scratching loss of appetite wheezing""",Tick Fever
+"""coughing urination panting bloody stool increased thirst""",Cushing's Syndrome
+"""lethargy dehydration loss of appetite redness increased thirst diarrhea muscle twitching""",Toxoplasmosis
+"""diarrhea bloody stool muscle twitching coughing""",Hypothyroidism
+"""muscle twitching seizures sneezing scratching fever increased thirst itching""",Rabies
+"""depression weakness hair loss redness dehydration diarrhea joint pain""",Giardiasis
+"""diarrhea weight loss loss of appetite difficulty moving wheezing coughing anemia""",Toxoplasmosis
+"""weight loss muscle twitching coughing vomiting lethargy difficulty moving watery eyes""",Heartworm
+"""muscle twitching redness weight loss coughing""",Tick Fever
+"""dehydration redness diarrhea seizures""",Rabies
+"""difficulty moving weight loss depression increased thirst head tilt vomiting dehydration""",Kennel Cough
+"""loss of appetite fever scratching panting seizures""",Leptospirosis
+"""seizures diarrhea hair loss urination increased thirst wheezing weight loss""",Feline AIDS
+"""diarrhea coughing depression nasal discharge weakness vomiting increased thirst""",Tick Fever
+"""dehydration urination seizures bloody stool diarrhea loss of appetite muscle twitching""",Arthritis
+"""coughing itching redness difficulty moving scratching""",Malnutrition
+"""muscle twitching loss of appetite drooling hair loss joint pain depression urination""",Heat Stroke
+"""depression aggression muscle twitching head tilt""",Ringworm
+"""sneezing hair loss watery eyes scratching wheezing nasal discharge""",Arthritis
+"""sneezing urination panting vomiting joint pain""",Cushing's Syndrome
+"""seizures muscle twitching vomiting coughing head tilt depression""",Cushing's Syndrome
+"""aggression increased thirst bloody stool diarrhea seizures coughing""",Lymphoma
+"""diarrhea seizures scratching watery eyes""",Feline Leukemia
+"""anemia drooling loss of appetite hair loss aggression itching""",Skin Allergy
+"""coughing vomiting drooling hair loss""",Lymphoma
+"""bloody stool weight loss loss of appetite scratching weakness drooling""",Cushing's Syndrome
+"""sneezing fever itching diarrhea loss of appetite""",Heartworm
+"""panting depression diarrhea lethargy difficulty moving anemia""",Gastroenteritis
+"""seizures nasal discharge weight loss drooling wheezing""",Ear Infection
+"""increased thirst anemia lethargy coughing""",Arthritis
+"""bloody stool head tilt difficulty moving dehydration urination redness seizures""",Toxoplasmosis
+"""drooling diarrhea sneezing depression seizures aggression scratching""",Liver Disease
+"""drooling vomiting panting watery eyes loss of appetite diarrhea""",Heartworm
+"""weakness difficulty moving panting diarrhea""",Hypothyroidism
+"""muscle twitching increased thirst bloody stool drooling""",Arthritis
+"""coughing drooling loss of appetite head tilt diarrhea""",Ringworm
+"""weakness coughing drooling head tilt scratching difficulty moving anemia""",Chronic Kidney Disease
+"""sneezing scratching dehydration weakness coughing difficulty moving head tilt""",Cushing's Syndrome
+"""watery eyes joint pain weakness dehydration fever""",Lymphoma
+"""diarrhea panting increased thirst bloody stool seizures weakness""",Cushing's Syndrome
+"""bloody stool depression hair loss urination joint pain""",Liver Disease
+"""loss of appetite anemia depression diarrhea nasal discharge aggression scratching""",Arthritis
+"""weakness redness sneezing increased thirst depression""",Conjunctivitis
+"""fever wheezing depression aggression joint pain seizures""",Cushing's Syndrome
+"""redness scratching urination vomiting dehydration weakness drooling""",Upper Respiratory Infection
+"""aggression increased thirst redness nasal discharge""",Cushing's Syndrome
+"""vomiting drooling muscle twitching joint pain""",Upper Respiratory Infection
+"""redness joint pain itching urination bloody stool nasal discharge""",Asthma
+"""dehydration fever coughing increased thirst weakness hair loss""",Tick Fever
+"""sneezing aggression fever hair loss loss of appetite""",Feline Leukemia
+"""difficulty moving weight loss urination dehydration fever""",Anemia
+"""hair loss urination bloody stool watery eyes""",Cushing's Syndrome
+"""weight loss bloody stool head tilt panting""",Giardiasis
+"""hair loss coughing urination difficulty moving muscle twitching""",Distemper
+"""hair loss fever coughing increased thirst anemia itching watery eyes""",Ear Infection
+"""itching dehydration increased thirst vomiting nasal discharge""",Heat Stroke
+"""scratching joint pain weakness weight loss nasal discharge panting""",Anemia
+"""bloody stool nasal discharge muscle twitching dehydration head tilt""",Leptospirosis
+"""joint pain weakness weight loss bloody stool urination""",Lymphoma
+"""difficulty moving weight loss depression sneezing""",Heat Stroke
+"""increased thirst urination watery eyes lethargy panting loss of appetite""",Pancreatitis
+"""aggression weakness difficulty moving urination sneezing""",Feline Leukemia
+"""anemia weakness dehydration depression difficulty moving head tilt""",Rabies
+"""nasal discharge depression weakness lethargy""",Ringworm
+"""head tilt diarrhea aggression weakness itching loss of appetite""",Heat Stroke
+"""sneezing loss of appetite muscle twitching weakness""",Arthritis
+"""wheezing fever joint pain watery eyes urination scratching""",Rabies
+"""watery eyes anemia bloody stool vomiting diarrhea urination""",Heat Stroke
+"""weakness coughing loss of appetite bloody stool diarrhea lethargy""",Heartworm
+"""watery eyes muscle twitching depression urination""",Rabies
+"""fever vomiting hair loss wheezing seizures""",Ringworm
+"""bloody stool joint pain hair loss muscle twitching anemia itching""",Gastroenteritis
+"""scratching panting head tilt bloody stool wheezing difficulty moving""",Anemia
+"""increased thirst drooling seizures loss of appetite bloody stool""",Arthritis
+"""diarrhea vomiting seizures bloody stool dehydration""",Distemper
+"""watery eyes muscle twitching vomiting bloody stool head tilt urination""",Chronic Kidney Disease
+"""anemia hair loss depression dehydration""",Arthritis
+"""head tilt drooling scratching loss of appetite itching""",Asthma
+"""increased thirst wheezing panting dehydration""",Diabetes
+"""itching panting redness bloody stool dehydration""",Upper Respiratory Infection
+"""vomiting wheezing panting seizures""",Tick Fever
+"""panting lethargy hair loss redness wheezing fever""",Rabies
+"""seizures coughing watery eyes aggression wheezing anemia""",Tick Fever
+"""loss of appetite lethargy difficulty moving increased thirst""",Rabies
+"""diarrhea wheezing depression loss of appetite weight loss panting""",Toxoplasmosis
+"""weakness anemia itching loss of appetite redness""",Gastroenteritis
+"""depression nasal discharge vomiting dehydration weakness scratching""",Chronic Kidney Disease
+"""seizures fever loss of appetite scratching bloody stool muscle twitching aggression""",Liver Disease
+"""depression drooling increased thirst aggression loss of appetite""",Conjunctivitis
+"""scratching panting weight loss bloody stool""",Feline Leukemia
+"""increased thirst joint pain fever weight loss""",Gastroenteritis
+"""depression coughing panting vomiting sneezing diarrhea scratching""",Distemper
+"""itching vomiting scratching anemia panting seizures""",Gastroenteritis
+"""nasal discharge head tilt redness increased thirst""",Feline Leukemia
+"""difficulty moving redness increased thirst depression""",Giardiasis
+"""anemia lethargy weakness increased thirst vomiting hair loss nasal discharge""",Feline Leukemia
+"""sneezing increased thirst weakness wheezing head tilt""",Feline AIDS
+"""weight loss diarrhea dehydration panting joint pain drooling depression""",Anemia
+"""hair loss head tilt lethargy bloody stool anemia weight loss""",Distemper
+"""anemia wheezing panting sneezing seizures lethargy""",Ear Infection
+"""muscle twitching seizures dehydration scratching diarrhea redness weight loss""",Pancreatitis
+"""aggression head tilt watery eyes joint pain sneezing anemia nasal discharge""",Gastroenteritis
+"""aggression scratching diarrhea nasal discharge joint pain""",Kennel Cough
+"""itching weight loss head tilt urination vomiting""",Cushing's Syndrome
+"""weakness drooling bloody stool increased thirst joint pain anemia""",Diabetes
+"""anemia itching sneezing bloody stool joint pain head tilt vomiting""",Heartworm
+"""watery eyes loss of appetite aggression depression redness""",Leptospirosis
+"""sneezing difficulty moving coughing muscle twitching hair loss depression""",Lymphoma
+"""dehydration weakness itching seizures weight loss panting""",Anemia
+"""aggression joint pain muscle twitching dehydration wheezing""",Asthma
+"""urination joint pain depression seizures""",Conjunctivitis
+"""seizures vomiting joint pain nasal discharge bloody stool hair loss""",Diabetes
+"""weakness anemia increased thirst hair loss bloody stool""",Heat Stroke
+"""weight loss vomiting hair loss joint pain increased thirst diarrhea fever""",Tick Fever
+"""hair loss weakness redness increased thirst nasal discharge aggression anemia""",Toxoplasmosis
+"""watery eyes urination sneezing lethargy seizures""",Malnutrition
+"""depression dehydration loss of appetite diarrhea wheezing increased thirst""",Upper Respiratory Infection
+"""urination sneezing watery eyes itching increased thirst loss of appetite seizures""",Diabetes
+"""seizures panting depression muscle twitching""",Cushing's Syndrome
+"""depression weakness watery eyes difficulty moving vomiting""",Skin Allergy
+"""loss of appetite scratching redness seizures muscle twitching weight loss dehydration""",Feline AIDS
+"""difficulty moving wheezing weight loss aggression watery eyes vomiting""",Lymphoma
+"""seizures lethargy itching hair loss""",Feline AIDS
+"""wheezing dehydration sneezing nasal discharge""",Cushing's Syndrome
+"""watery eyes urination lethargy drooling hair loss difficulty moving""",Distemper
+"""increased thirst coughing hair loss panting""",Ear Infection
+"""drooling redness weakness sneezing diarrhea wheezing itching""",Leptospirosis
+"""aggression coughing loss of appetite joint pain wheezing itching""",Ear Infection
+"""hair loss diarrhea difficulty moving head tilt coughing lethargy""",Feline Leukemia
+"""seizures wheezing weight loss difficulty moving itching lethargy head tilt""",Chronic Kidney Disease
+"""dehydration watery eyes urination weakness coughing aggression""",Tick Fever
+"""sneezing watery eyes depression lethargy bloody stool""",Upper Respiratory Infection
+"""sneezing wheezing nasal discharge lethargy vomiting weakness""",Toxoplasmosis
+"""muscle twitching sneezing head tilt fever aggression""",Lymphoma
+"""seizures drooling nasal discharge joint pain panting vomiting""",Anemia
+"""panting sneezing diarrhea hair loss weight loss""",Heat Stroke
+"""muscle twitching increased thirst sneezing panting loss of appetite""",Skin Allergy
+"""lethargy depression difficulty moving vomiting drooling head tilt""",Chronic Kidney Disease
+"""increased thirst fever vomiting aggression diarrhea panting""",Giardiasis
+"""redness weight loss weakness coughing urination""",Ear Infection
+"""redness weakness depression lethargy dehydration""",Ringworm
+"""muscle twitching drooling vomiting depression weakness scratching""",Pancreatitis
+"""itching hair loss lethargy seizures loss of appetite anemia""",Pancreatitis
+"""itching loss of appetite vomiting difficulty moving""",Feline AIDS
+"""aggression urination watery eyes fever""",Tick Fever
+"""panting urination muscle twitching watery eyes loss of appetite""",Distemper
+"""scratching vomiting wheezing lethargy""",Ringworm
+"""aggression weakness nasal discharge hair loss""",Asthma
+"""fever hair loss weight loss loss of appetite drooling aggression dehydration""",Ringworm
+"""weight loss nasal discharge diarrhea loss of appetite vomiting lethargy itching""",Kennel Cough
+"""scratching coughing sneezing difficulty moving depression urination""",Heartworm
+"""bloody stool depression anemia nasal discharge difficulty moving head tilt scratching""",Leptospirosis
+"""diarrhea aggression itching joint pain urination sneezing""",Cushing's Syndrome
+"""head tilt dehydration muscle twitching difficulty moving watery eyes vomiting""",Gastroenteritis
+"""anemia seizures increased thirst head tilt aggression""",Skin Allergy
+"""vomiting sneezing dehydration scratching weight loss""",Conjunctivitis
+"""dehydration itching sneezing difficulty moving increased thirst""",Parvovirus
+"""urination sneezing increased thirst hair loss weight loss anemia""",Upper Respiratory Infection
+"""redness diarrhea itching seizures dehydration head tilt""",Feline Leukemia
+"""urination loss of appetite increased thirst itching dehydration watery eyes""",Diabetes
+"""head tilt nasal discharge anemia lethargy fever seizures""",Conjunctivitis
+"""vomiting muscle twitching itching anemia wheezing""",Skin Allergy
+"""urination itching aggression watery eyes dehydration""",Upper Respiratory Infection
+"""coughing dehydration scratching diarrhea""",Gastroenteritis
+"""sneezing joint pain seizures watery eyes""",Hypothyroidism
+"""anemia itching scratching diarrhea panting""",Parvovirus
+"""weakness itching scratching hair loss""",Rabies
+"""fever dehydration depression muscle twitching joint pain watery eyes""",Feline Leukemia
+"""muscle twitching anemia panting weakness difficulty moving""",Diabetes
+"""dehydration loss of appetite weakness anemia muscle twitching""",Anemia
+"""sneezing weight loss difficulty moving redness coughing fever""",Upper Respiratory Infection
+"""increased thirst weight loss loss of appetite panting redness depression coughing""",Skin Allergy
+"""sneezing dehydration weakness watery eyes vomiting""",Heartworm
+"""watery eyes joint pain hair loss diarrhea depression panting seizures""",Gastroenteritis
+"""urination wheezing diarrhea fever difficulty moving weight loss itching""",Cushing's Syndrome
+"""watery eyes nasal discharge loss of appetite dehydration drooling""",Feline AIDS
+"""aggression sneezing muscle twitching nasal discharge wheezing difficulty moving weight loss""",Distemper
+"""seizures depression loss of appetite difficulty moving sneezing""",Arthritis
