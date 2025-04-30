@@ -1,9 +1,9 @@
 import React from 'react';
 import { Calendar, HeartPulse, Pill, ShieldCheck, MessageCircle, ArrowRight, Search } from 'lucide-react';
 import '../css/Homepage.css';
+import ChatbotIcon from '../components/Chatbot';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-import ChatbotIcon from '../components/ChatbotIcon';
 import heroPetImage from '../assets/images/hero-pet.jpg';
 import aiAssistantImage from '../assets/images/ai-assistant.jpg';
 import testimonial1Image from '../assets/images/testimonial-1.jpg';
