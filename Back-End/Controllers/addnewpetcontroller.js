@@ -52,6 +52,15 @@ exports.getAllPets = async (req, res) => {
   }
 };
 
+
+exports.getAllmedi = async (req, res) => {
+  try {
+    const pets = await Pet.find();
+    res.status(200).json(pets);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching records', error: error.message });
+  }
+};
 // Get a pet by ID
 exports.getPetById = async (req, res) => {
   try {

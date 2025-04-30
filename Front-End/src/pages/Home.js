@@ -1,9 +1,9 @@
 import React from 'react';
 import { Calendar, HeartPulse, Pill, ShieldCheck, MessageCircle, ArrowRight, Search } from 'lucide-react';
 import '../css/Homepage.css';
-import NavBar  from '../components/NavBar';
-import Footer  from '../components/Footer';
-import ChatbotIcon from '../components/ChatbotIcon';
+import ChatbotIcon from '../components/Chatbot';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 import heroPetImage from '../assets/images/hero-pet.jpg';
 import aiAssistantImage from '../assets/images/ai-assistant.jpg';
 import testimonial1Image from '../assets/images/testimonial-1.jpg';
@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <div className="homepage-container">
       <NavBar />
-      
+
       {/* Hero Section */}
       <section className="homepage-hero">
         <div className="homepage-hero-content">
@@ -29,7 +29,7 @@ const Home = () => {
           </div>
           <div className="homepage-hero-btns">
             <button className="homepage-primary-btn" onClick={() => window.location.href = '/register'}>Get Started <ArrowRight size={16} /></button>
-            <button className="homepage-secondary-btn"  onClick={() => window.location.href = '/appointment-form'}>Book Appointment</button>
+            <button className="homepage-secondary-btn" onClick={() => window.location.href = '/appointment-form'}>Book Appointment</button>
           </div>
         </div>
         <div className="homepage-hero-image">
@@ -41,17 +41,17 @@ const Home = () => {
       <section className="homepage-services">
         <h2>Our Services</h2>
         <p className="homepage-section-subtitle">Everything you need for your pet's well-being</p>
-        
+
         <div className="homepage-services-grid">
           <div className="homepage-service-card">
             <div className="homepage-service-icon">
-            <MessageCircle size={40} color="#00C2CB" />
+              <MessageCircle size={40} color="#00C2CB" />
             </div>
             <h3>AI Health Assistant</h3>
             <p>Get instant answers about your pet's symptoms and basic health concerns</p>
           </div>
-          
-          
+
+
           <div className="homepage-service-card">
             <div className="homepage-service-icon">
               <HeartPulse size={40} color="#00C2CB" />
@@ -59,7 +59,7 @@ const Home = () => {
             <h3>Health Records</h3>
             <p>Track your pet's health history, vaccinations, and medical documents</p>
           </div>
-          
+
           <div className="homepage-service-card">
             <div className="homepage-service-icon">
               <Pill size={40} color="#00C2CB" />
@@ -67,7 +67,7 @@ const Home = () => {
             <h3>Pharmacy</h3>
             <p>Order medications and supplements with home delivery options</p>
           </div>
-          
+
           <div className="homepage-service-card">
             <div className="homepage-service-icon">
               <Calendar size={40} color="#00C2CB" />
@@ -100,7 +100,7 @@ const Home = () => {
       <section className="homepage-testimonials">
         <h2>What Pet Parents Say</h2>
         <p className="homepage-section-subtitle">Stories from our happy customers</p>
-        
+
         <div className="homepage-testimonial-carousel">
           <div className="homepage-testimonial-card">
             <div className="homepage-testimonial-image">
@@ -109,7 +109,7 @@ const Home = () => {
             <p>"The AI assistant helped me identify my dog's skin condition quickly. The appointment scheduling was seamless, and we got the right treatment within hours!"</p>
             <h4>Sarah & Max</h4>
           </div>
-          
+
           <div className="homepage-testimonial-card">
             <div className="homepage-testimonial-image">
               <img src={testimonial2Image} alt="Pet owner testimonial" />
@@ -117,7 +117,7 @@ const Home = () => {
             <p>"Having all my cat's health records in one place has made vet visits so much easier. The medication reminders are a lifesaver!"</p>
             <h4>James & Whiskers</h4>
           </div>
-          
+
           <div className="homepage-testimonial-card">
             <div className="homepage-testimonial-image">
               <img src={testimonial3Image} alt="Pet owner testimonial" />

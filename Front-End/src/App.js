@@ -10,9 +10,11 @@ import ForgotPassword from '././pages/ForgotPassword';
 import VerifyOTP from '././pages/VerifyOTP';
 import ResetPassword from '././pages/ResetPassword';
 import Profile from "././pages/Profile";
+import UpdateProfile from './pages/UpdateProfile';
 
 // Import main pages
 import Home from "./pages/Home";
+import FAQ from "./pages/FAQ";
 
 // Import user pages
 import AppointmentForm from "./pages/User/AppointmentForm";
@@ -83,6 +85,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/FAQ" element={<FAQ />} />
           
           {/* Add Admin Routes Here */}
           <Route path="/vetrequests" element={<VetRequests />} />
@@ -93,6 +96,7 @@ function App() {
           {/*Add User Routes Here*/ }
 
           <Route path="/profile" element={<Profile />} />
+          <Route path="/update-profile" element={<UpdateProfile />} />
           <Route path="/appointment-form" element={<AppointmentForm />} />
           <Route path="/apply-vet" element={<ApplyVet />} />
           <Route path="/mypets" element={<MyPets />} />

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CgSpinner } from "react-icons/cg";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from 'axios';
 import '../css/loginpage.css';
 import NavBar from "../components/NavBar";
@@ -10,6 +10,7 @@ import NavBar from "../components/NavBar";
 const Login = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -21,6 +22,10 @@ const Login = () => {
             ...prev,
             [name]: value
         }));
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
     const handleSubmit = async (e) => {
@@ -53,7 +58,6 @@ const Login = () => {
                         navigate('/pharmacist-dashboard');
                         break;
                     default:
-
                         navigate('/');
                         break;
                 }
@@ -113,7 +117,7 @@ const Login = () => {
                             </div>
 
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 name="password"
                                 placeholder="Password"
                                 value={formData.password}
@@ -121,6 +125,12 @@ const Login = () => {
                                 required
                                 className="loginpage-input"
                             />
+                            <div 
+                                className="loginpage-password-toggle"
+                                onClick={togglePasswordVisibility}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </div>
                         </div>
 
                         <div className="loginpage-forgot-password">

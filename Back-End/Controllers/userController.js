@@ -149,29 +149,60 @@ const getUserProfile = async (req, res) => {
     }
 };
 
-
 // @desc    Update user profile
-// @route   PUT /api/users/profile
-// @access  Private
+// @route   PUT /api/users/profile/update-profile
+// @access  Public
 const updateUserProfile = async (req, res) => {
     try {
-        const user = await User.findById(req.user._id);
+        const { userId } = req.body;
+        
+        if (!userId) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'User ID is required' 
+            });
+        }
+
+        // Validate required fields
+        const { firstName, lastName, email, phoneNumber } = req.body;
+        if (!firstName || !lastName || !email || !phoneNumber) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide all required fields'
+            });
+        }
+
+        const user = await User.findById(userId);
         
         if (!user) {
-            return res.status(404).json({ success: false, message: 'User not found' });
+            return res.status(404).json({ 
+                success: false, 
+                message: 'User not found' 
+            });
+        }
+
+        // Check if email is being changed and if it's already taken
+        if (email !== user.email) {
+            const emailExists = await User.findOne({ email, _id: { $ne: userId } });
+            if (emailExists) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Email already in use'
+                });
+            }
         }
         
-        // Update user fields if provided
-        user.firstName = req.body.firstName || user.firstName;
-        user.lastName = req.body.lastName || user.lastName;
-        user.email = req.body.email || user.email;
-        user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+        // Update user fields
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.email = email;
+        user.phoneNumber = phoneNumber;
         user.address = req.body.address || user.address;
         
         // Update password if provided
-        // if (req.body.password) {
-        //     user.password = req.body.password;
-        // }
+        if (req.body.password) {
+            user.password = req.body.password;
+        }
         
         // Handle profile image update
         if (req.file) {
@@ -224,7 +255,10 @@ const updateUserProfile = async (req, res) => {
             });
         }
         
-        res.status(500).json({ success: false, message: 'Server error updating profile' });
+        res.status(500).json({ 
+            success: false, 
+            message: 'Server error updating profile' 
+        });
     }
 };
 
