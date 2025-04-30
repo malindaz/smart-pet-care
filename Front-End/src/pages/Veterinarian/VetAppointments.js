@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import VetNavBar from '../../components/Veterinarian/VetNavBar';
 import Footer from '../../components/Footer';
 import '../../css/Veterinarian/vetappointments.css';
@@ -11,6 +13,12 @@ const VetAppointments = () => {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  
+  // Report generation states
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [reportTimePeriod, setReportTimePeriod] = useState('all');
+  const [reportStatusFilter, setReportStatusFilter] = useState('all');
+  const [isGeneratingReport, setIsGeneratingReport] = useState(false);
 
   // Fetch appointments
   useEffect(() => {
@@ -112,10 +120,6 @@ const VetAppointments = () => {
     setRefreshTrigger(prev => prev + 1);
   };
 
-  const filteredAppointments = filter === 'all' 
-    ? appointments 
-    : appointments.filter(app => app.status === filter);
-
   // Format date for display
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -125,6 +129,164 @@ const VetAppointments = () => {
       day: 'numeric'
     });
   };
+
+  // Filter appointments by time period
+  const filterAppointmentsByTimePeriod = (appointments, timePeriod) => {
+    if (timePeriod === 'all') {
+      return appointments;
+    }
+
+    const now = new Date();
+    const monthsToSubtract = timePeriod === 'last-month' ? 1 : 3;
+    const startDate = new Date(now.setMonth(now.getMonth() - monthsToSubtract));
+    
+    return appointments.filter(app => new Date(app.date) >= startDate);
+  };
+
+  // Filter appointments by status
+  const filterAppointmentsByStatus = (appointments, statusFilter) => {
+    if (statusFilter === 'all') {
+      return appointments;
+    }
+    return appointments.filter(app => app.status === statusFilter);
+  };
+
+  // Generate and download PDF report
+  const generateReport = () => {
+    setIsGeneratingReport(true);
+
+    try {
+      // Filter appointments based on selected criteria
+      let filteredApps = [...appointments];
+      filteredApps = filterAppointmentsByTimePeriod(filteredApps, reportTimePeriod);
+      filteredApps = filterAppointmentsByStatus(filteredApps, reportStatusFilter);
+
+      // Create PDF document
+      const doc = new jsPDF();
+      
+      // Add logo
+      // Note: You'll need to replace this with your actual logo URL
+      const logoUrl = '/path/to/your/logo.png'; // Update this with your logo path
+      try {
+        doc.addImage(logoUrl, 'PNG', 15, 10, 30, 30);
+      } catch (error) {
+        console.error('Error adding logo to PDF:', error);
+        // Continue without logo if it fails
+      }
+
+      // Add title and date
+      doc.setFontSize(18);
+      doc.text('Pet Health Care System - Appointment Report', 50, 20);
+      
+      // Add report details
+      doc.setFontSize(12);
+      const today = new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      
+      doc.text(`Generated on: ${today}`, 15, 50);
+      
+      // Add time period information
+      let timePeriodText = 'All time';
+      if (reportTimePeriod === 'last-month') {
+        timePeriodText = 'Last month';
+      } else if (reportTimePeriod === 'last-3-months') {
+        timePeriodText = 'Last 3 months';
+      }
+      
+      doc.text(`Time period: ${timePeriodText}`, 15, 60);
+      
+      // Add status filter information
+      let statusText = 'All statuses';
+      if (reportStatusFilter !== 'all') {
+        statusText = reportStatusFilter.charAt(0).toUpperCase() + reportStatusFilter.slice(1);
+      }
+      
+      doc.text(`Status filter: ${statusText}`, 15, 70);
+      doc.text(`Total appointments: ${filteredApps.length}`, 15, 80);
+      
+      // Add appointment table
+      const tableColumn = [
+        'Pet Name', 
+        'Owner', 
+        'Date', 
+        'Time',
+        'Service', 
+        'Status'
+      ];
+      
+      const tableRows = filteredApps.map(app => [
+        app.petName,
+        app.ownerName,
+        formatDate(app.date),
+        app.time,
+        app.serviceType,
+        app.status.charAt(0).toUpperCase() + app.status.slice(1)
+      ]);
+      
+      doc.autoTable({
+        startY: 90,
+        head: [tableColumn],
+        body: tableRows,
+        headStyles: {
+          fillColor: [41, 128, 185],
+          textColor: 255,
+          fontStyle: 'bold'
+        },
+        alternateRowStyles: {
+          fillColor: [245, 245, 245]
+        },
+        rowStyles: {
+          fontSize: 10
+        }
+      });
+      
+      // Add summary information
+      const summaryY = doc.lastAutoTable.finalY + 20;
+      
+      // Count appointments by status
+      const statusCounts = {
+        scheduled: filteredApps.filter(app => app.status === 'scheduled').length,
+        confirmed: filteredApps.filter(app => app.status === 'confirmed').length,
+        completed: filteredApps.filter(app => app.status === 'completed').length,
+        cancelled: filteredApps.filter(app => app.status === 'cancelled').length
+      };
+      
+      doc.text('Appointment Summary:', 15, summaryY);
+      doc.text(`Scheduled: ${statusCounts.scheduled}`, 15, summaryY + 10);
+      doc.text(`Confirmed: ${statusCounts.confirmed}`, 15, summaryY + 20);
+      doc.text(`Completed: ${statusCounts.completed}`, 15, summaryY + 30);
+      doc.text(`Cancelled: ${statusCounts.cancelled}`, 15, summaryY + 40);
+      
+      // Add footer
+      const pageCount = doc.internal.getNumberOfPages();
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(10);
+        doc.text('Pet Health Care System - Confidential', 15, doc.internal.pageSize.height - 10);
+        doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.width - 30, doc.internal.pageSize.height - 10);
+      }
+      
+      // Save the PDF
+      const statusText2 = reportStatusFilter === 'all' ? 'all-status' : reportStatusFilter;
+      const timeText = reportTimePeriod === 'all' ? 'all-time' : reportTimePeriod;
+      doc.save(`appointment-report-${statusText2}-${timeText}-${today}.pdf`);
+      
+      toast.success('Report generated successfully');
+      setShowReportModal(false);
+    } catch (error) {
+      console.error('Error generating report:', error);
+      toast.error('Failed to generate report');
+    } finally {
+      setIsGeneratingReport(false);
+    }
+  };
+
+  const filteredAppointments = filter === 'all' 
+    ? appointments 
+    : appointments.filter(app => app.status === filter);
 
   return (
     <>
@@ -151,13 +313,22 @@ const VetAppointments = () => {
             </select>
           </div>
           
-          <button 
-            className="vet-viewappointment-refresh-btn"
-            onClick={handleRefresh}
-            disabled={isLoading}
-          >
-            <i className="fas fa-sync-alt"></i> Refresh
-          </button>
+          <div className="vet-viewappointment-action-buttons">
+            <button 
+              className="vet-viewappointment-report-btn"
+              onClick={() => setShowReportModal(true)}
+            >
+              <i className="fas fa-file-pdf"></i> Generate Report
+            </button>
+            
+            <button 
+              className="vet-viewappointment-refresh-btn"
+              onClick={handleRefresh}
+              disabled={isLoading}
+            >
+              <i className="fas fa-sync-alt"></i> Refresh
+            </button>
+          </div>
         </div>
 
         {error && (
@@ -265,6 +436,106 @@ const VetAppointments = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* Report Generation Modal */}
+        {showReportModal && (
+          <div className="vet-report-modal-overlay">
+            <div className="vet-report-modal">
+              <div className="vet-report-modal-header">
+                <h2>Generate Appointment Report</h2>
+                <button 
+                  className="vet-report-modal-close"
+                  onClick={() => setShowReportModal(false)}
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+              
+              <div className="vet-report-modal-body">
+                <div className="vet-report-form-group">
+                  <label>Time Period:</label>
+                  <select
+                    value={reportTimePeriod}
+                    onChange={(e) => setReportTimePeriod(e.target.value)}
+                    className="vet-report-select"
+                  >
+                    <option value="all">All Time</option>
+                    <option value="last-month">Last Month</option>
+                    <option value="last-3-months">Last 3 Months</option>
+                  </select>
+                </div>
+                
+                <div className="vet-report-form-group">
+                  <label>Status Filter:</label>
+                  <select
+                    value={reportStatusFilter}
+                    onChange={(e) => setReportStatusFilter(e.target.value)}
+                    className="vet-report-select"
+                  >
+                    <option value="all">All Statuses</option>
+                    <option value="scheduled">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                </div>
+                
+                <div className="vet-report-preview">
+                  <h3>Report Preview</h3>
+                  <p>
+                    <strong>Time Period:</strong> {reportTimePeriod === 'all' ? 'All Time' : reportTimePeriod === 'last-month' ? 'Last Month' : 'Last 3 Months'}
+                  </p>
+                  <p>
+                    <strong>Status Filter:</strong> {reportStatusFilter === 'all' ? 'All Statuses' : reportStatusFilter.charAt(0).toUpperCase() + reportStatusFilter.slice(1)}
+                  </p>
+                  
+                  {/* Preview count of appointments that will be in the report */}
+                  {(() => {
+                    let count = appointments.length;
+                    
+                    if (reportTimePeriod !== 'all') {
+                      const now = new Date();
+                      const monthsToSubtract = reportTimePeriod === 'last-month' ? 1 : 3;
+                      const startDate = new Date(now.setMonth(now.getMonth() - monthsToSubtract));
+                      count = appointments.filter(app => new Date(app.date) >= startDate).length;
+                    }
+                    
+                    if (reportStatusFilter !== 'all') {
+                      count = appointments.filter(app => app.status === reportStatusFilter).length;
+                    }
+                    
+                    if (reportTimePeriod !== 'all' && reportStatusFilter !== 'all') {
+                      const now = new Date();
+                      const monthsToSubtract = reportTimePeriod === 'last-month' ? 1 : 3;
+                      const startDate = new Date(now.setMonth(now.getMonth() - monthsToSubtract));
+                      count = appointments.filter(app => 
+                        new Date(app.date) >= startDate && app.status === reportStatusFilter
+                      ).length;
+                    }
+                    
+                    return <p><strong>Total Appointments in Report:</strong> {count}</p>;
+                  })()}
+                </div>
+              </div>
+              
+              <div className="vet-report-modal-footer">
+                <button 
+                  className="vet-report-modal-cancel"
+                  onClick={() => setShowReportModal(false)}
+                >
+                  Cancel
+                </button>
+                <button 
+                  className="vet-report-modal-generate"
+                  onClick={generateReport}
+                  disabled={isGeneratingReport}
+                >
+                  {isGeneratingReport ? 'Generating...' : 'Generate PDF Report'}
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
