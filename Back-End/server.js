@@ -67,6 +67,8 @@ const veterinarianRoutes = require('./Routes/veterinarianRoutes');
 const addnewroute = require('./Routes/addnewroute');
 const adminRoutes = require('./Routes/adminRoutes');
 const chatbotRoutes = require("./Routes/chatbotRoutes");
+const pharmacyRegistRoutes = require('./Routes/PharmacyRegistRouter');
+
 
 // Routes
 app.use('/api/appointments', appointmentRoutes);
@@ -77,6 +79,8 @@ app.use('/api/veterinarians', veterinarianRoutes);
 app.use('/api/pets', addnewroute);
 app.use('/api/admin', adminRoutes);
 app.use("/api/chatbot", chatbotRoutes);
+app.use('/api/Pharmacys', pharmacyRegistRoutes);
+
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {

@@ -1,5 +1,17 @@
 const Appointment = require('../Models/Appointment');
 const { validationResult } = require('express-validator');
+const nodemailer = require('nodemailer');
+
+
+// Configure nodemailer
+const transporter = nodemailer.createTransport({
+  service: 'gmail', // or another service like 'outlook', 'hotmail', etc.
+  auth: {
+    user: process.env.EMAIL_USER, // Use environment variables for security
+    pass: process.env.EMAIL_PASS
+  }
+});
+
 
 // Generate available times between 9 AM and 5 PM in 30-minute slots
 const generateTimeSlots = () => {
@@ -380,5 +392,52 @@ exports.updateAppointment = async (req, res) => {
       success: false,
       message: 'Server error while updating appointment'
     });
+  }
+};
+const sendConfirmationEmail = async (appointment) => {
+  try {
+    const { ownerName, email, petName, petType, serviceType, date, time } = appointment;
+    
+    const formattedDate = formatDate(date);
+    
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: `Appointment Confirmation for ${petName}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+          <h2 style="color: #4a6da7; border-bottom: 2px solid #4a6da7; padding-bottom: 10px;">Smart Pet Care Appointment Confirmation</h2>
+          
+          <p>Dear ${ownerName},</p>
+          
+          <p>Thank you for scheduling an appointment with Smart Pet Care. Your appointment details are as follows:</p>
+          
+          <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 15px 0;">
+            <p><strong>Pet Name:</strong> ${petName}</p>
+            <p><strong>Pet Type:</strong> ${petType}</p>
+            <p><strong>Service:</strong> ${serviceType}</p>
+            <p><strong>Date:</strong> ${formattedDate}</p>
+            <p><strong>Time:</strong> ${time}</p>
+          </div>
+          
+          <p>If you need to reschedule or cancel your appointment, please contact us at least 24 hours in advance.</p>
+          
+          <p>We look forward to seeing you and ${petName}!</p>
+          
+          <p style="margin-top: 25px;">Best regards,</p>
+          <p><strong>Smart Pet Care Team</strong></p>
+          
+          <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #eee; font-size: 12px; color: #777;">
+            <p>This is an automated message. Please do not reply to this email.</p>
+          </div>
+        </div>
+      `
+    };
+    
+    await transporter.sendMail(mailOptions);
+    console.log('Confirmation email sent successfully');
+  } catch (error) {
+    console.error('Error sending confirmation email:', error);
+    // Don't throw error here to prevent appointment creation failure
   }
 };

@@ -21,6 +21,82 @@
   margin-bottom: 40px;
 }
 
+/* Error message styling */
+.malinda-error-message {
+  background-color: #ffebee;
+  border-left: 4px solid #ea4335;
+  color: #d32f2f;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.malinda-dismiss-btn {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.malinda-dismiss-btn:hover {
+  background-color: rgba(211, 47, 47, 0.1);
+}
+
+/* Loading spinner */
+.malinda-loading-spinner {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #5f6368;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #39558a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error boundary container */
+.malinda-error-container {
+  padding: 30px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.malinda-retry-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #39558a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.malinda-retry-btn:hover {
+  background-color: #2b4070;
+}
 
 .malinda-pet-dashboard {
   display: flex;
@@ -29,7 +105,6 @@
   min-height: 600px;
   text-align: left;
 }
-
 
 .malinda-pet-sidebar {
   width: 280px;
@@ -115,7 +190,6 @@
   opacity: 0.9;
 }
 
-
 .malinda-add-btn {
   display: block;
   width: 91%;
@@ -135,7 +209,6 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(52, 168, 83, 0.4);
 }
-
 
 .malinda-pet-profile {
   flex: 1;
@@ -179,6 +252,15 @@
   margin-bottom: 15px;
 }
 
+.malinda-pet-profile h3 {
+  font-size: 1.4rem;
+  color: #39558a;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #e8f0fe;
+  padding-bottom: 8px;
+}
+
 .malinda-pet-profile p {
   font-size: 1.1rem;
   margin: 10px 0;
@@ -190,7 +272,11 @@
   font-weight: 600;
 }
 
+.malinda-section-content {
+  margin-bottom: 30px;
+}
 
+/* Buttons */
 .malinda-buttons {
   display: flex;
   gap: 15px;
@@ -249,7 +335,7 @@
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 600;
-  border-color: #ea4335;
+  border: none;
   cursor: pointer;
 }
 
@@ -258,7 +344,6 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(234, 67, 53, 0.3);
 }
-
 
 .malinda-all-pets-profile {
   flex: 1;
@@ -331,6 +416,204 @@
   box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
 }
 
+/* Medical Records Table */
+.malinda-medical-records-grid {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.malinda-medical-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.malinda-medical-table thead {
+  background-color: #39558a;
+  color: white;
+}
+
+.malinda-medical-table th {
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.malinda-medical-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e8f0fe;
+}
+
+.malinda-medical-table tbody tr:hover {
+  background-color: #f8f9fc;
+}
+
+.malinda-medical-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.malinda-edit-btn-small {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #fbbc05;
+  color: #202124;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.malinda-edit-btn-small:hover {
+  background-color: #e0a800;
+}
+
+/* No records/pets messages */
+.malinda-no-records,
+.malinda-no-pets {
+  text-align: center;
+  padding: 40px 20px;
+  color: #5f6368;
+  font-style: italic;
+  border: 1px dashed #e8f0fe;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+/* Medical and Vaccination lists */
+.malinda-medical-list,
+.malinda-vaccination-list {
+  list-style: none;
+  padding: 0;
+}
+
+.malinda-medical-item,
+.malinda-vaccination-item {
+  display: flex;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e8f0fe;
+}
+
+.malinda-medical-item:last-child,
+.malinda-vaccination-item:last-child {
+  border-bottom: none;
+}
+
+.malinda-medical-date,
+.malinda-vaccination-name {
+  min-width: 120px;
+  font-weight: 600;
+  padding-right: 20px;
+}
+
+.malinda-medical-details,
+.malinda-vaccination-details {
+  flex: 1;
+}
+
+.malinda-medical-details strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #39558a;
+}
+
+/* Modal styles */
+.malinda-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.malinda-modal {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.malinda-modal h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #202124;
+}
+
+.malinda-modal p {
+  margin-bottom: 25px;
+  color: #5f6368;
+}
+
+.malinda-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.malinda-cancel-btn {
+  padding: 10px 20px;
+  background-color: #f1f3f4;
+  color: #5f6368;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.malinda-cancel-btn:hover {
+  background-color: #e8eaed;
+}
+
+.malinda-confirm-btn {
+  padding: 10px 20px;
+  background-color: #ea4335;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.malinda-confirm-btn:hover {
+  background-color: #d93025;
+}
+
+.malinda-all-pets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.malinda-download-btn {
+  background-color: #1365ff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.malinda-download-btn:hover {
+  background-color: #2b4070;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(57, 85, 138, 0.3);
+}
 
 @media (max-width: 768px) {
   .malinda-pet-dashboard {
@@ -354,6 +637,27 @@
   .malinda-pet-photo-large {
     margin-right: 0;
     margin-bottom: 20px;
+  }
+  
+  .malinda-all-pets-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .malinda-medical-item,
+  .malinda-vaccination-item {
+    flex-direction: column;
+  }
+  
+  .malinda-medical-date,
+  .malinda-vaccination-name {
+    margin-bottom: 10px;
+  }
+  
+  .malinda-modal {
+    width: 95%;
+    padding: 20px;
   }
 }
 
@@ -380,5 +684,9 @@
 
   .malinda-all-pets-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .malinda-modal-buttons {
+    flex-direction: column;
   }
 }

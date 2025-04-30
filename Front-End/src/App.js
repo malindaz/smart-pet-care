@@ -10,9 +10,11 @@ import ForgotPassword from '././pages/ForgotPassword';
 import VerifyOTP from '././pages/VerifyOTP';
 import ResetPassword from '././pages/ResetPassword';
 import Profile from "././pages/Profile";
+import UpdateProfile from './pages/UpdateProfile';
 
 // Import main pages
 import Home from "./pages/Home";
+import FAQ from "./pages/FAQ";
 
 // Import user pages
 import AppointmentForm from "./pages/User/AppointmentForm";
@@ -26,6 +28,8 @@ import EditPetDetails from "./pages/User/editpetdetails";
 //import Admin pages
 import VetRequests from "./pages/Admin/vetrequests";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import PharmacyRequests from "./pages/Admin/pharmacyRequests";
+import UserRoleManagement from "./pages/Admin/UserRoleManagement";
 
 //import Veterinarian pages
 import VetDashboard from "./pages/Veterinarian/VetDashboard";
@@ -38,6 +42,12 @@ import PharmacyEdit from "./pages/Pharmacist/pharmacyEdit";
 import Cart from "./pages/Shoping Cart/cart";
 import {CartProvider} from "./pages/Shoping Cart/cartContext";
 import CheckoutPage from "./pages/Shoping Cart/checkout";
+
+import PharmacyDashboard from "./pages/Pharmacist/PharmacyDashboard";
+import PharmacyReport from "./pages/Pharmacist/PharmacyReport";
+
+
+import PharmacyRegistration from "./pages/Pharmacist/PharmacyRegistration"
 
 
 // import ProtectedRoute from "./Routes/ProtectedRoute";
@@ -75,14 +85,18 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/FAQ" element={<FAQ />} />
           
           {/* Add Admin Routes Here */}
           <Route path="/vetrequests" element={<VetRequests />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/pharmacy-requests" element={<PharmacyRequests />} />
+          <Route path="/user-management" element={<UserRoleManagement />} />
 
           {/*Add User Routes Here*/ }
 
           <Route path="/profile" element={<Profile />} />
+          <Route path="/update-profile" element={<UpdateProfile />} />
           <Route path="/appointment-form" element={<AppointmentForm />} />
           <Route path="/apply-vet" element={<ApplyVet />} />
           <Route path="/mypets" element={<MyPets />} />
@@ -91,12 +105,18 @@ function App() {
           <Route path="/myappointments" element={<MyAppointments />} />
           <Route path="/editpetdetails" element={<EditPetDetails />} /> 
           <Route path="/editpetdetails/:petId" element={<EditPetDetails />} />
-    
+          <Route path="/addrecord/:petId" element={<AddRecord />} />
 
           {/*Add Pharmacist Routes Here*/ } 
           <Route path="/pharmacy" element={<Pharmacy />} />
           <Route path="/pharmacyAdmin" element={<PharmacyAdmin />} />
           <Route path="/pharmacy-edit" element={<PharmacyEdit />} />
+
+          <Route path="/pharmacistDashboard" element={<PharmacyDashboard />} />
+          <Route path="/PharmacyReport" element={<PharmacyReport />} />
+
+          <Route path="/pharmacy-registration" element={<PharmacyRegistration />} />
+
 
             {/* Add Veterinarian Routes Here */}
             <Route path="/vetdashboard" element={<VetDashboard />} />

@@ -244,7 +244,7 @@ const AdminNavBar = () => {
                   </div>
                   <ul className="admin-navbar-dropdown-menu">
                     <li className="admin-navbar-dropdown-item">
-                      <Link to="/admin/profile" className="admin-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
+                      <Link to="/profile" className="admin-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
                         <User size={16} /> My Profile
                       </Link>
                     </li>

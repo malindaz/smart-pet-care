@@ -3,7 +3,9 @@ import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import "../../css/Pharmacy/PharmacyEdit.css";
 import Footer from "../../components/Footer";
-import NavBar from "../../components/NavBar";
+import PmcyAdminNavBar from "../../components/pharmacy-admin-navbar";
+import { toast, ToastContainer } from "react-toastify";
+
 
 const PharmacyEdit = () => {
   const location = useLocation();
@@ -99,9 +101,9 @@ const PharmacyEdit = () => {
         if (!value.trim()) {
           errorMessage = 'Product description is required';
         } else if (value.trim().length < 10) {
-          errorMessage = 'Description must be at least 10 characters';
+          errorMessage = 'Description must be 10 to 100 characters';
         } else if (value.trim().length > 100) {
-          errorMessage = 'Description cannot exceed 100 characters';
+          errorMessage = 'Description must be 10 to 100 characters';
         }
         break;
 
@@ -250,7 +252,7 @@ const PharmacyEdit = () => {
       if (formData.image instanceof File) {
         formDataToSend.append('image', formData.image);
       } else if (editMode && product.image) {
-        formDataToSend.append('image', product.image); // Retain old image path
+        formDataToSend.append('image', product.image);
       }
 
       const url = editMode
@@ -263,179 +265,201 @@ const PharmacyEdit = () => {
         body: formDataToSend,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || `Error: ${response.status} ${response.statusText}`);
+      if (response.ok) {
+        // ✅ Show success toast notification
+        toast.success(editMode ? "Product updated successfully!" : "New product added successfully!", {
+          className: "pharmacy-edit-toast",
+          position: "top-right",
+          autoClose: 1400,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+        });
+
+        // Redirect after a short delay
+        setTimeout(() => {
+          navigate('/pharmacyAdmin', { replace: true });
+          window.location.reload();
+        }, 1500);
       }
-
-      setMessage({
-        text: editMode ? 'Product updated successfully!' : 'Product added successfully!',
-        type: 'success'
-      });
-
-      // Redirect after a short delay to show success message
-      setTimeout(() => {
-        navigate('/pharmacyAdmin', { replace: true });
-      }, 1500);
     } catch (error) {
       console.error('Error submitting form:', error.message);
-      setMessage({ text: error.message || 'An error occurred while saving the product', type: 'danger' });
-      // Scroll to top to show error message
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setLoading(false);
     }
   };
 
+
   const handleCancel = () => navigate('/pharmacyAdmin');
 
   return (
     <>
-      <NavBar />
-      <h1 className="pharmacy-Edit-Form-h1">
-        {editMode ? 'Edit Product' : 'Add New Product'}
-      </h1>
-      <Container className="pharmacy-Edit-Form-Container">
+      <PmcyAdminNavBar />
+      <div className="pharmacy-edit-page-wrapper">
+        <h1 className="pharmacy-edit-form-title">
+          {editMode ? 'Edit Product' : 'Add New Product'}
+        </h1>
+        <Container className="pharmacy-edit-form-container">
 
-        {message.text && (
-          <Alert variant={message.type} className="my-3">
-            {message.text}
-          </Alert>
-        )}
+          {message.text && (
+            <Alert variant={message.type} className="pharmacy-edit-alert">
+              {message.text}
+            </Alert>
+          )}
 
-        <Card className="pharmacy-Edit-Form-Form-Card">
-          <Card.Body>
-            <Form onSubmit={handleSubmit} noValidate>
-              {/* Category Selection */}
-              <Form.Group className="pharmacy-Edit-Form">
-                <Form.Label className="pharmacy-Edit-Form-label">Category:</Form.Label>
-                <Form.Select
-                  className={`pharmacy-Edit-Form-select pharmacy-Edit-Form-category ${formTouched.category && errors.category ? 'is-invalid' : ''}`}
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  required
-                >
-                  <option value="" disabled hidden>
-                    Choose Category
-                  </option>
-                  <option value="Prescription Medications">Prescription Medications</option>
-                  <option value="OTC Medications & Supplements">OTC Medications & Supplements</option>
-                  <option value="Grooming & Hygiene">Grooming & Hygiene</option>
-                  <option value="Pet Food & Specialized Diets">Pet Food & Specialized Diets</option>
-                  <option value="First Aid & Wound Care">First Aid & Wound Care</option>
-                </Form.Select>
-                {formTouched.category && errors.category && (
-                  <Form.Control.Feedback type="invalid">{errors.category}</Form.Control.Feedback>
-                )}
-              </Form.Group>
-
-              {/* Product Name */}
-              <Form.Group className="pharmacy-Edit-Form">
-                <Form.Label className="pharmacy-Edit-Form-label">Product Name:</Form.Label>
-                <Form.Control
-                  className={`pharmacy-Edit-Form-control pharmacy-Edit-Form-name ${formTouched.name && errors.name ? 'is-invalid' : ''}`}
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="Enter product name"
-                  required
-                />
-                {formTouched.name && errors.name && (
-                  <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
-                )}
-              </Form.Group>
-
-              {/* Price */}
-              <Form.Group className="pharmacy-Edit-Form">
-                <Form.Label className="pharmacy-Edit-Form-label">Price (Rs):</Form.Label>
-                <Form.Control
-                  className={`pharmacy-Edit-Form-control pharmacy-Edit-Form-price ${formTouched.price && errors.price ? 'is-invalid' : ''}`}
-                  type="text"
-                  name="price"
-                  value={formData.price}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="Enter price"
-                  required
-                />
-                {formTouched.price && errors.price && (
-                  <Form.Control.Feedback type="invalid">{errors.price}</Form.Control.Feedback>
-                )}
-              </Form.Group>
-
-              {/* Description */}
-              <Form.Group className="pharmacy-Edit-Form">
-                <Form.Label className="pharmacy-Edit-Form-label">Description:</Form.Label>
-                <Form.Control
-                  className={`pharmacy-Edit-Form-control pharmacy-Edit-Form-description ${formTouched.description && errors.description ? 'is-invalid' : ''}`}
-                  as="textarea"
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="Enter product description"
-                  rows={3}
-                  required
-                />
-                {formTouched.description && errors.description && (
-                  <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
-                )}
-              </Form.Group>
-
-              {/* Image Upload */}
-              <Form.Group className="pharmacy-Edit-Form">
-                <Form.Label className="pharmacy-Edit-Form-label">Product Image:</Form.Label>
-                <Form.Control
-                  className={`pharmacy-Edit-Form-control pharmacy-Edit-Form-image ${formTouched.image && errors.image ? 'is-invalid' : ''}`}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                />
-                {formTouched.image && errors.image && (
-                  <Form.Control.Feedback type="invalid">{errors.image}</Form.Control.Feedback>
-                )}
-                {imagePreview && (
-                  <div className="pharmacy-Edit-Form">
-                    <img
-                      src={imagePreview}
-                      alt="Product Preview"
-                      className="pharmacy-Edit-Form img-thumbnail"
-                      style={{ maxWidth: '200px', maxHeight: '200px', marginTop: '10px' }}
-                    />
+          <Card className="pharmacy-edit-form-card">
+            <Card.Body>
+              <Form onSubmit={handleSubmit} noValidate>
+                {/* Category Selection */}
+                <Form.Group className="pharmacy-edit-form-group">
+                  <Form.Label>Category</Form.Label>
+                  <div className="pharmacy-edit-form-input-wrapper">
+                    <Form.Select
+                      className={formTouched.category && errors.category ? 'is-invalid' : ''}
+                      name="category"
+                      value={formData.category}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      required
+                    >
+                      <option value="" disabled hidden>
+                        Choose Category
+                      </option>
+                      <option value="Prescription Medications">Prescription Medications</option>
+                      <option value="OTC Medications & Supplements">OTC Medications & Supplements</option>
+                      <option value="Grooming & Hygiene">Grooming & Hygiene</option>
+                      <option value="Pet Food & Specialized Diets">Pet Food & Specialized Diets</option>
+                      <option value="First Aid & Wound Care">First Aid & Wound Care</option>
+                    </Form.Select>
+                    {formTouched.category && errors.category && (
+                      <Form.Control.Feedback type="invalid">{errors.category}</Form.Control.Feedback>
+                    )}
                   </div>
-                )}
-                <Form.Text className="text-muted">
-                  Accepted formats: JPEG, PNG, GIF, WEBP. Maximum size: 5MB.
-                </Form.Text>
-              </Form.Group>
+                </Form.Group>
 
-              {/* Buttons */}
-              <div className="pharmacy-Edit-Form-Btn-container">
-                <Button
-                  variant="secondary"
-                  onClick={handleCancel}
-                  className="pharmacy-Edit-Form-Btn-cancel"
-                  disabled={loading}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="pharmacy-Edit-Form-Btn-save"
-                  disabled={loading}
-                >
-                  {loading ? 'Processing...' : editMode ? 'Update Product' : 'Add Product'}
-                </Button>
-              </div>
-            </Form>
-          </Card.Body>
-        </Card>
-      </Container>
+                {/* Product Name */}
+                <Form.Group className="pharmacy-edit-form-group">
+                  <Form.Label>Product Name</Form.Label>
+                  <div className="pharmacy-edit-form-input-wrapper">
+                    <Form.Control
+                      className={formTouched.name && errors.name ? 'is-invalid' : ''}
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder="Enter product name"
+                      required
+                    />
+                    {formTouched.name && errors.name && (
+                      <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                    )}
+                  </div>
+                </Form.Group>
+
+                {/* Price */}
+                <Form.Group className="pharmacy-edit-form-group">
+                  <Form.Label>Price (Rs)</Form.Label>
+                  <div className="pharmacy-edit-form-input-wrapper">
+                    <Form.Control
+                      className={formTouched.price && errors.price ? 'is-invalid' : ''}
+                      type="text"
+                      name="price"
+                      value={formData.price}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder="Enter price"
+                      required
+                    />
+                    {formTouched.price && errors.price && (
+                      <Form.Control.Feedback type="invalid">{errors.price}</Form.Control.Feedback>
+                    )}
+                  </div>
+                </Form.Group>
+
+                {/* Description */}
+                <Form.Group className="pharmacy-edit-form-group">
+                  <Form.Label>Description</Form.Label>
+                  <div className="pharmacy-edit-form-input-wrapper">
+                    <Form.Control
+                      className={formTouched.description && errors.description ? 'is-invalid' : ''}
+                      as="textarea"
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder="Enter product description"
+                      rows={3}
+                      required
+                    />
+                    {formTouched.description && errors.description && (
+                      <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
+                    )}
+                  </div>
+                </Form.Group>
+
+                {/* Image Upload */}
+                <Form.Group className="pharmacy-edit-form-group">
+                  <Form.Label>Product Image</Form.Label>
+                  <div className="pharmacy-edit-form-input-wrapper">
+                    <Form.Control
+                      className={formTouched.image && errors.image ? 'is-invalid' : ''}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                    />
+                    {formTouched.image && errors.image && (
+                      <Form.Control.Feedback type="invalid">{errors.image}</Form.Control.Feedback>
+                    )}
+                  </div>
+                  {imagePreview && (
+                    <div className="pharmacy-edit-image-preview">
+                      <img
+                        src={imagePreview}
+                        alt="Product Preview"
+                        className="pharmacy-edit-preview-img"
+                      />
+                    </div>
+                  )}
+                  <Form.Text className="text-muted">
+                    Accepted formats: JPEG, PNG, GIF, WEBP. Maximum size: 5MB.
+                  </Form.Text>
+                </Form.Group>
+
+                {/* Buttons */}
+                <div className="pharmacy-edit-form-actions">
+                  <Button
+                    variant="secondary"
+                    onClick={handleCancel}
+                    className="pharmacy-edit-btn-cancel"
+                    disabled={loading}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className="pharmacy-edit-btn-save"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <span className="pharmacy-edit-spinner"></span>
+                        Processing...
+                      </>
+                    ) : (
+                      editMode ? 'Update Product' : 'Add Product'
+                    )}
+                  </Button>
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
+          <ToastContainer />
+        </Container>
+      </div>
       <Footer />
     </>
   );

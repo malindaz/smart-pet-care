@@ -1,4 +1,3 @@
-// models/Appointment.js
 const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
@@ -62,7 +61,7 @@ const appointmentSchema = new mongoose.Schema({
   }
 });
 
-// Create a compound index on date and time for faster lookups and ensuring uniqueness
+
 appointmentSchema.index({ date: 1, time: 1 }, { unique: true });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);
