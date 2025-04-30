@@ -24,7 +24,7 @@ const EditPetDetails = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Fetch pet details when component loads
+  
   useEffect(() => {
     const fetchPet = async () => {
       try {
@@ -37,17 +37,17 @@ const EditPetDetails = () => {
     fetchPet();
   }, [petId]);
 
-  // Handle input change
+ 
   const handleChange = (e) => {
     setPet({ ...pet, [e.target.name]: e.target.value });
   };
 
-  // Handle file change
+  
   const handleFileChange = (e) => {
     setPet({ ...pet, photo: e.target.files[0] });
   };
 
-  // Handle form submission
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
