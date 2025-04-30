@@ -120,7 +120,9 @@ const Checkout = () => {
           errorMessage = 'Phone number is required';
         } else if (!/^0/.test(value)) {
           errorMessage = 'Phone number must start with 0';
-        } else if (!/^\d{10}$/.test(value.replace(/\D/g, ''))) {
+        } else if (/[^\d]/.test(value)) {
+          errorMessage = 'Invalid phone number';
+        } else if (value.length !== 10) {
           errorMessage = 'Phone number must be exactly 10 digits long';
         }
         break;
@@ -144,6 +146,8 @@ const Checkout = () => {
       case 'expiryMonth':
         if (!value.trim()) {
           errorMessage = 'Month is required';
+        } else if (/[^\d]/.test(value)) {
+          errorMessage = 'Month cannot contain symbols or letters';
         } else {
           const month = parseInt(value, 10);
           if (isNaN(month) || month < 1 || month > 12) {
@@ -155,6 +159,8 @@ const Checkout = () => {
       case 'expiryYear':
         if (!value.trim()) {
           errorMessage = 'Year is required';
+        } else if (/[^\d]/.test(value)) {
+          errorMessage = 'Month cannot contain symbols or letters';
         } else {
           const year = parseInt(value, 10);
           const currentYear = new Date().getFullYear();
@@ -179,6 +185,8 @@ const Checkout = () => {
       case 'cvv':
         if (!value.trim()) {
           errorMessage = 'CVV is required';
+        } else if (/[^\d]/.test(value)) {
+          errorMessage = 'Month cannot contain symbols or letters';
         } else if (!/^\d{3}$/.test(value)) {
           errorMessage = 'Enter a valid 3-digit CVV';
         }
@@ -360,7 +368,7 @@ const Checkout = () => {
         <h1 className="checkout-title">Checkout</h1>
         <Container className="checkout-container">
           <Form onSubmit={handleSubmit} noValidate>
-            
+
             <Row className="checkout-content">
               {/* Left side - Shipping Details */}
               <Col md={6} className="checkout-shipping">

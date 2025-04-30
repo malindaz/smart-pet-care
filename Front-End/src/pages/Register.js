@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CgSpinner } from "react-icons/cg";
-import { FaUser, FaEnvelope, FaPhone, FaLock, FaMapMarkerAlt } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaPhone, FaLock, FaMapMarkerAlt, FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from 'axios';
 import "../css/Register.css";
 import NavBar from "../components/NavBar";
@@ -12,6 +12,8 @@ const Register = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({
         username: '',
         firstName: '',
@@ -33,6 +35,7 @@ const Register = () => {
             let strength = 0;
             if (formData.password.length >= 8) strength += 1;
             if (/[A-Z]/.test(formData.password)) strength += 1;
+            if (/[a-z]/.test(formData.password)) strength += 1;
             if (/[0-9]/.test(formData.password)) strength += 1;
             if (/[^A-Za-z0-9]/.test(formData.password)) strength += 1;
             setPasswordStrength(strength);
@@ -47,16 +50,58 @@ const Register = () => {
             ...prev,
             [name]: value
         }));
+        
+        // Clear validation errors when user starts typing
+        if (validationErrors[name]) {
+            setValidationErrors(prev => ({
+                ...prev,
+                [name]: ''
+            }));
+        }
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(!showConfirmPassword);
     };
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            // Check if file is an image
+            if (!file.type.startsWith('image/')) {
+                setValidationErrors(prev => ({
+                    ...prev,
+                    profileImage: 'Only image files are allowed'
+                }));
+                return;
+            }
+            
+            // Check file size (5MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                setValidationErrors(prev => ({
+                    ...prev,
+                    profileImage: 'Image size should not exceed 5MB'
+                }));
+                return;
+            }
+            
             setFormData(prev => ({
                 ...prev,
                 profileImage: file
             }));
             setImagePreview(URL.createObjectURL(file));
+            
+            // Clear any previous errors
+            if (validationErrors.profileImage) {
+                setValidationErrors(prev => ({
+                    ...prev,
+                    profileImage: ''
+                }));
+            }
         }
     };
     
@@ -71,26 +116,120 @@ const Register = () => {
         // Reset the file input
         const fileInput = document.getElementById('profileImage');
         if (fileInput) fileInput.value = '';
+        
+        // Clear any profile image errors
+        if (validationErrors.profileImage) {
+            setValidationErrors(prev => ({
+                ...prev,
+                profileImage: ''
+            }));
+        }
     };
 
     const validateField = (name, value) => {
         let errors = {...validationErrors};
         
         switch(name) {
-            case 'email':
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                errors.email = !emailRegex.test(value) ? 'Invalid email format' : '';
+            case 'username':
+                if (!value.trim()) {
+                    errors.username = 'Username is required';
+                } else if (/\s/.test(value)) {
+                    errors.username = 'Username cannot contain spaces';
+                }
+    
+                else if (!/^[a-zA-Z0-9]+$/.test(value)) {
+                    errors.username = 'Username can only contain Letters and Numbers';
+                }else if (value.length < 3) {
+                    errors.username = 'Username must be at least 3 characters';
+                } else if (value.length > 10) {
+                    errors.username = 'Username cannot exceed 10 characters';
+                }
+                
+                else {
+                    errors.username = '';
+                }
                 break;
-            case 'password':
-                errors.password = value.length < 6 ? 'Password must be at least 6 characters' : '';
+                
+            case 'firstName':
+            case 'lastName':
+                if (!value.trim()) {
+                    errors[name] = `${name === 'firstName' ? 'First name' : 'Last name'} is required`;
+                }else if (/\s/.test(value)) {
+                    errors[name] = `${name === 'firstName' ? 'First name' : 'Last name'} cannot contain spaces`;  
+                } 
+                else if (!/^[a-zA-Z']+$/.test(value)) {
+                    errors[name] = `${name === 'firstName' ? 'First name' : 'Last name'} can only contain letters`;
+                } else if (value.length > 30) {
+                    errors[name] = `${name === 'firstName' ? 'First name' : 'Last name'} cannot exceed 50 characters`;
+                }
+                else {
+                    errors[name] = '';
+                }
                 break;
-            case 'confirmPassword':
-                errors.confirmPassword = value !== formData.password ? 'Passwords do not match' : '';
-                break;
+                
             case 'phoneNumber':
-                const phoneRegex = /^\d{10}$/;
-                errors.phoneNumber = !phoneRegex.test(value.replace(/\D/g, '')) ? 'Please enter a valid 10-digit phone number' : '';
+                if (!value.trim()) {
+                    errors.phoneNumber = 'Phone number is required';
+                } else if (/\s/.test(value)) {
+                    errors.phoneNumber = 'Phone number cannot contain spaces';
+                }
+                
+                else if (!/^\d+$/.test(value)) {
+                    errors.phoneNumber = 'Phone number can only contain digits';
+                } else if (value.length !== 10) {
+                    errors.phoneNumber = 'Phone number must be 10 digits';
+                } else if (value[0] !== '0') {
+                    errors.phoneNumber = 'Phone number must start with 0';
+                } else {
+                    errors.phoneNumber = '';
+                }
                 break;
+                
+            case 'email':
+                if (!value.trim()) {
+                    errors.email = 'Email is required';
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    errors.email = 'Invalid email format';
+                } else {
+                    errors.email = '';
+                }
+                break;
+                
+            case 'password':
+                if (!value) {
+                    errors.password = 'Password is required';
+                } else if (value.length < 8) {
+                    errors.password = 'Password must be at least 8 characters';
+                } else {
+                    errors.password = '';
+                }
+                
+                // Check confirm password field match if it's already been entered
+                if (formData.confirmPassword && formData.confirmPassword !== value) {
+                    errors.confirmPassword = 'Passwords do not match';
+                } else if (formData.confirmPassword) {
+                    errors.confirmPassword = '';
+                }
+                break;
+                
+            case 'confirmPassword':
+                if (!value) {
+                    errors.confirmPassword = 'Please confirm your password';
+                } else if (value !== formData.password) {
+                    errors.confirmPassword = 'Passwords do not match';
+                } else {
+                    errors.confirmPassword = '';
+                }
+                break;
+                
+            case 'address':
+                if (!value.trim()) {
+                    errors.address = 'Address is required';
+                } else {
+                    errors.address = '';
+                }
+                break;
+                
             default:
                 break;
         }
@@ -103,25 +242,35 @@ const Register = () => {
         validateField(name, value);
     };
 
+    const validateForm = () => {
+        // Validate all fields
+        Object.keys(formData).forEach(key => {
+            if (key !== 'profileImage') { // Profile image is optional
+                validateField(key, formData[key]);
+            }
+        });
+        
+        // Check if there are any errors
+        for (const key in validationErrors) {
+            if (validationErrors[key] && key !== 'profileImage') {
+                return false;
+            }
+        }
+        
+        return true;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        // Validate form before submission
+        if (!validateForm()) {
+            toast.error('Please fix the errors in the form');
+            return;
+        }
     
         try {
             setLoading(true);
-    
-            // Validate password match
-            if (formData.password !== formData.confirmPassword) {
-                toast.error('Passwords do not match!');
-                setLoading(false);
-                return;
-            }
-    
-            // Validate password strength
-            if (formData.password.length < 6) {
-                toast.error('Password must be at least 6 characters long');
-                setLoading(false);
-                return;
-            }
     
             // Create FormData object for file upload
             const formDataObj = new FormData();
@@ -177,6 +326,17 @@ const Register = () => {
         }
     };
     
+    const getPasswordStrengthText = () => {
+        switch(passwordStrength) {
+            case 0: return "Weak";
+            case 1: return "Weak";
+            case 2: return "Fair";
+            case 3: return "Good";
+            case 4:return "Strong";
+            case 5: return "Very Strong";
+            default: return "Weak";
+        }
+    };
     
     return (
         <div>
@@ -225,6 +385,8 @@ const Register = () => {
                         <p className="Registerpage-optional-text">
                             (Optional)
                         </p>
+                        {validationErrors.profileImage && 
+                            <div className="Registerpage-error-message">{validationErrors.profileImage}</div>}
                     </div>
 
                     <div className="Registerpage-form-section">
@@ -238,9 +400,12 @@ const Register = () => {
                                 placeholder="Username"
                                 value={formData.username}
                                 onChange={handleInputChange}
+                                onBlur={handleBlur}
                                 required
                             />
                         </div>
+                        {validationErrors.username && 
+                            <div className="Registerpage-error-message">{validationErrors.username}</div>}
 
                         <div className="Registerpage-input-row">
                             <div className="Registerpage-input-group">
@@ -250,6 +415,7 @@ const Register = () => {
                                     placeholder="First Name"
                                     value={formData.firstName}
                                     onChange={handleInputChange}
+                                    onBlur={handleBlur}
                                     required
                                 />
                             </div>
@@ -260,8 +426,19 @@ const Register = () => {
                                     placeholder="Last Name"
                                     value={formData.lastName}
                                     onChange={handleInputChange}
+                                    onBlur={handleBlur}
                                     required
                                 />
+                            </div>
+                        </div>
+                        <div className="Registerpage-error-row">
+                            <div className="Registerpage-error-column">
+                                {validationErrors.firstName && 
+                                    <div className="Registerpage-error-message">{validationErrors.firstName}</div>}
+                            </div>
+                            <div className="Registerpage-error-column">
+                                {validationErrors.lastName && 
+                                    <div className="Registerpage-error-message">{validationErrors.lastName}</div>}
                             </div>
                         </div>
 
@@ -304,7 +481,7 @@ const Register = () => {
                                 <FaLock />
                             </div>
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 name="password"
                                 placeholder="Password"
                                 value={formData.password}
@@ -312,6 +489,12 @@ const Register = () => {
                                 onBlur={handleBlur}
                                 required
                             />
+                            <div 
+                                className="Registerpage-password-toggle" 
+                                onClick={togglePasswordVisibility}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </div>
                         </div>
                         {formData.password && 
                             <div className="Registerpage-password-strength">
@@ -321,11 +504,7 @@ const Register = () => {
                                     ></div>
                                 </div>
                                 <span className="Registerpage-strength-text">
-                                    {passwordStrength === 0 && "Weak"}
-                                    {passwordStrength === 1 && "Fair"}
-                                    {passwordStrength === 2 && "Good"}
-                                    {passwordStrength === 3 && "Strong"}
-                                    {passwordStrength === 4 && "Very Strong"}
+                                    {getPasswordStrengthText()}
                                 </span>
                             </div>
                         }
@@ -337,7 +516,7 @@ const Register = () => {
                                 <FaLock />
                             </div>
                             <input
-                                type="password"
+                                type={showConfirmPassword ? "text" : "password"}
                                 name="confirmPassword"
                                 placeholder="Confirm Password"
                                 value={formData.confirmPassword}
@@ -345,6 +524,12 @@ const Register = () => {
                                 onBlur={handleBlur}
                                 required
                             />
+                            <div 
+                                className="Registerpage-password-toggle" 
+                                onClick={toggleConfirmPasswordVisibility}
+                            >
+                                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                            </div>
                         </div>
                         {validationErrors.confirmPassword && 
                             <div className="Registerpage-error-message">{validationErrors.confirmPassword}</div>}
@@ -358,9 +543,12 @@ const Register = () => {
                                 placeholder="Address"
                                 value={formData.address}
                                 onChange={handleInputChange}
+                                onBlur={handleBlur}
                                 required
                             />
                         </div>
+                        {validationErrors.address && 
+                            <div className="Registerpage-error-message">{validationErrors.address}</div>}
                     </div>
 
                     <button type="submit" className="Registerpage-submit-button" disabled={loading}>

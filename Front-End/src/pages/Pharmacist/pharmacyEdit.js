@@ -101,9 +101,9 @@ const PharmacyEdit = () => {
         if (!value.trim()) {
           errorMessage = 'Product description is required';
         } else if (value.trim().length < 10) {
-          errorMessage = 'Description must be at least 10 characters';
+          errorMessage = 'Description must be 10 to 100 characters';
         } else if (value.trim().length > 100) {
-          errorMessage = 'Description cannot exceed 100 characters';
+          errorMessage = 'Description must be 10 to 100 characters';
         }
         break;
 

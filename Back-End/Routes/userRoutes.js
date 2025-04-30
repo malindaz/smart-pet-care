@@ -79,7 +79,7 @@ const processUploadedFile = (req, res, next) => {
 router.post('/register', handleUpload, processUploadedFile, registerUser);
 router.post('/login', loginUser);
 router.get('/profile', protect, getUserProfile);
-router.put('/profile', protect, handleUpload, processUploadedFile, updateUserProfile);
+router.put('/profile/update-profile', handleUpload, processUploadedFile, updateUserProfile);
 router.delete('/profile', deleteUser);
 router.post('/logout', protect, logout);
 

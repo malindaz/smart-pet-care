@@ -153,6 +153,23 @@
   color: #666;
 }
 
+/* Password toggle icon styling */
+.loginpage-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  color: #333;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.3s ease;
+}
+
+.loginpage-password-toggle:hover {
+  color: #20B2AA;
+}
+
 .loginpage-submit-button {
   width: 100%;
   max-width: 400px;
@@ -184,9 +201,14 @@
   box-shadow: none;
 }
 
+.loginpage-spinner {
+  animation: spin 1s linear infinite;
+}
 
-
-
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 .loginpage-forgot-password a{
   color: #333;
@@ -195,15 +217,12 @@
   font-weight: 400;
 }
 
-
 .loginpage-register-link {
   margin-top: 25px;
   text-align: center;
   font-size: 15px;
   color: var(--light-text);
 }
-
-
 
 .loginpage-register-link a {
   color: #20B2AA;

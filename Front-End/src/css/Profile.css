@@ -438,12 +438,28 @@
 
 /* Input row for side-by-side fields */
 .profile_input_row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
+    width: 100%;
 }
 
 .profile_input_row .profile_edit_field {
     flex: 1;
+    margin-bottom: 0;
+}
+
+.profile_error_message {
+    color: #ff4444;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    position: relative;
+    grid-column: 1;
+}
+
+.profile_input_row > div:nth-child(4) {
+    grid-column: 2;
 }
 
 /* Update the profile actions styles */
@@ -509,8 +525,12 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .profile_input_row {
-        flex-direction: column;
+        grid-template-columns: 1fr;
         gap: 1rem;
+    }
+
+    .profile_input_row > div:nth-child(4) {
+        grid-column: 1;
     }
 
     .profile_edit_actions {
@@ -624,4 +644,6 @@
   .profile_info_item p {
     font-size: 1rem;
   }
+
+
 }
