@@ -1,6 +1,8 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import pickle
 import random
-import re
+import os
 
 class PetHealthChatbot:
     def __init__(self):
@@ -57,7 +59,7 @@ class PetHealthChatbot:
                 "home_care": "None - immediate veterinary care required.",
                 "vet_visit": "EMERGENCY - seek immediate veterinary care."
             },
-            # Add more as needed
+            # Add more diseases based on your training data
         }
         
         # Initialize state
@@ -95,20 +97,21 @@ class PetHealthChatbot:
         # Construct response with disease information if available
         if predicted_disease in self.disease_info:
             info = self.disease_info[predicted_disease]
-            response = (
-                f"Based on the symptoms you've described, your pet might be experiencing {predicted_disease}.\n\n"
-                f"This is {info['description']}\n"
-                f"Common causes include {info['common_causes']}\n\n"
-                f"Home care: {info['home_care']}\n\n"
-                f"When to see a vet: {info['vet_visit']}\n\n"
-                f"Note: This is not a substitute for professional veterinary advice. If you're concerned about your pet's health, please consult a veterinarian."
-            )
+            response = {
+                "type": "diagnosis",
+                "disease": predicted_disease,
+                "description": info['description'],
+                "causes": info['common_causes'],
+                "home_care": info['home_care'],
+                "vet_advice": info['vet_visit'],
+                "message": f"Based on the symptoms you've described, your pet might be experiencing {predicted_disease}. {info['description']} Common causes include {info['common_causes']}. For home care: {info['home_care']} When to see a vet: {info['vet_visit']}"
+            }
         else:
-            response = (
-                f"Based on the symptoms you've described, your pet might be experiencing {predicted_disease}.\n\n"
-                f"Please consult with a veterinarian for proper diagnosis and treatment options.\n\n"
-                f"Note: This is not a substitute for professional veterinary advice."
-            )
+            response = {
+                "type": "diagnosis",
+                "disease": predicted_disease,
+                "message": f"Based on the symptoms you've described, your pet might be experiencing {predicted_disease}. Please consult with a veterinarian for proper diagnosis and treatment options."
+            }
         
         return response
     
@@ -119,25 +122,65 @@ class PetHealthChatbot:
         
         # Get a random response for the predicted intent
         if predicted_intent in self.intent_responses:
-            return random.choice(self.intent_responses[predicted_intent])
+            message = random.choice(self.intent_responses[predicted_intent])
+            return {
+                "type": "conversation",
+                "intent": predicted_intent,
+                "message": message
+            }
         else:
-            return "I'm not sure I understand. Could you please tell me more about your pet's condition?"
+            return {
+                "type": "conversation",
+                "intent": "unknown",
+                "message": "I'm not sure I understand. Could you please tell me more about your pet's condition?"
+            }
 
-# Interactive chat loop
-def chat():
-    print("Loading Pet Health Assistant...")
-    bot = PetHealthChatbot()
-    print("Pet Health Assistant is ready to help!")
-    print("Type 'exit' or 'quit' to end the conversation.")
+# Initialize the chatbot
+chatbot = PetHealthChatbot()
+
+# Create Flask app
+app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
+
+@app.route("/api/chatbot/message", methods=["POST"])
+def process_message():
+    """Process user message and return chatbot response"""
+    data = request.json
+    user_message = data.get("message", "")
     
-    while True:
-        user_input = input("\nYou: ")
-        if user_input.lower() in ['exit', 'quit', 'bye']:
-            print("\nPet Health Assistant: Goodbye! Take care of your pet!")
-            break
-        
-        response = bot.process_input(user_input)
-        print(f"\nPet Health Assistant: {response}")
+    if not user_message:
+        return jsonify({"error": "No message provided"}), 400
+    
+    response = chatbot.process_input(user_message)
+    return jsonify(response)
+
+@app.route("/api/chatbot/predict", methods=["POST"])
+def predict_disease():
+    """Endpoint for direct symptom-to-disease prediction"""
+    data = request.json
+    symptoms = data.get("symptoms", "")
+    
+    if not symptoms:
+        return jsonify({"error": "No symptoms provided"}), 400
+    
+    transformed = chatbot.disease_vectorizer.transform([symptoms])
+    prediction = chatbot.disease_model.predict(transformed)[0]
+    
+    if prediction in chatbot.disease_info:
+        info = chatbot.disease_info[prediction]
+        return jsonify({
+            "disease": prediction,
+            "description": info['description'],
+            "causes": info['common_causes'],
+            "home_care": info['home_care'],
+            "vet_advice": info['vet_visit']
+        })
+    else:
+        return jsonify({
+            "disease": prediction,
+            "message": "Please consult with a veterinarian for proper diagnosis and treatment."
+        })
 
 if __name__ == "__main__":
-    chat()
+    print("Pet Health Chatbot API running on http://localhost:5000")
+    app.run(debug=True, port=5000)

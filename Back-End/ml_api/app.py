@@ -2,36 +2,83 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pickle
 import os
+import sys
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
-# Check if model files exist
-model_path = "model.pkl"
-vectorizer_path = "vectorizer.pkl"
+# Check if required model files exist
+required_files = [
+    "disease_model.pkl", 
+    "disease_vectorizer.pkl", 
+    "conversation_model.pkl", 
+    "conversation_vectorizer.pkl",
+    "disease_info.pkl"
+]
 
-if not os.path.exists(model_path) or not os.path.exists(vectorizer_path):
-    print("Error: Model files not found. Run train_model.py first.")
-    exit(1)
+missing_files = [f for f in required_files if not os.path.exists(f)]
 
-# Load the model and vectorizer
-model = pickle.load(open(model_path, "rb"))
-vectorizer = pickle.load(open(vectorizer_path, "rb"))
+if missing_files:
+    print(f"Error: Missing required model files: {', '.join(missing_files)}")
+    print("Please run train_model.py first to generate these files.")
+    sys.exit(1)
 
-@app.route("/predict", methods=["POST"])
-def predict():
-    data = request.json["symptoms"]
-    transformed_data = vectorizer.transform([data])
-    prediction = model.predict(transformed_data)[0]
-    return jsonify({"disease": prediction})
+# Load models and data
+disease_model = pickle.load(open("disease_model.pkl", "rb"))
+disease_vectorizer = pickle.load(open("disease_vectorizer.pkl", "rb"))
+conversation_model = pickle.load(open("conversation_model.pkl", "rb"))
+conversation_vectorizer = pickle.load(open("conversation_vectorizer.pkl", "rb"))
+disease_info = pickle.load(open("disease_info.pkl", "rb"))
 
-# Add the endpoint that matches your frontend
+# Import the chatbot class
+from chatbot import PetHealthChatbot
+
+# Initialize chatbot
+chatbot = PetHealthChatbot()
+
+@app.route("/api/chatbot/message", methods=["POST"])
+def process_message():
+    """Process user message and return chatbot response"""
+    data = request.json
+    user_message = data.get("message", "")
+    
+    if not user_message:
+        return jsonify({"error": "No message provided"}), 400
+    
+    response = chatbot.process_input(user_message)
+    return jsonify(response)
+
 @app.route("/api/chatbot/predict", methods=["POST"])
-def chatbot_predict():
-    data = request.json["symptoms"]
-    transformed_data = vectorizer.transform([data])
-    prediction = model.predict(transformed_data)[0]
-    return jsonify({"disease": prediction})
+def predict_disease():
+    """Legacy endpoint for direct symptom-to-disease prediction"""
+    data = request.json
+    symptoms = data.get("symptoms", "")
+    
+    if not symptoms:
+        return jsonify({"error": "No symptoms provided"}), 400
+    
+    transformed = disease_vectorizer.transform([symptoms])
+    prediction = disease_model.predict(transformed)[0]
+    
+    if prediction in disease_info:
+        info = disease_info[prediction]
+        return jsonify({
+            "disease": prediction,
+            "description": info['description'],
+            "causes": info['common_causes'],
+            "home_care": info['home_care'],
+            "vet_advice": info['vet_visit']
+        })
+    else:
+        return jsonify({
+            "disease": prediction,
+            "message": "Please consult with a veterinarian for proper diagnosis and treatment."
+        })
+
+@app.route("/health", methods=["GET"])
+def health_check():
+    """Simple health check endpoint"""
+    return jsonify({"status": "ok"})
 
 if __name__ == "__main__":
     print("Pet Disease Prediction API running on http://localhost:5000")
