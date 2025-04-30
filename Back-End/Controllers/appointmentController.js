@@ -1,6 +1,7 @@
 const Appointment = require('../Models/Appointment');
 const { validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
+const emailService = require('../services/emailService');
 
 
 // Configure nodemailer
@@ -439,5 +440,97 @@ const sendConfirmationEmail = async (appointment) => {
   } catch (error) {
     console.error('Error sending confirmation email:', error);
     // Don't throw error here to prevent appointment creation failure
+  }
+};
+
+// Get all appointments
+exports.getAllAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find().sort({ date: 1, time: 1 });
+    res.status(200).json(appointments);
+  } catch (error) {
+    console.error('Error fetching appointments:', error);
+    res.status(500).json({ message: 'Error fetching appointments', error: error.message });
+  }
+};
+
+// Get appointment by id
+exports.getAppointmentById = async (req, res) => {
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+    res.status(200).json(appointment);
+  } catch (error) {
+    console.error('Error fetching appointment:', error);
+    res.status(500).json({ message: 'Error fetching appointment', error: error.message });
+  }
+};
+
+
+// Accept appointment
+exports.acceptAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findByIdAndUpdate(
+      req.params.id,
+      { status: 'confirmed' },
+      { new: true, runValidators: true }
+    );
+    
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+    
+    // Send acceptance email to client
+    await emailService.sendAppointmentAcceptance(appointment);
+    
+    res.status(200).json({ message: 'Appointment accepted successfully', appointment });
+  } catch (error) {
+    console.error('Error accepting appointment:', error);
+    res.status(500).json({ message: 'Error accepting appointment', error: error.message });
+  }
+};
+
+// Reject appointment
+exports.rejectAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findByIdAndUpdate(
+      req.params.id,
+      { status: 'cancelled' },
+      { new: true, runValidators: true }
+    );
+    
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+    
+    // Send rejection email to client
+    await emailService.sendAppointmentRejection(appointment);
+    
+    res.status(200).json({ message: 'Appointment rejected successfully', appointment });
+  } catch (error) {
+    console.error('Error rejecting appointment:', error);
+    res.status(500).json({ message: 'Error rejecting appointment', error: error.message });
+  }
+};
+
+// Complete appointment
+exports.completeAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findByIdAndUpdate(
+      req.params.id,
+      { status: 'completed' },
+      { new: true, runValidators: true }
+    );
+    
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+    
+    res.status(200).json({ message: 'Appointment completed successfully', appointment });
+  } catch (error) {
+    console.error('Error completing appointment:', error);
+    res.status(500).json({ message: 'Error completing appointment', error: error.message });
   }
 };

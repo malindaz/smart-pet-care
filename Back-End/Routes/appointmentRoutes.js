@@ -3,13 +3,15 @@ const router = express.Router();
 const { 
   createAppointment, 
   getUserAppointments, 
-  getAvailableTimes, 
+  getAvailableTimes,
+  getAllAppointments,
+  getAppointmentById,
   updateAppointmentStatus,
   deleteAppointment,
-  getAllAppointments,
   acceptAppointment,
   rejectAppointment,
-  updateAppointment
+  updateAppointment,
+  completeAppointment
 } = require('../Controllers/appointmentController');
 const Appointment = require('../Models/Appointment');
 const { protect } = require('../Middleware/authMiddleware');
@@ -62,14 +64,28 @@ router.patch('/:id',  async (req, res) => {
   }
 });
 
+// Get all appointments
+router.get('/all', getAllAppointments);
+
+// Get appointment by ID
+router.get('/:id', getAppointmentById);
+
+
 // Update the status of appointment
 router.patch('/:id/status', updateAppointmentStatus);
 
 router.patch('/:id', updateAppointment);
-// Admin routes
-router.get('/',  getAllAppointments);
-router.patch('/:id/accept',  acceptAppointment);
-router.patch('/:id/reject',  rejectAppointment);
+
+
 router.delete('/:id',  deleteAppointment);
+
+// Accept appointment
+router.put('/:id/accept', acceptAppointment);
+
+// Reject appointment
+router.put('/:id/reject', rejectAppointment);
+
+// Complete appointment
+router.put('/:id/complete', completeAppointment);
 
 module.exports = router;
