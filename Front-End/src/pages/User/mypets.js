@@ -111,8 +111,12 @@ const MyPets = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://localhost:5000/api/petrecords/allmedi");
-      setMedicalRecords(response.data);
+      const response = await axios.get("http://localhost:5000/api/addrecords");
+      if (response.data.success && response.data.data.length > 0) {
+        setMedicalRecords(response.data.data); // Set medical records from response data
+      } else {
+        setMedicalRecords([]); // If no records available, set an empty array
+      }
     } catch (error) {
       console.error("Error fetching medical records:", error);
       setError("Failed to load medical records. Please try again later.");
@@ -120,6 +124,8 @@ const MyPets = () => {
       setLoading(false);
     }
   };
+  
+  
       
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -310,38 +316,35 @@ const MyPets = () => {
                   📄 Download PDF
                 </button>
               </div>
-              <div className="malinda-medical-records-grid">
-                {medicalRecords.length > 0 ? (
-                  <table className="malinda-medical-table">
-                    <thead>
-                      <tr>
-                        <th>Pet Name</th>
-                        <th>Date</th>
-                        <th>Procedure</th>
-                        <th>Notes</th>
-                        <th>Veterinarian</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {medicalRecords.map((record, index) => (
-                        <tr key={index}>
-                          <td>{record.petName}</td>
-                          <td>{new Date(record.date).toLocaleDateString()}</td>
-                          <td>{record.procedure}</td>
-                          <td>{record.notes}</td>
-                          <td>{record.veterinarian}</td>
-                          <td>
-                            <Link to={`/edit-record/${record._id}`} className="malinda-edit-btn-small">Edit</Link>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                ) : (
-                  <p className="malinda-no-records">No medical records available.</p>
-                )}
-              </div>
+              {medicalRecords.length > 0 ? (
+  <table className="malinda-medical-table">
+    <thead>
+      <tr>
+        <th>Pet ID</th>
+        <th>Age</th>
+        <th>Weight</th>
+        <th>Vaccination Status</th>
+        <th>Symptoms</th>
+        <th>Last Checkup</th>
+      </tr>
+    </thead>
+    <tbody>
+      {medicalRecords.map((record, index) => (
+        <tr key={index}>
+          <td>{record.petId}</td>
+          <td>{record.age}</td>
+          <td>{record.weight}</td>
+          <td>{record.vaccinationStatus}</td>
+          <td>{record.symptoms}</td>
+          <td>{new Date(record.lastCheckup).toLocaleDateString()}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+) : (
+  <p className="malinda-no-records">No medical records available.</p>
+)}
+
             </div>
           ) : selectedPet === "all" ? (
             <div className="malinda-all-pets-profile">
