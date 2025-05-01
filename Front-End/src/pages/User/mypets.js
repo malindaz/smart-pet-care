@@ -218,21 +218,24 @@ const MyPets = () => {
   const handleDownloadMedicalPDF = () => {
     const doc = new jsPDF();
     
+    // Add title to the PDF
     doc.setFontSize(20);
     doc.setFont('helvetica', 'bold');
     doc.text('Pet Medical Records', 105, 20, { align: 'center' });
-
+  
+    // Define table headers and map them to the appropriate fields
     autoTable(doc, {
       startY: 30,
-      head: [['Pet Name', 'Date', 'Procedure', 'Notes', 'Veterinarian']],
+      head: [['Pet ID', 'Age', 'Weight', 'Vaccination Status', 'Symptoms', 'Last Checkup']],
       body: medicalRecords.map(record => [
-        record.petName,
-        new Date(record.date).toLocaleDateString(),
-        record.procedure,
-        record.notes,
-        record.veterinarian
+        record.petId || 'N/A',  // Pet ID
+        record.age || 'N/A',  // Age
+        record.weight || 'N/A',  // Weight
+        record.vaccinationStatus || 'N/A',  // Vaccination Status
+        record.symptoms || 'N/A',  // Symptoms
+        new Date(record.lastCheckup).toLocaleDateString() || 'Invalid Date',  // Last Checkup
       ]),
-      theme: 'grid',
+      theme: 'grid',  // Apply grid style
       margin: { horizontal: 10 },
       styles: {
         fontSize: 10,
@@ -244,9 +247,12 @@ const MyPets = () => {
         fontSize: 12
       }
     });
-
+  
+    // Save the generated PDF
     doc.save(`medical-records-${new Date().toISOString().split('T')[0]}.pdf`);
   };
+  
+
 
   return (
     <ErrorBoundary>
