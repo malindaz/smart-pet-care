@@ -10,6 +10,7 @@ import PmcyAdminNavBar from "../../components/pharmacy-admin-navbar";
 import Footer from '../../components/Footer';
 import "../../css/Pharmacy/pharmacistDashboard.css";
 
+
 const AdminDashboard = () => {
     // Sample data for quick stats
     const stats = [
