@@ -1,29 +1,26 @@
-/* PharmacyEdit.css - Premium UI/UX with advanced turquoise theme */
-
 :root {
-  --primary: #00b5b8;
-  --primary-dark: #008486;
-  --primary-light: #e6f9f9;
-  --primary-lighter: #f0fcfc;
-  --secondary: #2c3e50;
-  --accent: #20beb5;
-  --danger: #e74c3c;
-  --success: #27ae60;
-  --gray-light: #ecf0f1;
-  --gray: #95a5a6;
-  --white: #ffffff;
-  --shadow-sm: 0 2px 4px rgba(0, 181, 184, 0.1);
-  --shadow-md: 0 4px 12px rgba(0, 181, 184, 0.15);
-  --shadow-lg: 0 10px 25px rgba(0, 181, 184, 0.2);
-  --border-radius-sm: 6px;
-  --border-radius-md: 10px;
-  --border-radius-lg: 16px;
-  --transition: all 0.25s ease;
+  --PEprimary: #00b5b8;
+  --PEprimary-dark: #008486;
+  --PEprimary-light: #e6f9f9;
+  --PEprimary-lighter: #f0fcfc;
+  --PEsecondary: #2c3e50;
+  --PEaccent: #20beb5;
+  --PEdanger: #e74c3c;
+  --PEsuccess: #27ae60;
+  --PEgray: #95a5a6;
+  --PEwhite: #ffffff;
+  --PEshadow-sm: 0 2px 4px rgba(0, 181, 184, 0.1);
+  --PEshadow-md: 0 4px 12px rgba(0, 181, 184, 0.15);
+  --PEshadow-lg: 0 10px 25px rgba(0, 181, 184, 0.2);
+  --PEborder-radius-sm: 6px;
+  --PEborder-radius-md: 10px;
+  --PEborder-radius-lg: 16px;
+  --PEtransition: all 0.25s ease;
 }
 
 /* Global & Page Setup */
 .pharmacy-edit-page-wrapper {
-  background: linear-gradient(135deg, var(--primary-lighter) 0%, #f8fcff 100%);
+  background: linear-gradient(135deg, var(--PEprimary-lighter) 0%, #f8fcff 100%);
   min-height: 100vh;
   padding: 60px 24px;
 }
@@ -38,7 +35,7 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 40px;
-  color: var(--primary-dark);
+  color: var(--PEprimary-dark);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   position: relative;
   padding-bottom: 15px;
@@ -52,16 +49,16 @@
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: linear-gradient(to right, var(--primary), var(--accent));
+  background: linear-gradient(to right, var(--PEprimary), var(--PEaccent));
   border-radius: 2px;
 }
 
 /* Card Styling */
 .pharmacy-edit-form-card {
   border: none;
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-lg);
-  background-color: var(--white);
+  border-radius: var(--PEborder-radius-lg);
+  box-shadow: var(--PEshadow-lg);
+  background-color: var(--PEwhite);
   overflow: hidden;
   margin-bottom: 50px;
   position: relative;
@@ -74,7 +71,7 @@
   left: 0;
   right: 0;
   height: 6px;
-  background: linear-gradient(to right, var(--primary), var(--accent));
+  background: linear-gradient(to right, var(--PEprimary), var(--PEaccent));
 }
 
 .pharmacy-edit-form-card .card-body {
@@ -82,7 +79,7 @@
 }
 
 /* Form Layout */
-form {
+.pharmacy-edit-form-card form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 30px;
@@ -103,9 +100,9 @@ form {
   display: block;
   margin-bottom: 10px;
   font-weight: 600;
-  color: var(--secondary);
+  color: var(--PEsecondary);
   font-size: 1rem;
-  transition: var(--transition);
+  transition: var(--PEtransition);
 }
 
 .pharmacy-edit-form-group label::after {
@@ -114,7 +111,7 @@ form {
   width: 8px;
   height: 8px;
   margin-left: 5px;
-  background-color: var(--primary);
+  background-color: var(--PEprimary);
   border-radius: 50%;
   opacity: 0.7;
 }
@@ -131,12 +128,12 @@ form {
   width: 100%;
   padding: 10px 16px 10px 20px;
   font-size: 1.05rem;
-  border-radius: var(--border-radius-md);
-  border: 2px solid var(--primary-light);
-  background-color: var(--white);
-  color: var(--secondary);
-  transition: var(--transition);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--PEborder-radius-md);
+  border: 2px solid var(--PEprimary-light);
+  background-color: var(--PEwhite);
+  color: var(--PEsecondary);
+  transition: var(--PEtransition);
+  box-shadow: var(--PEshadow-sm);
 }
 
 .pharmacy-edit-form-group .form-control {
@@ -152,13 +149,13 @@ form {
 
 .pharmacy-edit-form-group .form-control:hover,
 .pharmacy-edit-form-group .form-select:hover {
-  border-color: var(--primary);
-  box-shadow: var(--shadow-md);
+  border-color: var(--PEprimary);
+  box-shadow: var(--PEshadow-md);
 }
 
 .pharmacy-edit-form-group .form-control:focus,
 .pharmacy-edit-form-group .form-select:focus {
-  border-color: var(--primary);
+  border-color: var(--PEprimary);
   box-shadow: 0 0 0 4px rgba(0, 181, 184, 0.2);
   outline: none;
 }
@@ -171,7 +168,7 @@ form {
 }
 
 .pharmacy-edit-form-group .form-control::placeholder {
-  color: var(--gray);
+  color: var(--PEgray);
   opacity: 0.7;
 }
 
@@ -189,7 +186,7 @@ form {
 .pharmacy-edit-form-group input[type="file"] {
   padding: 14px;
   height: auto;
-  background-color: var(--primary-lighter);
+  background-color: var(--PEprimary-lighter);
 }
 
 .pharmacy-edit-form-group input[type="file"]::file-selector-button {
@@ -198,16 +195,16 @@ form {
   border: none;
   font-weight: 600;
   font-size: 0.95rem;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--PEborder-radius-sm);
   padding: 10px 18px;
   margin-right: 20px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--PEtransition);
 }
 
 /* Validation & Error States */
 .pharmacy-edit-form-group .is-invalid {
-  border-color: var(--danger);
+  border-color: var(--PEdanger);
   background-image: none;
 }
 
@@ -216,7 +213,7 @@ form {
 }
 
 .pharmacy-edit-form-group .invalid-feedback {
-  color: var(--danger);
+  color: var(--PEdanger);
   font-size: 0.875rem;
   display: block;
   font-weight: 500;
@@ -230,9 +227,9 @@ form {
 .pharmacy-edit-image-preview {
   margin: 20px 0;
   padding: 15px;
-  border-radius: var(--border-radius-md);
-  background-color: var(--primary-lighter);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--PEborder-radius-md);
+  background-color: var(--PEprimary-lighter);
+  box-shadow: var(--PEshadow-sm);
   display: flex;
   justify-content: center;
   position: relative;
@@ -242,10 +239,10 @@ form {
 .pharmacy-edit-preview-img {
   max-width: 100%;
   max-height: 300px;
-  border-radius: var(--border-radius-sm);
-  box-shadow: var(--shadow-md);
+  border-radius: var(--PEborder-radius-sm);
+  box-shadow: var(--PEshadow-md);
   object-fit: contain;
-  transition: var(--transition);
+  transition: var(--PEtransition);
 }
 
 .pharmacy-edit-preview-img:hover {
@@ -254,7 +251,7 @@ form {
 
 /* Helper Text */
 .text-muted {
-  color: var(--gray) !important;
+  color: var(--PEgray) !important;
   font-size: 0.85rem;
   display: block;
   margin-top: 35px !important;
@@ -316,7 +313,7 @@ form {
   margin-right: 10px;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  border-top-color: var(--white);
+  border-top-color: var(--PEwhite);
   animation: spin 1s ease-in-out infinite;
 }
 
@@ -327,20 +324,20 @@ form {
 /* Alert Styling */
 .pharmacy-edit-alert {
   border: none;
-  border-radius: var(--border-radius-md);
+  border-radius: var(--PEborder-radius-md);
   margin-bottom: 30px;
   padding: 18px 24px;
   font-weight: 500;
   font-size: 1.05rem;
   display: flex;
   align-items: center;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--PEshadow-md);
 }
 
 .pharmacy-edit-alert.alert-success {
   background-color: #e3fcef;
   color: #0c6b3e;
-  border-left: 4px solid var(--success);
+  border-left: 4px solid var(--PEsuccess);
 }
 
 .pharmacy-edit-alert.alert-success::before {
@@ -348,7 +345,7 @@ form {
   display: inline-block;
   width: 24px;
   height: 24px;
-  background-color: var(--success);
+  background-color: var(--PEsuccess);
   color: white;
   border-radius: 50%;
   margin-right: 15px;
@@ -361,7 +358,7 @@ form {
 .pharmacy-edit-alert.alert-danger {
   background-color: #fdedeb;
   color: #922b21;
-  border-left: 4px solid var(--danger);
+  border-left: 4px solid var(--PEdanger);
 }
 
 .pharmacy-edit-alert.alert-danger::before {
@@ -369,7 +366,7 @@ form {
   display: inline-block;
   width: 24px;
   height: 24px;
-  background-color: var(--danger);
+  background-color: var(--PEdanger);
   color: white;
   border-radius: 50%;
   margin-right: 15px;
@@ -458,7 +455,7 @@ form {
 
 /* Hover States & Micro-interactions */
 .pharmacy-edit-form-group label:hover {
-  color: var(--primary);
+  color: var(--PEprimary);
 }
 
 .pharmacy-edit-form-group:hover label::after {
@@ -466,7 +463,7 @@ form {
 }
 
 .pharmacy-edit-form-group:focus-within label {
-  color: var(--primary);
+  color: var(--PEprimary);
 }
 
 /* Fancy Placeholder Animation */

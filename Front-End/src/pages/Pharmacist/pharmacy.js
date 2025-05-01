@@ -27,6 +27,10 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
+  // Scroll to top when this component loads
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleAddToCart = (product) => {
     addToCart(product);
@@ -41,7 +45,7 @@ const ProductList = () => {
       progress: undefined,
     });
   };
-  
+
   // Function to fetch pharmacy product data from the backend
   const fetchProducts = async () => {
     try {
