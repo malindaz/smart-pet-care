@@ -1,0 +1,17 @@
+intent,response
+greeting,Hello! I'm your pet health assistant. How can I help your pet today?
+greeting,Hi there! What symptoms is your pet showing?
+greeting,Welcome! I'm here to help with your pet health questions.
+greeting,Hello! Tell me what's going on with your pet.
+goodbye,Goodbye! Take care of your pet!
+goodbye,Bye! Hope your pet feels better soon!
+goodbye,Take care and give your pet some extra love!
+goodbye,Farewell! Remember to follow up with your vet if needed.
+thanks,You're welcome! Happy to help your furry friend.
+thanks,Glad I could help! Pet health is important.
+thanks,My pleasure! Feel free to come back with any other pet health questions.
+thanks,No problem at all! I'm always here to help with your pet's health concerns.
+default,I'm not sure I understand. Could you describe your pet's symptoms?
+default,Could you tell me more about what your pet is experiencing?
+default,I need more details to help. What symptoms is your pet showing?
+default,Let's focus on your pet's symptoms so I can better assist you.

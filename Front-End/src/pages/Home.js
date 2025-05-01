@@ -1,7 +1,6 @@
 import React from 'react';
 import { Calendar, HeartPulse, Pill, ShieldCheck, MessageCircle, ArrowRight, Search } from 'lucide-react';
 import '../css/Homepage.css';
-import ChatbotIcon from '../components/Chatbot';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import heroPetImage from '../assets/images/hero-pet.jpg';
@@ -9,6 +8,7 @@ import aiAssistantImage from '../assets/images/ai-assistant.jpg';
 import testimonial1Image from '../assets/images/testimonial-1.jpg';
 import testimonial2Image from '../assets/images/testimonial-2.jpg';
 import testimonial3Image from '../assets/images/testimonial-3.jpg';
+import Chatbot from '../components/Chatbot/Chatbot';
 
 
 const Home = () => {
@@ -136,7 +136,8 @@ const Home = () => {
           <button className="homepage-primary-btn">Create Free Account <ArrowRight size={16} /></button>
         </div>
       </section>
-      <ChatbotIcon />
+      <Chatbot/>
+      
       <Footer />
     </div>
   );
