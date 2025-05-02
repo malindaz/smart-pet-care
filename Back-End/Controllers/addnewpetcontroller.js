@@ -24,7 +24,7 @@ exports.addPet = async (req, res) => {
       microchipID: req.body.microchipID || "",
       lastCheckup: req.body.lastCheckup,
       ownerName: req.body.ownerName,
-      photo: req.file.path.replace(/\\/g, '/'), // Ensure correct path format
+      photo: req.file.path.replace(/\\/g, '/'), 
     };
 
     const newPet = new Pet(petData);
@@ -101,7 +101,7 @@ exports.deletePet = async (req, res) => {
       return res.status(404).json({ message: "Pet not found" });
     }
 
-    // Delete associated pet image if exists
+    
     if (pet.photo) {
       const filePath = path.join(process.cwd(), pet.photo);
       if (fs.existsSync(filePath)) {

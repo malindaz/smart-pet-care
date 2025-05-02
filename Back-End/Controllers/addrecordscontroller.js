@@ -84,7 +84,7 @@ exports.createRecord = async (req, res) => {
 
     const record = await addrecords.create(req.body);
 
-    console.log("Created Record:", record); // Debugging line
+    console.log("Created Record:", record); 
 
     res.status(201).json({
       success: true,
@@ -228,7 +228,7 @@ exports.createRecord = async (req, res) => {
 
     const record = await addrecords.create(req.body);
 
-    console.log("Created Record:", record); // Debugging line
+    console.log("Created Record:", record); 
 
     res.status(201).json({
       success: true,

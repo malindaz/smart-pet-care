@@ -520,7 +520,7 @@
   color: #39558a;
 }
 
-/* Modal styles */
+
 .malinda-modal-overlay {
   position: fixed;
   top: 0;
@@ -689,4 +689,83 @@
   .malinda-modal-buttons {
     flex-direction: column;
   }
+
+
+
+.malinda-success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #c3e6cb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.malinda-table-delete-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.malinda-table-delete-btn:hover {
+  background-color: #ff0000;
+}
+
+
+.malinda-record-delete-btn {
+  background-color: transparent;
+  color: #ff4d4d;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: auto;
+  padding: 5px;
+  transition: color 0.3s;
+}
+
+.malinda-record-delete-btn:hover {
+  color: #ff0000;
+}
+
+
+.malinda-medical-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+}
+
+.malinda-medical-details {
+  flex-grow: 1;
+}
+
+.malinda-modal p {
+  margin-bottom: 20px;
+}
+
+.malinda-medical-table th:last-child,
+.malinda-medical-table td:last-child {
+  text-align: center;
+  width: 80px;
+}
+
+.malinda-dismiss-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 5px;
+}
 }
