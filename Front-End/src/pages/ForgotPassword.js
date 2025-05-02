@@ -13,21 +13,18 @@ const ForgotPassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Check if the email exists in the database before sending the email
             const response = await axios.post('http://localhost:5000/api/users/check-email', { email });
             if (response.data.exists) {
-                await sendPasswordResetEmail(auth, email, {
-                    url: 'http://localhost:3000/reset-password',
-                    handleCodeInApp: true,
-                });
+                await sendPasswordResetEmail(auth, email);
                 toast.success('Password reset link sent to your email!');
-                window.localStorage.setItem('emailForSignIn', email);
-                navigate('/verify-otp');
+                localStorage.setItem('emailForSignIn', email);
+                navigate('/login');
             } else {
                 toast.error('Email does not exist');
             }
         } catch (error) {
-            toast.error('Failed to send password reset link');
+            console.error('Reset error:', error);
+            toast.error(error.message || 'Failed to send password reset link');
         }
     };
 

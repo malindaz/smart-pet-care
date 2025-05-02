@@ -317,8 +317,54 @@ const logout = async (req, res) => {
         message: 'An error occurred during logout'
       });
     }
-  };
+};
 
+const checkEmail = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+        res.json({ exists: !!user });
+    } catch (error) {
+        console.error('Email check error:', error);
+        res.status(500).json({ success: false, message: 'Server error checking email' });
+    }
+};
+
+const updatePassword = async (req, res) => {
+    try {
+        const { email, newPassword } = req.body;
+        
+        if (!email || !newPassword) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Email and new password are required' 
+            });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ 
+                success: false, 
+                message: 'User not found' 
+            });
+        }
+
+        // Password will be automatically hashed due to the pre-save middleware
+        user.password = newPassword;
+        await user.save();
+
+        res.json({ 
+            success: true, 
+            message: 'Password updated successfully' 
+        });
+    } catch (error) {
+        console.error('Password update error:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Server error updating password' 
+        });
+    }
+};
 
 module.exports = {
     registerUser,
@@ -326,7 +372,9 @@ module.exports = {
     getUserProfile,
     updateUserProfile,
     deleteUser,
-    logout
+    logout,
+    checkEmail,
+    updatePassword,
 };
 
 
