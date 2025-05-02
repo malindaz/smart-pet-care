@@ -90,7 +90,10 @@ const MyPets = () => {
   const [viewMode, setViewMode] = useState("pets"); // "pets" or "medical"
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [petToDelete, setPetToDelete] = useState(null);
+  const [recordToDelete, setRecordToDelete] = useState(null);
+  const [deleteType, setDeleteType] = useState(""); // "pet" or "record"
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const fetchPets = async () => {
     setLoading(true);
@@ -124,31 +127,53 @@ const MyPets = () => {
       setLoading(false);
     }
   };
-  
-  
       
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchPets();
   }, []);
 
+  // Show success message temporarily
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
+
   const initiateDeletePet = (petId) => {
     setPetToDelete(petId);
+    setDeleteType("pet");
+    setShowConfirmModal(true);
+  };
+
+  const initiateDeleteRecord = (recordId) => {
+    setRecordToDelete(recordId);
+    setDeleteType("record");
     setShowConfirmModal(true);
   };
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/pets/${petToDelete}`);
-      // Show success notification or toast here
-      fetchPets();
-      setSelectedPet(null);
+      if (deleteType === "pet") {
+        await axios.delete(`http://localhost:5000/api/pets/${petToDelete}`);
+        fetchPets();
+        setSelectedPet(null);
+        setSuccessMessage("Pet deleted successfully");
+      } else if (deleteType === "record") {
+        await axios.delete(`http://localhost:5000/api/addrecords/${recordToDelete}`);
+        fetchMedicalRecords();
+        setSuccessMessage("Medical record deleted successfully");
+      }
     } catch (error) {
-      console.error("Error deleting pet:", error);
-      setError("Failed to delete pet. Please try again later.");
+      console.error(`Error deleting ${deleteType}:`, error);
+      setError(`Failed to delete ${deleteType}. Please try again later.`);
     } finally {
       setShowConfirmModal(false);
       setPetToDelete(null);
+      setRecordToDelete(null);
     }
   };
 
@@ -251,8 +276,6 @@ const MyPets = () => {
     // Save the generated PDF
     doc.save(`medical-records-${new Date().toISOString().split('T')[0]}.pdf`);
   };
-  
-
 
   return (
     <ErrorBoundary>
@@ -267,6 +290,15 @@ const MyPets = () => {
           <div className="malinda-error-message">
             {error}
             <button onClick={() => setError(null)} className="malinda-dismiss-btn">
+              Dismiss
+            </button>
+          </div>
+        )}
+
+        {successMessage && (
+          <div className="malinda-success-message">
+            {successMessage}
+            <button onClick={() => setSuccessMessage(null)} className="malinda-dismiss-btn">
               Dismiss
             </button>
           </div>
@@ -323,34 +355,43 @@ const MyPets = () => {
                 </button>
               </div>
               {medicalRecords.length > 0 ? (
-  <table className="malinda-medical-table">
-    <thead>
-      <tr>
-        <th>Pet ID</th>
-        <th>Age</th>
-        <th>Weight</th>
-        <th>Vaccination Status</th>
-        <th>Symptoms</th>
-        <th>Last Checkup</th>
-      </tr>
-    </thead>
-    <tbody>
-      {medicalRecords.map((record, index) => (
-        <tr key={index}>
-          <td>{record.petId}</td>
-          <td>{record.age}</td>
-          <td>{record.weight}</td>
-          <td>{record.vaccinationStatus}</td>
-          <td>{record.symptoms}</td>
-          <td>{new Date(record.lastCheckup).toLocaleDateString()}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-) : (
-  <p className="malinda-no-records">No medical records available.</p>
-)}
-
+                <table className="malinda-medical-table">
+                  <thead>
+                    <tr>
+                      <th>Pet ID</th>
+                      <th>Age</th>
+                      <th>Weight</th>
+                      <th>Vaccination Status</th>
+                      <th>Symptoms</th>
+                      <th>Last Checkup</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {medicalRecords.map((record, index) => (
+                      <tr key={index}>
+                        <td>{record.petId}</td>
+                        <td>{record.age}</td>
+                        <td>{record.weight}</td>
+                        <td>{record.vaccinationStatus}</td>
+                        <td>{record.symptoms}</td>
+                        <td>{new Date(record.lastCheckup).toLocaleDateString()}</td>
+                        <td>
+                          <button className="malinda-cancel-btn"
+                            onClick={() => initiateDeleteRecord(record._id)} 
+                            
+                            title="Delete Record"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <p className="malinda-no-records">No medical records available.</p>
+              )}
             </div>
           ) : selectedPet === "all" ? (
             <div className="malinda-all-pets-profile">
@@ -408,6 +449,13 @@ const MyPets = () => {
                           <strong>{record.procedure}</strong>
                           <p>{record.notes}</p>
                         </div>
+                        <button 
+                          onClick={() => initiateDeleteRecord(record._id)} 
+                          className="malinda-record-delete-btn"
+                          title="Delete Record"
+                        >
+                          🗑️
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -444,7 +492,7 @@ const MyPets = () => {
           <div className="malinda-modal-overlay">
             <div className="malinda-modal">
               <h3>Confirm Deletion</h3>
-              <p>Are you sure you want to delete this pet? This action cannot be undone.</p>
+              <p>Are you sure you want to delete this {deleteType}? This action cannot be undone.</p>
               <div className="malinda-modal-buttons">
                 <button 
                   onClick={() => setShowConfirmModal(false)} 
