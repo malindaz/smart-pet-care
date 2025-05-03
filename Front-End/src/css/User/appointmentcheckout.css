@@ -1,0 +1,267 @@
+/* Main Container */
+.appointment-checkout-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #fff;
+  }
+  
+  /* Header Styles */
+  .appointment-checkout-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .appointment-checkout-header h1 {
+    color: #00a0a0;
+    margin-bottom: 10px;
+    font-size: 32px;
+  }
+  
+  .appointment-checkout-header p {
+    color: #666;
+    font-size: 16px;
+  }
+  
+  /* Main Content Layout */
+  .appointment-checkout-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  
+  .appointment-checkout-summary {
+    flex: 1;
+    min-width: 300px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .appointment-checkout-payment {
+    flex: 2;
+    min-width: 400px;
+  }
+  
+  /* Summary Styles */
+  .appointment-checkout-summary h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+  }
+  
+  .appointment-checkout-details {
+    margin-top: 20px;
+  }
+  
+  .appointment-checkout-detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #e0e0e0;
+  }
+  
+  .appointment-checkout-detail-row:last-child {
+    border-bottom: none;
+  }
+  
+  .appointment-checkout-total {
+    font-weight: bold;
+    font-size: 18px;
+    color: #00a0a0;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #eee;
+  }
+  
+  /* Form Styles */
+  .appointment-checkout-payment h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 20px;
+  }
+  
+  .appointment-checkout-form-group {
+    margin-bottom: 20px;
+  }
+  
+  .appointment-checkout-form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .appointment-checkout-form-row .appointment-checkout-form-group {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .appointment-checkout-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .appointment-checkout-form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 15px;
+    transition: border-color 0.3s;
+  }
+  
+  .appointment-checkout-form-group input:focus {
+    border-color: #00a0a0;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 160, 160, 0.1);
+  }
+  
+  .appointment-checkout-error-input {
+    border-color: #ff6565 !important;
+  }
+  
+  .appointment-checkout-error {
+    display: block;
+    color: #ff6565;
+    font-size: 13px;
+    margin-top: 5px;
+  }
+  
+  .appointment-checkout-divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 25px 0;
+  }
+  
+  /* Amount Display */
+  .appointment-checkout-amount-display {
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    padding: 15px 20px;
+    margin: 25px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .appointment-checkout-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00a0a0;
+  }
+  
+  /* Button Styles */
+  .appointment-checkout-button {
+    width: 100%;
+    background-color: #00a0a0;
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .appointment-checkout-button:hover {
+    background-color: #008a8a;
+  }
+  
+  .appointment-checkout-button:disabled {
+    background-color: #7fcaca;
+    cursor: not-allowed;
+  }
+  
+  /* Payment Error */
+  .appointment-checkout-payment-error {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #fff0f0;
+    border-left: 4px solid #ff6565;
+    color: #c03030;
+    font-size: 14px;
+  }
+  
+  /* Footer Styles */
+  .appointment-checkout-footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #777;
+    font-size: 14px;
+  }
+  
+  .appointment-checkout-secure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 5px;
+    color: #00a0a0;
+    font-weight: 500;
+  }
+  
+  .appointment-checkout-lock-icon {
+    font-size: 16px;
+  }
+  
+  /* Success Message Styles */
+  .appointment-checkout-success {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .appointment-checkout-success-icon {
+    width: 70px;
+    height: 70px;
+    background-color: #00a0a0;
+    color: white;
+    font-size: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+  }
+  
+  .appointment-checkout-success h2 {
+    color: #00a0a0;
+    margin-bottom: 15px;
+  }
+  
+  .appointment-checkout-success p {
+    margin-bottom: 10px;
+    color: #666;
+  }
+  
+  .appointment-checkout-success .appointment-checkout-button {
+    max-width: 300px;
+    margin: 25px auto 0;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .appointment-checkout-main {
+      flex-direction: column;
+    }
+    
+    .appointment-checkout-summary,
+    .appointment-checkout-payment {
+      width: 100%;
+    }
+  }
