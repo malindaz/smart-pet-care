@@ -74,18 +74,18 @@ const Checkout = () => {
       case 'fullName':
         if (!value.trim()) {
           errorMessage = 'Full name is required';
-        } else if (!/^[a-zA-Z\s]+$/.test(value)) {
-          errorMessage = 'Name should only contain letters';
-        } else if (value.trim().length <= 5) {
-          errorMessage = 'Name should be more than 5 letters';
+        } else if (!/^[a-zA-Z\s'-]+$/.test(value)) {
+          errorMessage = 'Name should only contain letters only';
+        } else if (value.trim().length < 2 || value.trim().length > 50) {
+          errorMessage = 'Name should be between 2 and 50 characters';
         }
         break;
 
       case 'address':
         if (!value.trim()) {
           errorMessage = 'Address is required';
-        } else if (value.length < 5) {
-          errorMessage = 'Please enter a valid address';
+        } else if (value.length < 3 || value.length > 150) {
+          errorMessage = 'Address should be between 3 and 150 characters';
         } else if (!/^[a-zA-Z0-9\s/,.-]+$/.test(value)) {
           errorMessage = 'Please enter a valid address';
         }
@@ -118,9 +118,11 @@ const Checkout = () => {
       case 'phone':
         if (!value.trim()) {
           errorMessage = 'Phone number is required';
+        } else if (!/^\d+$/.test(value)) {
+          errorMessage = 'Phone number must contain only digits';
         } else if (!/^0/.test(value)) {
           errorMessage = 'Phone number must start with 0';
-        } else if (!/^\d{10}$/.test(value.replace(/\D/g, ''))) {
+        } else if (value.length !== 10) {
           errorMessage = 'Phone number must be exactly 10 digits long';
         }
         break;
@@ -128,8 +130,10 @@ const Checkout = () => {
       case 'cardholderName':
         if (!value.trim()) {
           errorMessage = 'Cardholder name is required';
-        } else if (!/^[a-zA-Z\s]+$/.test(value)) {
-          errorMessage = 'Name should only contain letters';
+        } else if (!/^[a-zA-Z\s'-]+$/.test(value)) {
+          errorMessage = 'Name should only contain letters only';
+        } else if (value.trim().length < 2 || value.trim().length > 50) {
+          errorMessage = 'Name should be between 2 and 50 characters';
         }
         break;
 
@@ -144,6 +148,8 @@ const Checkout = () => {
       case 'expiryMonth':
         if (!value.trim()) {
           errorMessage = 'Month is required';
+        } else if (/[^\d]/.test(value)) {
+          errorMessage = 'Month cannot contain symbols or letters';
         } else {
           const month = parseInt(value, 10);
           if (isNaN(month) || month < 1 || month > 12) {
@@ -155,6 +161,8 @@ const Checkout = () => {
       case 'expiryYear':
         if (!value.trim()) {
           errorMessage = 'Year is required';
+        } else if (/[^\d]/.test(value)) {
+          errorMessage = 'Month cannot contain symbols or letters';
         } else {
           const year = parseInt(value, 10);
           const currentYear = new Date().getFullYear();
@@ -179,6 +187,8 @@ const Checkout = () => {
       case 'cvv':
         if (!value.trim()) {
           errorMessage = 'CVV is required';
+        } else if (/[^\d]/.test(value)) {
+          errorMessage = 'Month cannot contain symbols or letters';
         } else if (!/^\d{3}$/.test(value)) {
           errorMessage = 'Enter a valid 3-digit CVV';
         }
@@ -360,7 +370,7 @@ const Checkout = () => {
         <h1 className="checkout-title">Checkout</h1>
         <Container className="checkout-container">
           <Form onSubmit={handleSubmit} noValidate>
-            
+
             <Row className="checkout-content">
               {/* Left side - Shipping Details */}
               <Col md={6} className="checkout-shipping">

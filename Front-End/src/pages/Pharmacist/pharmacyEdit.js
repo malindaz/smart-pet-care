@@ -76,10 +76,8 @@ const PharmacyEdit = () => {
       case 'name':
         if (!value.trim()) {
           errorMessage = 'Product name is required';
-        } else if (value.trim().length < 3) {
-          errorMessage = 'Product name must be at least 3 characters';
-        } else if (value.trim().length > 100) {
-          errorMessage = 'Product name cannot exceed 100 characters';
+        } else if (value.length < 5 || value.length > 30) {
+          errorMessage = 'Product name should be between 5 and 30 characters';
         } else if (!/^[a-zA-Z0-9\s\-&(),.+]+$/.test(value)) {
           errorMessage = 'Product name contains invalid characters';
         }
@@ -101,9 +99,9 @@ const PharmacyEdit = () => {
         if (!value.trim()) {
           errorMessage = 'Product description is required';
         } else if (value.trim().length < 10) {
-          errorMessage = 'Description must be at least 10 characters';
+          errorMessage = 'Description must be 10 to 100 characters';
         } else if (value.trim().length > 100) {
-          errorMessage = 'Description cannot exceed 100 characters';
+          errorMessage = 'Description must be 10 to 100 characters';
         }
         break;
 
@@ -266,7 +264,7 @@ const PharmacyEdit = () => {
       });
 
       if (response.ok) {
-        // ✅ Show success toast notification
+        //Show success toast notification
         toast.success(editMode ? "Product updated successfully!" : "New product added successfully!", {
           className: "pharmacy-edit-toast",
           position: "top-right",

@@ -1,5 +1,18 @@
 const Appointment = require('../Models/Appointment');
 const { validationResult } = require('express-validator');
+const nodemailer = require('nodemailer');
+const emailService = require('../services/emailService');
+
+
+// Configure nodemailer
+const transporter = nodemailer.createTransport({
+  service: 'gmail', // or another service like 'outlook', 'hotmail', etc.
+  auth: {
+    user: process.env.EMAIL_USER, // Use environment variables for security
+    pass: process.env.EMAIL_PASS
+  }
+});
+
 
 // Generate available times between 9 AM and 5 PM in 30-minute slots
 const generateTimeSlots = () => {
@@ -107,88 +120,98 @@ exports.createAppointment = async (req, res) => {
       notes
     } = req.body;
 
-  
-      console.log("Received data:", req.body);
+    console.log("Received data:", req.body);
       
-      // Make sure the serviceType matches one of our enum values
-      const validServiceTypes = [
-        'Regular Checkup',
-        'Vaccination',
-        'Grooming',
-        'Dental Care',
-        'Specialized Treatment',
-        'Emergency Care'
-      ];
-      
-      if (!validServiceTypes.includes(serviceType)) {
-        return res.status(400).json({
-          success: false,
-          message: `Invalid service type. Must be one of: ${validServiceTypes.join(', ')}`
-        });
-      }
-      
-      // Make sure date is a valid Date object
-      let appointmentDate;
-      try {
-        appointmentDate = new Date(date);
-        if (isNaN(appointmentDate.getTime())) {
-          return res.status(400).json({
-            success: false,
-            message: 'Invalid date format'
-          });
-        }
-      } catch (error) {
+    // Make sure the serviceType matches one of our enum values
+    const validServiceTypes = [
+      'Regular Checkup',
+      'Vaccination',
+      'Grooming',
+      'Dental Care',
+      'Specialized Treatment',
+      'Emergency Care'
+    ];
+    
+    if (!validServiceTypes.includes(serviceType)) {
+      return res.status(400).json({
+        success: false,
+        message: `Invalid service type. Must be one of: ${validServiceTypes.join(', ')}`
+      });
+    }
+    
+    // Make sure date is a valid Date object
+    let appointmentDate;
+    try {
+      appointmentDate = new Date(date);
+      if (isNaN(appointmentDate.getTime())) {
         return res.status(400).json({
           success: false,
           message: 'Invalid date format'
         });
       }
-      
-      // Check if there's already an appointment at this time
-      const existingAppointment = await Appointment.findOne({
-        date: {
-          $gte: new Date(new Date(date).setHours(0, 0, 0, 0)),
-          $lt: new Date(new Date(date).setHours(23, 59, 59, 999))
-        },
-        time
-      });
-      
-      if (existingAppointment) {
-        return res.status(409).json({
-          success: false,
-          message: 'This time slot is no longer available. Please select another time.'
-        });
-      }
-      
-      // Create new appointment
-      const appointment = new Appointment({
-        petName,
-        petType,
-        ownerName,
-        email,
-        phone,
-        date: appointmentDate,
-        time,
-        serviceType,
-        notes: notes || ''  // Ensure notes is not undefined
-      });
-      
-      await appointment.save();
-      
-      // Send success response
-      res.status(201).json({
-        success: true,
-        message: 'Appointment scheduled successfully',
-        data: appointment
-      });
-      
     } catch (error) {
-      console.error('Error creating appointment:', error);
-      res.status(500).json({
+      return res.status(400).json({
         success: false,
-        message: `Server error while scheduling appointment: ${error.message}`
+        message: 'Invalid date format'
       });
     }
+    
+    // Check if there's already an appointment at this time
+    const existingAppointment = await Appointment.findOne({
+      date: {
+        $gte: new Date(new Date(date).setHours(0, 0, 0, 0)),
+        $lt: new Date(new Date(date).setHours(23, 59, 59, 999))
+      },
+      time
+    });
+    
+    if (existingAppointment) {
+      return res.status(409).json({
+        success: false,
+        message: 'This time slot is no longer available. Please select another time.'
+      });
+    }
+    
+    // Create new appointment
+    const appointment = new Appointment({
+      petName,
+      petType,
+      ownerName,
+      email,
+      phone,
+      date: appointmentDate,
+      time,
+      serviceType,
+      notes: notes || ''  // Ensure notes is not undefined
+    });
+    
+    // Save the appointment to database
+    const savedAppointment = await appointment.save();
+    
+    // Send confirmation email
+    try {
+      await emailService.sendAppointmentConfirmation(savedAppointment);
+      console.log('Confirmation email sent successfully');
+    } catch (emailError) {
+      console.error('Failed to send confirmation email:', emailError);
+      // Note: We don't want to fail the appointment creation if email fails,
+      // so we just log the error and continue
+    }
+    
+    // Send success response
+    res.status(201).json({
+      success: true,
+      message: 'Appointment scheduled successfully. A confirmation email has been sent to your inbox.',
+      data: savedAppointment
+    });
+    
+  } catch (error) {
+    console.error('Error creating appointment:', error);
+    res.status(500).json({
+      success: false,
+      message: `Server error while scheduling appointment: ${error.message}`
+    });
+  }
 };
 
 // Get user's appointments - for authenticated users
@@ -380,5 +403,144 @@ exports.updateAppointment = async (req, res) => {
       success: false,
       message: 'Server error while updating appointment'
     });
+  }
+};
+const sendConfirmationEmail = async (appointment) => {
+  try {
+    const { ownerName, email, petName, petType, serviceType, date, time } = appointment;
+    
+    const formattedDate = formatDate(date);
+    
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: `Appointment Confirmation for ${petName}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+          <h2 style="color: #4a6da7; border-bottom: 2px solid #4a6da7; padding-bottom: 10px;">Smart Pet Care Appointment Confirmation</h2>
+          
+          <p>Dear ${ownerName},</p>
+          
+          <p>Thank you for scheduling an appointment with Smart Pet Care. Your appointment details are as follows:</p>
+          
+          <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 15px 0;">
+            <p><strong>Pet Name:</strong> ${petName}</p>
+            <p><strong>Pet Type:</strong> ${petType}</p>
+            <p><strong>Service:</strong> ${serviceType}</p>
+            <p><strong>Date:</strong> ${formattedDate}</p>
+            <p><strong>Time:</strong> ${time}</p>
+          </div>
+          
+          <p>If you need to reschedule or cancel your appointment, please contact us at least 24 hours in advance.</p>
+          
+          <p>We look forward to seeing you and ${petName}!</p>
+          
+          <p style="margin-top: 25px;">Best regards,</p>
+          <p><strong>Smart Pet Care Team</strong></p>
+          
+          <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #eee; font-size: 12px; color: #777;">
+            <p>This is an automated message. Please do not reply to this email.</p>
+          </div>
+        </div>
+      `
+    };
+    
+    await transporter.sendMail(mailOptions);
+    console.log('Confirmation email sent successfully');
+  } catch (error) {
+    console.error('Error sending confirmation email:', error);
+    // Don't throw error here to prevent appointment creation failure
+  }
+};
+
+// Get all appointments
+exports.getAllAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find().sort({ date: 1, time: 1 });
+    res.status(200).json(appointments);
+  } catch (error) {
+    console.error('Error fetching appointments:', error);
+    res.status(500).json({ message: 'Error fetching appointments', error: error.message });
+  }
+};
+
+// Get appointment by id
+exports.getAppointmentById = async (req, res) => {
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+    res.status(200).json(appointment);
+  } catch (error) {
+    console.error('Error fetching appointment:', error);
+    res.status(500).json({ message: 'Error fetching appointment', error: error.message });
+  }
+};
+
+
+// Accept appointment
+exports.acceptAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findByIdAndUpdate(
+      req.params.id,
+      { status: 'confirmed' },
+      { new: true, runValidators: true }
+    );
+    
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+    
+    // Send acceptance email to client
+    await emailService.sendAppointmentAcceptance(appointment);
+    
+    res.status(200).json({ message: 'Appointment accepted successfully', appointment });
+  } catch (error) {
+    console.error('Error accepting appointment:', error);
+    res.status(500).json({ message: 'Error accepting appointment', error: error.message });
+  }
+};
+
+// Reject appointment
+exports.rejectAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findByIdAndUpdate(
+      req.params.id,
+      { status: 'cancelled' },
+      { new: true, runValidators: true }
+    );
+    
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+    
+    // Send rejection email to client
+    await emailService.sendAppointmentRejection(appointment);
+    
+    res.status(200).json({ message: 'Appointment rejected successfully', appointment });
+  } catch (error) {
+    console.error('Error rejecting appointment:', error);
+    res.status(500).json({ message: 'Error rejecting appointment', error: error.message });
+  }
+};
+
+// Complete appointment
+exports.completeAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findByIdAndUpdate(
+      req.params.id,
+      { status: 'completed' },
+      { new: true, runValidators: true }
+    );
+    
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+    
+    res.status(200).json({ message: 'Appointment completed successfully', appointment });
+  } catch (error) {
+    console.error('Error completing appointment:', error);
+    res.status(500).json({ message: 'Error completing appointment', error: error.message });
   }
 };

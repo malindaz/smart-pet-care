@@ -83,7 +83,6 @@
   border-radius: 12px;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
   padding: 20px;
-  background-color: var(--primary-lighter) !important;
 }
 
 .custom-swal-title {

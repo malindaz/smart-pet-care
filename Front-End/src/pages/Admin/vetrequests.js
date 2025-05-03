@@ -1,4 +1,3 @@
-// src/pages/admin/VetRequests.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -17,7 +16,7 @@ const VetRequests = () => {
     const fetchVetRequests = async () => {
       try {
         setLoading(true);
-        // No token needed
+        
         const response = await axios.get('http://localhost:5000/api/admin/requests');
         
         setVetRequests(response.data.data);
@@ -37,14 +36,14 @@ const VetRequests = () => {
     setProcessingId(id);
     
     try {
-      // No token needed
+      
       const response = await axios.put(
         'http://localhost:5000/api/admin/update-status',
         { id, status }
       );
       
       if (response.data.success) {
-        // Update the local state
+        
         setVetRequests(vetRequests.map(request => 
           request._id === id ? { ...request, status } : request
         ));

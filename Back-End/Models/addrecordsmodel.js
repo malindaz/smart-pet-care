@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Counter schema for auto-incrementing petId
+
 const counterSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   seq: { type: Number, default: 0 }
@@ -61,7 +61,7 @@ const petRecordSchema = new mongoose.Schema({
   }
 });
 
-// Middleware to auto generate petId before saving
+
 petRecordSchema.pre('validate', async function (next) {
   if (!this.petId) {
     try {
@@ -79,7 +79,7 @@ petRecordSchema.pre('validate', async function (next) {
   next();
 });
 
-// Middleware to update 'updatedAt' field before saving
+
 petRecordSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   next();

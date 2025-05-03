@@ -11,7 +11,7 @@ const {
 
 
 router.get('/', getAllRecords);
-
+//router.get('/allmedi', getAllRecords);
 
 router.get('/:id', getRecord);
 

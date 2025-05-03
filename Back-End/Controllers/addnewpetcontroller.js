@@ -1,4 +1,5 @@
 const Pet = require('../Models/addnewpetmodel');
+
 const fs = require('fs');
 const path = require('path');
 const express = require("express");
@@ -23,7 +24,7 @@ exports.addPet = async (req, res) => {
       microchipID: req.body.microchipID || "",
       lastCheckup: req.body.lastCheckup,
       ownerName: req.body.ownerName,
-      photo: req.file.path.replace(/\\/g, '/'), // Ensure correct path format
+      photo: req.file.path.replace(/\\/g, '/'), 
     };
 
     const newPet = new Pet(petData);
@@ -52,6 +53,15 @@ exports.getAllPets = async (req, res) => {
   }
 };
 
+
+exports.getAllmedi = async (req, res) => {
+  try {
+    const pets = await Pet.find();
+    res.status(200).json(pets);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching records', error: error.message });
+  }
+};
 // Get a pet by ID
 exports.getPetById = async (req, res) => {
   try {
@@ -91,7 +101,7 @@ exports.deletePet = async (req, res) => {
       return res.status(404).json({ message: "Pet not found" });
     }
 
-    // Delete associated pet image if exists
+    
     if (pet.photo) {
       const filePath = path.join(process.cwd(), pet.photo);
       if (fs.existsSync(filePath)) {

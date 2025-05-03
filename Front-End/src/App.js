@@ -14,6 +14,7 @@ import UpdateProfile from './pages/UpdateProfile';
 
 // Import main pages
 import Home from "./pages/Home";
+import FAQ from "./pages/FAQ";
 
 // Import user pages
 import AppointmentForm from "./pages/User/AppointmentForm";
@@ -44,7 +45,7 @@ import CheckoutPage from "./pages/Shoping Cart/checkout";
 
 import PharmacyDashboard from "./pages/Pharmacist/PharmacyDashboard";
 import PharmacyReport from "./pages/Pharmacist/PharmacyReport";
-
+import AppCheckout from "./pages/User/AppointmentCheckout"
 
 import PharmacyRegistration from "./pages/Pharmacist/PharmacyRegistration"
 
@@ -84,13 +85,14 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/FAQ" element={<FAQ />} />
           
           {/* Add Admin Routes Here */}
           <Route path="/vetrequests" element={<VetRequests />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/pharmacy-requests" element={<PharmacyRequests />} />
           <Route path="/user-management" element={<UserRoleManagement />} />
-
+          <Route path="/appointment-checkout" element={<AppCheckout />} />
           {/*Add User Routes Here*/ }
 
           <Route path="/profile" element={<Profile />} />

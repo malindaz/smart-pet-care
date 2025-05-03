@@ -285,11 +285,7 @@ const NavBar = () => {
                           <Calendar size={16} /> My Appointments
                         </Link>
                       </li>
-                      <li className="user-navbar-dropdown-item">
-                        <Link to="/my-orders" className="user-navbar-dropdown-link" onClick={() => setIsProfileDropdownOpen(false)}>
-                          <ShoppingBag size={16} /> My Orders
-                        </Link>
-                      </li>
+                     
                       <li className="user-navbar-dropdown-divider"></li>
                       <li className="user-navbar-dropdown-item">
                         <button className="user-navbar-logout-btn" onClick={handleLogout}>

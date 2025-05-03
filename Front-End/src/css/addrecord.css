@@ -1,7 +1,6 @@
-
 .malinda-add-record-container {
   max-width: 90%;
-  width: 500px;
+  width: 700px;
   margin: 20px auto;
   margin-top: 100px;
   padding: 20px;
@@ -9,6 +8,7 @@
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 .malinda-h2 {
@@ -35,6 +35,8 @@
   font-weight: bold;
   color: #555;
   font-size: 1rem;
+  display: block;
+  margin-bottom: 4px;
 }
 
 .malinda-input,
@@ -44,8 +46,15 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
+  transition: border 0.3s, box-shadow 0.3s;
 }
 
+.malinda-input:focus,
+.malinda-textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
 
 .malinda-button {
   margin-left: auto;
@@ -59,13 +68,144 @@
   cursor: pointer;
   font-size: 1rem;
   transition: background 0.3s ease-in-out;
+  position: relative;
 }
 
-.malinda-button:hover {
+.malinda-button:hover:not(:disabled) {
   background: #2980b9;
 }
 
-/* Responsive Design */
+.malinda-button:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+
+.malinda-form-group {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.malinda-input-error {
+  border-color: #e74c3c !important;
+  background-color: #fff8f8;
+}
+
+.malinda-error-text {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  text-align: left;
+  margin-left: 10px;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.malinda-success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  animation: slideDown 0.5s;
+}
+
+.malinda-checkmark {
+  background-color: #28a745;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  font-size: 0.9rem;
+}
+
+
+.malinda-error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  animation: slideDown 0.5s;
+}
+
+.malinda-error-icon {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  font-weight: bold;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Loading spinner for submit button */
+.malinda-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.malinda-form-group.malinda-error .malinda-input::before,
+.malinda-form-group.malinda-error .malinda-textarea::before {
+  content: "!";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+
+.malinda-input:valid:not(.malinda-input-error),
+.malinda-textarea:valid:not(.malinda-input-error) {
+  border-color: #16a085;
+}
+
+
+.malinda-shake {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+
 @media (max-width: 768px) {
   .malinda-add-record-container {
     width: 95%;
@@ -84,6 +224,7 @@
   .malinda-textarea {
     font-size: 0.9rem;
     padding: 8px;
+    font-family: 'Poppins', sans-serif;
   }
 
   .malinda-button {
@@ -112,5 +253,6 @@
   .malinda-textarea {
     font-size: 0.85rem;
     padding: 7px;
+    font-family: 'Poppins', sans-serif;
   }
 }
