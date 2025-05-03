@@ -76,8 +76,8 @@ const PharmacyEdit = () => {
       case 'name':
         if (!value.trim()) {
           errorMessage = 'Product name is required';
-        } else if (value.length < 5 || value.length > 30) {
-          errorMessage = 'Product name should be between 5 and 30 characters';
+        } else if (value.length < 5 || value.length > 50) {
+          errorMessage = 'Product name should be between 5 and 50 characters';
         } else if (!/^[a-zA-Z0-9\s\-&(),.+]+$/.test(value)) {
           errorMessage = 'Product name contains invalid characters';
         }
