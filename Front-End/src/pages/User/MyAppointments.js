@@ -144,7 +144,7 @@ const handleCancel = async (id) => {
   // Handle payment
   const handlePayment = (appointmentId) => {
     
-    window.location.href = `/payment?appointmentId=${appointmentId}`;
+    window.location.href = `/appointment-checkout`;
   };
 
 // Handle save updated appointment

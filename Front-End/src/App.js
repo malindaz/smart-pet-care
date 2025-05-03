@@ -45,7 +45,7 @@ import CheckoutPage from "./pages/Shoping Cart/checkout";
 
 import PharmacyDashboard from "./pages/Pharmacist/PharmacyDashboard";
 import PharmacyReport from "./pages/Pharmacist/PharmacyReport";
-
+import AppCheckout from "./pages/User/AppointmentCheckout"
 
 import PharmacyRegistration from "./pages/Pharmacist/PharmacyRegistration"
 
@@ -92,7 +92,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/pharmacy-requests" element={<PharmacyRequests />} />
           <Route path="/user-management" element={<UserRoleManagement />} />
-
+          <Route path="/appointment-checkout" element={<AppCheckout />} />
           {/*Add User Routes Here*/ }
 
           <Route path="/profile" element={<Profile />} />
