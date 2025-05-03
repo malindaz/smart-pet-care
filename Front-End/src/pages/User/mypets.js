@@ -7,7 +7,7 @@ import axios from "axios";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 
-// Loading component
+
 const LoadingSpinner = () => (
   <div className="malinda-loading-spinner">
     <div className="spinner"></div>
@@ -15,7 +15,7 @@ const LoadingSpinner = () => (
   </div>
 );
 
-// Pet Card component
+
 const PetCard = ({ pet, onDelete }) => (
   <div className="malinda-pet-card">
     <div className="malinda-pet-photo">
@@ -34,7 +34,7 @@ const PetCard = ({ pet, onDelete }) => (
   </div>
 );
 
-// Error Boundary component
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -116,9 +116,9 @@ const MyPets = () => {
     try {
       const response = await axios.get("http://localhost:5000/api/addrecords");
       if (response.data.success && response.data.data.length > 0) {
-        setMedicalRecords(response.data.data); // Set medical records from response data
+        setMedicalRecords(response.data.data); 
       } else {
-        setMedicalRecords([]); // If no records available, set an empty array
+        setMedicalRecords([]); 
       }
     } catch (error) {
       console.error("Error fetching medical records:", error);
@@ -133,7 +133,7 @@ const MyPets = () => {
     fetchPets();
   }, []);
 
-  // Show success message temporarily
+  
   useEffect(() => {
     if (successMessage) {
       const timer = setTimeout(() => {
@@ -243,24 +243,24 @@ const MyPets = () => {
   const handleDownloadMedicalPDF = () => {
     const doc = new jsPDF();
     
-    // Add title to the PDF
+    
     doc.setFontSize(20);
     doc.setFont('helvetica', 'bold');
     doc.text('Pet Medical Records', 105, 20, { align: 'center' });
   
-    // Define table headers and map them to the appropriate fields
+    
     autoTable(doc, {
       startY: 30,
       head: [['Pet ID', 'Age', 'Weight', 'Vaccination Status', 'Symptoms', 'Last Checkup']],
       body: medicalRecords.map(record => [
-        record.petId || 'N/A',  // Pet ID
-        record.age || 'N/A',  // Age
-        record.weight || 'N/A',  // Weight
-        record.vaccinationStatus || 'N/A',  // Vaccination Status
-        record.symptoms || 'N/A',  // Symptoms
-        new Date(record.lastCheckup).toLocaleDateString() || 'Invalid Date',  // Last Checkup
+        record.petId || 'N/A',  
+        record.age || 'N/A',  
+        record.weight || 'N/A',  
+        record.vaccinationStatus || 'N/A',  
+        record.symptoms || 'N/A',  
+        new Date(record.lastCheckup).toLocaleDateString() || 'Invalid Date',  
       ]),
-      theme: 'grid',  // Apply grid style
+      theme: 'grid',  
       margin: { horizontal: 10 },
       styles: {
         fontSize: 10,
@@ -273,7 +273,7 @@ const MyPets = () => {
       }
     });
   
-    // Save the generated PDF
+    
     doc.save(`medical-records-${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
