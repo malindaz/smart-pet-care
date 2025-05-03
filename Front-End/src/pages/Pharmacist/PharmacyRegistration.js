@@ -64,10 +64,38 @@ const PharmacyRegistration = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    
+    // Validation for name fields - prevent numbers
+    if ((name === 'ownerFirstName' || name === 'ownerLastName') && /\d/.test(value)) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: 'Name fields cannot contain numbers'
+      }));
+      return;
+    }
+    
+    // Phone number validation - must start with 0
+    if (name === 'phone' && value.length > 0 && value[0] !== '0') {
+      setErrors(prev => ({
+        ...prev,
+        [name]: 'Phone number must start with 0'
+      }));
+      return;
+    }
+    
     setPharmacyData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
+    
+    // Clear error for this field if it exists
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = {...prev};
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
   };
 
   const handleOperatingHoursChange = (day, field, value) => {
@@ -78,13 +106,41 @@ const PharmacyRegistration = () => {
         [field]: value
       }
     }));
+    
+    // Clear error for this field if it exists
+    if (errors[`operatingHours.${day}`]) {
+      setErrors(prev => {
+        const newErrors = {...prev};
+        delete newErrors[`operatingHours.${day}`];
+        return newErrors;
+      });
+    }
   };
 
   const handlePharmacistChange = (index, e) => {
     const { name, value } = e.target;
+    
+    // Validation for pharmacist name fields - prevent numbers
+    if ((name === 'firstName' || name === 'lastName') && /\d/.test(value)) {
+      setErrors(prev => ({
+        ...prev,
+        [`pharmacist.${index}.${name}`]: 'Name fields cannot contain numbers'
+      }));
+      return;
+    }
+    
     const updatedPharmacists = [...pharmacistDetails];
     updatedPharmacists[index][name] = value;
     setPharmacistDetails(updatedPharmacists);
+    
+    // Clear error for this field if it exists
+    if (errors[`pharmacist.${index}.${name}`]) {
+      setErrors(prev => {
+        const newErrors = {...prev};
+        delete newErrors[`pharmacist.${index}.${name}`];
+        return newErrors;
+      });
+    }
   };
 
   const addPharmacist = () => {
@@ -127,43 +183,105 @@ const PharmacyRegistration = () => {
 
   const handleFileChange = (e) => {
     const { name, files: selectedFiles } = e.target;
+    
+    // File size validation (max 5MB)
+    if (selectedFiles[0] && selectedFiles[0].size > 5 * 1024 * 1024) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: 'File size should not exceed 5MB'
+      }));
+      return;
+    }
+    
+    // File type validation for images
+    if (name === 'profileImage') {
+      const fileType = selectedFiles[0].type;
+      if (!fileType.match(/^image\/(jpeg|jpg|png)$/)) {
+        setErrors(prev => ({
+          ...prev,
+          [name]: 'Only JPG, JPEG, and PNG files are allowed'
+        }));
+        return;
+      }
+    }
+    
+    // File type validation for documents
+    if (name === 'businessRegistrationDocument' || name === 'pharmacyLicenseDocument') {
+      const fileType = selectedFiles[0].type;
+      if (!fileType.match(/^(application\/pdf|image\/(jpeg|jpg|png))$/)) {
+        setErrors(prev => ({
+          ...prev,
+          [name]: 'Only PDF, JPG, JPEG, and PNG files are allowed'
+        }));
+        return;
+      }
+    }
+    
     setFiles(prev => ({
       ...prev,
       [name]: selectedFiles[0]
     }));
+    
+    // Clear error for this field if it exists
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = {...prev};
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
   };
 
   // Form validation
   const validateForm = (step) => {
     let tempErrors = {};
     let isValid = true;
+    const currentDate = new Date();
 
     // Validate based on current step
     if (step === 1) {
       if (!pharmacyData.pharmacyName.trim()) {
         tempErrors.pharmacyName = 'Pharmacy name is required';
         isValid = false;
+      } else if (pharmacyData.pharmacyName.length < 3) {
+        tempErrors.pharmacyName = 'Pharmacy name must be at least 3 characters';
+        isValid = false;
       }
       
       if (!pharmacyData.businessRegistrationNumber.trim()) {
         tempErrors.businessRegistrationNumber = 'Business registration number is required';
+        isValid = false;
+      } else if (!/^[A-Za-z0-9-]+$/.test(pharmacyData.businessRegistrationNumber)) {
+        tempErrors.businessRegistrationNumber = 'Business registration number can only contain letters, numbers, and hyphens';
         isValid = false;
       }
       
       if (!pharmacyData.ownerFirstName.trim()) {
         tempErrors.ownerFirstName = 'First name is required';
         isValid = false;
+      } else if (/\d/.test(pharmacyData.ownerFirstName)) {
+        tempErrors.ownerFirstName = 'First name cannot contain numbers';
+        isValid = false;
+      } else if (pharmacyData.ownerFirstName.length < 2) {
+        tempErrors.ownerFirstName = 'First name must be at least 2 characters';
+        isValid = false;
       }
       
       if (!pharmacyData.ownerLastName.trim()) {
         tempErrors.ownerLastName = 'Last name is required';
+        isValid = false;
+      } else if (/\d/.test(pharmacyData.ownerLastName)) {
+        tempErrors.ownerLastName = 'Last name cannot contain numbers';
+        isValid = false;
+      } else if (pharmacyData.ownerLastName.length < 2) {
+        tempErrors.ownerLastName = 'Last name must be at least 2 characters';
         isValid = false;
       }
       
       if (!pharmacyData.email.trim()) {
         tempErrors.email = 'Email is required';
         isValid = false;
-      } else if (!/\S+@\S+\.\S+/.test(pharmacyData.email)) {
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(pharmacyData.email)) {
         tempErrors.email = 'Email is invalid';
         isValid = false;
       }
@@ -171,18 +289,27 @@ const PharmacyRegistration = () => {
       if (!pharmacyData.phone.trim()) {
         tempErrors.phone = 'Phone number is required';
         isValid = false;
-      } else if (!/^\d{10}$/.test(pharmacyData.phone.replace(/[^0-9]/g, ''))) {
-        tempErrors.phone = 'Phone number should be 10 digits';
+      } else if (pharmacyData.phone[0] !== '0') {
+        tempErrors.phone = 'Phone number must start with 0';
+        isValid = false;
+      } else if (!/^0\d{9}$/.test(pharmacyData.phone.replace(/[^0-9]/g, ''))) {
+        tempErrors.phone = 'Phone number must be exactly 10 digits starting with 0';
         isValid = false;
       }
     } else if (step === 2) {
       if (!pharmacyData.pharmacyLicenseNumber.trim()) {
         tempErrors.pharmacyLicenseNumber = 'Pharmacy license number is required';
         isValid = false;
+      } else if (!/^[A-Za-z0-9-/]+$/.test(pharmacyData.pharmacyLicenseNumber)) {
+        tempErrors.pharmacyLicenseNumber = 'License number can only contain letters, numbers, hyphens, and slashes';
+        isValid = false;
       }
       
       if (!pharmacyData.licenseIssuingAuthority.trim()) {
         tempErrors.licenseIssuingAuthority = 'Licensing authority is required';
+        isValid = false;
+      } else if (/\d/.test(pharmacyData.licenseIssuingAuthority)) {
+        tempErrors.licenseIssuingAuthority = 'Licensing authority should not contain numbers';
         isValid = false;
       }
       
@@ -190,9 +317,8 @@ const PharmacyRegistration = () => {
         tempErrors.licenseExpiryDate = 'License expiry date is required';
         isValid = false;
       } else {
-        const today = new Date();
         const expiryDate = new Date(pharmacyData.licenseExpiryDate);
-        if (expiryDate <= today) {
+        if (expiryDate <= currentDate) {
           tempErrors.licenseExpiryDate = 'License must not be expired';
           isValid = false;
         }
@@ -203,18 +329,36 @@ const PharmacyRegistration = () => {
         if (!pharmacist.firstName.trim()) {
           tempErrors[`pharmacist.${index}.firstName`] = 'First name is required';
           isValid = false;
+        } else if (/\d/.test(pharmacist.firstName)) {
+          tempErrors[`pharmacist.${index}.firstName`] = 'First name cannot contain numbers';
+          isValid = false;
         }
+        
         if (!pharmacist.lastName.trim()) {
           tempErrors[`pharmacist.${index}.lastName`] = 'Last name is required';
           isValid = false;
+        } else if (/\d/.test(pharmacist.lastName)) {
+          tempErrors[`pharmacist.${index}.lastName`] = 'Last name cannot contain numbers';
+          isValid = false;
         }
+        
         if (!pharmacist.licenseNumber.trim()) {
           tempErrors[`pharmacist.${index}.licenseNumber`] = 'License number is required';
           isValid = false;
+        } else if (!/^[A-Za-z0-9-/]+$/.test(pharmacist.licenseNumber)) {
+          tempErrors[`pharmacist.${index}.licenseNumber`] = 'License number can only contain letters, numbers, hyphens, and slashes';
+          isValid = false;
         }
+        
         if (!pharmacist.licenseExpiryDate) {
           tempErrors[`pharmacist.${index}.licenseExpiryDate`] = 'Expiry date is required';
           isValid = false;
+        } else {
+          const expiryDate = new Date(pharmacist.licenseExpiryDate);
+          if (expiryDate <= currentDate) {
+            tempErrors[`pharmacist.${index}.licenseExpiryDate`] = 'License must not be expired';
+            isValid = false;
+          }
         }
       });
       
@@ -231,15 +375,24 @@ const PharmacyRegistration = () => {
       if (!pharmacyData.addressLine1.trim()) {
         tempErrors.addressLine1 = 'Address is required';
         isValid = false;
+      } else if (pharmacyData.addressLine1.length < 5) {
+        tempErrors.addressLine1 = 'Address should be at least 5 characters';
+        isValid = false;
       }
       
       if (!pharmacyData.city.trim()) {
         tempErrors.city = 'City is required';
         isValid = false;
+      } else if (/\d/.test(pharmacyData.city)) {
+        tempErrors.city = 'City name should not contain numbers';
+        isValid = false;
       }
       
       if (!pharmacyData.state.trim()) {
         tempErrors.state = 'State is required';
+        isValid = false;
+      } else if (/\d/.test(pharmacyData.state)) {
+        tempErrors.state = 'State name should not contain numbers';
         isValid = false;
       }
       
@@ -247,7 +400,7 @@ const PharmacyRegistration = () => {
         tempErrors.zipCode = 'ZIP code is required';
         isValid = false;
       } else if (!/^\d{5}(-\d{4})?$/.test(pharmacyData.zipCode)) {
-        tempErrors.zipCode = 'Invalid ZIP code format';
+        tempErrors.zipCode = 'Invalid ZIP code format (e.g., 12345 or 12345-6789)';
         isValid = false;
       }
       
@@ -260,6 +413,10 @@ const PharmacyRegistration = () => {
             tempErrors[`operatingHours.${day}`] = 'End time must be after start time';
             isValid = false;
           }
+        } else if ((operatingHours[day].open && !operatingHours[day].close) || 
+                  (!operatingHours[day].open && operatingHours[day].close)) {
+          tempErrors[`operatingHours.${day}`] = 'Both open and close times must be set';
+          isValid = false;
         }
       }
       
@@ -273,6 +430,9 @@ const PharmacyRegistration = () => {
         isValid = false;
       } else if (pharmacyData.description.trim().length < 50) {
         tempErrors.description = 'Description should be at least 50 characters';
+        isValid = false;
+      } else if (pharmacyData.description.trim().length > 1000) {
+        tempErrors.description = 'Description should not exceed 1000 characters';
         isValid = false;
       }
       
@@ -473,7 +633,7 @@ const PharmacyRegistration = () => {
             </div>
             <div className="pharmacy-form-row">
               <div className="pharmacy-form-group">
-                <label htmlFor="ownerFirstName">Owner First Name*</label>
+                <label htmlFor="ownerFirstName">Owner First Name* (no numbers allowed)</label>
                 <input
                   type="text"
                   id="ownerFirstName"
@@ -485,7 +645,7 @@ const PharmacyRegistration = () => {
                 {errors.ownerFirstName && <span className="pharmacy-error">{errors.ownerFirstName}</span>}
               </div>
               <div className="pharmacy-form-group">
-                <label htmlFor="ownerLastName">Owner Last Name*</label>
+                <label htmlFor="ownerLastName">Owner Last Name* (no numbers allowed)</label>
                 <input
                   type="text"
                   id="ownerLastName"
@@ -511,14 +671,14 @@ const PharmacyRegistration = () => {
                 {errors.email && <span className="pharmacy-error">{errors.email}</span>}
               </div>
               <div className="pharmacy-form-group">
-                <label htmlFor="phone">Phone Number*</label>
+                <label htmlFor="phone">Phone Number* (must start with 0, 10 digits)</label>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
                   value={pharmacyData.phone}
                   onChange={handleChange}
-                  placeholder="(XXX) XXX-XXXX"
+                  placeholder="0XXXXXXXXX"
                   className={errors.phone ? 'pharmacy-input-error' : ''}
                 />
                 {errors.phone && <span className="pharmacy-error">{errors.phone}</span>}
@@ -553,7 +713,7 @@ const PharmacyRegistration = () => {
                 {errors.pharmacyLicenseNumber && <span className="pharmacy-error">{errors.pharmacyLicenseNumber}</span>}
               </div>
               <div className="pharmacy-form-group">
-                <label htmlFor="licenseIssuingAuthority">Licensing Authority*</label>
+                <label htmlFor="licenseIssuingAuthority">Licensing Authority* (no numbers allowed)</label>
                 <input
                   type="text"
                   id="licenseIssuingAuthority"
@@ -567,13 +727,14 @@ const PharmacyRegistration = () => {
             </div>
             <div className="pharmacy-form-row">
               <div className="pharmacy-form-group">
-                <label htmlFor="licenseExpiryDate">License Expiry Date*</label>
+                <label htmlFor="licenseExpiryDate">License Expiry Date* (must be in the future)</label>
                 <input
                   type="date"
                   id="licenseExpiryDate"
                   name="licenseExpiryDate"
                   value={pharmacyData.licenseExpiryDate}
                   onChange={handleChange}
+                  min={new Date().toISOString().split('T')[0]}
                   className={errors.licenseExpiryDate ? 'pharmacy-input-error' : ''}
                 />
                 {errors.licenseExpiryDate && <span className="pharmacy-error">{errors.licenseExpiryDate}</span>}
@@ -611,7 +772,7 @@ const PharmacyRegistration = () => {
               <div key={index} className="pharmacy-pharmacist-entry">
                 <div className="pharmacy-form-row">
                   <div className="pharmacy-form-group">
-                    <label htmlFor={`pharmacist.${index}.firstName`}>First Name*</label>
+                    <label htmlFor={`pharmacist.${index}.firstName`}>First Name* (no numbers allowed)</label>
                     <input
                       type="text"
                       id={`pharmacist.${index}.firstName`}
@@ -624,7 +785,7 @@ const PharmacyRegistration = () => {
                       <span className="pharmacy-error">{errors[`pharmacist.${index}.firstName`]}</span>}
                   </div>
                   <div className="pharmacy-form-group">
-                    <label htmlFor={`pharmacist.${index}.lastName`}>Last Name*</label>
+                    <label htmlFor={`pharmacist.${index}.lastName`}>Last Name* (no numbers allowed)</label>
                     <input
                       type="text"
                       id={`pharmacist.${index}.lastName`}
@@ -652,13 +813,14 @@ const PharmacyRegistration = () => {
                       <span className="pharmacy-error">{errors[`pharmacist.${index}.licenseNumber`]}</span>}
                   </div>
                   <div className="pharmacy-form-group">
-                    <label htmlFor={`pharmacist.${index}.licenseExpiryDate`}>License Expiry Date*</label>
+                    <label htmlFor={`pharmacist.${index}.licenseExpiryDate`}>License Expiry Date* (must be in the future)</label>
                     <input
                       type="date"
                       id={`pharmacist.${index}.licenseExpiryDate`}
                       name="licenseExpiryDate"
                       value={pharmacist.licenseExpiryDate}
                       onChange={(e) => handlePharmacistChange(index, e)}
+                      min={new Date().toISOString().split('T')[0]}
                       className={errors[`pharmacist.${index}.licenseExpiryDate`] ? 'pharmacy-input-error' : ''}
                     />
                     {errors[`pharmacist.${index}.licenseExpiryDate`] && 
@@ -730,7 +892,7 @@ const PharmacyRegistration = () => {
             </div>
             <div className="pharmacy-form-row">
               <div className="pharmacy-form-group">
-                <label htmlFor="city">City*</label>
+                <label htmlFor="city">City* (no numbers allowed)</label>
                 <input
                   type="text"
                   id="city"
@@ -742,7 +904,7 @@ const PharmacyRegistration = () => {
                 {errors.city && <span className="pharmacy-error">{errors.city}</span>}
               </div>
               <div className="pharmacy-form-group">
-                <label htmlFor="state">State*</label>
+                <label htmlFor="state">State* (no numbers allowed)</label>
                 <input
                   type="text"
                   id="state"
@@ -761,6 +923,7 @@ const PharmacyRegistration = () => {
                   name="zipCode"
                   value={pharmacyData.zipCode}
                   onChange={handleChange}
+                  placeholder="12345 or 12345-6789"
                   className={errors.zipCode ? 'pharmacy-input-error' : ''}
                 />
                 {errors.zipCode && <span className="pharmacy-error">{errors.zipCode}</span>}
@@ -884,7 +1047,7 @@ const PharmacyRegistration = () => {
           <div className="pharmacy-form-step">
             <h3>Final Details</h3>
             <div className="pharmacy-form-group">
-              <label htmlFor="description">Pharmacy Description (min 50 characters)*</label>
+              <label htmlFor="description">Pharmacy Description (min 50 characters, max 1000)*</label>
               <textarea
                 id="description"
                 name="description"
@@ -901,12 +1064,12 @@ const PharmacyRegistration = () => {
             </div>
             
             <div className="pharmacy-form-group">
-              <label htmlFor="profileImage">Pharmacy Profile Image*</label>
+              <label htmlFor="profileImage">Pharmacy Profile Image* (JPG, PNG only, max 5MB)</label>
               <input
                 type="file"
                 id="profileImage"
                 name="profileImage"
-                accept="image/*"
+                accept="image/jpeg,image/jpg,image/png"
                 onChange={handleFileChange}
                 className={errors.profileImage ? 'pharmacy-input-error' : ''}
               />
@@ -978,6 +1141,7 @@ const PharmacyRegistration = () => {
         <form onSubmit={handleSubmit} className="pharmacy-registration-form">
           {renderFormStep()}
         </form>
+        
         
         <div className="pharmacy-info-box">
           <h4>What happens next?</h4>
