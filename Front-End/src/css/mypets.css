@@ -329,7 +329,7 @@
 }
 
 .malinda-delete-btn {
-  background-color: #ea4335;
+  background-color: #ea4335 !important;
   color: #ffffff;
   padding: 10px 10px;
   border-radius: 8px;
@@ -706,7 +706,7 @@
 }
 
 .malinda-table-delete-btn {
-  background-color: #ff4d4d;
+  background-color: #ff4d4d !important;
   color: white;
   border: none;
   border-radius: 50%;
@@ -725,9 +725,9 @@
 }
 
 
-.malinda-record-delete-btn {
+.malinda-record-delete-btn { 
   background-color: transparent;
-  color: #ff4d4d;
+  color: #ff4d4d !important; 
   border: none;
   cursor: pointer;
   font-size: 16px;
@@ -769,4 +769,158 @@
   cursor: pointer;
   padding: 0 5px;
 }
+}
+
+
+
+
+.malinda-search-container {
+  position: relative;
+  width: 300px;
+  margin-right: 100px;
+
+}
+
+.malinda-search-input {
+  width: 100%;
+  padding: 10px 40px 10px 40px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.malinda-search-input:focus {
+  outline: none;
+  border-color: #073b9c;
+  box-shadow: 0 3px 8px rgba(7, 59, 156, 0.2);
+}
+
+.malinda-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #666;
+  pointer-events: none;
+}
+
+.malinda-search-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  z-index: 2;
+}
+
+.malinda-search-clear:hover {
+  color: #073b9c;
+}
+
+.malinda-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.malinda-all-pets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .malinda-header-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .malinda-search-container {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .malinda-download-btn {
+    width: 100%;
+  }
+  
+  .malinda-all-pets-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Add these styles to your mypets.css file */
+
+.malinda-filter-container {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  gap: 10px;
+}
+
+.malinda-filter-select {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: white;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  min-width: 160px;
+  transition: all 0.2s ease;
+}
+
+.malinda-filter-select:hover {
+  border-color: #073b9c;
+}
+
+.malinda-filter-select:focus {
+  outline: none;
+  border-color: #073b9c;
+  box-shadow: 0 0 0 2px rgba(7, 59, 156, 0.2);
+}
+
+.malinda-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Removed custom vaccination styling to keep existing table styles */
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+  .malinda-header-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .malinda-filter-container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .malinda-filter-select {
+    width: 100%;
+  }
+
+  .malinda-download-btn {
+    width: 100%;
+  }
 }
