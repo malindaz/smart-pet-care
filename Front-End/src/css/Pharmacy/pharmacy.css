@@ -10,7 +10,7 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 40px;
-  color: var(--primary-dark);
+  color: var(--PEprimary-dark);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   position: relative;
   padding-bottom: 15px;
@@ -56,12 +56,9 @@
 
 .pharmacy-Form-control:focus {
   background-color: #ffffff;
-  /* White background */
   border-color: #00C2CB;
-  /* Darker blue border */
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  /* Blue glow effect */
 }
 
 /* Product Card Styling */
@@ -96,11 +93,9 @@
 /* Card Image Container */
 .pharmacy-Card-img-container {
   height: 200px;
-  /* Defines fixed height */
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Centers image horizontally */
   overflow: hidden;
   padding: 10px;
   margin-top: 5px;
@@ -109,12 +104,9 @@
 /* Product Image Styling */
 .pharmacy-Card-img-scale {
   max-height: 200px;
-  /* Restricts image height */
   object-fit: contain;
-  /* Ensures full visibility without stretching */
   display: block;
   margin: 0 auto;
-  /* Centers image horizontally */
 }
 
 /* Card Body Content */
@@ -198,7 +190,6 @@
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  /* Enables horizontal scrolling */
   padding-bottom: 10px;
   margin-left: 10px;
   margin-right: 10px;
@@ -208,18 +199,15 @@
 /* Custom Scrollbar Styling */
 .pharmacy-Row::-webkit-scrollbar {
   height: 8px;
-  /* Sets scrollbar height */
 }
 
 .pharmacy-Row::-webkit-scrollbar-thumb {
   background: #1abc9c;
-  /* Scrollbar color */
   border-radius: 5px;
 }
 
 .pharmacy-Row::-webkit-scrollbar-track {
   background: #f1f1f1;
-  /* Scrollbar track color */
 }
 
 /* Toast Messages */
@@ -259,7 +247,7 @@
   font-weight: 500;
   margin-bottom: 20px;
   margin-left: 20px;
-  color: var(--primary-dark);
+  color: var(--PEprimary-dark);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   position: relative;
 }
@@ -268,7 +256,7 @@
 .pharmacy-hr {
   margin-top: 30px;
   height: 1px;
-  background-color: var(--primary-dark);
+  background-color: var(--PEprimary-dark);
   border: none;
 }
 
