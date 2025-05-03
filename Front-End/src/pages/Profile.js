@@ -74,8 +74,9 @@ const Profile = () => {
     const getImageUrl = (imagePath) => {
         if (!imagePath) return null;
         if (imagePath.startsWith('http')) return imagePath;
-        // Remove the leading slash if it exists
-        const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
+        
+        // Clean the path and ensure it starts with 'uploads/profiles'
+        const cleanPath = imagePath.replace(/^\/?(uploads\/profiles\/)?/, 'uploads/profiles/');
         return `http://localhost:5000/${cleanPath}`;
     };
 
@@ -100,9 +101,13 @@ const Profile = () => {
                                     alt="Profile" 
                                     onError={(e) => {
                                         console.error("Image failed to load:", userData.profileImage);
-                                        e.target.onerror = null;
-                                        e.target.style.display = "none";
-                                        e.target.parentNode.innerHTML = `<div class="profile_image_placeholder">${userData.firstName[0]}${userData.lastName[0]}</div>`;
+                                        e.target.onerror = null; // Prevent infinite error loop
+                                        e.target.src = '/default-profile.png'; // Fallback image
+                                        // Or show initials placeholder
+                                        if (!e.target.src) {
+                                            e.target.style.display = "none";
+                                            e.target.parentNode.innerHTML = `<div class="profile_image_placeholder">${userData.firstName[0]}${userData.lastName[0]}</div>`;
+                                        }
                                     }}
                                 />
                             ) : (

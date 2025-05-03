@@ -4,6 +4,16 @@ import { ShoppingCart, User, LogOut, UserPlus, Calendar, ShoppingBag, Award, Bel
 import '../css/NavBar.css';
 import Logo from '../assets/images/Logo.png';
 
+// Add this function before the NavBar component
+const getImageUrl = (imagePath) => {
+  if (!imagePath) return null;
+  if (imagePath.startsWith('http')) return imagePath;
+  
+  // Clean the path and ensure it starts with 'uploads/profiles'
+  const cleanPath = imagePath.replace(/^\/?(uploads\/profiles\/)?/, 'uploads/profiles/');
+  return `http://localhost:5000/${cleanPath}`;
+};
+
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -24,6 +34,10 @@ const NavBar = () => {
     if (userToken && userData) {
       try {
         const parsedUserData = JSON.parse(userData);
+        // Ensure profileImage path is properly stored
+        if (parsedUserData.profileImage) {
+          parsedUserData.profileImage = parsedUserData.profileImage.replace(/\\/g, '/');
+        }
         setUser(parsedUserData);
       } catch (error) {
         console.error('Error parsing user data:', error);
@@ -232,7 +246,16 @@ const NavBar = () => {
               <div className="user-navbar-user">
                 <div className="user-navbar-profile-icon" onClick={toggleProfileDropdown}>
                   {user.profileImage ? (
-                    <img src={user.profileImage} alt={user.username || 'User'} className="user-navbar-avatar" />
+                    <img 
+                      src={getImageUrl(user.profileImage)} 
+                      alt={user.username || 'User'} 
+                      className="user-navbar-avatar"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.style.display = "none";
+                        e.target.parentNode.innerHTML = `<div class="user-navbar-avatar-placeholder"><User size={20} /></div>`;
+                      }}
+                    />
                   ) : (
                     <div className="user-navbar-avatar-placeholder">
                       <User size={20} />

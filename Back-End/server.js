@@ -33,6 +33,7 @@ dotenv.config();
 // Serve static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/uploads', express.static('uploads'));
+app.use(express.static('public'));
 
 // Increase request body size limit
 app.use(bodyParser.json({ limit: '10mb' }));
@@ -41,7 +42,8 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 // CORS configuration
 app.use(cors({
     origin: 'http://localhost:3000',
-    credentials: true
+    credentials: true,
+    exposedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());

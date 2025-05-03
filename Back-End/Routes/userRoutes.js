@@ -87,7 +87,7 @@ router.post('/update-password', updatePassword);
 
 // Add a route to serve profile images (as a fallback if static middleware isn't configured properly)
 router.get('/uploads/profiles/:filename', (req, res) => {
-    const filePath = path.join(__dirname, '../public/uploads/profiles', req.params.filename);
+    const filePath = path.join(__dirname, '../uploads/profiles', req.params.filename);
     if (fs.existsSync(filePath)) {
         return res.sendFile(filePath);
     }
