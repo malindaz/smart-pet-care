@@ -5,6 +5,8 @@ import AdminNavBar from '../../components/Admin/AdminNavBar';
 import Footer from '../../components/Footer';
 import '../../css/Admin/UserRoleManagement.css';
 import { FaSearch } from 'react-icons/fa';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 const UserRoleManagement = () => {
   const [users, setUsers] = useState([]);
@@ -101,6 +103,74 @@ const UserRoleManagement = () => {
     setSelectedRole(selectedRole === role ? null : role);
   };
 
+  const generatePDFReport = () => {
+    const doc = new jsPDF();
+    
+    // Add title
+    doc.setFontSize(18);
+    doc.text('User Role Management Report', 14, 20);
+    
+    // Add timestamp
+    doc.setFontSize(11);
+    doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 30);
+    
+    // Add statistics
+    doc.setFontSize(12);
+    doc.text('User Statistics:', 14, 40);
+    const stats = Object.entries(userLevels).map(([level, label]) => [
+      `${label}s:`,
+      users.filter(user => user.userLevel === parseInt(level)).length.toString()
+    ]);
+    stats.unshift(['Total Users:', users.length.toString()]);
+    
+    autoTable(doc, {
+      startY: 45,
+      head: [['Category', 'Count']],
+      body: stats,
+      theme: 'grid',
+      headStyles: { fillColor: [41, 128, 185] },
+      margin: { left: 14 },
+      tableWidth: 80
+    });
+    
+    // Add users table
+    autoTable(doc, {
+      startY: doc.lastAutoTable.finalY + 15,
+      head: [['Name', 'Username', 'Email', 'Phone', 'Role']],
+      body: filteredUsers.map(user => [
+        `${user.firstName} ${user.lastName}`,
+        user.username,
+        user.email,
+        user.phoneNumber,
+        userLevels[user.userLevel]
+      ]),
+      theme: 'grid',
+      headStyles: { fillColor: [41, 128, 185] },
+      styles: { fontSize: 10 },
+      margin: { left: 14 }
+    });
+    
+    // Add footer
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(10);
+      doc.text(
+        'Pet Health Care System - User Management Report',
+        14,
+        doc.internal.pageSize.height - 10
+      );
+      doc.text(
+        `Page ${i} of ${pageCount}`,
+        doc.internal.pageSize.width - 25,
+        doc.internal.pageSize.height - 10
+      );
+    }
+    
+    // Save the PDF
+    doc.save(`user-management-report-${new Date().toISOString().split('T')[0]}.pdf`);
+  };
+
   if (loading) {
     return <div className="UserRoleManagement-loading">Loading...</div>;
   }
@@ -131,6 +201,12 @@ const UserRoleManagement = () => {
               )}
             </div>
           </div>
+          <button 
+            className="UserRoleManagement-download-btn"
+            onClick={generatePDFReport}
+          >
+            Download PDF Report
+          </button>
         </div>
         
         <div className="UserRoleManagement-stats">
