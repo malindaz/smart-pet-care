@@ -82,8 +82,44 @@ const getPhotoUrl = (pet) => {
   return "/images/pet-placeholder.jpg";
 };
 
+// Search component for filtering pets
+const SearchBar = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    onSearch(value);
+  };
+  
+  return (
+    <div className="malinda-search-container">
+      <input
+        type="text"
+        className="malinda-search-input"
+        placeholder="Search pets by name, species, breed, age..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
+      {searchTerm && (
+        <button 
+          className="malinda-search-clear" 
+          onClick={() => {
+            setSearchTerm("");
+            onSearch("");
+          }}
+        >
+          ✕
+        </button>
+      )}
+      <span className="malinda-search-icon">🔍</span>
+    </div>
+  );
+};
+
 const MyPets = () => {
   const [pets, setPets] = useState([]);
+  const [filteredPets, setFilteredPets] = useState([]);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [selectedPet, setSelectedPet] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -101,6 +137,7 @@ const MyPets = () => {
     try {
       const response = await axios.get("http://localhost:5000/api/pets/all");
       setPets(response.data);
+      setFilteredPets(response.data);
       if (response.data.length > 0) setSelectedPet(response.data[0]); 
     } catch (error) {
       console.error("Error fetching pets:", error);
@@ -133,7 +170,6 @@ const MyPets = () => {
     fetchPets();
   }, []);
 
-  
   useEffect(() => {
     if (successMessage) {
       const timer = setTimeout(() => {
@@ -142,6 +178,30 @@ const MyPets = () => {
       return () => clearTimeout(timer);
     }
   }, [successMessage]);
+
+  // Handle search functionality
+  const handleSearch = (searchTerm) => {
+    if (!searchTerm.trim()) {
+      // If search is empty, show all pets
+      setFilteredPets(pets);
+      return;
+    }
+    
+    const term = searchTerm.toLowerCase().trim();
+    const filtered = pets.filter(pet => {
+      // Search across multiple fields
+      return (
+        pet.name?.toLowerCase().includes(term) ||
+        pet.species?.toLowerCase().includes(term) ||
+        pet.breed?.toLowerCase().includes(term) ||
+        pet.age?.toString().includes(term) ||
+        pet.weight?.toString().includes(term) ||
+        (pet.lastCheckup && new Date(pet.lastCheckup).toLocaleDateString().includes(term))
+      );
+    });
+    
+    setFilteredPets(filtered);
+  };
 
   const initiateDeletePet = (petId) => {
     setPetToDelete(petId);
@@ -196,7 +256,7 @@ const MyPets = () => {
       autoTable(doc, {
         startY: 40, 
         head: [['Name', 'Species', 'Breed', 'Age', 'Weight (kg)', 'Last Checkup']],
-        body: pets.map(pet => [
+        body: filteredPets.map(pet => [
           pet.name,
           pet.species,
           pet.breed,
@@ -225,7 +285,7 @@ const MyPets = () => {
       
       autoTable(doc, {
         head: [['Name', 'Species', 'Breed', 'Age', 'Weight (kg)', 'Last Checkup']],
-        body: pets.map(pet => [
+        body: filteredPets.map(pet => [
           pet.name,
           pet.species,
           pet.breed,
@@ -243,12 +303,10 @@ const MyPets = () => {
   const handleDownloadMedicalPDF = () => {
     const doc = new jsPDF();
     
-    
     doc.setFontSize(20);
     doc.setFont('helvetica', 'bold');
     doc.text('Pet Medical Records', 105, 20, { align: 'center' });
   
-    
     autoTable(doc, {
       startY: 30,
       head: [['Pet ID', 'Age', 'Weight', 'Vaccination Status', 'Symptoms', 'Last Checkup']],
@@ -273,7 +331,6 @@ const MyPets = () => {
       }
     });
   
-    
     doc.save(`medical-records-${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
@@ -397,13 +454,16 @@ const MyPets = () => {
             <div className="malinda-all-pets-profile">
               <div className="malinda-all-pets-header">
                 <h2>All Pets</h2>
-                <button onClick={handleDownloadPDF} className="malinda-download-btn">
-                  📄 Download PDF
-                </button>
+                <div className="malinda-header-actions">
+                  <SearchBar onSearch={handleSearch} />
+                  <button onClick={handleDownloadPDF} className="malinda-download-btn">
+                    📄 Download PDF
+                  </button>
+                </div>
               </div>
               <div className="malinda-all-pets-grid">
-                {pets.length > 0 ? (
-                  pets.map((pet) => (
+                {filteredPets.length > 0 ? (
+                  filteredPets.map((pet) => (
                     <PetCard
                       key={pet._id}
                       pet={pet}
@@ -411,7 +471,9 @@ const MyPets = () => {
                     />
                   ))
                 ) : (
-                  <p className="malinda-no-pets">No pets registered. Add a new pet to get started!</p>
+                  <p className="malinda-no-pets">
+                    {pets.length > 0 ? "No pets match your search criteria." : "No pets registered. Add a new pet to get started!"}
+                  </p>
                 )}
               </div>
             </div>
