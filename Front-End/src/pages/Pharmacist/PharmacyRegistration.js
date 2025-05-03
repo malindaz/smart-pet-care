@@ -1142,6 +1142,7 @@ const PharmacyRegistration = () => {
           {renderFormStep()}
         </form>
         
+        
         <div className="pharmacy-info-box">
           <h4>What happens next?</h4>
           <ol>
