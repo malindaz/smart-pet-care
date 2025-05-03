@@ -31,8 +31,9 @@
 /* Search Bar Container */
 .pharmacy-Search-bar {
   display: flex;
+  justify-content: flex-end; /* Aligns content to the right */
   margin-top: 20px;
-  margin-left: 20px;
+  margin-right: 20px; /* Added right margin */
   border-radius: 0px;
 }
 
@@ -41,16 +42,12 @@
   max-width: 250px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-right: 20px;
   border-radius: 10px;
   padding: 10px;
   font-size: 16px;
   border: 2px solid #1abc9c;
   text-align: left;
-  position: relative;
-  flex-grow: 1;
 }
-
 /* Change placeholder text color */
 .pharmacy-Form-control::placeholder {
   color: #1abc9c;
