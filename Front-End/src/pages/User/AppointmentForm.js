@@ -64,8 +64,29 @@ const AppointmentForm = () => {
     }
   }, [formData.date]);
   
+  // Enhanced handleChange with input validation
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+    // Input validation by field
+    if (name === 'petName' || name === 'ownerName') {
+      // Allow only letters, spaces, and some special characters (like hyphens or apostrophes)
+      // Restrict input of numbers
+      const nameRegex = /^[A-Za-z\s\-']*$/;
+      if (!nameRegex.test(value)) {
+        return; // Prevent input if it contains numbers or invalid characters
+      }
+    }
+    
+    if (name === 'phone') {
+      // Allow only numbers, parentheses, spaces, dashes, and plus for phone numbers
+      const phoneRegex = /^[0-9\s()+\-]*$/;
+      if (!phoneRegex.test(value)) {
+        return; // Prevent input if it contains letters or invalid characters
+      }
+    }
+    
+    // Update form data if validation passes
     setFormData(prevData => ({
       ...prevData,
       [name]: value
@@ -78,15 +99,125 @@ const AppointmentForm = () => {
         [name]: ''
       });
     }
+    
+    // Real-time validation
+    validateField(name, value);
+  };
+  
+  // Function to validate a single field
+  const validateField = (fieldName, value) => {
+    switch (fieldName) {
+      case 'petName':
+      case 'ownerName':
+        if (!value.trim()) {
+          setErrors(prev => ({ ...prev, [fieldName]: `${fieldName === 'petName' ? 'Pet' : 'Owner'} name is required` }));
+        } else if (/\d/.test(value)) {
+          setErrors(prev => ({ ...prev, [fieldName]: 'Name should not contain numbers' }));
+        } else {
+          setErrors(prev => ({ ...prev, [fieldName]: '' }));
+        }
+        break;
+        
+      case 'email':
+        if (!value.trim()) {
+          setErrors(prev => ({ ...prev, email: 'Email is required' }));
+        } else if (!/\S+@\S+\.\S+/.test(value)) {
+          setErrors(prev => ({ ...prev, email: 'Please enter a valid email address' }));
+        } else {
+          setErrors(prev => ({ ...prev, email: '' }));
+        }
+        break;
+        
+      case 'phone':
+        if (!value.trim()) {
+          setErrors(prev => ({ ...prev, phone: 'Phone number is required' }));
+        } else {
+          // Extract only digits for validation
+          const digits = value.replace(/\D/g, '');
+          if (digits.length !== 10) {
+            setErrors(prev => ({ ...prev, phone: 'Phone number must be 10 digits' }));
+          } else {
+            setErrors(prev => ({ ...prev, phone: '' }));
+          }
+        }
+        break;
+        
+      case 'petType':
+        if (!value) {
+          setErrors(prev => ({ ...prev, petType: 'Please select a pet type' }));
+        } else {
+          setErrors(prev => ({ ...prev, petType: '' }));
+        }
+        break;
+        
+      case 'serviceType':
+        if (!value) {
+          setErrors(prev => ({ ...prev, serviceType: 'Please select a service type' }));
+        } else {
+          setErrors(prev => ({ ...prev, serviceType: '' }));
+        }
+        break;
+        
+      case 'date':
+        if (!value) {
+          setErrors(prev => ({ ...prev, date: 'Please select a date' }));
+        } else {
+          setErrors(prev => ({ ...prev, date: '' }));
+        }
+        break;
+        
+      case 'time':
+        if (!value) {
+          setErrors(prev => ({ ...prev, time: 'Please select a time' }));
+        } else {
+          setErrors(prev => ({ ...prev, time: '' }));
+        }
+        break;
+        
+      default:
+        break;
+    }
+  };
+  
+  // Format phone number as user types
+  const formatPhoneNumber = (value) => {
+    if (!value) return value;
+    
+    // Remove all non-digits
+    const phoneNumber = value.replace(/\D/g, '');
+    
+    // Format based on length
+    if (phoneNumber.length <= 3) {
+      return phoneNumber;
+    } else if (phoneNumber.length <= 6) {
+      return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+    } else {
+      return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
+    }
+  };
+  
+  // Handle phone number input with formatting
+  const handlePhoneChange = (e) => {
+    const formattedPhoneNumber = formatPhoneNumber(e.target.value);
+    
+    // Update the input with formatted value
+    e.target.value = formattedPhoneNumber;
+    
+    // Call the regular handleChange function
+    handleChange(e);
   };
   
   const validateForm = () => {
     const newErrors = {};
     
-    // Basic validation
+    // Validate all fields
     if (!formData.petName.trim()) newErrors.petName = 'Pet name is required';
+    if (/\d/.test(formData.petName)) newErrors.petName = 'Pet name should not contain numbers';
+    
     if (!formData.petType) newErrors.petType = 'Please select a pet type';
+    
     if (!formData.ownerName.trim()) newErrors.ownerName = 'Owner name is required';
+    if (/\d/.test(formData.ownerName)) newErrors.ownerName = 'Owner name should not contain numbers';
     
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
@@ -96,8 +227,11 @@ const AppointmentForm = () => {
     
     if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required';
-    } else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
-      newErrors.phone = 'Please enter a valid 10-digit phone number';
+    } else {
+      const digits = formData.phone.replace(/\D/g, '');
+      if (digits.length !== 10) {
+        newErrors.phone = 'Phone number must be 10 digits';
+      }
     }
     
     if (!formData.serviceType) newErrors.serviceType = 'Please select a service type';
@@ -173,6 +307,7 @@ const AppointmentForm = () => {
       // Validate pet info
       const petInfoErrors = {};
       if (!formData.petName.trim()) petInfoErrors.petName = 'Pet name is required';
+      if (/\d/.test(formData.petName)) petInfoErrors.petName = 'Pet name should not contain numbers';
       if (!formData.petType) petInfoErrors.petType = 'Please select a pet type';
       
       if (Object.keys(petInfoErrors).length > 0) {
@@ -183,6 +318,7 @@ const AppointmentForm = () => {
       // Validate owner info
       const ownerInfoErrors = {};
       if (!formData.ownerName.trim()) ownerInfoErrors.ownerName = 'Owner name is required';
+      if (/\d/.test(formData.ownerName)) ownerInfoErrors.ownerName = 'Owner name should not contain numbers';
       
       if (!formData.email.trim()) {
         ownerInfoErrors.email = 'Email is required';
@@ -192,8 +328,11 @@ const AppointmentForm = () => {
       
       if (!formData.phone.trim()) {
         ownerInfoErrors.phone = 'Phone number is required';
-      } else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
-        ownerInfoErrors.phone = 'Please enter a valid 10-digit phone number';
+      } else {
+        const digits = formData.phone.replace(/\D/g, '');
+        if (digits.length !== 10) {
+          ownerInfoErrors.phone = 'Phone number must be 10 digits';
+        }
       }
       
       if (Object.keys(ownerInfoErrors).length > 0) {
@@ -217,12 +356,7 @@ const AppointmentForm = () => {
       petType: type
     }));
     
-    if (errors.petType) {
-      setErrors({
-        ...errors,
-        petType: ''
-      });
-    }
+    validateField('petType', type);
   };
   
   const handleSelectTimeSlot = (time) => {
@@ -231,12 +365,7 @@ const AppointmentForm = () => {
       time: time
     }));
     
-    if (errors.time) {
-      setErrors({
-        ...errors,
-        time: ''
-      });
-    }
+    validateField('time', time);
   };
   
   return (
@@ -272,7 +401,7 @@ const AppointmentForm = () => {
             <h3 className="book-appointment-section-title">Pet Information</h3>
             
             <div className="book-appointment-form-group">
-              <label htmlFor="petName" className="book-appointment-label">Pet Name *</label>
+              <label htmlFor="petName" className="book-appointment-label">Pet Name</label>
               <input
                 type="text"
                 id="petName"
@@ -280,11 +409,12 @@ const AppointmentForm = () => {
                 value={formData.petName}
                 onChange={handleChange}
                 className={`book-appointment-input ${errors.petName ? 'error' : ''}`}
+                placeholder="Enter pet name"
               />
               {errors.petName && <p className="book-appointment-error-text">{errors.petName}</p>}
             </div>
             
-            <label className="book-appointment-label">Pet Type *</label>
+            <label className="book-appointment-label">Pet Type</label>
             <div className="book-appointment-pet-icons">
               {petTypes.map(type => (
                 <div 
@@ -315,7 +445,7 @@ const AppointmentForm = () => {
             <h3 className="book-appointment-section-title">Owner Information</h3>
             
             <div className="book-appointment-form-group">
-              <label htmlFor="ownerName" className="book-appointment-label">Your Name *</label>
+              <label htmlFor="ownerName" className="book-appointment-label">Your Name</label>
               <input
                 type="text"
                 id="ownerName"
@@ -323,13 +453,14 @@ const AppointmentForm = () => {
                 value={formData.ownerName}
                 onChange={handleChange}
                 className={`book-appointment-input ${errors.ownerName ? 'error' : ''}`}
+                placeholder="Enter your name"
               />
               {errors.ownerName && <p className="book-appointment-error-text">{errors.ownerName}</p>}
             </div>
             
             <div className="book-appointment-form-row">
               <div className="book-appointment-form-group">
-                <label htmlFor="email" className="book-appointment-label">Email *</label>
+                <label htmlFor="email" className="book-appointment-label">Email*</label>
                 <input
                   type="email"
                   id="email"
@@ -344,13 +475,13 @@ const AppointmentForm = () => {
               </div>
               
               <div className="book-appointment-form-group">
-                <label htmlFor="phone" className="book-appointment-label">Phone *</label>
+                <label htmlFor="phone" className="book-appointment-label">Phone</label>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
                   value={formData.phone}
-                  onChange={handleChange}
+                  onChange={handlePhoneChange}
                   className={`book-appointment-input ${errors.phone ? 'error' : ''}`}
                   placeholder="(123) 456-7890"
                 />
