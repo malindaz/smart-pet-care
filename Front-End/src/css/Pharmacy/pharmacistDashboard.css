@@ -43,11 +43,11 @@
   font-size: 1.875rem;
   line-height: 2.25rem;
   font-weight: 700;
-  color: #111827;
+  color: #008486 !important;
 }
 
 .pharm-subtitle {
-  color: #4B5563;
+  color: #00b5b8 !important;
   margin-top: 0.25rem;
 }
 
