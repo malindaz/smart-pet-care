@@ -55,7 +55,7 @@ const Login = () => {
                         navigate('/vetdashboard');
                         break;
                     case 3:
-                        navigate('/pharmacist-dashboard');
+                        navigate('/pharmacistDashboard');
                         break;
                     default:
                         navigate('/');
