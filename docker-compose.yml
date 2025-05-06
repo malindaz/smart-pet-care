@@ -1,0 +1,37 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo_container
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  backend:
+    build: ./Back-End
+    container_name: backend_container
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    volumes:
+      - ./Back-End:/app
+      - /app/node_modules
+    environment:
+      - MONGODB_URI=mongodb://mongo/petcareDB
+
+  frontend:
+    build: ./Front-End
+    container_name: frontend_container
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./Front-End:/app
+      - /app/node_modules
+
+volumes:
+  mongo_data:
