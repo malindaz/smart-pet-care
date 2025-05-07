@@ -1,4 +1,4 @@
-const Pharmacy = require('../models/Pharmacy');
+const Pharmacy = require('../Models/Pharmacy');
 const fs = require('fs');  // Import fs module
 const path = require('path');  // Import path module
 
