@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
+import { Container, Form, Button, Card } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import "../../css/Pharmacy/PharmacyEdit.css";
 import Footer from "../../components/Footer";
@@ -36,7 +36,6 @@ const PharmacyEdit = () => {
     description: false,
     image: false
   });
-  const [message, setMessage] = useState({ text: '', type: '' });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -300,12 +299,6 @@ const PharmacyEdit = () => {
           {editMode ? 'Edit Product' : 'Add New Product'}
         </h1>
         <Container className="pharmacy-edit-form-container">
-
-          {message.text && (
-            <Alert variant={message.type} className="pharmacy-edit-alert">
-              {message.text}
-            </Alert>
-          )}
 
           <Card className="pharmacy-edit-form-card">
             <Card.Body>

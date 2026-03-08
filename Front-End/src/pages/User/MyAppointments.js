@@ -202,6 +202,7 @@ const handleSave = async () => {
       setError('User not logged in');
       setLoading(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userEmail]);
 
   // Get appointment status class
