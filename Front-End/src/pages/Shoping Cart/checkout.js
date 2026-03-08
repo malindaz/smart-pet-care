@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../Shoping Cart/cartContext';
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
-import { FaCreditCard, FaUser, FaMapMarkerAlt } from 'react-icons/fa';
 import '../../css/Shoping Cart/checkout.css';
 
 const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { cart, cartTotal, clearCart } = useCart();
+  const { cartTotal, clearCart } = useCart();
 
   // Scroll to top when this component loads
   useEffect(() => {
@@ -18,7 +17,6 @@ const Checkout = () => {
   }, []);
 
   // If coming from Buy Now, use that product, otherwise use cart
-  const products = location.state?.product ? [{ ...location.state.product, quantity: 1 }] : cart;
   const total = location.state?.product ? location.state.product.price : cartTotal;
 
   const [shippingDetails, setShippingDetails] = useState({

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, pill, Calendar, ShoppingBag, Settings, LogOut, Bell, User, HelpCircle } from 'lucide-react';
+import { LayoutDashboard, Users, Calendar, ShoppingBag, Settings, LogOut, Bell, User, HelpCircle } from 'lucide-react';
 import '../../css/Admin/AdminNavBar.css';
 import Logo from '../../assets/images/Logo.png';
 
@@ -76,7 +76,7 @@ const AdminNavBar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/logout', {
+      await fetch('http://localhost:5000/api/admin/logout', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('adminToken')}`,

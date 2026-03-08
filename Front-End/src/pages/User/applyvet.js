@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../css/User/applyvet.css';
 import NavBar from "../../components/NavBar";
-import Footer from "../../components/Footer";
 
 const ApplyVet = () => {
   // Form states
@@ -499,7 +498,7 @@ const ApplyVet = () => {
       }
       
       // Submit form data to API
-      const response = await axios.post('http://localhost:5000/api/veterinarians/apply', submitData, {
+      await axios.post('http://localhost:5000/api/veterinarians/apply', submitData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

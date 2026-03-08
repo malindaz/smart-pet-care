@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Table, Form, Button, Card } from 'react-bootstrap';
+import { Row, Col, Table, Form, Button, Card } from 'react-bootstrap';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faFilter, faChartBar, faExclamationTriangle, faFilePdf } from '@fortawesome/free-solid-svg-icons';
@@ -257,6 +257,7 @@ const InventoryAnalytics = () => {
     // Update filtered products when filters change
     useEffect(() => {
         applyFilters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [categoryFilter, priceRange, stockFilter, searchTerm]);
 
     // Function to fetch product data
