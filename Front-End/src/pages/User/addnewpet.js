@@ -109,7 +109,7 @@ const AddNewPet = () => {
     formData.append("photo", pet.photo);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/pets/add", formData, {
+      await axios.post("http://localhost:5000/api/pets/add", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

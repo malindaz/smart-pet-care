@@ -80,7 +80,7 @@ const AppointmentForm = () => {
     
     if (name === 'phone') {
       // Allow only numbers, parentheses, spaces, dashes, and plus for phone numbers
-      const phoneRegex = /^[0-9\s()+\-]*$/;
+      const phoneRegex = /^[0-9\s()+-]*$/;
       if (!phoneRegex.test(value)) {
         return; // Prevent input if it contains letters or invalid characters
       }
@@ -256,7 +256,7 @@ const AppointmentForm = () => {
       // Log the form data before submission to verify it's complete
       console.log("Form data before submission:", formData);
       
-      const response = await axios.post('http://localhost:5000/api/appointments', formData, {
+      await axios.post('http://localhost:5000/api/appointments', formData, {
         headers: {
           'Content-Type': 'application/json'
         }

@@ -58,11 +58,6 @@ const ProductList = () => {
     }
   });
 
-  // Navigate to add new product form
-  const handleAddNew = () => {
-    navigate("/pharmacy-edit", { state: { editMode: false } });
-  };
-
   // Navigate to edit product form
   const handleEdit = (product) => {
     navigate("/pharmacy-edit", { state: { editMode: true, product } });
