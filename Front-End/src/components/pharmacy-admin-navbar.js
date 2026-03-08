@@ -11,8 +11,6 @@ const PmcyAdminNavBar = () => {
   const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [cartItemCount, setCartItemCount] = useState(0);
-  const [notifications, setNotifications] = useState([]);
-  const [unreadNotifications, setUnreadNotifications] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -41,13 +39,6 @@ const PmcyAdminNavBar = () => {
       }
     }
 
-    // Mock notifications - replace with actual notification logic
-    setNotifications([
-      { id: 1, text: 'Your appointment has been confirmed', read: false, time: '2 hours ago' },
-      { id: 2, text: 'Your order #12345 has been shipped', read: false, time: '1 day ago' },
-      { id: 3, text: 'Welcome to PetWellHub!', read: true, time: '3 days ago' }
-    ]);
-    setUnreadNotifications(2); // Number of unread notifications
   }, []);
 
   useEffect(() => {
@@ -77,7 +68,7 @@ const PmcyAdminNavBar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/users/logout', {
+      await fetch('http://localhost:5000/api/users/logout', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('userToken')}`,

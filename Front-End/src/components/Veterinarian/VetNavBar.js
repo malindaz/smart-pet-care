@@ -87,7 +87,7 @@ const VetNavBar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/vets/logout', {
+      await fetch('http://localhost:5000/api/vets/logout', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('vetToken')}`,

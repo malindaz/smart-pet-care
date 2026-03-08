@@ -56,7 +56,6 @@ const PharmacyRegistration = () => {
   });
 
   const [serviceInput, setServiceInput] = useState('');
-  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [formStep, setFormStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -501,7 +500,7 @@ const PharmacyRegistration = () => {
         }
       });
       
-      const response = await axios.post('http://localhost:5000/api/Pharmacys/apply', formData, {
+      await axios.post('http://localhost:5000/api/Pharmacys/apply', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
